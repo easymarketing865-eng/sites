@@ -1,0 +1,136 @@
+.showreelSection {
+  width: 100%;
+  max-width: 1300px;
+  margin: 0 auto 3.1em auto;
+  padding: 0 1.1em;
+  position: relative;
+  background: var(--brand-bg);
+  border-radius: var(--radius);
+  overflow: visible;
+  box-sizing: border-box;
+}
+
+.backgroundWords {
+  position: absolute;
+  top: 0.5em;
+  left: 0.3em;
+  right: 0;
+  width: 96vw;
+  max-width: 1250px;
+  z-index: 1;
+  pointer-events: none;
+  user-select: none;
+}
+
+.contentWrap {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 1.1em;
+  z-index: 2;
+  position: relative;
+}
+
+.mediaBlock {
+  width: 100%;
+  max-width: 540px;
+  margin: 0 auto 1.6em 0;
+  position: relative;
+}
+
+.showreelImg {
+  width: 100%;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow, 0 4px 32px 0 #0002);
+  object-fit: cover;
+  aspect-ratio: 16/10;
+  background: #eee;
+  display: block;
+}
+
+.overlayAccent {
+  position: absolute;
+  left: 1.2em;
+  top: 0.88em;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.quickFactsBlock {
+  width: 100%;
+  max-width: 540px;
+  background: var(--brand-white, #fff);
+  border-radius: 0.8em;
+  box-shadow: 0 2px 18px 0 #0001;
+  padding: 1.05em 1.15em 1.16em 1.15em;
+  margin: 0 auto 0 0;
+  font-size: 1.07em;
+  z-index: 3;
+}
+
+.sectionTitle {
+  font-size: 1.11em;
+  color: var(--brand-red);
+  font-weight: 900;
+  margin: 0 0 0.65em 0;
+  text-transform: uppercase;
+  letter-spacing: 0.045em;
+  font-family: var(--font-sans);
+}
+
+.factsList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.factsList li {
+  color: var(--brand-black);
+  font-family: var(--font-sans);
+  margin-bottom: 0.5em;
+  font-size: 1em;
+  line-height: 1.25;
+  position: relative;
+  padding-left: 1em;
+}
+
+.factsList li:before {
+  content: '•';
+  color: var(--brand-red, #A00000);
+  position: absolute;
+  left: 0;
+  font-size: 1.05em;
+  top: 0.02em;
+}
+
+@media (min-width: 768px) {
+  .contentWrap {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 3.2em;
+  }
+  .mediaBlock, .quickFactsBlock {
+    max-width: 480px;
+  }
+  .showreelImg, .mediaBlock {
+    aspect-ratio: 16/8;
+    min-height: 215px;
+  }
+  .quickFactsBlock {
+    margin: 0;
+  }
+}
+
+@media (min-width: 1150px) {
+  .showreelSection {
+    padding: 0 0.5em;
+  }
+  .mediaBlock, .quickFactsBlock {
+    max-width: 520px;
+  }
+  .backgroundWords {
+    font-size: 1.8rem;
+    left: 1.2em;
+  }
+}

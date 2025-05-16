@@ -1,0 +1,113 @@
+.section {
+  width: 100%;
+  max-width: 1300px;
+  margin: 0 auto 3.4em auto;
+  padding: 0 1.1em;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.headline {
+  font-size: 1.19em;
+  font-weight: 900;
+  color: var(--brand-black, #111);
+  text-transform: uppercase;
+  letter-spacing: 0.075em;
+  font-family: var(--font-sans);
+  margin: 0 0 1.6em 0;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.2em;
+  width: 100%;
+}
+
+.card {
+  background: var(--brand-white, #fff);
+  border-radius: 1.08em;
+  box-shadow: 0 2.5px 14px #0001;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  position: relative;
+  transition: box-shadow 0.14s, transform 0.09s;
+}
+.card:hover, .card:focus-within {
+  box-shadow: 0 8px 38px #A0000030;
+  z-index: 2;
+  transform: scale(1.012);
+}
+
+.img {
+  width: 100%;
+  min-height: 149px;
+  object-fit: cover;
+  aspect-ratio: 4/3;
+  display: block;
+  background: #edeaea;
+  border-radius: 0.9em 0.9em 0 0;
+  box-shadow: none;
+}
+
+.caption {
+  padding: 1em 1em 1.2em 1em;
+  background: transparent;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4em;
+}
+
+.title {
+  font-family: var(--font-sans);
+  font-size: 1.15em;
+  font-weight: 800;
+  color: var(--brand-red, #A00000);
+  text-transform: uppercase;
+  margin: 0 0 0.26em 0;
+  letter-spacing: 0.034em;
+}
+
+.desc {
+  font-size: 0.99em;
+  color: var(--brand-black, #222);
+  font-family: var(--font-sans);
+  line-height: 1.28;
+  opacity: 0.91;
+  margin: 0;
+}
+
+@media (min-width: 680px) {
+  .grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 1.7em;
+  }
+  .img {
+    min-height: 182px;
+    aspect-ratio: 16/11;
+  }
+}
+
+@media (min-width: 1040px) {
+  .grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2.2em;
+  }
+  .card {
+    min-height: 370px;
+  }
+  .img {
+    min-height: 197px;
+    border-radius: 1.08em 1.08em 0 0;
+  }
+}
+
+@media (min-width: 1300px) {
+  .headline {
+    font-size: 1.33em;
+    margin-bottom: 2em;
+  }
+}

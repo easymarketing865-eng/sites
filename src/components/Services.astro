@@ -1,0 +1,39 @@
+---
+import ServiceCard from "./ServiceCard.astro";
+import styles from "../styles/Services.module.css";
+
+const services = [
+  {
+    icon: "🎬",
+    title: "Ycayzu",
+    description: "Creative Direction — Standout concepts and a hands-on vision that shapes every production from initial mood to final cut."
+  },
+  {
+    icon: "🪩",
+    title: "Brand",
+    description: "Brand Strategy — Bold identity crafted with editorial edge, ensuring your story resonates and stands out, worldwide."
+  },
+  {
+    icon: "✍️",
+    title: "Script Writing",
+    description: "Story & Scripting — Crisp scripts and narratives rooted in authentic culture and global standards."
+  },
+  {
+    icon: "📡",
+    title: "Broadcast & Creativity",
+    description: "Media & Production — High-quality production, editing, and creative solutions for campaigns, broadcast, and social."
+  }
+];
+---
+<section class={styles.section} id="services">
+  <h2 class={styles.sectionTitle}>Our Services</h2>
+  <div class={styles.cardsGrid}>
+    {services.map(service => (
+      <ServiceCard 
+        icon={service.icon} 
+        title={service.title} 
+        description={service.description} 
+      />
+    ))}
+  </div>
+</section>

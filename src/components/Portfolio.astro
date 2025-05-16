@@ -1,0 +1,176 @@
+---
+/**
+ * Portfolio.astro
+ * Modular section: Featured Projects (grid or carousel), editorial, mobile-first, images from photos collection.
+ * Change/filter projects/images as needed for real work.
+ */
+import "../styles/global.css";
+
+const projects = [
+    {
+        title: "Demir Bank",
+        img: "/photos/demir/width_800.webp",
+        desc: "Documentary campaign filmed across Kyrgyz banking, showing real stories and trust.",
+    },
+    {
+        title: "Elizaveta Real Estate",
+        img: "/photos/ELIZAVETA.webp",
+        desc: "Bespoke lifestyle visuals for a leading property developer, promoting urban living.",
+    },
+    {
+        title: "Fashion",
+        img: "/photos/Fashion/width_800.webp",
+        desc: "Editorial-style fashion films and campaign visuals with a modern edge.",
+    },
+    {
+        title: "MENIKI",
+        img: "/photos/MENIKI_ONE/width_800.webp",
+        desc: "Bold commercials for a trailblazing retail brand, merging cinema and commerce.",
+    },
+    {
+        title: "Petrolium",
+        img: "/photos/petrolium/width_800.webp",
+        desc: "Striking facility and team vignettes for an energy leader.",
+    },
+    {
+        title: "VILAR",
+        img: "/photos/VILAR/width_800.webp",
+        desc: "Product stories and micro-documentaries for a key beverage brand.",
+    },
+    {
+        title: "VITALIN",
+        img: "/photos/VITALIN/width_800.webp",
+        desc: "Health-focused spots highlighting authenticity and local story.",
+    },
+];
+---
+
+<section class="portfolio-section" id="portfolio">
+    <h2 class="portfolio-headline">Featured Projects</h2>
+    <div class="portfolio-grid">
+        {
+            projects.map((p) => (
+                <figure class="portfolio-card">
+                    <img
+                        src={p.img}
+                        alt={p.title + " project image"}
+                        class="portfolio-img"
+                        loading="lazy"
+                    />
+                    <figcaption class="portfolio-caption">
+                        <div class="portfolio-title">{p.title}</div>
+                        <div class="portfolio-desc">{p.desc}</div>
+                    </figcaption>
+                </figure>
+            ))
+        }
+    </div>
+</section>
+<style>
+.portfolio-section {
+  width: 100%;
+  max-width: 1300px;
+  margin: 0 auto 3.2em auto;
+  padding: 0 1.1em;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  box-sizing: border-box;
+}
+.portfolio-headline {
+  font-size: clamp(1.11em, 5vw, 1.33em);
+  font-weight: 900;
+  color: var(--brand-black, #111);
+  text-transform: uppercase;
+  letter-spacing: 0.075em;
+  font-family: var(--font-sans);
+  margin: 0 0 1.6em 0;
+}
+.portfolio-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.2em;
+  width: 100%;
+}
+.portfolio-card {
+  background: var(--brand-white, #fff);
+  border-radius: 1.08em;
+  box-shadow: 0 2.5px 14px #0001;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  position: relative;
+  transition: box-shadow 0.14s, transform 0.09s;
+  will-change: transform, box-shadow;
+  min-width: 0;
+}
+.portfolio-card:active, .portfolio-card:focus-within {
+  box-shadow: 0 8px 38px #A0000030;
+  z-index: 2;
+  transform: scale(1.012);
+}
+.portfolio-img {
+  width: 100%;
+  min-height: 142px;
+  object-fit: cover;
+  aspect-ratio: 4/3;
+  display: block;
+  background: #edeaea;
+  border-radius: 0.9em 0.9em 0 0;
+  box-shadow: none;
+}
+.portfolio-caption {
+  padding: 1em 1em 1.15em 1em;
+  background: transparent;
+  display: flex;
+  flex-direction: column;
+  gap: 0.40em;
+}
+.portfolio-title {
+  font-family: var(--font-sans);
+  font-size: 1.09em;
+  font-weight: 800;
+  color: var(--brand-red, #A00000);
+  text-transform: uppercase;
+  margin: 0 0 0.26em 0;
+  letter-spacing: 0.034em;
+}
+.portfolio-desc {
+  font-size: 0.99em;
+  color: var(--brand-black, #222);
+  font-family: var(--font-sans);
+  line-height: 1.28;
+  opacity: 0.91;
+  margin: 0;
+}
+@media (min-width: 680px) {
+  .portfolio-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 1.7em;
+  }
+  .portfolio-img {
+    min-height: 182px;
+    aspect-ratio: 16/11;
+  }
+}
+@media (min-width: 1040px) {
+  .portfolio-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2.2em;
+  }
+  .portfolio-card {
+    min-height: 370px;
+  }
+  .portfolio-img {
+    min-height: 197px;
+    border-radius: 1.08em 1.08em 0 0;
+  }
+}
+@media (min-width: 1300px) {
+  .portfolio-headline {
+    font-size: 1.33em;
+    margin-bottom: 2em;
+  }
+}
+</style>

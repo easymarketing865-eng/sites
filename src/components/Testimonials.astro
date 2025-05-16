@@ -1,0 +1,44 @@
+---
+/**
+ * Testimonials.astro
+ * Modular editorial/brand section for showcasing client praise & testimonials.
+ * Optional: add client logos or names as desired.
+ */
+import "../styles/global.css";
+import styles from "../styles/Testimonials.module.css";
+
+const testimonials = [
+  {
+    quote:
+      "Easy. Production brought our story to life with stunning visuals and authentic narrative. The team adapted quickly and delivered above expectations.",
+    client: "Elizaveta Real Estate"
+  },
+  {
+    quote:
+      "Creative, reliable, and always professional. They truly understand the international standards we require for our campaigns.",
+    client: "Demir Bank"
+  },
+  {
+    quote:
+      "Their understanding of branding makes every project feel both global and uniquely Kyrgyz. Highly recommended for agencies looking for real impact.",
+    client: "Asia Store"
+  },
+  {
+    quote:
+      "Bold concepts, smooth execution, and real partnership. Our clients are always impressed with the results.",
+    client: "MENIKI"
+  }
+];
+---
+
+<section class={styles.section} id="testimonials">
+  <h2 class={styles.headline}>Client Testimonials</h2>
+  <div class={styles.grid}>
+    {testimonials.map(t => (
+      <figure class={styles.card}>
+        <blockquote class={styles.quote}>&ldquo;{t.quote}&rdquo;</blockquote>
+        <figcaption class={styles.client}>{t.client}</figcaption>
+      </figure>
+    ))}
+  </div>
+</section>

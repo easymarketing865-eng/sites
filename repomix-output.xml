@@ -1,0 +1,1776 @@
+This file is a merged representation of the entire codebase, combined into a single document by Repomix.
+
+<file_summary>
+This section contains a summary of this file.
+
+<purpose>
+This file contains a packed representation of the entire repository's contents.
+It is designed to be easily consumable by AI systems for analysis, code review,
+or other automated processes.
+</purpose>
+
+<file_format>
+The content is organized as follows:
+1. This summary section
+2. Repository information
+3. Directory structure
+4. Repository files (if enabled)
+4. Repository files, each consisting of:
+  - File path as an attribute
+  - Full contents of the file
+</file_format>
+
+<usage_guidelines>
+- This file should be treated as read-only. Any changes should be made to the
+  original repository files, not this packed version.
+- When processing this file, use the file path to distinguish
+  between different files in the repository.
+- Be aware that this file may contain sensitive information. Handle it with
+  the same level of security as you would the original repository.
+</usage_guidelines>
+
+<notes>
+- Some files may have been excluded based on .gitignore rules and Repomix's configuration
+- Binary files are not included in this packed representation. Please refer to the Repository Structure section for a complete list of file paths, including binary files
+- Files matching patterns in .gitignore are excluded
+- Files matching default ignore patterns are excluded
+- Files are sorted by Git change count (files with more changes are at the bottom)
+</notes>
+
+<additional_info>
+
+</additional_info>
+
+</file_summary>
+
+<directory_structure>
+.github/
+  workflows/
+    deploy.yml
+components/
+  Button.tsx
+  InstagramEmbedWrapper.tsx
+  LiteYouTubeEmbedWrapper.tsx
+  WordsBackground.tsx
+islands/
+  Counter.tsx
+  HeroFeatureIsland.tsx
+routes/
+  api/
+    joke.ts
+  greet/
+    [name].tsx
+  projects/
+    sai-kitchen.tsx
+  _404.tsx
+  _app.tsx
+  index.tsx
+sections/
+  AboutSection.tsx
+  FooterSection.tsx
+  HeaderSection.tsx
+  HeroSection.tsx
+  PortfolioSection.tsx
+  ShowreelSection.tsx
+  TestimonialsSection.tsx
+  TrustedBrands.tsx
+  WeCaterTo.tsx
+  WeProvide.tsx
+static/
+  logo.svg
+  styles.css
+utils/
+  constants.ts
+.gitignore
+deno.json
+dev.ts
+fresh.config.ts
+fresh.gen.ts
+landing_plan.md
+main.ts
+marketing.md
+mise.toml
+package.json
+photos.md
+README.md
+tailwind.config.ts
+visual_style.md
+</directory_structure>
+
+<files>
+This section contains the contents of the repository's files.
+
+<file path="islands/HeroFeatureIsland.tsx">
+import { useEffect, useState } from "preact/hooks";
+import { JSX } from "preact";
+
+// Use 4 words for default, feel free to expand via props
+const FEATURES = [
+  "production?",
+  "scouting?",
+  "photoshoots?",
+  "onsite?",
+];
+
+export default function HeroFeatureIsland(
+  { features = FEATURES }: { features?: string[] }
+): JSX.Element {
+  const [featureIndex, setFeatureIndex] = useState(0);
+  const [easyIndex, setEasyIndex] = useState(0);
+
+  useEffect(() => {
+    const featureTimer = setInterval(() => {
+      setFeatureIndex((i) => (i + 1) % features.length);
+    }, 1600);
+    const easyTimer = setInterval(() => {
+      setEasyIndex((i) => (i + 1) % features.length);
+    }, 4500);
+    return () => {
+      clearInterval(featureTimer);
+      clearInterval(easyTimer);
+    };
+  }, [features.length]);
+
+  return (
+    <div class="relative flex flex-col items-start justify-center w-full select-none" style={{height: '3.3rem', minWidth: '18rem', maxWidth: '100%'}}>
+      <div
+        class="absolute left-0 right-0 top-0 transition-transform duration-700 ease-in-out will-change-transform"
+        style={{
+          transform: `translateY(-${featureIndex * 2.8}rem)`,
+        }}
+      >
+        {features.map((w, idx) => (
+          <div
+            class="flex items-end gap-3 h-11"
+            style={{
+              transition: "opacity 0.6s cubic-bezier(.4,1.2,.6,1)",
+              opacity: featureIndex === idx ? 1 : 0.35,
+            }}
+            key={w}
+          >
+            <span class="text-2xl sm:text-3xl font-semibold uppercase tracking-wide text-black" style={{fontFamily:"Montserrat, sans-serif", letterSpacing: '0.08em'}}>
+              {w}
+            </span>
+            <span
+              class={`
+                text-4xl sm:text-5xl font-extrabold uppercase transition-opacity
+              `}
+              style={{
+                fontFamily: "Montserrat, sans-serif",
+                color: "#A00000",
+                opacity: easyIndex === idx ? 1 : 0.13,
+                transition: "opacity 2.6s cubic-bezier(.6,1.3,0.7,0.9)"
+              }}
+              aria-label="EASY"
+            >
+              EASY
+            </span>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+</file>
+
+<file path=".github/workflows/deploy.yml">
+name: Deploy
+on:
+  push:
+    branches: main
+  pull_request:
+    branches: main
+
+jobs:
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+
+    permissions:
+      id-token: write # Needed for auth with Deno Deploy
+      contents: read # Needed to clone the repository
+
+    steps:
+      - name: Clone repository
+        uses: actions/checkout@v4
+
+      - name: Install Deno
+        uses: denoland/setup-deno@v2
+        with:
+          deno-version: v2.x
+
+      - name: Build step
+        run: "deno task build"
+
+      - name: Upload to Deno Deploy
+        uses: denoland/deployctl@v1
+        with:
+          project: "eazy"
+          entrypoint: "main.ts"
+          root: "."
+</file>
+
+<file path="components/Button.tsx">
+import { JSX } from "preact";
+import { IS_BROWSER } from "$fresh/runtime.ts";
+
+export function Button(props: JSX.HTMLAttributes<HTMLButtonElement>) {
+  return (
+    <button
+      {...props}
+      disabled={!IS_BROWSER || props.disabled}
+      class="px-2 py-1 border-gray-500 border-2 rounded bg-white hover:bg-gray-200 transition-colors"
+    />
+  );
+}
+</file>
+
+<file path="components/InstagramEmbedWrapper.tsx">
+/**
+ * InstagramEmbedWrapper.tsx
+ * Renders the official Instagram embed HTML in a stable, styled container.
+ */
+import { JSX } from "preact";
+
+interface InstagramEmbedWrapperProps {
+  url: string;
+  width?: number | string;
+  height?: number | string;
+  className?: string;
+  style?: JSX.CSSProperties;
+}
+
+export default function InstagramEmbedWrapper({
+  url,
+  width = 400,
+  height = 480,
+  className = "",
+  style = {},
+}: InstagramEmbedWrapperProps) {
+  // Instagram expects the blockquote to have a specific structure and script.
+  // We use dangerouslySetInnerHTML to inject the embed code.
+  const embedHtml = `
+    <blockquote class="instagram-media" data-instgrm-permalink="${url}" data-instgrm-version="14" style="background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin: 1px; max-width:658px; min-width:326px; padding:0; width:99.375%; width:-webkit-calc(100% - 2px); width:calc(100% - 2px);">
+    </blockquote>
+    <script async src="https://www.instagram.com/embed.js"></script>
+  `;
+
+  return (
+    <div
+      class={`ig-embed-wrapper ${className}`}
+      style={{
+        width: typeof width === "number" ? `${width}px` : width,
+        height: typeof height === "number" ? `${height}px` : height,
+        maxWidth: "100%",
+        margin: "0 auto",
+        overflow: "hidden",
+        borderRadius: "12px",
+        boxShadow: "0 2px 16px rgba(0,0,0,0.08)",
+        background: "#fff",
+        ...style,
+        position: "relative",
+      }}
+    >
+      <div
+        style={{
+          width: "100%",
+          height: "100%",
+        }}
+        dangerouslySetInnerHTML={{ __html: embedHtml }}
+      />
+    </div>
+  );
+}
+</file>
+
+<file path="components/LiteYouTubeEmbedWrapper.tsx">
+/**
+ * LiteYouTubeEmbedWrapper.tsx
+ * Renders a YouTube video using the lite-youtube-embed web component via CDN, with a stable container.
+ * See: https://github.com/paulirish/lite-youtube-embed
+ */
+import { useEffect } from "preact/hooks";
+import { JSX } from "preact";
+
+interface LiteYouTubeEmbedWrapperProps {
+  videoId: string;
+  title?: string;
+  width?: number | string;
+  height?: number | string;
+  className?: string;
+  style?: JSX.CSSProperties;
+}
+
+export default function LiteYouTubeEmbedWrapper({
+  videoId,
+  title = "YouTube video",
+  width = 560,
+  height = 315,
+  className = "",
+  style = {},
+}: LiteYouTubeEmbedWrapperProps) {
+  // Inject the lite-youtube-embed script and CSS once on mount
+  useEffect(() => {
+    if (!document.querySelector('script[src*="lite-youtube-embed"]')) {
+      const script = document.createElement("script");
+      script.src = "https://cdn.jsdelivr.net/npm/lite-youtube-embed@0.2.0/src/lite-yt-embed.js";
+      script.type = "module";
+      document.body.appendChild(script);
+    }
+    if (!document.querySelector('link[href*="lite-yt-embed.css"]')) {
+      const link = document.createElement("link");
+      link.rel = "stylesheet";
+      link.href = "https://cdn.jsdelivr.net/npm/lite-youtube-embed@0.2.0/src/lite-yt-embed.css";
+      document.head.appendChild(link);
+    }
+  }, []);
+
+  // Correctly escape double quotes in the title
+  const safeTitle = title.replace(/"/g, "");
+  const embedHtml = `
+    <lite-youtube
+      videoid="${videoId}"
+      style="width:100%;height:100%;display:block;"
+      title="${safeTitle}"
+      params="controls=1&modestbranding=1"
+    ></lite-youtube>
+  `;
+
+  return (
+    <div
+      class={`yt-embed-wrapper ${className}`}
+      style={{
+        width: typeof width === "number" ? `${width}px` : width,
+        height: typeof height === "number" ? `${height}px` : height,
+        maxWidth: "100%",
+        margin: "0 auto",
+        borderRadius: "12px",
+        boxShadow: "0 2px 16px rgba(0,0,0,0.08)",
+        background: "#000",
+        overflow: "hidden",
+        ...style,
+        position: "relative",
+      }}
+    >
+      <div
+        style={{
+          width: "100%",
+          height: "100%",
+        }}
+        dangerouslySetInnerHTML={{ __html: embedHtml }}
+      />
+    </div>
+  );
+}
+</file>
+
+<file path="components/WordsBackground.tsx">
+/**
+ * WordsBackground.tsx
+ * Renders a background of styled words, positioned and faded for visual effect.
+ */
+import { JSX } from "preact";
+
+interface WordsBackgroundProps {
+  words: string[];
+  className?: string;
+  style?: JSX.CSSProperties;
+}
+
+export default function WordsBackground({
+  words,
+  className = "",
+  style = {},
+}: WordsBackgroundProps) {
+  return (
+    <div
+      class={`absolute inset-0 pointer-events-none select-none z-0 ${className}`}
+      style={{
+        overflow: "hidden",
+        ...style,
+      }}
+      aria-hidden="true"
+    >
+      <div class="w-full h-full flex flex-wrap items-center justify-center opacity-10">
+        {words.map((word, i) => (
+          <span
+            key={i}
+            class="text-[min(8vw,4rem)] font-extrabold uppercase whitespace-nowrap mx-4 my-2"
+            style={{
+              color: "#A00000",
+              fontFamily: "Montserrat, sans-serif",
+              opacity: 0.7 - (i % 3) * 0.2,
+              filter: "blur(1px)",
+              letterSpacing: "0.1em",
+            }}
+          >
+            {word}
+          </span>
+        ))}
+      </div>
+    </div>
+  );
+}
+</file>
+
+<file path="islands/Counter.tsx">
+import type { Signal } from "@preact/signals";
+import { Button } from "../components/Button.tsx";
+
+interface CounterProps {
+  count: Signal<number>;
+}
+
+export default function Counter(props: CounterProps) {
+  return (
+    <div class="flex gap-8 py-6">
+      <Button onClick={() => props.count.value -= 1}>-1</Button>
+      <p class="text-3xl tabular-nums">{props.count}</p>
+      <Button onClick={() => props.count.value += 1}>+1</Button>
+    </div>
+  );
+}
+</file>
+
+<file path="routes/api/joke.ts">
+import { FreshContext } from "$fresh/server.ts";
+
+// Jokes courtesy of https://punsandoneliners.com/randomness/programmer-jokes/
+const JOKES = [
+  "Why do Java developers often wear glasses? They can't C#.",
+  "A SQL query walks into a bar, goes up to two tables and says “can I join you?”",
+  "Wasn't hard to crack Forrest Gump's password. 1forrest1.",
+  "I love pressing the F5 key. It's refreshing.",
+  "Called IT support and a chap from Australia came to fix my network connection.  I asked “Do you come from a LAN down under?”",
+  "There are 10 types of people in the world. Those who understand binary and those who don't.",
+  "Why are assembly programmers often wet? They work below C level.",
+  "My favourite computer based band is the Black IPs.",
+  "What programme do you use to predict the music tastes of former US presidential candidates? An Al Gore Rhythm.",
+  "An SEO expert walked into a bar, pub, inn, tavern, hostelry, public house.",
+];
+
+export const handler = (_req: Request, _ctx: FreshContext): Response => {
+  const randomIndex = Math.floor(Math.random() * JOKES.length);
+  const body = JOKES[randomIndex];
+  return new Response(body);
+};
+</file>
+
+<file path="routes/greet/[name].tsx">
+import { PageProps } from "$fresh/server.ts";
+
+export default function Greet(props: PageProps) {
+  return <div>Hello {props.params.name}</div>;
+}
+</file>
+
+<file path="routes/_404.tsx">
+import { Head } from "$fresh/runtime.ts";
+
+export default function Error404() {
+  return (
+    <>
+      <Head>
+        <title>404 - Page not found</title>
+      </Head>
+      <div class="px-4 py-8 mx-auto bg-[#86efac]">
+        <div class="max-w-screen-md mx-auto flex flex-col items-center justify-center">
+          <img
+            class="my-6"
+            src="/logo.svg"
+            width="128"
+            height="128"
+            alt="the Fresh logo: a sliced lemon dripping with juice"
+          />
+          <h1 class="text-4xl font-bold">404 - Page not found</h1>
+          <p class="my-4">
+            The page you were looking for doesn't exist.
+          </p>
+          <a href="/" class="underline">Go back home</a>
+        </div>
+      </div>
+    </>
+  );
+}
+</file>
+
+<file path="routes/_app.tsx">
+import { type PageProps } from "$fresh/server.ts";
+export default function App({ Component }: PageProps) {
+  return (
+    <html>
+      <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>eazy</title>
+        <link rel="stylesheet" href="/styles.css" />
+      </head>
+      <body>
+        <Component />
+      </body>
+    </html>
+  );
+}
+</file>
+
+<file path="sections/AboutSection.tsx">
+import { JSX } from "preact";
+
+export default function AboutSection(): JSX.Element {
+  return (
+    <section class="w-full flex flex-col items-center py-10 bg-[#f8f6f3]">
+      <h2 class="text-2xl font-extrabold uppercase text-[#A00000] mb-4" style={{fontFamily: 'Montserrat, sans-serif'}}>About Us</h2>
+      <p class="text-base text-black text-center max-w-2xl mb-4">
+        easy. production is a creative agency and video production company based in Kyrgyzstan, delivering world-class content for global clients. We combine technical expertise, creative vision, and authentic storytelling with the cost advantages and unique locations of Central Asia.
+      </p>
+      <img src="/photos/elizaveta/width_800.webp" alt="Team at work" class="rounded-xl object-cover w-full max-w-md shadow mb-2" />
+    </section>
+  );
+}
+</file>
+
+<file path="sections/FooterSection.tsx">
+import { JSX } from "preact";
+
+export default function FooterSection(): JSX.Element {
+  return (
+    <section class="px-4 py-8 flex flex-col items-center bg-white border-t border-[#f0eaea]">
+      <a href="mailto:hello@easy.agency" class="bg-[#A00000] text-white font-bold py-3 px-8 rounded-full text-lg shadow-lg hover:bg-black transition mb-4">
+        Contact Us
+      </a>
+      <div class="flex flex-row gap-6 mb-2">
+        <a href="https://instagram.com/" target="_blank" rel="noopener" aria-label="Instagram">
+          <img src="/logo.svg" alt="Instagram" class="h-6 w-6 opacity-70 hover:opacity-100" />
+        </a>
+        <a href="https://behance.net/" target="_blank" rel="noopener" aria-label="Behance">
+          <img src="/logo.svg" alt="Behance" class="h-6 w-6 opacity-70 hover:opacity-100" />
+        </a>
+        <a href="https://vimeo.com/" target="_blank" rel="noopener" aria-label="Vimeo">
+          <img src="/logo.svg" alt="Vimeo" class="h-6 w-6 opacity-70 hover:opacity-100" />
+        </a>
+      </div>
+      <div class="text-sm text-black opacity-70">Bishkek, 2025 &copy; easy. production</div>
+    </section>
+  );
+}
+</file>
+
+<file path="sections/HeaderSection.tsx">
+export default function HeaderSection() {
+  return (
+    <header class="w-full flex justify-center items-center py-4 bg-transparent z-50 relative">
+      <span
+        class="text-4xl font-extrabold tracking-widest text-[#A00000]"
+        style={{ fontFamily: "Montserrat, sans-serif", letterSpacing: "0.2em" }}
+      >
+        EASYs
+      </span>
+    </header>
+  );
+}
+</file>
+
+<file path="sections/TestimonialsSection.tsx">
+import { JSX } from "preact";
+
+export default function TestimonialsSection(): JSX.Element {
+  return (
+    <section class="w-full py-10 bg-[#f8f6f3]">
+      <h2 class="text-2xl font-extrabold uppercase text-[#A00000] text-center mb-6" style={{fontFamily: 'Montserrat, sans-serif'}}>What Our Clients Say</h2>
+      <div class="flex flex-col sm:flex-row justify-center gap-8 max-w-4xl mx-auto">
+        <div class="bg-white rounded-xl shadow p-6 flex-1 flex flex-col items-center">
+          <div class="italic text-black text-center mb-2">“Easy Production made our Dubai shoot seamless. Their team handled everything, and the results were world-class.”</div>
+          <div class="font-bold text-[#A00000]">— International Client</div>
+        </div>
+        <div class="bg-white rounded-xl shadow p-6 flex-1 flex flex-col items-center">
+          <div class="italic text-black text-center mb-2">“The visuals, the team, the locations—everything exceeded our expectations.”</div>
+          <div class="font-bold text-[#A00000]">— Brand Manager</div>
+        </div>
+      </div>
+    </section>
+  );
+}
+</file>
+
+<file path="sections/TrustedBrands.tsx">
+import { JSX } from "preact";
+
+export default function TrustedBrands(): JSX.Element {
+  return (
+    <section class="w-full py-12 bg-[#f8f6f3]">
+      <h2 class="text-2xl font-bold text-center text-[#A00000] mb-6">Best Brands Trust Us</h2>
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-6 max-w-4xl mx-auto">
+        <img src="/photos/demir/width_800.webp" alt="Demir Bank" class="rounded-xl object-cover w-full h-32 shadow" />
+        <img src="/photos/Apple_resseler/width_800.webp" alt="Asia Store" class="rounded-xl object-cover w-full h-32 shadow" />
+        <img src="/photos/elizaveta/width_800.webp" alt="Elizaveta Real Estate" class="rounded-xl object-cover w-full h-32 shadow" />
+        <img src="/photos/MENIKI_ONE/width_800.webp" alt="MENIKI" class="rounded-xl object-cover w-full h-32 shadow" />
+        <img src="/photos/petrolium/width_800.webp" alt="Red Petrolium" class="rounded-xl object-cover w-full h-32 shadow" />
+        <img src="/photos/Fashion/width_800.webp" alt="Fashion" class="rounded-xl object-cover w-full h-32 shadow" />
+        <img src="/photos/VILAR/width_800.webp" alt="VILAR" class="rounded-xl object-cover w-full h-32 shadow" />
+        <img src="/photos/VITALIN/width_800.webp" alt="VITALIN" class="rounded-xl object-cover w-full h-32 shadow" />
+      </div>
+    </section>
+  );
+}
+</file>
+
+<file path="sections/WeCaterTo.tsx">
+import { JSX } from "preact";
+
+export default function WeCaterTo(): JSX.Element {
+  return (
+    <section class="w-full py-12 bg-white">
+      <h2 class="text-2xl font-bold text-center text-[#A00000] mb-6">We Cater To</h2>
+      <div class="flex flex-row flex-wrap justify-center gap-10">
+        <div class="flex flex-col items-center max-w-xs">
+          <div class="text-xl font-bold mb-2">Independent Filmmakers</div>
+          <div class="text-base text-center">
+            High production value and unique aesthetics for narrative films, documentaries, and shorts. Cost-effective, creative, and visually striking locations in Kyrgyzstan.
+          </div>
+        </div>
+        <div class="flex flex-col items-center max-w-xs">
+          <div class="text-xl font-bold mb-2">Advertising Agencies</div>
+          <div class="text-base text-center">
+            Reliable, creative, and cost-efficient production partner for campaigns. Professional standards, deadlines, and the ability to translate concepts into compelling visuals.
+          </div>
+        </div>
+        <div class="flex flex-col items-center max-w-xs">
+          <div class="text-xl font-bold mb-2">Brands</div>
+          <div class="text-base text-center">
+            Direct-to-brand work for companies seeking high-quality marketing videos, commercials, and brand stories with exceptional value.
+          </div>
+        </div>
+        <div class="flex flex-col items-center max-w-xs">
+          <div class="text-xl font-bold mb-2">Companies Needing Crews in Central Asia</div>
+          <div class="text-base text-center">
+            Local expertise and established network for businesses or productions needing filming support in Kyrgyzstan or Central Asia.
+          </div>
+        </div>
+        <div class="flex flex-col items-center max-w-xs">
+          <div class="text-xl font-bold mb-2">International Productions</div>
+          <div class="text-base text-center">
+            Proven ability to execute projects abroad. Adaptable team ready to travel for clients who value quality and cost-effectiveness.
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+</file>
+
+<file path="sections/WeProvide.tsx">
+import { JSX } from "preact";
+
+export default function WeProvide(): JSX.Element {
+  return (
+    <section class="w-full flex flex-row justify-center gap-6 py-8 bg-[#f8f6f3]">
+      <div class="bg-white rounded-xl shadow p-6 flex flex-col items-center w-48">
+        <img src="/logo.svg" alt="Ycayzu" class="h-12 mb-2" />
+        <div class="font-bold text-lg mb-1">Ycayzu</div>
+        <div class="text-sm text-center">Creative Direction</div>
+      </div>
+      <div class="bg-white rounded-xl shadow p-6 flex flex-col items-center w-48">
+        <img src="/logo.svg" alt="Brand" class="h-12 mb-2" />
+        <div class="font-bold text-lg mb-1">Brand</div>
+        <div class="text-sm text-center">Brand Strategy</div>
+      </div>
+      <div class="bg-white rounded-xl shadow p-6 flex flex-col items-center w-48">
+        <img src="/logo.svg" alt="Script Writing" class="h-12 mb-2" />
+        <div class="font-bold text-lg mb-1">Script Writing</div>
+        <div class="text-sm text-center">Story & Scripting</div>
+      </div>
+      <div class="bg-white rounded-xl shadow p-6 flex flex-col items-center w-48">
+        <img src="/logo.svg" alt="Broadcast/Creativity" class="h-12 mb-2" />
+        <div class="font-bold text-lg mb-1">Broadcast & Creativity</div>
+        <div class="text-sm text-center">Media & Production</div>
+      </div>
+    </section>
+  );
+}
+</file>
+
+<file path="static/logo.svg">
+<svg width="40" height="40" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M34.092 8.845C38.929 20.652 34.092 27 30 30.5c1 3.5-2.986 4.222-4.5 2.5-4.457 1.537-13.512 1.487-20-5C2 24.5 4.73 16.714 14 11.5c8-4.5 16-7 20.092-2.655Z" fill="#FFDB1E"/>
+  <path d="M14 11.5c6.848-4.497 15.025-6.38 18.368-3.47C37.5 12.5 21.5 22.612 15.5 25c-6.5 2.587-3 8.5-6.5 8.5-3 0-2.5-4-5.183-7.75C2.232 23.535 6.16 16.648 14 11.5Z" fill="#fff" stroke="#FFDB1E"/>
+  <path d="M28.535 8.772c4.645 1.25-.365 5.695-4.303 8.536-3.732 2.692-6.606 4.21-7.923 4.83-.366.173-1.617-2.252-1.617-1 0 .417-.7 2.238-.934 2.326-1.365.512-4.223 1.29-5.835 1.29-3.491 0-1.923-4.754 3.014-9.122.892-.789 1.478-.645 2.283-.645-.537-.773-.534-.917.403-1.546C17.79 10.64 23 8.77 25.212 8.42c.366.014.82.35.82.629.41-.14 2.095-.388 2.503-.278Z" fill="#FFE600"/>
+  <path d="M14.297 16.49c.985-.747 1.644-1.01 2.099-2.526.566.121.841-.08 1.29-.701.324.466 1.657.608 2.453.701-.715.451-1.057.852-1.452 2.106-1.464-.611-3.167-.302-4.39.42Z" fill="#fff"/>
+</svg>
+</file>
+
+<file path="static/styles.css">
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+</file>
+
+<file path="utils/constants.ts">
+// easy/utils/constants.ts
+
+/**
+ * 30 words describing easy. production's capabilities/identity/services.
+ */
+export const AGENCY_WORDS_30 = [
+  "production",
+  "scouting",
+  "photoshoots",
+  "onsite",
+  "storytelling",
+  "branding",
+  "innovation",
+  "editing",
+  "direction",
+  "creativity",
+  "filmmaking",
+  "cinematic",
+  "strategy",
+  "campaign",
+  "broadcast",
+  "commercial",
+  "global",
+  "logistics",
+  "location",
+  "collaboration",
+  "quality",
+  "visuals",
+  "experience",
+  "crew",
+  "equipment",
+  "studio",
+  "post-production",
+  "creative",
+  "reliability",
+  "partnership",
+];
+
+/**
+ * 10 from the first list, 20 new (not found in the first 30) to expand breadth.
+ */
+export const EXTENDED_AGENCY_WORDS_30 = [
+  // 10 from AGENCY_WORDS_30
+  "production",
+  "scouting",
+  "onsite",
+  "editing",
+  "branding",
+  "storytelling",
+  "creativity",
+  "commercial",
+  "global",
+  "collaboration",
+
+  // 20 additional unique descriptors/services
+  "documentary",
+  "support",
+  "multicultural",
+  "executive",
+  "drone",
+  "talent",
+  "consulting",
+  "social",
+  "digital",
+  "management",
+  "consultancy",
+  "location-permits",
+  "mountains",
+  "flexibility",
+  "luxury",
+  "fashion",
+  "architecture",
+  "testimonials",
+  "case-study",
+  "portfolio",
+  "media",
+];
+</file>
+
+<file path=".gitignore">
+# dotenv environment variable files
+.env
+.env.development.local
+.env.test.local
+.env.production.local
+.env.local
+
+# Fresh build directory
+_fresh/
+# npm dependencies
+node_modules/
+</file>
+
+<file path="deno.json">
+{
+  "lock": false,
+  "tasks": {
+    "check": "deno fmt --check && deno lint && deno check **/*.ts && deno check **/*.tsx",
+    "cli": "echo \"import '\\$fresh/src/dev/cli.ts'\" | deno run --unstable -A -",
+    "manifest": "deno task cli manifest $(pwd)",
+    "start": "deno run -A --watch=static/,routes/ dev.ts",
+    "build": "deno run -A dev.ts build",
+    "preview": "deno run -A main.ts",
+    "update": "deno run -A -r https://fresh.deno.dev/update ."
+  },
+  "lint": {
+    "rules": {
+      "tags": [
+        "fresh",
+        "recommended"
+      ]
+    }
+  },
+  "exclude": [
+    "**/_fresh/*"
+  ],
+  "imports": {
+    "$fresh/": "https://deno.land/x/fresh@1.7.3/",
+    "preact": "https://esm.sh/preact@10.22.0",
+    "preact/": "https://esm.sh/preact@10.22.0/",
+    "@preact/signals": "https://esm.sh/*@preact/signals@1.2.2",
+    "@preact/signals-core": "https://esm.sh/*@preact/signals-core@1.5.1",
+    "tailwindcss": "npm:tailwindcss@3.4.1",
+    "tailwindcss/": "npm:/tailwindcss@3.4.1/",
+    "tailwindcss/plugin": "npm:/tailwindcss@3.4.1/plugin.js",
+    "$std/": "https://deno.land/std@0.216.0/"
+  },
+  "compilerOptions": {
+    "jsx": "react-jsx",
+    "jsxImportSource": "preact"
+  },
+  "nodeModulesDir": true,
+  "deploy": {
+    "project": "162d3172-8fe6-4e1c-b46a-2ea7a54fb80e",
+    "exclude": [
+      "**/node_modules"
+    ],
+    "include": [],
+    "entrypoint": "main.ts"
+  }
+}
+</file>
+
+<file path="dev.ts">
+#!/usr/bin/env -S deno run -A --watch=static/,routes/
+
+import dev from "$fresh/dev.ts";
+import config from "./fresh.config.ts";
+
+import "$std/dotenv/load.ts";
+
+await dev(import.meta.url, "./main.ts", config);
+</file>
+
+<file path="fresh.config.ts">
+import { defineConfig } from "$fresh/server.ts";
+import tailwind from "$fresh/plugins/tailwind.ts";
+
+export default defineConfig({
+  plugins: [tailwind()],
+});
+</file>
+
+<file path="fresh.gen.ts">
+// DO NOT EDIT. This file is generated by Fresh.
+// This file SHOULD be checked into source version control.
+// This file is automatically updated during development when running `dev.ts`.
+
+import * as $_404 from "./routes/_404.tsx";
+import * as $_app from "./routes/_app.tsx";
+import * as $api_joke from "./routes/api/joke.ts";
+import * as $greet_name_ from "./routes/greet/[name].tsx";
+import * as $index from "./routes/index.tsx";
+import * as $projects_sai_kitchen from "./routes/projects/sai-kitchen.tsx";
+import * as $Counter from "./islands/Counter.tsx";
+import type { Manifest } from "$fresh/server.ts";
+
+const manifest = {
+  routes: {
+    "./routes/_404.tsx": $_404,
+    "./routes/_app.tsx": $_app,
+    "./routes/api/joke.ts": $api_joke,
+    "./routes/greet/[name].tsx": $greet_name_,
+    "./routes/index.tsx": $index,
+    "./routes/projects/sai-kitchen.tsx": $projects_sai_kitchen,
+  },
+  islands: {
+    "./islands/Counter.tsx": $Counter,
+  },
+  baseUrl: import.meta.url,
+} satisfies Manifest;
+
+export default manifest;
+</file>
+
+<file path="main.ts">
+/// <reference no-default-lib="true" />
+/// <reference lib="dom" />
+/// <reference lib="dom.iterable" />
+/// <reference lib="dom.asynciterable" />
+/// <reference lib="deno.ns" />
+
+import "$std/dotenv/load.ts";
+
+import { start } from "$fresh/server.ts";
+import manifest from "./fresh.gen.ts";
+import config from "./fresh.config.ts";
+
+await start(manifest, config);
+</file>
+
+<file path="marketing.md">
+International Marketing and Website Development Strategy for Easy Production
+I. Introduction
+
+This report outlines a comprehensive international marketing strategy and website development plan for Easy Production, a video production company based in Kyrgyzstan. The objective is to leverage the company's distinct advantages – high-quality production capabilities, significant cost-effectiveness, access to unique and scenic shooting locations within Kyrgyzstan, a large team capacity, and proven international project experience (notably in Dubai) – to attract a global clientele. By defining key target markets, analyzing competitor best practices, and detailing a robust online presence coupled with targeted digital marketing tactics, this strategy aims to position Easy Production as a compelling choice for international clients seeking value, quality, and unique production opportunities in Central Asia. The successful implementation of this plan will focus on building credibility and effectively communicating the unique value proposition offered by Easy Production and its strategic location.
+II. Unique Selling Propositions (USPs) for the International Market
+
+Easy Production possesses several key attributes that can be strategically leveraged as Unique Selling Propositions (USPs) to attract international clients. Effectively communicating these advantages is central to the marketing strategy:
+
+    High-Quality Production Standards: The cornerstone of Easy Production's offering must be its commitment to delivering video content that meets or exceeds international quality benchmarks. This involves showcasing technical expertise, creative vision, and state-of-the-art equipment (where applicable, potentially supplemented by rentals or partnerships for highly specialized needs). High-quality production builds trust and credibility, essential attributes when competing globally. Demonstrating consistency in quality across diverse projects, from commercials to short films, will be vital.
+    Significant Cost-Effectiveness: Operating from Kyrgyzstan provides a substantial cost advantage compared to production hubs in North America, Western Europe, or even established Asian markets. Local costs for crew, certain equipment, talent, logistics, and accommodations are comparatively inexpensive. This cost-effectiveness should be positioned as offering exceptional value – enabling clients to achieve high production values within tighter budgets or reallocate funds towards other project aspects. It is crucial, however, to frame this advantage carefully, emphasizing value and quality rather than simply being the cheapest option, which could undermine perceptions of quality.
+    Unique and Scenic Shooting Locations (Kyrgyzstan): Kyrgyzstan offers a visually rich and largely untapped landscape for international productions. This includes dramatic mountain ranges (Tien Shan), vast steppes, unique alpine lakes (Issyk-Kul), Soviet-era architecture, traditional Central Asian structures, and vibrant cultural settings. Highlighting these diverse and visually compelling locations is a powerful USP. Showcasing the ability to access and film in these locations, potentially offering vistas unavailable or costly elsewhere, provides a distinct creative advantage for filmmakers and brands seeking novel backdrops. The relative ease of obtaining permits for most locations is also a practical benefit.   
+
+    Proven International Experience (Dubai Project): Successfully completing projects for international clients, particularly the documented work in Dubai, serves as crucial social proof. This experience demonstrates the company's ability to operate effectively outside its home base, understand international client expectations, manage cross-cultural collaborations, and deliver results that meet global standards. This specific case study should be prominently featured to build confidence and mitigate perceived risks associated with hiring a Kyrgyzstan-based company.
+    Large Team Capacity: Highlighting the size and capability of the Easy Production team addresses potential concerns about scalability and the ability to handle complex international projects. Communicating the availability of a substantial, skilled local crew reassures clients that the company can manage productions of varying scopes and sizes.
+
+These USPs, when communicated effectively and consistently across all marketing materials and client interactions, form a compelling narrative for Easy Production's international expansion.
+III. Target International Markets and Client Segments
+
+Identifying and focusing on specific international markets and client segments will allow Easy Production to tailor its marketing efforts for maximum impact. Based on the company's USPs, the following segments represent high-potential targets:
+
+    Independent Filmmakers: This segment often operates with budget constraints but seeks high production value and unique aesthetics. Easy Production's cost-effectiveness combined with Kyrgyzstan's distinctive landscapes makes it an attractive option for narrative films, documentaries, and short films requiring visually striking and affordable locations. They value creative partners who understand the filmmaking process.
+    Advertising Agencies: Agencies are constantly searching for reliable, creative, and cost-efficient production partners to execute campaigns for their clients. They require high professional standards, adherence to deadlines, and the ability to translate creative concepts into compelling visuals. Easy Production's quality, value proposition, and unique location potential (for campaigns seeking distinct backdrops) appeal to this segment. Highlighting the Dubai experience demonstrates the ability to work within agency structures and expectations.
+    Brands Seeking Cost-Effective, High-Quality Production: Direct-to-brand work is a growing area. Companies, particularly startups or those in competitive markets, look for ways to produce high-quality marketing videos (product demos, brand stories, commercials) without the premium price tag of major market production houses. Easy Production can target brands that prioritize maximizing their marketing budget while demanding professional output.
+    Companies Needing Crews/Production Support in Central Asia: Businesses or production companies requiring filming support specifically within Kyrgyzstan or the broader Central Asian region represent a niche but valuable target. Easy Production's local expertise, established network, and understanding of regional logistics make it an ideal partner for such projects.
+    International Productions Willing to Fly the Team: While leveraging Kyrgyzstan is key, the company's demonstrated ability to execute projects abroad (Dubai) opens opportunities with clients who value Easy Production's quality/cost model and are willing to fly the core team to other locations. This requires showcasing the team's adaptability and international operational capability.
+
+Targeting these segments requires understanding their specific needs and pain points. Marketing messages and portfolio examples should be curated to resonate with each group, emphasizing the relevant USPs – cost and location for indie filmmakers, reliability and quality for agencies, value for brands, and local expertise for regional projects.
+IV. Competitor Website Analysis: Best Practices
+
+Analyzing the websites of international production houses, particularly those emphasizing unique locations or cost-effectiveness, reveals several best practices crucial for Easy Production's online strategy:
+
+    Visually Driven Approach: Leading production websites immediately immerse visitors in their work through high-impact video reels or stunning photography on the homepage. This instantly establishes credibility and showcases capability. Websites like Progressive Productions utilize strong visuals to highlight both their work and location offerings.   
+
+Prominent and Well-Organized Portfolio: A comprehensive, easily navigable portfolio is essential. Best practices include categorizing work by genre (commercials, film, corporate) or client industry, allowing prospects to quickly find relevant examples. High-quality video players and concise project descriptions are standard.
+Dedicated Location Showcase: Companies leveraging unique geographic locations often feature dedicated sections with high-quality galleries and descriptions of filming possibilities. This transforms the location from a passive backdrop into an active selling point, demonstrating expertise in utilizing the environment. Visual exploration through categorized image galleries is effective.  
+Clear Service Descriptions: Websites clearly articulate the range of services offered, from pre-production (scripting, storyboarding) through production (filming, crewing) to post-production (editing, graphics, sound). This helps potential clients understand the company's full capabilities.
+Strong Trust Signals: Successful international production sites prominently display client logos, testimonials (often video), case studies, and awards to build credibility and social proof. Transparency about the team and company story also fosters trust.
+Easy Navigation and Clear Contact Information: Intuitive website structure and easily accessible contact details (including international phone formats and email addresses) are crucial for facilitating inquiries from global clients.  
+
+Easy Production's website must incorporate these elements to compete effectively on the international stage, ensuring that its unique advantages are presented professionally and persuasively.
+V. Website Strategy and Structure
+
+The Easy Production website must serve as the central hub for international marketing efforts, effectively communicating its value proposition and building immediate trust. It needs to be visually compelling, informative, and easy to navigate for a global audience.
+A. Landing Page: Immediate Impact and Value Communication
+
+The homepage (landing page) must capture attention instantly and clearly convey Easy Production's core strengths. Key elements include:
+
+    Hero Section: A high-quality, full-screen video reel showcasing the best of Easy Production's work, emphasizing both production quality and the visual appeal of Kyrgyzstan. Alternatively, a striking hero image capturing a unique Kyrgyz landscape during a shoot could be used. This visual element is critical for making a strong first impression.
+    Headline/Value Proposition: A concise, impactful headline immediately stating what Easy Production offers (e.g., "World-Class Video Production in the Heart of Central Asia," or "High-Quality, Cost-Effective Filming. Unforgettable Locations."). This should encapsulate the key USPs: Quality, Value, Location.
+    USP Highlights: Briefly introduce the core advantages: High Quality, Cost Benefits, Stunning Kyrgyzstan Locations, Large Team Capacity, and International Experience (mentioning Dubai). Icons or short text blocks can make this scannable.
+    Portfolio Sneak Peek: Feature thumbnails or short clips from 3-4 standout projects (including the Dubai project) linking to the full portfolio. This provides immediate proof of capability.
+    Location Teaser: Include a visually appealing section hinting at the unique filming opportunities in Kyrgyzstan, perhaps with a stunning photo and a link to the dedicated Locations page.   
+
+    Social Proof: Display logos of key clients (especially international ones). Include a short, powerful testimonial.
+    Clear Call-to-Action (CTA): Prominent buttons encouraging users to take the next step, such as "Explore Our Work," "Discover Locations," or "Get a Quote".
+    Professional Design: The overall design must be clean, modern, and professional, reflecting international standards.
+
+The landing page's primary goal is to quickly answer a potential international client's key questions: "Can they deliver quality?", "What makes them unique?", and "Are they credible?".
+B. Proposed Website Sitemap
+
+A logical sitemap ensures users can easily find the information they need. The following structure is recommended:
+
+    Homepage: (As described above) - The main entry point communicating the core value proposition.
+    Services:
+        Overview of services (Pre-production, Production, Post-production).
+        Specific service details (e.g., Commercials, Corporate Videos, Documentaries, Short Films, Crewing, Location Scouting, Post-Production Services). Clearly defines the scope of capabilities.
+    Portfolio:
+        Main portfolio gallery.
+        Categorization (e.g., by Genre: Commercials, Films, Corporate; by Industry: Travel, Tech, etc.). Allows targeted viewing.
+        Individual Project Pages (with video, description, client, role).
+        Prominently feature the Dubai project and any other international work. Essential for showcasing range and experience.
+    Locations (Kyrgyzstan):
+        Introduction to filming in Kyrgyzstan (highlighting diversity, accessibility, safety).   
+
+Visual Gallery (categorized: Mountains, Lakes, Cities, Steppe, Cultural Sites, Unique Architecture). High-quality photos and potentially short video clips are crucial.  
+
+        Information on Logistics/Permits (briefly mentioning ease and Easy Production's support).
+        Mention of potential Film Rebate (framed carefully, see Section VII.B). This dedicated section leverages a key USP.
+    About Us:
+        Company Story/Mission.
+        Team Expertise (highlighting key members, scale, and international experience).
+        Values/Approach to Collaboration. Builds connection and trust.
+    Testimonials / Clients:
+        Collection of client testimonials (video preferred, especially international clients).
+        List/Logos of past clients. Reinforces credibility.
+    Contact:
+        Contact Form.
+        Direct Email Address.
+        International Phone Number format.
+        Office Address (Map optional).
+        Clear options for international inquiries. Essential for lead generation.
+    Blog (Optional but Recommended):
+        Articles showcasing expertise (e.g., filming tips, location spotlights, industry trends).
+        Behind-the-Scenes (BTS) content from shoots.
+        Company news and updates. Positions Easy Production as thought leaders and provides fresh content for SEO.
+
+This structure provides a comprehensive overview while allowing users to delve into specific areas of interest.
+C. Essential Website Content
+
+Populating the website requires high-quality, professionally produced content:
+
+    High-Resolution Video Reels: A dynamic main showreel for the homepage and potentially specialized reels (e.g., commercial reel, narrative reel) for the Portfolio section. Video is paramount for a production company.
+    Professional Photography: High-quality images of the team, key personnel, behind-the-scenes action, and especially stunning, professionally shot photographs of Kyrgyzstan's diverse locations for the Locations section.   
+
+    Compelling Case Studies: Detailed descriptions of key projects, particularly the Dubai project and any other significant international work. These should outline the client's challenge, Easy Production's solution, the process, and the results achieved. Case studies provide in-depth proof of capability.
+    Client Logos: Obtain permission to use logos from past clients, especially recognizable international brands.
+    Client Testimonials: Written and, ideally, video testimonials from satisfied clients, with a focus on international partners. Video testimonials add significant authenticity.
+    Well-Written Copy: Clear, concise, and professional website text, written with an international audience in mind (avoiding overly colloquial language). The copy should consistently reinforce the USPs and brand message.
+
+Investing in high-quality content is non-negotiable; the website itself is a portfolio piece reflecting the company's standards.
+VI. Digital Marketing Tactics for International Reach
+
+A multi-faceted digital marketing strategy is required to drive targeted international traffic to the new website and generate leads.
+A. Search Engine Optimization (SEO)
+
+Organic search is a critical channel for attracting clients actively looking for production services. SEO efforts should focus on:
+
+    Keyword Targeting: Research and target relevant keywords that potential international clients might use. Examples include:
+        Location-Specific: "video production Kyrgyzstan," "film crew Central Asia," "Kyrgyzstan film locations," "shoot in Kyrgyzstan."
+        Cost/Value-Specific: "cost-effective film production," "affordable video production Asia," "high-quality low-cost video."
+        Service-Specific: "international commercial production," "documentary production Central Asia," "remote filming services."
+        Competitor/Alternative-Based: "alternatives to Eastern Europe filming," "unique filming locations Asia."
+    On-Page Optimization: Optimize website content (page titles, headings, body text, image alt tags, video descriptions) with target keywords. Ensure the website structure is logical and crawlable by search engines.
+    Content Creation: Regularly publish blog posts or articles related to target keywords (e.g., "Top 5 Filming Locations in Kyrgyzstan," "Benefits of Filming in Central Asia") to attract organic traffic and establish expertise.
+    Technical SEO: Ensure the website is mobile-friendly, loads quickly, and uses schema markup where appropriate.
+    Link Building (Long-Term): Gradually build high-quality backlinks from relevant industry websites, directories, or publications.
+
+Effective SEO will increase Easy Production's visibility in search results when international clients are actively seeking solutions.
+B. Social Media Marketing
+
+Social media platforms are essential for showcasing work visually, building brand personality, and engaging with potential clients and partners. A focused approach is recommended:
+
+    Instagram: Ideal for visually showcasing Kyrgyzstan's stunning locations, behind-the-scenes glimpses of shoots, and short, engaging clips from the portfolio. Use high-quality photos and Reels. Leverage relevant hashtags (e.g., #videoproduction #filmlocations #kyrgyzstan #centralasia #filmmaking #cinematography). Engage with followers and other industry accounts.
+    Vimeo: Position as the primary platform for hosting high-quality, ad-free portfolio work and showreels. It's highly regarded within the creative industry for professional video hosting. Engage with the Vimeo creative community.
+    LinkedIn: Target industry professionals, advertising agencies, and corporate marketing departments. Share professional content: case studies (especially Dubai), company news, articles showcasing expertise (linked from the blog), team insights, and industry commentary. Engage in relevant LinkedIn Groups for film production, advertising, and marketing.
+    Content Mix: Balance promotional content (showcasing work, highlighting services) with value-added content (location spotlights, BTS insights, tips related to filming in Kyrgyzstan). Tailor content formats for each platform's strengths (e.g., visual focus on Instagram, professional case studies on LinkedIn).
+    Consistency: Maintain a regular posting schedule to stay visible and build an engaged following.
+
+Social media provides a dynamic channel to continuously demonstrate Easy Production's capabilities and the unique appeal of its location, fostering brand awareness and engagement beyond the static website.
+C. International Production Directory Strategy
+
+Listing Easy Production in relevant online directories is crucial for discoverability, as many clients use these platforms specifically to find production partners.
+
+    Prioritized Directories: Focus initial efforts on major international directories known for production listings, such as Mandy.com and ProductionHub. Also, consider platforms that double as portfolios like Vimeo and potentially Behance. Explore directories listed in resources like Screen Global Production, AFCI Global Directory, WFCN, AICP, Cause IQ (for non-profit focus), and potentially regional or specialized lists. Review directories like Clutch, DesignRush, GoodFirms, and Agency Spotter which list agencies including video production.
+    Profile Optimization: Create detailed and consistent profiles across all chosen directories. Include target keywords, comprehensive service descriptions, clear links to the Easy Production website and portfolio, high-quality visuals (logo, sample work if allowed), and accurate international contact information.
+    Leverage Free Listings: Maximize presence by utilizing free listing options available on many directories first.
+    Evaluate Paid Listings: Strategically consider paid or premium listings on high-traffic, highly relevant directories (like Variety411 for specific markets) only after assessing the potential return on investment based on audience and visibility boost.
+    Association Directories: Investigate listing opportunities through relevant industry associations (e.g., film commissions, producer guilds) if membership is viable.
+
+A presence in the right directories ensures Easy Production is visible to clients actively searching for production services globally or specifically in the Central Asian region.
+D. Targeted Online Advertising Approach
+
+Paid online advertising can provide immediate visibility and reach highly specific audiences who may not discover Easy Production organically.
+
+    Platforms: Utilize Google Ads for search campaigns targeting users actively searching for relevant keywords. Use social media advertising, particularly on LinkedIn (for B2B targeting) and potentially Instagram or Facebook (for broader brand awareness and visual appeal), depending on the target segment.
+    Targeting: Leverage platform targeting options to reach specific demographics (e.g., job titles like 'Creative Director' or 'Producer' on LinkedIn), geographic locations (priority international markets like UK, Germany, UAE, potentially US film hubs), and interests (filmmaking, advertising, specific industries).
+    Ad Content: Develop compelling ad creatives using strong visuals (short video clips, striking location photos), clear value propositions (highlighting quality, location, value), and strong Calls-to-Action (CTAs) directing users to the most relevant website page (e.g., landing page, portfolio, locations page). Ensure ads are mobile-optimized.
+    Retargeting: Implement retargeting campaigns to show ads to users who have previously visited the Easy Production website or engaged with its social media content. This keeps the brand top-of-mind for interested prospects.
+    Budget Management: Begin with a controlled, modest budget focused on the highest-priority markets and client segments. Track key performance indicators (KPIs) like click-through rates (CTR), conversion rates (e.g., contact form submissions), and cost per lead. Scale the budget based on campaign performance and ROI.
+
+Paid advertising complements organic efforts by providing immediate, targeted exposure in key international markets, accelerating lead generation.
+E. Digital Marketing Tactics Overview
+
+The following table summarizes the recommended digital marketing tactics:
+Tactic	Objective	Target Audience	Key Activities	Key Performance Indicators (KPIs)	Priority
+SEO	Increase organic visibility; Attract qualified leads actively searching.	Int'l clients searching for production services, locations, value.	Keyword research & targeting; On-page optimization; Content creation (blog); Technical SEO; Link building (long-term).	Organic website traffic; Keyword rankings; Leads/Inquiries from organic search; Bounce rate.	High
+Social Media: Instagram	Showcase visual appeal (location, work); Build brand personality; Engage.	Filmmakers, Creatives, Agencies (visual focus), Potential brand clients.	Post high-quality visuals (photos/Reels) of locations, BTS, portfolio clips; Use relevant hashtags; Engage with followers/industry.	Follower growth; Engagement rate (likes, comments, shares); Website referrals from Instagram.	High
+Social Media: Vimeo	Host high-quality portfolio; Build credibility in creative community.	Filmmakers, Agencies, Creatives, Clients seeking professional work samples.	Upload polished showreels & portfolio pieces; Optimize video titles/descriptions; Engage with Vimeo community.	Video plays/views; Profile views; Website referrals from Vimeo; Engagement on platform.	High
+Social Media: LinkedIn	Target B2B clients/partners; Showcase expertise; Generate leads.	Ad Agencies, Brands (Marketing Depts), Production Companies, Industry Professionals.	Share case studies, blog articles, company news, team insights; Participate in relevant groups; Connect with prospects.	Profile views; Connection requests; Engagement on posts; Leads/Inquiries from LinkedIn; Website referrals.	High
+Production Directories	Increase discoverability among clients actively sourcing partners.	Int'l clients/agencies searching directories for production services globally/regionally.	Identify key directories; Create/optimize profiles (keywords, portfolio links, contact info); Evaluate paid options strategically.	Profile views on directories; Website referrals from directories; Leads/Inquiries mentioning directory listing.	High
+Targeted Online Ads	Accelerate reach; Generate immediate leads in specific markets/segments.	Specific demographics/job titles/interests in priority international markets.	Set up Google Ads (Search) & Social Ads (LinkedIn); Define targeting parameters; Create compelling ad creative/copy/CTAs; Implement retargeting.	Ad impressions; Click-Through Rate (CTR); Conversion Rate (leads/inquiries); Cost Per Acquisition (CPA); Return On Ad Spend (ROAS).	Medium
+
+This integrated approach ensures Easy Production utilizes multiple digital channels to reach and engage its target international audience effectively. Defining and tracking KPIs for each tactic is crucial for measuring success and optimizing efforts over time.
+VII. Building International Credibility and Trust
+
+For international clients, choosing a production partner in a less familiar location like Kyrgyzstan involves a perceived risk. Therefore, proactively building credibility and trust is paramount throughout the marketing and sales process.
+A. Establishing Trust with Global Clients
+
+Multiple strategies must be employed concurrently to build confidence:
+
+    Transparency and Clear Communication: Be upfront and clear about the production process, capabilities, timelines, and especially the quoting process. Clearly outline how international collaborations are managed, addressing potential logistical questions proactively. Ensure all communication (website, email, calls) is prompt, professional, and conducted in fluent English.
+    Showcasing Expertise and Scale: Highlight the experience and skills of the core team, emphasizing any international project management experience. Use the 'About Us' page and potentially blog posts to showcase expertise and the company's capacity to handle projects of varying scales.
+    Leveraging Social Proof: Social proof is critical for validation. Prominently display high-quality client testimonials, particularly video testimonials from international clients. Feature the Dubai project and any other international work as detailed case studies. Display logos of recognizable clients. Encourage satisfied clients to leave reviews on relevant production directories. Positive word-of-mouth is invaluable; actively solicit referrals from happy clients.
+    Professionalism in All Touchpoints: The website, marketing materials, communication, and overall presentation must meet high international standards of professionalism. This signals reliability and attention to detail.
+    High-Quality Portfolio: The quality of the work shown in the portfolio is the ultimate demonstration of capability and the most direct way to build trust in Easy Production's ability to deliver.
+
+Building trust is an ongoing effort that permeates every interaction a potential international client has with Easy Production. It requires consistently demonstrating professionalism, expertise, and proven success.
+B. Communicating the Kyrgyzstan Advantage Effectively
+
+Positioning Kyrgyzstan as an asset requires a nuanced approach that balances its unique appeal with practical considerations:
+
+    Focus on Visual Uniqueness: While cost-effectiveness is important, lead with the unique visual opportunities Kyrgyzstan offers. Use stunning visuals on the website and marketing materials to showcase the diverse and untapped landscapes, architecture, and cultural settings. Frame it as a creative advantage – offering looks that are difficult or impossible to achieve elsewhere.   
+
+Address Logistics Proactively: Acknowledge potential logistical questions and address them directly, but concisely. Mention the relative ease of obtaining permits, the general safety of the country for filming, accessibility via Manas International Airport (Bishkek), and, crucially, Easy Production's expertise in navigating all local requirements smoothly. This positions Easy Production as the reliable local partner who handles the complexities.
+Manage Expectations Regarding the Film Rebate: Kyrgyzstan offers a 15-20% cash rebate on qualifying local expenditures for certain international productions. However, there are complexities, including specific eligibility criteria, potential caps, undefined guidelines, and required collaboration with approved local entities. It is crucial to present this rebate accurately – as a potential bonus or added value that Easy Production can help navigate, rather than a simple guarantee. Transparency about the application process, requirements (like minimum spend per format and cultural test elements), and potential challenges is essential to manage expectations and maintain trust. Comparing it unfavorably to more established schemes like Thailand's internally highlights the need for careful external communication.  
+
+    Highlight Unique Cultural Experiences: For projects where it might be relevant (e.g., documentaries, travel-related content), subtly highlight the unique cultural experiences available in Kyrgyzstan, such as nomadic traditions or local festivals. This can add another layer of appeal beyond the purely visual or financial.
+
+The goal is to construct a compelling narrative where Kyrgyzstan's unique location, combined with Easy Production's quality, value, and local expertise, presents a net advantage for the international client, mitigating perceived risks through demonstrated capability and transparency.
+VIII. Conclusion and Actionable Next Steps
+
+Easy Production has a significant opportunity to attract international clients by strategically leveraging its unique combination of high-quality production, cost-effectiveness, stunning Kyrgyz locations, and proven international experience. A professional, visually compelling website focused on showcasing capabilities and location advantages, coupled with a targeted digital marketing strategy encompassing SEO, social media, directory listings, and potentially paid advertising, will be crucial for reaching the identified client segments (independent filmmakers, ad agencies, brands, regional productions). Building trust through transparency, social proof, and consistent professionalism is paramount to overcoming the challenges of operating from a less conventional production hub.
+
+The following actionable next steps are recommended to initiate this strategy:
+
+    Finalize Website Blueprint: Confirm the detailed sitemap, page layouts (especially landing page, portfolio, and locations), and required functionalities.
+    Develop Core International Messaging: Craft clear and concise messaging that encapsulates the key USPs tailored for an international audience.
+    Initiate Website Development/Overhaul: Begin the design and development process, prioritizing high-quality visuals, portfolio integration, and the dedicated Kyrgyzstan locations section. Ensure mobile responsiveness and SEO-friendliness from the start.
+    Create Dubai Case Study: Develop a detailed, compelling case study of the Dubai project, highlighting the process, challenges overcome, and successful outcomes for prominent placement on the website and use in marketing materials.
+    Establish Core Directory Presence: Create and optimize profiles on key international production directories like Mandy.com and ProductionHub, ensuring links back to the new website.
+    Optimize Social Media Profiles: Set up or revamp profiles on Vimeo, Instagram, and LinkedIn, aligning them with the new branding and ensuring portfolio work is showcased effectively.
+    Begin SEO Keyword Research: Start in-depth keyword research to inform website content and ongoing SEO strategy.
+    Gather Content Assets: Systematically collect and curate high-resolution videos, professional photographs (locations, team, BTS), client testimonials (prioritizing video and international clients), and client logos.
+
+By implementing these steps diligently, Easy Production can build a strong foundation for international growth, positioning itself as a leading and uniquely advantageous video production partner in Central Asia. The long-term vision should be to establish Kyrgyzstan, through Easy Production's success, as a recognized and sought-after destination for high-quality, cost-effective international film and video production.
+</file>
+
+<file path="mise.toml">
+[tools]
+deno = "latest"
+</file>
+
+<file path="package.json">
+{
+  "name": "eazy",
+  "version": "1.0.0",
+  "description": "Your new Fresh project is ready to go. You can follow the Fresh \"Getting Started\" guide here: https://fresh.deno.dev/docs/getting-started",
+  "main": "index.js",
+  "dependencies": {
+    "autoprefixer": "^10.4.17",
+    "cssnano": "^6.0.3",
+    "keychain": "^1.5.0",
+    "postcss": "^8.4.35",
+    "tailwindcss": "^3.4.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/snqb/eazy.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/snqb/eazy/issues"
+  },
+  "homepage": "https://github.com/snqb/eazy#readme"
+}
+</file>
+
+<file path="README.md">
+# Fresh project
+
+Your new Fresh project is ready to go. You can follow the Fresh "Getting
+Started" guide here: https://fresh.deno.dev/docs/getting-started
+
+### Usage
+
+Make sure to install Deno: https://deno.land/manual/getting_started/installation
+
+Then start the project:
+
+```
+deno task start
+```
+
+This will watch the project directory and restart as necessary.
+</file>
+
+<file path="tailwind.config.ts">
+import { type Config } from "tailwindcss";
+
+export default {
+  content: [
+    "{routes,islands,components}/**/*.{ts,tsx,js,jsx}",
+  ],
+} satisfies Config;
+</file>
+
+<file path="visual_style.md">
+# Visual Style Guide
+
+## Overview
+
+This document describes the visual style observed in the "easy. production" creative agency presentations.
+
+---
+
+## 1. Typography
+
+- **Headlines:**  
+  - Extremely bold, uppercase sans-serif font.
+  - Deep red color (#A00000 or similar).
+  - Used for maximum impact and clear hierarchy.
+
+- **Supporting Text:**  
+  - All-caps, black, smaller size.
+  - Clean, modern sans-serif font.
+  - Used for descriptions, navigation, and secondary information.
+
+- **Accent Font:**  
+  - Handwritten script font for select words (e.g., "creative").
+  - Adds a dynamic, personal, and creative touch.
+
+---
+
+## 2. Color Palette
+
+- **Primary:** Deep red (for headlines and accents).
+- **Secondary:** Black (for body and supporting text).
+- **Background:** White or very light beige for high contrast and clarity.
+
+---
+
+## 3. Layout
+
+- **Structure:**  
+  - Clean, minimalist, grid-based.
+  - Large headlines aligned left.
+  - Supporting text and images arranged in a structured grid.
+  - Ample white space for a modern, uncluttered look.
+
+- **Spacing:**  
+  - Generous padding and margins.
+  - Clear separation between sections and elements.
+
+---
+
+## 4. Imagery
+
+- **Style:**  
+  - Candid, documentary-style photos.
+  - Real people, real environments, authentic moments.
+  - Images grouped in a grid, reinforcing structure and professionalism.
+
+- **Presentation:**  
+  - Photos are vibrant and high-quality.
+  - Used to support and enhance the message, not distract.
+
+---
+
+## 5. Branding
+
+- **Logo:**  
+  - Consistent use of the "easy. production" logo in the top left.
+- **Consistency:**  
+  - Repeated visual motifs and color usage across all slides.
+  - Strong, unified brand identity.
+
+---
+
+## 6. Editorial Feel
+
+- **Modern, Magazine-like:**  
+  - Bold editorial typography.
+  - Script accents for personality.
+  - Documentary photography for authenticity.
+  - Clear visual hierarchy.
+
+---
+
+## 7. Navigation/Presentation Thumbnails
+
+- **Thumbnails:**  
+  - Small previews of other slides or presentations at the bottom.
+  - Consistent style and clear labeling.
+  - Helps users navigate and understand the breadth of work.
+
+---
+
+## Summary
+
+The visual style is bold, modern, and editorial, with a strong emphasis on typography, minimalism, and authentic imagery. It communicates creativity, confidence, and professionalism, and ensures a consistent, memorable brand experience.
+</file>
+
+<file path="sections/HeroSection.tsx">
+import { JSX } from "preact";
+
+export default function HeroSection(): JSX.Element {
+  return (
+    <section class="w-full flex flex-col items-center justify-center py-16 bg-white relative">
+      <img
+        src="/photos/headshot.webp"
+        alt="Headshot"
+        class="w-full max-w-xl object-cover"
+      />
+      <h1 class="text-4xl sm:text-6xl font-extrabold uppercase text-[#A00000] text-center mb-2" style={{fontFamily: "Montserrat, sans-serif"}}>
+        World-Class Video Production
+      </h1>
+      <p class="text-lg text-black text-center max-w-xl mt-2">
+        High-quality, cost-effective, and visually stunning productions from the heart of Central Asia. Unique locations. International experience. Large, skilled team.
+      </p>
+    </section>
+  );
+}
+</file>
+
+<file path="sections/PortfolioSection.tsx">
+import { JSX } from "preact";
+
+export default function PortfolioSection(): JSX.Element {
+  return (
+    <section class="w-full py-12 bg-white">
+      <h2 class="text-2xl font-extrabold uppercase text-[#A00000] text-center mb-6" style={{fontFamily: 'Montserrat, sans-serif'}}>Featured Projects</h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 max-w-5xl mx-auto">
+        <div class="flex flex-col items-center">
+          <img src="/photos/sai-kitchen/width_800.webp" alt="Sai Kitchen" class="rounded-xl object-cover w-full h-40 shadow mb-2" />
+          <div class="font-bold text-lg text-[#A00000]">Sai Kitchen</div>
+          <div class="text-sm text-black text-center">Full campaign for a modern kitchen brand, from concept to final cut.</div>
+        </div>
+        <div class="flex flex-col items-center">
+          <img src="/photos/Fashion/width_800.webp" alt="Fashion" class="rounded-xl object-cover w-full h-40 shadow mb-2" />
+          <div class="font-bold text-lg text-[#A00000]">Fashion</div>
+          <div class="text-sm text-black text-center">Editorial and campaign visuals for leading fashion brands.</div>
+        </div>
+        <div class="flex flex-col items-center">
+          <img src="/photos/petrolium/width_800.webp" alt="Red Petrolium" class="rounded-xl object-cover w-full h-40 shadow mb-2" />
+          <div class="font-bold text-lg text-[#A00000]">Red Petrolium</div>
+          <div class="text-sm text-black text-center">Major gas station brand, industrial and commercial visuals.</div>
+        </div>
+        <div class="flex flex-col items-center">
+          <img src="/photos/elizaveta/width_800.webp" alt="Elizaveta Real Estate" class="rounded-xl object-cover w-full h-40 shadow mb-2" />
+          <div class="font-bold text-lg text-[#A00000]">Elizaveta Real Estate</div>
+          <div class="text-sm text-black text-center">Real estate visuals and lifestyle moments.</div>
+        </div>
+      </div>
+    </section>
+  );
+}
+</file>
+
+<file path="sections/ShowreelSection.tsx">
+import LiteYouTubeEmbedWrapper from "../components/LiteYouTubeEmbedWrapper.tsx";
+
+export default function ShowreelSection() {
+  return (
+    <section class="w-full flex flex-col items-center py-12 bg-white relative overflow-hidden">
+      {/* Handwritten background words */}
+      <div
+        aria-hidden="true"
+        class="absolute inset-0 pointer-events-none select-none"
+        style={{
+          zIndex: 0,
+          opacity: 0.10,
+          fontFamily: "'Pacifico', cursive",
+          fontSize: "2.5rem",
+          color: "#A00000",
+          whiteSpace: "pre-wrap",
+          lineHeight: "2.5",
+          left: 0,
+          top: 0,
+          width: "100%",
+          height: "100%",
+          display: "flex",
+          flexWrap: "wrap",
+          alignItems: "center",
+          justifyContent: "center",
+          userSelect: "none",
+        }}
+      >
+        {"production   scriptwriting   location   creativity   direction   editing   storytelling   filming   Kyrgyzstan   team   value   quality   Dubai   visuals   documentary   commercial   brand   campaign   crew   post-production   vision   authenticity   cinematic   global   cost-effective   unique   experience   support   partnership   innovation   impact   strategy   collaboration   expertise   flexibility   reliability   trust   scale   international   Central Asia   permits   logistics   equipment   ARRI   RED   drone   lighting   sound   talent   story   concept   execution   result   success   client   agency   brand   filmmaker   project   showcase   portfolio   testimonial   case study   location   mountain   lake   city   steppe   culture   architecture"}
+      </div>
+      <h2 class="text-3xl font-extrabold text-[#A00000] mb-4 relative z-10">Showreel</h2>
+      <LiteYouTubeEmbedWrapper
+        videoId="bKVk2B7qNn4"
+        title="Showreel"
+        width={800}
+        height={450}
+        className="mb-4 relative z-10"
+      />
+      <ul class="flex flex-row gap-6 text-black text-lg font-medium mt-2 relative z-10">
+        <li>Gear</li>
+        <li>ARRI</li>
+        <li>Scripts</li>
+        <li>X</li>
+      </ul>
+    </section>
+  );
+}
+</file>
+
+<file path="landing_plan.md">
+# easy. production — Mobile-First Landing Page & Marketing Blueprint
+
+This plan outlines a world-class, mobile-first website and marketing strategy for easy. production, blending bold editorial design, authentic imagery, and international marketing best practices. The structure below follows the preferred order from the latest paper sketch, ensuring a direct, impactful user journey.
+
+---
+
+## 1. Brand & Visual Approach
+
+- **Editorial, Modern, Bold:**  
+  - Large, uppercase headlines in deep red (#A00000).
+  - Clean, all-caps supporting text in black.
+  - Handwritten script accents for creative energy (e.g., "creative", "production", "location").
+- **Imagery:**  
+  - Candid, documentary-style photos and vibrant project visuals.
+  - Grid/collage layouts for authenticity and structure.
+- **Color Palette:**  
+  - Deep red, black, white/light beige backgrounds for clarity and impact.
+- **Layout:**  
+  - Minimalist, grid-based, with generous white space and clear hierarchy.
+- **Mobile-First:**  
+  - All elements scale gracefully, with touch-friendly navigation and swipeable carousels.
+
+---
+
+## 2. Landing Page Structure (User-Preferred Order)
+
+### 1. Hero Headshot Section
+- **Logo:** Top left, always visible.
+- **Headline:** Large, bold, uppercase (e.g., "WORLD-CLASS VIDEO PRODUCTION").
+- **Accent Script:** Handwritten overlay (e.g., "Ycayzu" or "creative").
+- **Hero Image:** Full-width, high-impact photo (from `photos/headshot.webp`).
+- **Short Tagline:** One sentence about the agency’s mission or vibe.
+
+### 2. Service/Feature Cards (Row of Four)
+- "Ycayzu" (Creative Direction)
+- "Brand" (Brand Strategy)
+- "Script Writing" (Story & Scripting)
+- "Broadcast & Creativity" (Media & Production)
+- **Each card:** Icon/image, bold title, short description.
+
+### 3. Showreel Section
+- **Background:**  
+  - Full-section overlay of handwritten-style words (e.g., production, scriptwriting, location, creativity, direction, editing, storytelling, filming, Kyrgyzstan, team, value, quality, Dubai, visuals, documentary, commercial, brand, campaign, crew, post-production, vision, authenticity, cinematic, global, cost-effective, unique, experience, support, partnership, innovation, impact, strategy, collaboration, expertise, flexibility, reliability, trust, scale, international, Central Asia, permits, logistics, equipment, ARRI, RED, drone, lighting, sound, talent, story, concept, execution, result, success, client, agency, brand, filmmaker, project, showcase, portfolio, testimonial, case study, location, mountain, lake, city, steppe, culture, architecture).
+  - Handwritten script font, deep red, low opacity for subtlety.
+- **Showreel Video:**  
+  - Prominently featured, with poster image.
+- **Quick Facts:**  
+  - Gear, ARRI, Scripts, etc.
+
+### 4. Trusted Brands / Bento Grid
+- **Section Title:** "Best Brands Trust Us"
+- **Grid of Client Logos/Images:**  
+  - Demir Bank, Asia Store, Elizaveta Real Estate, MENIKI, Red Petrolium, Fashion, VILAR, VITALIN.
+- **Editorial, minimalist presentation.**
+
+### 5. We Cater To (Target Segments)
+- **Section Title:** "We Cater To"
+- **Columns for Each Segment:**  
+  - **Independent Filmmakers:** High production value, unique aesthetics, cost-effective, creative, visually striking Kyrgyz locations.
+  - **Advertising Agencies:** Reliable, creative, cost-efficient partner, professional standards, deadlines, concept-to-visuals.
+  - **Brands:** Direct-to-brand work, high-quality marketing videos, commercials, brand stories, exceptional value.
+  - **Companies Needing Crews in Central Asia:** Local expertise, established network, regional logistics.
+  - **International Productions:** Proven ability to execute abroad, adaptable team, quality/cost model, ready to travel.
+- **Each column:** Bold title, concise description.
+
+---
+
+## 3. Additional Sections (After Main Flow or in Footer)
+
+### About / Introduction (Optional, after main flow or in footer)
+- Brief description of the agency, creative philosophy, and team.
+- Authentic, documentary-style image.
+
+### Portfolio / Featured Projects (Optional, after main flow or in footer)
+- Grid or carousel of project images/titles/descriptions.
+
+### Testimonials / Clients (Optional, after main flow or in footer)
+- Quotes or logos from clients/partners.
+
+### Contact / Call to Action / Footer
+- **Contact Button:** Prominent, sticky or fixed for easy access.
+- **Contact Info:** Email, location, copyright.
+- **Social Links:** Instagram, Behance, Vimeo, etc.
+- **Encouragement:** "Let’s create something amazing together!"
+
+---
+
+## 4. Content & Messaging Strategy
+
+- **Unique Selling Propositions (USPs):**
+  - High-Quality Production Standards: International benchmarks, technical expertise, creative vision, state-of-the-art equipment.
+  - Significant Cost-Effectiveness: Kyrgyzstan’s cost advantage, value without sacrificing quality.
+  - Unique & Scenic Locations: Mountains, lakes, Soviet-era architecture, vibrant culture, easy permits.
+  - Proven International Experience: Dubai project as social proof, global standards, cross-cultural collaboration.
+  - Large Team Capacity: Scalable, skilled crew for any project size.
+
+- **Portfolio Sneak Peek:**  
+  - Thumbnails or short clips from standout projects, including Dubai.
+
+- **Location Teaser:**  
+  - Visual highlight of Kyrgyzstan’s unique filming opportunities.
+
+- **Social Proof:**  
+  - Client logos, short testimonials, case studies.
+
+- **Clear CTAs:**  
+  - "Explore Our Work", "Discover Locations", "Get a Quote".
+
+---
+
+## 5. Visual Style & Editorial Details
+
+- **Typography:**  
+  - Headlines: Deep red, bold, uppercase sans-serif.
+  - Supporting: Black, all-caps, modern sans-serif.
+  - Accents: Handwritten script for select words.
+- **Color Palette:**  
+  - Deep red, black, white/light beige.
+- **Imagery:**  
+  - Authentic, documentary, grid/collage layouts.
+- **Layout:**  
+  - Minimalist, grid-based, ample white space.
+- **Branding:**  
+  - Consistent logo, repeated motifs, unified identity.
+- **Editorial Feel:**  
+  - Magazine-like, bold, clear hierarchy, script accents, authentic photography.
+
+---
+
+## 6. Next Steps
+
+1. **Finalize Wireframes:**  
+   - Create mobile and desktop wireframes for all sections in the new order.
+2. **Select Content:**  
+   - Choose hero, project, and location images; write concise, impactful copy.
+3. **Develop Website:**  
+   - Implement mobile-first, visually-driven design with all features above.
+4. **SEO & Marketing Setup:**  
+   - Optimize for search, set up social media, directory listings, and ad campaigns.
+5. **Launch & Iterate:**  
+   - Gather feedback, refine design/content, and expand portfolio and testimonials.
+
+---
+
+This plan ensures easy. production’s website and marketing are visually stunning, strategically sound, and ready to attract and convert international clients. Every detail—from handwritten script backgrounds to editorial typography and authentic imagery—reinforces the brand’s creative, confident, and professional identity, in the exact order and flow you prefer.
+</file>
+
+<file path="photos.md">
+# Photos Collection Overview
+
+This document describes the structure, content, and potential uses of the images found in the `photos` folder.
+
+---
+
+## 1. Folder Structure
+
+The `photos` directory contains both individual images and subfolders, each representing different projects, themes, or clients. The structure is as follows:
+
+- **Top-level Images:**
+  - `ELIZAVETA.webp`
+  - `organic.webp`
+  - `showreel.webp`
+  - `tartuu.webp`
+  - *(These are likely hero images or highlights from key projects.)*
+
+- **Project/Thematic Subfolders:**
+  - `1slide/`
+  - `Apple_resseler/`
+  - `Fashion/`
+  - `MENIKI_ONE/`
+  - `sai-kitchen/`
+  - `VILAR/`
+  - `VITALIN/`
+  - `demir/`
+  - `elizaveta/`
+  - `petrolium/`
+  - `portfolio_prod/`
+  - *(Each folder contains images related to a specific project, client, or theme.)*
+
+---
+
+## 2. Image Types and Naming
+
+- **Image Format:**  
+  - Most images are in `.webp` format, optimized for web use.
+- **Naming Convention:**  
+  - Many images are named by width or version (e.g., `width_800.webp`, `width_411.webp`), indicating different resolutions or crops for responsive design.
+  - Some images use project or subject names (e.g., `ELIZAVETA.webp`).
+
+---
+
+## 3. Example Folder Contents
+
+- **Sai Kitchen/**
+  - Contains multiple `.webp` images, likely showcasing different dishes, scenes, or branding elements for the Sai Kitchen project.
+
+- **Fashion/**  
+  - Contains several `.webp` images at different resolutions, likely featuring fashion photography or campaign visuals.
+
+---
+
+## 4. Potential Uses for Images
+
+- **Project Showcases:**  
+  - Use images from each subfolder to create dedicated project pages or case studies on the website.
+
+- **Website Galleries:**  
+  - Feature high-quality images in a portfolio or gallery section, allowing visitors to browse by project or theme.
+
+- **Social Media Content:**  
+  - Select visually striking images for use in social media campaigns, posts, and stories.
+
+- **Marketing Materials:**  
+  - Incorporate images into presentations, brochures, and digital ads to highlight the agency’s work.
+
+- **Hero Images:**  
+  - Use top-level images as hero banners or section headers on the website or in presentations.
+
+- **Client Pitches:**  
+  - Curate relevant images to visually support proposals and client communications.
+
+---
+
+## 5. Recommendations
+
+- **Organize and Tag:**  
+  - Consider adding metadata or tags to images for easier searching and categorization.
+- **Optimize for Web:**  
+  - Continue using `.webp` for fast loading; provide multiple resolutions for responsive design.
+- **Maintain Consistency:**  
+  - Use consistent color grading and style to reinforce brand identity across all visual materials.
+
+---
+
+## Summary
+
+The `photos` folder is a valuable asset for showcasing the agency’s creative work. By leveraging these images across digital and print platforms, the agency can effectively communicate its expertise, style, and project diversity to clients and audiences.
+</file>
+
+<file path="routes/projects/sai-kitchen.tsx">
+import { Head } from "$fresh/runtime.ts";
+import InstagramEmbedWrapper from "../../components/InstagramEmbedWrapper.tsx";
+export default function SaiKitchen() {
+  return (
+    <>
+      <Head>
+        <title>Sai Kitchen — Проект | easy. production</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="description" content="Sai Kitchen — современный гастрономический проект от easy. production." />
+        <link rel="stylesheet" href="/static/style.css" />
+      </Head>
+      <main class="bg-[#f8f6f3] min-h-screen font-sans">
+        {/* Hero Section */}
+        <section class="px-4 pt-8 pb-4 flex flex-col items-start">
+          <h1 class="text-4xl sm:text-5xl font-extrabold uppercase text-[#A00000] leading-tight tracking-tight mb-2">
+            Sai Kitchen
+          </h1>
+          <span class="text-2xl font-script text-black mb-4" style="font-family: 'Pacifico', cursive;">гастрономия</span>
+          <img src="/photos/sai-kitchen/width_800.webp" alt="Sai Kitchen" class="w-full rounded-lg shadow-lg object-cover mb-4 max-h-64 sm:max-h-96" />
+          <InstagramEmbedWrapper url="https://www.instagram.com/reel/C6bC1GcIoPl/" width={400} height={480} />
+        </section>
+
+        {/* Project Description */}
+        <section class="px-4 py-4">
+          <h2 class="text-xl font-bold uppercase text-[#A00000] mb-2">О проекте</h2>
+          <p class="text-base text-black mb-4">
+            SAI KITCHEN — это уникальный гастрономический проект, сочетающий современные кулинарные тренды и аутентичную атмосферу. Мы создали визуальную концепцию, которая подчеркивает индивидуальность бренда и приглашает гостей в мир вкуса и эстетики. 
+          </p>
+          <div class="grid grid-cols-2 gap-2">
+            <img src="/photos/sai-kitchen/width_800-(1).webp" alt="Sai Kitchen 1" class="rounded-lg object-cover w-full h-28 sm:h-36" />
+            <img src="/photos/sai-kitchen/width_800-(2).webp" alt="Sai Kitchen 2" class="rounded-lg object-cover w-full h-28 sm:h-36" />
+            <img src="/photos/sai-kitchen/width_800-(3).webp" alt="Sai Kitchen 3" class="rounded-lg object-cover w-full h-28 sm:h-36" />
+            <img src="/photos/sai-kitchen/sai.webp" alt="Sai Kitchen 4" class="rounded-lg object-cover w-full h-28 sm:h-36" />
+          </div>
+        </section>
+
+        {/* Call to Action */}
+        <section class="px-4 py-8 flex flex-col items-center">
+          <a href="/" class="bg-[#A00000] text-white font-bold py-3 px-8 rounded-full text-lg shadow-lg hover:bg-black transition">
+            ← На главную
+          </a>
+        </section>
+      </main>
+    </>
+  );
+}
+</file>
+
+<file path="routes/index.tsx">
+import { Head } from "$fresh/runtime.ts";
+import HeroSection from "../sections/HeroSection.tsx";
+import WeProvide from "../sections/WeProvide.tsx";
+import ShowreelSection from "../sections/ShowreelSection.tsx";
+import TrustedBrands from "../sections/TrustedBrands.tsx";
+import WeCaterTo from "../sections/WeCaterTo.tsx";
+import AboutSection from "../sections/AboutSection.tsx";
+import PortfolioSection from "../sections/PortfolioSection.tsx";
+import TestimonialsSection from "../sections/TestimonialsSection.tsx";
+import FooterSection from "../sections/FooterSection.tsx";
+import WordsBackground from "../components/WordsBackground.tsx";
+import InstagramEmbedWrapper from "../components/InstagramEmbedWrapper.tsx";
+import HeaderSection from "../sections/HeaderSection.tsx";
+
+export default function Home() {
+  return (
+    <>
+      <Head>
+        <title>easy. production — Creative Agency</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta
+          name="description"
+          content="Creative agency for world-class video production. Portfolio, services, and trusted brands."
+        />
+        <link rel="stylesheet" href="/styles.css" />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&family=Pacifico&display=swap"
+          rel="stylesheet"
+        />
+        <link
+          rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/lite-youtube-embed@0.2.0/src/lite-yt-embed.css"
+        />
+        <script
+          type="module"
+          src="https://cdn.jsdelivr.net/npm/lite-youtube-embed@0.2.0/src/lite-yt-embed.js"
+        ></script>
+      </Head>
+      <main class="bg-[#f8f6f3] min-h-screen font-sans">
+        <HeaderSection />
+        <HeroSection />
+        <WeProvide />
+        <div class="relative">
+          <WordsBackground
+            words={[
+              "video",
+              "branding",
+              "dubai",
+              "wardrobes",
+              "banks",
+              "kitchen",
+              "production",
+              "team",
+              "shoot",
+              "creative",
+              "campaign",
+              "abroad",
+            ]}
+          />
+          <ShowreelSection />
+        </div>
+        <div class="flex justify-center my-8">
+          <InstagramEmbedWrapper
+            url="https://www.instagram.com/reel/C6bC1GcIoPl/"
+            width={400}
+            height={480}
+          />
+        </div>
+        <TrustedBrands />
+        <WeCaterTo />
+
+        {/* Additional sections after main flow */}
+        <AboutSection />
+        <PortfolioSection />
+        <TestimonialsSection />
+        <FooterSection />
+      </main>
+    </>
+  );
+}
+</file>
+
+</files>

@@ -1,0 +1,43 @@
+---
+/**
+ * TargetSegments.astro
+ * Editorial section: "We Cater To" – Agency target segments in a visually bold, clean, mobile-first grid.
+ */
+import "../styles/global.css";
+import styles from "../styles/TargetSegments.module.css";
+
+const segments = [
+  {
+    title: "Independent Filmmakers",
+    description: "High production value, unique aesthetics, and visionary storytelling set in Kyrgyzstan’s stunning locations—all at a cost-effective scale."
+  },
+  {
+    title: "Advertising Agencies",
+    description: "A creative, deadline-driven production partner for concept-to-visuals and campaign delivery. Reliability and flair, every time."
+  },
+  {
+    title: "Brands",
+    description: "Direct-to-brand service for impactful marketing videos, commercials, and authentic brand stories that capture and convert."
+  },
+  {
+    title: "Companies in Central Asia",
+    description: "Regional crews and logistics for media or brand teams needing trusted, on-the-ground production and location expertise."
+  },
+  {
+    title: "International Productions",
+    description: "Cross-border project execution, adaptive teams, and global standards—ready to deliver quality anywhere, from Dubai to the mountains."
+  }
+];
+---
+
+<section class={styles.section} id="target-segments">
+  <h2 class={styles.headline}>We Cater To</h2>
+  <div class={styles.grid}>
+    {segments.map(segment => (
+      <div class={styles.card}>
+        <div class={styles.title}>{segment.title}</div>
+        <div class={styles.desc}>{segment.description}</div>
+      </div>
+    ))}
+  </div>
+</section>

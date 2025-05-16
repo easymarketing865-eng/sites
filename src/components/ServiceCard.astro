@@ -1,0 +1,23 @@
+---
+/**
+ * ServiceCard.astro
+ * Props:
+ *   title: string (required) – Card heading (service name)
+ *   icon?: string – Path to icon/image or emoji (optional, supports <img> or emoji)
+ *   description: string (required) – Card summary
+ *   accent?: string – Optional accent/handwritten label
+ */
+import styles from './ServiceCard.module.css';
+const { title, icon = '', description, accent = '' } = Astro.props;
+---
+
+<div class={styles.card}>
+  {icon && icon.startsWith('/') ? (
+    <img src={icon} alt={title + ' icon'} class={styles.icon} />
+  ) : icon ? (
+    <span class={styles.emoji}>{icon}</span>
+  ) : null}
+  <h3 class={styles.title}>{title}</h3>
+  {accent && <span class={styles.accent}>{accent}</span>}
+  <p class={styles.desc}>{description}</p>
+</div>

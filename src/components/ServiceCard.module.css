@@ -1,0 +1,86 @@
+.card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  background: var(--brand-white, #fff);
+  border-radius: 1.1em;
+  box-shadow: 0 2px 18px 0 #0001;
+  padding: 1.3em 1.1em 1.1em 1.1em;
+  min-width: 0;
+  min-height: 220px;
+  gap: 0.5em;
+  transition: box-shadow 0.22s, transform 0.15s;
+  position: relative;
+}
+.card:hover, .card:focus-within {
+  box-shadow: 0 6px 36px 0 #a000001a, 0 1.5px 0.5px 0 #a000000f;
+  transform: translateY(-2px) scale(1.012);
+  z-index: 2;
+}
+
+.icon, .emoji {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.7em;
+  line-height: 1.1;
+  width: 2.4em;
+  height: 2.4em;
+  margin-bottom: 0.45em;
+  color: var(--brand-red);
+  background: #fff4f4;
+  border-radius: 0.9em;
+  box-shadow: 0 1px 3px #a0000013;
+}
+.icon img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 0.55em;
+}
+.emoji {
+  font-size: 2.1em;
+  background: transparent;
+  box-shadow: none;
+  border-radius: 0.6em;
+}
+.title {
+  font-family: var(--font-sans);
+  font-size: 1.07em;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  color: var(--brand-red);
+  margin: 0 0 0.25em 0;
+  text-transform: uppercase;
+}
+.accent {
+  position: absolute;
+  top: 0.75em;
+  right: 1.2em;
+  font-family: var(--font-accent);
+  font-size: 0.96em;
+  color: var(--brand-red);
+  opacity: 0.48;
+  transform: rotate(-8deg);
+  pointer-events: none;
+}
+.desc {
+  font-family: var(--font-sans);
+  font-size: 1em;
+  color: var(--brand-black);
+  line-height: 1.25;
+  margin: 0.2em 0 0 0;
+  flex: 1 0;
+}
+
+@media (min-width: 600px) {
+  .card {
+    min-height: 250px;
+    padding: 1.5em 1.3em 1.2em 1.3em;
+  }
+  .icon, .emoji {
+    font-size: 2.1em;
+    width: 2.8em;
+    height: 2.8em;
+  }
+}

@@ -1,0 +1,215 @@
+:root {
+    --brand-red: #a00000;
+    --brand-black: #111;
+    --brand-bg: #f9f7f3;
+    --brand-white: #fff;
+    --brand-beige: #f9f7f3;
+    --font-sans: "Inter", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    --font-accent: "Pacifico", cursive, sans-serif;
+    --h1-size: 2.3rem;
+    --h2-size: 1.2rem;
+    --h3-size: 1.07rem;
+    --body-size: 1rem;
+    --gap: 2rem;
+    --radius: 1.1em;
+    --shadow: 0 4px 32px 0 #0002;
+}
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+    background: var(--brand-bg);
+    color: var(--brand-black);
+    font-family: var(--font-sans);
+    font-size: 18px;
+    line-height: 1.35;
+}
+
+body {
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+}
+
+h1,
+.headline {
+    font-family: var(--font-sans);
+    font-size: var(--h1-size);
+    color: var(--brand-red);
+    font-weight: 900;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    line-height: 1.08;
+    margin: 0 0 0.3em 0;
+}
+
+h2,
+.subhead {
+    font-family: var(--font-sans);
+    font-size: var(--h2-size);
+    color: var(--brand-black);
+    text-transform: uppercase;
+    font-weight: 800;
+    margin: 0 0 1em 0;
+    letter-spacing: 0.02em;
+}
+
+h3 {
+    font-family: var(--font-sans);
+    font-size: var(--h3-size);
+    color: var(--brand-black);
+    font-weight: 700;
+    margin: 1.2em 0 0.45em 0;
+    text-transform: uppercase;
+    letter-spacing: 0.01em;
+}
+
+p,
+.body,
+.desc {
+    font-family: var(--font-sans);
+    font-size: var(--body-size);
+    color: var(--brand-black);
+    margin: 0 0 1em 0;
+    font-weight: 400;
+}
+
+a {
+    color: var(--brand-red);
+    text-decoration: none;
+    transition: color 0.15s;
+}
+a:hover,
+a:focus {
+    color: #c81111;
+    text-decoration: underline;
+}
+
+img,
+video {
+    max-width: 100%;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    background: #eee;
+}
+
+section {
+    margin-bottom: 2.4rem;
+    padding: 0;
+}
+
+.accent-script {
+    font-family: var(--font-accent);
+    color: var(--brand-red);
+    opacity: 0.52;
+    font-size: 1.02em;
+    font-weight: 400;
+    pointer-events: none;
+    user-select: none;
+    white-space: nowrap;
+    display: inline-block;
+    vertical-align: baseline;
+    letter-spacing: 0.015em;
+}
+
+@media (min-width: 680px) {
+    :root {
+        --h1-size: 3.2rem;
+        --h2-size: 1.44rem;
+        --h3-size: 1.13rem;
+        --body-size: 1.06rem;
+        --gap: 3.5rem;
+    }
+    section {
+        margin-bottom: 3.2rem;
+    }
+}
+
+::-webkit-scrollbar {
+    width: 9px;
+    background: var(--brand-bg);
+}
+::-webkit-scrollbar-thumb {
+    background: #e4d3d3;
+    border-radius: 6px;
+}
+
+::selection {
+    background: #fff3f3;
+}
+
+/* 1. Use a more-intuitive box-sizing model */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+/* 2. Remove default margin */
+* {
+    margin: 0;
+}
+
+/* 3. Enable keyword animations */
+@media (prefers-reduced-motion: no-preference) {
+    html {
+        interpolate-size: allow-keywords;
+    }
+}
+
+body {
+    /* 4. Add accessible line-height */
+    line-height: 1.5;
+    /* 5. Improve text rendering */
+    -webkit-font-smoothing: antialiased;
+}
+
+/* 6. Improve media defaults */
+img,
+picture,
+video,
+canvas,
+svg {
+    display: block;
+    max-width: 100%;
+}
+
+/* 7. Inherit fonts for form controls */
+input,
+button,
+textarea,
+select {
+    font: inherit;
+}
+
+/* 8. Avoid text overflows */
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    overflow-wrap: break-word;
+}
+
+/* 9. Improve line wrapping */
+p {
+    text-wrap: pretty;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    text-wrap: balance;
+}
+
+/*
+  10. Create a root stacking context
+*/
+#root,
+#__next {
+    isolation: isolate;
+}

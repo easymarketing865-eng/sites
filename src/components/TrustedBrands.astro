@@ -1,0 +1,63 @@
+---
+/**
+ * TrustedBrands.astro
+ * Editorial minimalist logo grid for “Best Brands Trust Us” section.
+ * Uses project images (e.g., Demir, VILAR, VITALIN, MENIKI, etc.) as brand tiles.
+ */
+import "../styles/global.css";
+import styles from "../styles/TrustedBrands.module.css";
+
+const brands = [
+    {
+        name: "Demir Bank",
+        img: "/photos/demir/width_800.webp",
+    },
+    {
+        name: "Asia Store",
+        img: "/photos/asiastore/width_800.webp",
+    },
+    {
+        name: "Elizaveta Real Estate",
+        img: "/photos/elizaveta/width_800.webp",
+    },
+    {
+        name: "MENIKI",
+        img: "/photos/MENIKI_ONE/width_800.webp",
+    },
+    {
+        name: "Red Petrolium",
+        img: "/photos/petrolium/width_800.webp",
+    },
+    {
+        name: "Fashion",
+        img: "/photos/Fashion/width_800.webp",
+    },
+    {
+        name: "VILAR",
+        img: "/photos/VILAR/width_800.webp",
+    },
+    {
+        name: "VITALIN",
+        img: "/photos/VITALIN/width_800.webp",
+    },
+];
+---
+
+<section class={styles.section} id="trusted-brands">
+    <h2 class={styles.headline}>Best Brands Trust Us</h2>
+    <div class={styles.grid}>
+        {
+            brands.map((brand) => (
+                <figure class={styles.card} title={brand.name}>
+                    <img
+                        src={brand.img}
+                        alt={brand.name + " logo or work"}
+                        class={styles.logo}
+                        loading="lazy"
+                    />
+                    <figcaption class={styles.caption}>{brand.name}</figcaption>
+                </figure>
+            ))
+        }
+    </div>
+</section>
