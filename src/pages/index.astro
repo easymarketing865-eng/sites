@@ -8,6 +8,14 @@ import About from "../components/About.astro";
 import Portfolio from "../components/Portfolio.astro";
 import Testimonials from "../components/Testimonials.astro";
 import "../styles/global.css";
+import TopSlogan from "../components/TopSlogan.astro";
+import PromoBanner from "../components/PromoBanner.astro";
+import ProjectsSection from "../components/ProjectsSection.astro";
+import ProjectsNavSection from "../components/ProjectsNavSection.astro";
+import ShowreelSection from "../components/ShowreelSection.astro";
+import BrandsSection from "../components/BrandsSection.astro";
+import SegmentsSection from "../components/TargetSegments.astro";
+// import ContactSection from "../components/ContactSection.astro";
 ---
 
 <html lang="en">
@@ -22,28 +30,18 @@ import "../styles/global.css";
             rel="stylesheet"
         />
     </head>
-    <body style="min-width:0;width:100vw;max-width:100vw;overflow-x:hidden;">
+    <body>
         <header class="main-header">
-            <a
-                class="brand-logo"
-                href="/"
-            >
-                easy. production
-            </a>
+            <!-- <img src="photos/headshot.webp" /> -->
+            <a class="brand-logo" href="/">easy production</a>
         </header>
-        <main style="min-width:0;width:100vw;max-width:100vw;overflow-x:hidden;">
+        <main>
             <section class="hero-section">
                 <div class="hero-text">
                     <h1 class="hero-head headline" style="position:relative;">
                         WORLD-CLASS VIDEO PRODUCTION
-                        <AccentScript
-                            text="creative"
-                            style="left:2.3em;top:0.54em;font-size:1.18rem;opacity:0.5;position:absolute;z-index:2;"
-                        />
                     </h1>
-                    <div
-                        class="hero-tagline body"
-                    >
+                    <div class="hero-tagline body">
                         Bold, authentic films for brands & agencies.
                         International vision. Kyrgyz soul.
                     </div>
@@ -63,107 +61,114 @@ import "../styles/global.css";
 
             <TargetSegments />
 
-            <About />
-
             <Portfolio />
 
             <Testimonials />
 
-            <!-- Place additional section components here in the order of the landing plan -->
+            <!-- Figma-based sections -->
+            <TopSlogan />
+            <PromoBanner />
+            <ProjectsSection />
+            <ProjectsNavSection />
+            <ShowreelSection />
+            <BrandsSection />
+            <SegmentsSection />
+            <!-- <ContactSection /> -->
         </main>
     </body>
     <style>
-    :root {
-      --hero-head-size: clamp(2.05rem, 8vw, 3.3rem);
-      --main-padding: 0.6em;
-      --main-maxwidth: 1300px;
-      --hero-tagline-size: clamp(1rem, 1.25vw, 1.11rem);
-    }
-    .main-header {
-      width: 100%;
-      display: flex;
-      align-items: center;
-      padding: 1.2rem 1.1rem 0.4rem 0.8rem;
-      background: transparent;
-      box-sizing: border-box;
-    }
-    .main-header .brand-logo {
-      font-size: 1.11rem;
-      font-weight: 900;
-      letter-spacing: 0.08em;
-      text-transform: lowercase;
-      color: var(--brand-red);
-      text-decoration: none;
-      background: none;
-      border: 0;
-      padding: 0;
-      font-family: var(--font-sans);
-      line-height: 1.05;
-      transition: color 0.13s;
-    }
-    .main-header .brand-logo:focus-visible,
-    .main-header .brand-logo:hover {
-      color: #c81111;
-      outline: none;
-      text-decoration: underline;
-    }
-    .hero-section {
-      width: 100%;
-      max-width: var(--main-maxwidth);
-      margin: 0 auto 1.35em auto;
-      padding: 0 var(--main-padding);
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-      position: relative;
-      box-sizing: border-box;
-    }
-    .hero-text {
-      max-width: 23rem;
-      padding-right: 0.5em;
-      z-index: 1;
-    }
-    .hero-head {
-      font-size: var(--hero-head-size);
-      position: relative;
-      letter-spacing: 0.03em;
-      font-family: var(--font-sans);
-      font-weight: 900;
-      color: var(--brand-red);
-      text-transform: uppercase;
-      margin: 0 0 0.25em 0;
-      line-height: 1.06;
-    }
-    .hero-tagline {
-      margin: 1.15em 0 0 0;
-      font-size: var(--hero-tagline-size);
-      line-height: 1.25;
-      letter-spacing: 0.015em;
-      color: var(--brand-black);
-      max-width: 28ch;
-    }
-    .hero-photo {
-      width: 100%;
-      max-width: 390px;
-      margin-top: 1.2em;
-      border-radius: var(--radius);
-      background: #eee;
-      box-shadow: 0 4px 32px 0 #0002;
-      object-fit: cover;
-      aspect-ratio: 4/5;
-      display: block;
-    }
-    @media (max-width: 420px) {
-      .hero-section {
-        padding: 0 0.5em;
-      }
-      .hero-text {
-        padding-right: 0.1em;
-      }
-      .hero-photo {
-        margin-top: 0.9em;
-      }
-    }
+        :root {
+            --hero-head-size: clamp(2.05rem, 8vw, 3.3rem);
+            --main-padding: 0.6em;
+            --main-maxwidth: 1300px;
+            --hero-tagline-size: clamp(1rem, 1.25vw, 1.11rem);
+        }
+        .main-header {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            padding: 1.2rem 1.1rem 0.4rem 0.8rem;
+            background: transparent;
+            box-sizing: border-box;
+        }
+        .main-header .brand-logo {
+            font-size: 1.11rem;
+            font-weight: 900;
+            letter-spacing: 0.08em;
+            /* text-transform: lowercase; */
+            color: var(--brand-red);
+            text-decoration: none;
+            background: none;
+            border: 0;
+            padding: 0;
+            font-family: var(--font-sans);
+            line-height: 1.05;
+            transition: color 0.13s;
+        }
+        .main-header .brand-logo:focus-visible,
+        .main-header .brand-logo:hover {
+            color: #c81111;
+            outline: none;
+            text-decoration: underline;
+        }
+
+        .hero-section {
+            width: 100%;
+            max-width: var(--main-maxwidth);
+            margin: 0 auto 1.35em auto;
+            padding: 0 var(--main-padding);
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            position: relative;
+            box-sizing: border-box;
+        }
+        .hero-text {
+            max-width: 23rem;
+            padding-right: 0.5em;
+            z-index: 1;
+        }
+        .hero-head {
+            font-size: var(--hero-head-size);
+            position: relative;
+            letter-spacing: 0.03em;
+            font-family: var(--font-sans);
+            font-weight: 900;
+            color: var(--brand-red);
+            text-transform: uppercase;
+            margin: 0 0 0.25em 0;
+            line-height: 1.06;
+        }
+        .hero-tagline {
+            margin: 1.15em 0 0 0;
+            font-size: var(--hero-tagline-size);
+            line-height: 1.25;
+            letter-spacing: 0.015em;
+            color: var(--brand-black);
+            max-width: 28ch;
+        }
+        .hero-photo {
+            width: 100%;
+            max-width: 390px;
+            margin-top: 1.2em;
+            border-radius: var(--radius);
+            background: #eee;
+            box-shadow: 0 4px 32px 0 #0002;
+            object-fit: cover;
+            aspect-ratio: 4/5;
+            display: block;
+        }
+        @media (max-width: 420px) {
+            .hero-section {
+                padding: 0 0.5em;
+            }
+            .hero-text {
+                padding-right: 0.1em;
+            }
+            .hero-photo {
+                margin-top: 0.9em;
+            }
+        }
     </style>
 </html>
 
