@@ -26,7 +26,7 @@ import SegmentsSection from "../components/TargetSegments.astro";
         <meta name="generator" content={Astro.generator} />
         <title>easy. production</title>
         <link
-            href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap"
+            href="https://fonts.googleapis.com/css2?family=Manrope:wght@800&display=swap"
             rel="stylesheet"
         />
     </head>
@@ -38,19 +38,27 @@ import SegmentsSection from "../components/TargetSegments.astro";
         <main>
             <section class="hero-section">
                 <div class="hero-text">
-                    <h1 class="hero-head headline" style="position:relative;">
-                        WORLD-CLASS VIDEO PRODUCTION
+                    <h1 class="hero-head headline">
+                        <div class="hero-line">
+                            <span>STUNNING</span>
+                            <img src="/photos/stunning.jpg" alt="Stunning visual" class="hero-line-img" />
+                        </div>
+                        <div class="hero-line">
+                            <img src="/photos/affordable.jpg" alt="Affordable production" class="hero-line-img" />
+                            <span>AFFORDABLE</span>
+                        </div>
+                        <div class="hero-line">
+                            <span>PRODUCTIONS</span>
+                            <img src="/photos/productions.jpg" alt="Production scene" class="hero-line-img" />
+                        </div>
+                        <div class="hero-line">
+                            <span>FROM CENTRAL ASIA</span>
+                            
+                        </div>
                     </h1>
-                    <div class="hero-tagline body">
-                        Bold, authentic films for brands & agencies.
-                        International vision. Kyrgyz soul.
-                    </div>
+                    <img src="/photos/showreel.jpg" alt="Showreel" class="showreel-img" />
+                    <h1 class="showreel-heading">Where stories meet the wild.</h1>
                 </div>
-                <img
-                    class="hero-photo"
-                    src="/photos/demir/width_800.webp"
-                    alt="Agency founder—candid, creative headshot"
-                />
             </section>
 
             <Services />
@@ -124,20 +132,25 @@ import SegmentsSection from "../components/TargetSegments.astro";
             box-sizing: border-box;
         }
         .hero-text {
-            max-width: 23rem;
+            max-width: none;
             padding-right: 0.5em;
             z-index: 1;
+            width: 100%;
         }
         .hero-head {
-            font-size: var(--hero-head-size);
+            font-size: 88px;
             position: relative;
             letter-spacing: 0.03em;
-            font-family: var(--font-sans);
-            font-weight: 900;
+            font-family: 'Manrope', var(--font-sans);
+            font-weight: 800;
             color: var(--brand-red);
             text-transform: uppercase;
             margin: 0 0 0.25em 0;
             line-height: 1.06;
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            width: 100%;
         }
         .hero-tagline {
             margin: 1.15em 0 0 0;
@@ -158,6 +171,38 @@ import SegmentsSection from "../components/TargetSegments.astro";
             aspect-ratio: 4/5;
             display: block;
         }
+        .hero-line {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            margin-bottom: 1rem;
+            width: 100%;
+
+        }
+        .hero-line span {
+            font-size: 88px;
+        }
+        .hero-line-img {
+            height: 85px;
+            width: auto;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+        @media (max-width: 768px) {
+            .hero-line {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+            .hero-line span {
+                font-size: 48px;
+            }
+            .hero-line-img {
+                width: 100%;
+                height: auto;
+                max-height: 85px;
+            }
+        }
         @media (max-width: 420px) {
             .hero-section {
                 padding: 0 0.5em;
@@ -168,6 +213,22 @@ import SegmentsSection from "../components/TargetSegments.astro";
             .hero-photo {
                 margin-top: 0.9em;
             }
+        }
+        .showreel-img {
+            width: 100%;
+            height: auto;
+            margin-top: 4rem;
+            border-radius: 12px;
+            object-fit: cover;
+        }
+        .showreel-heading {
+            font-family: 'Manrope', var(--font-sans);
+            font-weight: 800;
+            font-size: 48px;
+            color: var(--brand-red);
+            text-align: center;
+            margin: 2rem 0;
+            width: 100%;
         }
     </style>
 </html>
