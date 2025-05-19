@@ -59,7 +59,7 @@
 .img {
   width: 100%;
   max-width: 380px;
-  border-radius: 1em;
+
   box-shadow: 0 4px 22px 0 #b5000020;
   object-fit: cover;
   aspect-ratio: 5/6;

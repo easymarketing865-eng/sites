@@ -32,8 +32,9 @@ import SegmentsSection from "../components/TargetSegments.astro";
     </head>
     <body>
         <header class="main-header">
-            <!-- <img src="photos/headshot.webp" /> -->
-            <a class="brand-logo" href="/">easy production</a>
+            <a class="brand-logo" href="/">
+                <img src="/photos/logo.svg" alt="easy. production" class="logo-img" />
+            </a>
         </header>
         <main>
             <section class="hero-section">
@@ -44,8 +45,8 @@ import SegmentsSection from "../components/TargetSegments.astro";
                             <img src="/photos/stunning.jpg" alt="Stunning visual" class="hero-line-img" />
                         </div>
                         <div class="hero-line">
-                            <img src="/photos/affordable.jpg" alt="Affordable production" class="hero-line-img" />
                             <span>AFFORDABLE</span>
+                            <img src="/photos/affordable.jpg" alt="Affordable production" class="hero-line-img" />
                         </div>
                         <div class="hero-line">
                             <span>PRODUCTIONS</span>
@@ -53,13 +54,13 @@ import SegmentsSection from "../components/TargetSegments.astro";
                         </div>
                         <div class="hero-line">
                             <span>FROM CENTRAL ASIA</span>
-                            
                         </div>
                     </h1>
                     <img src="/photos/showreel.jpg" alt="Showreel" class="showreel-img" />
                     <h1 class="showreel-heading">Where stories meet the wild.</h1>
                 </div>
             </section>
+            <Portfolio />
 
             <Services />
 
@@ -69,7 +70,7 @@ import SegmentsSection from "../components/TargetSegments.astro";
 
             <TargetSegments />
 
-            <Portfolio />
+            
 
             <Testimonials />
 
@@ -80,15 +81,19 @@ import SegmentsSection from "../components/TargetSegments.astro";
             <ProjectsNavSection />
             <ShowreelSection />
             <BrandsSection />
-            <SegmentsSection />
+
             <!-- <ContactSection /> -->
         </main>
     </body>
     <style>
         :root {
-            --hero-head-size: clamp(2.05rem, 8vw, 3.3rem);
+            --font-size-xl: 88px;    /* Main headlines */
+            --font-size-lg: 42px;    /* Section headlines */
+            --font-size-md: 32px;    /* Sub headlines */
+            --font-size-base: 16px;  /* Body text */
             --main-padding: 0.6em;
             --main-maxwidth: 1300px;
+            --hero-head-size: clamp(2.05rem, 8vw, 3.3rem);
             --hero-tagline-size: clamp(1rem, 1.25vw, 1.11rem);
         }
         .main-header {
@@ -100,32 +105,30 @@ import SegmentsSection from "../components/TargetSegments.astro";
             box-sizing: border-box;
         }
         .main-header .brand-logo {
-            font-size: 1.11rem;
-            font-weight: 900;
-            letter-spacing: 0.08em;
-            /* text-transform: lowercase; */
-            color: var(--brand-red);
             text-decoration: none;
-            background: none;
+            background: transparent;
             border: 0;
             padding: 0;
-            font-family: var(--font-sans);
             line-height: 1.05;
-            transition: color 0.13s;
+            transition: opacity 0.13s;
         }
         .main-header .brand-logo:focus-visible,
         .main-header .brand-logo:hover {
-            color: #c81111;
+            opacity: 0.8;
             outline: none;
-            text-decoration: underline;
         }
-
+        .logo-img {
+            width: 128px;
+            height: auto;
+            display: block;
+            mix-blend-mode: multiply;
+            background: transparent;
+        }
         .hero-section {
             width: 100%;
             max-width: var(--main-maxwidth);
             margin: 0 auto 1.35em auto;
-            padding: 0 var(--main-padding);
-            display: flex;
+            padding: 0 2rem;            display: flex;
             flex-direction: column;
             align-items: flex-start;
             position: relative;
@@ -138,7 +141,7 @@ import SegmentsSection from "../components/TargetSegments.astro";
             width: 100%;
         }
         .hero-head {
-            font-size: 88px;
+            font-size: var(--font-size-xl);
             position: relative;
             letter-spacing: 0.03em;
             font-family: 'Manrope', var(--font-sans);
@@ -160,12 +163,13 @@ import SegmentsSection from "../components/TargetSegments.astro";
             color: var(--brand-black);
             max-width: 28ch;
         }
+        ``
         .hero-photo {
             width: 100%;
             max-width: 390px;
             margin-top: 1.2em;
             border-radius: var(--radius);
-            background: #eee;
+            background: var(--site-bg);
             box-shadow: 0 4px 32px 0 #0002;
             object-fit: cover;
             aspect-ratio: 4/5;
@@ -174,38 +178,57 @@ import SegmentsSection from "../components/TargetSegments.astro";
         .hero-line {
             display: flex;
             align-items: center;
-            gap: 2rem;
-            margin-bottom: 1rem;
+            justify-content: start;
+            gap: 1rem;
             width: 100%;
-
+            
+        }
+        .hero-line:nth-child(even) {
+            flex-direction: row-reverse;
         }
         .hero-line span {
-            font-size: 88px;
+            font-size: var(--font-size-xl);
+            flex: 0 1 auto;
         }
         .hero-line-img {
             height: 85px;
             width: auto;
+            min-width: 200px;
             object-fit: cover;
             border-radius: 8px;
         }
         @media (max-width: 768px) {
-            .hero-line {
+            :root {
+                --font-size-xl: 48px;
+                --font-size-lg: 36px;
+                --font-size-md: 24px;
+                --font-size-base: 16px;
+            }
+            .hero-line, .hero-line:nth-child(even) {
                 flex-direction: column;
                 align-items: flex-start;
                 gap: 1rem;
+                margin-bottom: 3rem;
             }
             .hero-line span {
-                font-size: 48px;
+                font-size: var(--font-size-xl);
             }
             .hero-line-img {
                 width: 100%;
                 height: auto;
                 max-height: 85px;
+                min-width: unset;
             }
         }
         @media (max-width: 420px) {
+            :root {
+                --font-size-xl: 42px;
+                --font-size-lg: 32px;
+                --font-size-md: 21px;
+                --font-size-base: 16px;
+            }
             .hero-section {
-                padding: 0 0.5em;
+                padding: 0 2rem;
             }
             .hero-text {
                 padding-right: 0.1em;
@@ -218,125 +241,44 @@ import SegmentsSection from "../components/TargetSegments.astro";
             width: 100%;
             height: auto;
             margin-top: 4rem;
-            border-radius: 12px;
             object-fit: cover;
         }
         .showreel-heading {
             font-family: 'Manrope', var(--font-sans);
             font-weight: 800;
-            font-size: 48px;
+            font-size: var(--font-size-lg);
             color: var(--brand-red);
             text-align: center;
             margin: 2rem 0;
             width: 100%;
         }
+        .brands-title, 
+        .we-cater-title {
+            font-size: var(--font-size-lg);
+            font-family: 'Manrope', var(--font-sans);
+            font-weight: 800;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        .segment-title {
+            font-size: var(--font-size-md);
+            font-family: 'Manrope', var(--font-sans);
+            font-weight: 800;
+            margin-bottom: 1rem;
+        }
+        .segment-desc,
+        .service-desc {
+            font-size: var(--font-size-base);
+            line-height: 1.5;
+        }
+        .service-title {
+            font-size: var(--font-size-md);
+            font-family: 'Manrope', var(--font-sans);
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+        }
     </style>
 </html>
 
 <!-- SERVICES/FEATURE CARDS -->
-<section class="services-section">
-    <div class="services-row">
-        <div class="service-card">
-            <div class="service-icon service-icon-creative"></div>
-            <div class="service-title">Ycayzu</div>
-            <div class="service-desc">Creative Direction</div>
-        </div>
-        <div class="service-card">
-            <div class="service-icon service-icon-brand"></div>
-            <div class="service-title">Brand</div>
-            <div class="service-desc">Brand Strategy</div>
-        </div>
-        <div class="service-card">
-            <div class="service-icon service-icon-script"></div>
-            <div class="service-title">Script Writing</div>
-            <div class="service-desc">Story &amp; Scripting</div>
-        </div>
-        <div class="service-card">
-            <div class="service-icon service-icon-broadcast"></div>
-            <div class="service-title">Broadcast &amp; Creativity</div>
-            <div class="service-desc">Media &amp; Production</div>
-        </div>
-    </div>
-</section>
 
-<!-- SHOWREEL SECTION (Placeholder) -->
-<section class="showreel-section">
-    <div class="showreel-background">
-        <AccentScript
-            text="production, creativity, direction, editing, filming, quality, Kyrgyzstan, Dubai, visuals, documentary, brand, campaign, crew, global, unique, storytelling"
-            style="left:2vw;top:0.2em;font-size:1.08rem;opacity:0.15;position:absolute;z-index:1;"
-        />
-    </div>
-    <div class="showreel-content">
-        <div class="showreel-video-placeholder">
-            <span>Showreel Video Coming Soon</span>
-        </div>
-        <div class="showreel-facts">
-            <div class="showreel-fact">
-                <strong>Gear:</strong> ARRI, RED, Drone
-            </div>
-            <div class="showreel-fact"><strong>Scripts:</strong> 100+</div>
-            <div class="showreel-fact">
-                <strong>Locations:</strong> 3+ countries
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- TRUSTED BRANDS GRID -->
-<section class="brands-section">
-    <h2 class="brands-title">Best Brands Trust Us</h2>
-    <div class="brands-grid">
-        <div class="brand-logo brand1">Demir Bank</div>
-        <div class="brand-logo brand2">Asia Store</div>
-        <div class="brand-logo brand3">Elizaveta Real Estate</div>
-        <div class="brand-logo brand4">MENIKI</div>
-        <div class="brand-logo brand5">Red Petrolium</div>
-        <div class="brand-logo brand6">Fashion</div>
-        <div class="brand-logo brand7">VILAR</div>
-        <div class="brand-logo brand8">VITALIN</div>
-    </div>
-</section>
-
-<!-- WE CATER TO (TARGET SEGMENTS) -->
-<section class="we-cater-section">
-    <h2 class="we-cater-title">We Cater To</h2>
-    <div class="segments-columns">
-        <div class="segment-column">
-            <div class="segment-title">Independent Filmmakers</div>
-            <div class="segment-desc">
-                High production value, unique aesthetics, cost-effective,
-                creative, striking Kyrgyz locations.
-            </div>
-        </div>
-        <div class="segment-column">
-            <div class="segment-title">Advertising Agencies</div>
-            <div class="segment-desc">
-                Reliable, creative, cost-efficient partner, professional
-                standards, deadlines, concept-to-visuals.
-            </div>
-        </div>
-        <div class="segment-column">
-            <div class="segment-title">Brands</div>
-            <div class="segment-desc">
-                Direct-to-brand work, high-quality marketing videos,
-                commercials, brand stories, exceptional value.
-            </div>
-        </div>
-        <div class="segment-column">
-            <div class="segment-title">
-                Companies Needing Crews in Central Asia
-            </div>
-            <div class="segment-desc">
-                Local expertise, established network, regional logistics.
-            </div>
-        </div>
-        <div class="segment-column">
-            <div class="segment-title">International Productions</div>
-            <div class="segment-desc">
-                Proven ability to execute abroad, adaptable team, quality/cost
-                model, ready to travel.
-            </div>
-        </div>
-    </div>
-</section>

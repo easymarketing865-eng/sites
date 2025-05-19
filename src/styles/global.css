@@ -1,34 +1,40 @@
 :root {
-    --brand-red: #a00000;
-    --brand-black: #111;
+    --brand-red: #000;
+    --brand-black: #111111;
     --brand-bg: #f9f7f3;
     --brand-white: #fff;
     --brand-beige: #f9f7f3;
-    --font-sans: "Inter", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    --font-sans: 'Manrope', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     --font-accent: "Pacifico", cursive, sans-serif;
     --h1-size: 2.3rem;
     --h2-size: 1.2rem;
     --h3-size: 1.07rem;
     --body-size: 1rem;
     --gap: 2rem;
-    --radius: 1.1em;
+    --radius: 0.9em;
+    --site-bg: #F1F3E8;
+    
     --shadow: 0 4px 32px 0 #0002;
 }
+
+/* Import Manrope font */
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap');
 
 html,
 body {
     margin: 0;
     padding: 0;
-    background: var(--brand-bg);
+    background: var(--site-bg);
     color: var(--brand-black);
     font-family: var(--font-sans);
     font-size: 18px;
     line-height: 1.35;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
 body {
     min-height: 100vh;
-    -webkit-font-smoothing: antialiased;
 }
 
 h1,
@@ -81,14 +87,13 @@ a {
 }
 a:hover,
 a:focus {
-    color: #c81111;
+    color: #333;
     text-decoration: underline;
 }
 
 img,
 video {
     max-width: 100%;
-    border-radius: var(--radius);
     box-shadow: var(--shadow);
     background: #eee;
 }
@@ -131,7 +136,6 @@ section {
 }
 ::-webkit-scrollbar-thumb {
     background: #e4d3d3;
-    border-radius: 6px;
 }
 
 ::selection {

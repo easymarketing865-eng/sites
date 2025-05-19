@@ -29,7 +29,6 @@
 
 .card {
   background: var(--brand-white, #fff);
-  border-radius: 1.1em;
   box-shadow: 0 2px 14px #0001;
   padding: 1.25em 1.2em 1.15em 1.2em;
   min-width: 0;

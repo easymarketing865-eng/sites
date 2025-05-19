@@ -10,32 +10,21 @@ import "../styles/global.css";
 import styles from "../styles/Showreel.module.css";
 ---
 
-<section class={styles.showreelSection} id="showreel">
-  <div class={styles.backgroundWords}>
-    <AccentScript text="production · scriptwriting · editing · creativity · direction · filming · Kyrgyzstan · Dubai · brand · portfolio · storytelling ·" style="font-size:2.15rem;opacity:0.16;left:1em;top:.5em;position:relative;line-height:1.2;" />
-  </div>
-  <div class={styles.contentWrap}>
-    <div class={styles.mediaBlock}>
-      <img 
-        src="/photos/showreel.webp" 
-        alt="Showreel preview" 
-        class={styles.showreelImg} 
-        loading="lazy"
-      />
-      <!-- VIDEO-EMBED TODO: Replace img with <video> if showreel hosted -->
-      <div class={styles.overlayAccent}>
-        <AccentScript text="showreel" style="font-size:2.4em;opacity:.28;top:1.2em;left:1.1em;position:absolute;" />
-      </div>
+<section class="showreel-section">
+    <div class="showreel-background">
     </div>
-    <div class={styles.quickFactsBlock}>
-      <h2 class={styles.sectionTitle}>Showreel Highlights</h2>
-      <ul class={styles.factsList}>
-        <li>Shot on ARRI, RED & Drone</li>
-        <li>Projects in Kyrgyzstan & Dubai</li>
-        <li>Script-to-screen expertise</li>
-        <li>Documentary & commercial styles</li>
-        <li>International, scalable team</li>
-      </ul>
+    <div class="showreel-content">
+        <div class="showreel-video-placeholder">
+            <span>Showreel Video Coming Soon</span>
+        </div>
+        <div class="showreel-facts">
+            <div class="showreel-fact">
+                <strong>Gear:</strong> ARRI, RED, Drone
+            </div>
+            <div class="showreel-fact"><strong>Scripts:</strong> 100+</div>
+            <div class="showreel-fact">
+                <strong>Locations:</strong> 3+ countries
+            </div>
+        </div>
     </div>
-  </div>
 </section>

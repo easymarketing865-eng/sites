@@ -36,7 +36,6 @@
     align-items: center;
     justify-content: center;
     background: var(--brand-white, #fff);
-    border-radius: 1.08em;
     box-shadow: 0 2px 14px #0001;
     padding: 0.5em 0.3em 0.5em 0.3em;
     min-width: 0;
@@ -61,7 +60,6 @@
     max-width: 90px;
     height: auto;
     object-fit: contain;
-    border-radius: 0.52em;
     background: #fafafa;
     box-shadow: none;
     margin-bottom: 0.3em;
