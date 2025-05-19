@@ -10,37 +10,37 @@ const projects = [
     {
         title: "Demir Bank",
         img: "/photos/demir/width_800.webp",
-        desc: "Documentary campaign filmed across Kyrgyz banking, showing real stories and trust.",
+        desc: "Campaign across Kyrgyzstan",
     },
     {
         title: "Elizaveta Real Estate",
         img: "/photos/ELIZAVETA.webp",
-        desc: "Bespoke lifestyle visuals for a leading property developer, promoting urban living.",
+        desc: "Urban lifestyle visuals",
     },
     {
         title: "Fashion",
         img: "/photos/Fashion/width_800.webp",
-        desc: "Editorial-style fashion films and campaign visuals with a modern edge.",
+        desc: "Editorial films",
     },
     {
         title: "MENIKI",
         img: "/photos/MENIKI_ONE/width_800.webp",
-        desc: "Bold commercials for a trailblazing retail brand, merging cinema and commerce.",
+        desc: "Retail brand story",
     },
     {
         title: "Petrolium",
         img: "/photos/petrolium/width_800.webp",
-        desc: "Striking facility and team vignettes for an energy leader.",
+        desc: "Energy leader visuals",
     },
     {
         title: "VILAR",
         img: "/photos/VILAR/width_800.webp",
-        desc: "Product stories and micro-documentaries for a key beverage brand.",
+        desc: "Product stories",
     },
     {
         title: "VITALIN",
         img: "/photos/VITALIN/width_800.webp",
-        desc: "Health-focused spots highlighting authenticity and local story.",
+        desc: "Health campaign",
     },
 ];
 ---
@@ -76,7 +76,7 @@ const projects = [
     grid-template-columns: repeat(2, 1fr);
     gap: 2rem;
     width: 100%;
-    padding: 0 3rem;
+    padding: 0 2rem;
 }
 .portfolio-card {
     width: 100%;
@@ -85,7 +85,6 @@ const projects = [
     position: relative;
     display: flex;
     flex-direction: column;
-    gap: 0.5rem;
     text-decoration: none;
     cursor: pointer;
     transition: all 0.2s ease;
@@ -97,89 +96,102 @@ const projects = [
     background: var(--site-bg);
 }
 .portfolio-caption {
+    position: absolute;
+    bottom: 1rem;
+    left: 2rem;
     padding: 0;
-    max-width: 800px;
     display: flex;
-    flex-direction: column;
-    
+    flex-direction: row;
+    align-items: baseline;
+    gap: 0.5rem;
+    z-index: 2;
 }
 .portfolio-title {
     font-family: 'Manrope', var(--font-sans);
     font-size: 32px;
     font-weight: 800;
-    color: #000;
-    opacity: 0.85;
+    color: #fff;
+    opacity: 0.95;
     margin: 0;
     line-height: 1.2;
     text-decoration: underline;
     text-underline-offset: 4px;
     text-decoration-thickness: 0.5px;
-    text-decoration-color: rgba(0, 0, 0, 0.2);
+    text-decoration-color: rgba(255, 255, 255, 0.3);
     transition: all 0.2s ease;
 }
 .portfolio-desc {
     font-size: 16px;
-    color: #000;
-    opacity: 0.7;
+    color: #fff;
+    opacity: 0.8;
     font-family: 'Manrope', var(--font-sans);
     line-height: 1.5;
     margin: 0;
     font-weight: 400;
-    transition: all 0.2s ease;
 }
 
 /* Hover effects for the entire card */
 .portfolio-card:hover .portfolio-title {
-    color: #A00000;
     opacity: 1;
-    text-decoration-color: rgba(160, 0, 0, 0.4);
+    text-decoration-color: rgba(255, 255, 255, 0.6);
 }
 
 .portfolio-card:hover .portfolio-desc {
-    opacity: 0.8;
+    opacity: 0.9;
 }
 
-/* Target every 3rd project and the ones after it */
+/* Full-width card styles */
 .portfolio-card:nth-child(3n+1) {
-    grid-column: 1 / -1;  /* Full width */
+    grid-column: 1 / -1;
 }
 
-/* Adjust image heights based on layout */
-.portfolio-img {
-    width: 100%;
-    height: 50vh;
-    object-fit: cover;
-    background: var(--site-bg);
-}
-
-/* Make full-width images taller */
 .portfolio-card:nth-child(3n+1) .portfolio-img {
     height: 85vh;
 }
 
+.portfolio-card:nth-child(3n+1) .portfolio-caption {
+    bottom: 1rem;
+    left: 3rem;
+}
+
 @media (max-width: 768px) {
     .portfolio-grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(2, 1fr);
         padding: 0 1rem;
-        gap: 4rem;
+        gap: 0.5rem;
     }
     
-    .portfolio-img,
+    .portfolio-img {
+        height: 300px;
+    }
+    
+    .portfolio-card:nth-child(3n+1) {
+        grid-column: 1 / -1;
+    }
+    
     .portfolio-card:nth-child(3n+1) .portfolio-img {
-        height: 60vh;  /* Consistent height on mobile */
+        height: 300px;
     }
-    .portfolio-card {
-        padding: 0;
-        gap: 1rem;
-    }
+    
     .portfolio-title {
-        font-size: 24px;
-        text-underline-offset: 3px;
-        text-decoration-thickness: 0.5px;
+        font-size: 20px;
     }
+    
     .portfolio-desc {
-        font-size: 14px;
-        line-height: 1.4;
+        font-size: 12px;
+    }
+    
+    .portfolio-caption {
+        bottom: 1rem;
+        left: 1rem;
+        flex-direction: column;
+        gap: 0.25rem;
+        max-width: calc(100% - 2rem);
+    }
+    
+    .portfolio-card:nth-child(3n+1) .portfolio-caption {
+        bottom: 1rem;
+        left: 1rem;
     }
 }
 </style>
