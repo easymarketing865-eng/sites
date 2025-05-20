@@ -1,0 +1,99 @@
+<header class="main-header">
+    <img src="/photos/headshot.webp" alt="Headshot" class="logo-img" />
+    <a class="brand-logo" href="/">
+        <img src="/photos/logo.svg" alt="easy. production" class="logo-img" />
+    </a>
+    <a href="/contact" class="hire-us-btn">Hire us</a>
+</header>
+
+<style>
+    .main-header {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: start;
+        background: transparent;
+        padding: 0.55rem 0.5rem 0.3rem 0.5rem;
+        box-sizing: border-box;
+    }
+    .main-header .brand-logo {
+        text-decoration: none;
+        background: transparent;
+        border: 0;
+        padding: 0;
+        line-height: 1.05;
+        transition: opacity 0.13s;
+    }
+    .main-header .brand-logo:focus-visible,
+    .main-header .brand-logo:hover {
+        opacity: 0.8;
+        outline: none;
+    }
+    .logo-img {
+        width: 90px;
+        height: auto;
+        display: block;
+        mix-blend-mode: multiply;
+        background: transparent;
+    }
+
+    .hire-us-btn {
+        position: fixed;
+        bottom: 3rem;
+        right: 1rem;
+        z-index: 932;
+        display: inline-block;
+        margin-left: auto;
+        padding: 0.5em 1.2em;
+        font-size: 1rem;
+        font-weight: 700;
+        color: #fff;
+        background: linear-gradient(90deg, #a80000 0%, #740000 100%);
+        border: none;
+        border-radius: 2em;
+        box-shadow:
+            0 2px 12px rgba(168, 0, 0, 0.18),
+            0 1px 3.5px #720000 inset;
+        cursor: pointer;
+        text-decoration: none;
+        transition:
+            background 0.17s,
+            transform 0.1s,
+            box-shadow 0.17s;
+        letter-spacing: 0.03em;
+    }
+    .hire-us-btn:hover,
+    .hire-us-btn:focus-visible {
+        background: linear-gradient(90deg, #740000 0%, #a80000 100%);
+        box-shadow:
+            0 4px 24px rgba(168, 0, 0, 0.26),
+            0 1px 7px #720000 inset;
+        transform: translateY(-2px) scale(1.04);
+        outline: none;
+    }
+    /* Responsive (mobile-first) adjustments */
+    @media (min-width: 500px) {
+        .main-header {
+            padding: 0.8rem 1.1rem 0.4rem 0.8rem;
+        }
+        .logo-img {
+            width: 128px;
+        }
+        .hire-us-btn {
+            font-size: 1.13rem;
+            padding: 0.7em 1.65em;
+        }
+    }
+    @media (min-width: 720px) {
+        .main-header {
+            padding: 1.15rem 3.1rem 1rem 1.5rem;
+        }
+        .logo-img {
+            width: 150px;
+        }
+        .hire-us-btn {
+            font-size: 1.2rem;
+            padding: 0.8em 2.1em;
+        }
+    }
+</style>
