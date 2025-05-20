@@ -1,0 +1,100 @@
+---
+import { AGENCY_WORDS_30 } from "./constants";
+const words = AGENCY_WORDS_30.slice(0, 5);
+export const hydrate = "load";
+---
+
+<section class="wegoodat">
+    <div class="wegoodat__list">
+        {
+            words.map((w, i) => (
+                <button class="wegoodat__item" data-index={i}>
+                    {w}
+                </button>
+            ))
+        }
+    </div>
+    <div class="wegoodat__preview" id="wegoodat-preview">{words[0]}</div>
+</section>
+
+<script>
+    import { AGENCY_WORDS_30 } from "./constants";
+    const words = AGENCY_WORDS_30.slice(0, 5);
+    export const hydrate = "load";
+    const wordsArr = words;
+    const buttons = document.querySelectorAll(".wegoodat__item");
+    const preview = document.getElementById("wegoodat-preview");
+    let index = 0;
+
+    buttons.forEach((btn) => {
+        btn.addEventListener("click", () => {
+            index = Number(btn.dataset.index);
+            preview.textContent = wordsArr[index];
+            buttons.forEach((b) => b.classList.remove("active"));
+            btn.classList.add("active");
+        });
+    });
+
+    if (buttons[0]) buttons[0].classList.add("active");
+</script>
+
+<style>
+    .wegoodat {
+        display: flex;
+        gap: 2rem;
+        align-items: flex-start;
+        justify-content: space-between;
+        max-width: 1200px;
+        margin: 2rem auto;
+        padding: 1rem;
+        flex-wrap: wrap;
+    }
+    .wegoodat__list {
+        flex: 1 1 200px;
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+    .wegoodat__item {
+        background: transparent;
+        border: none;
+        font-family: var(--font-sans);
+        font-size: 1.1rem;
+        text-align: left;
+        padding: 0.5rem;
+        cursor: pointer;
+        transition:
+            color 0.2s,
+            background 0.2s;
+        color: var(--brand-black);
+    }
+    .wegoodat__item:hover {
+        background: rgba(0, 0, 0, 0.05);
+    }
+    .wegoodat__item.active {
+        color: var(--brand-red);
+        font-weight: 700;
+    }
+    .wegoodat__preview {
+        flex: 2 1 300px;
+        min-height: 200px;
+        background: #f5f5f5;
+        border-radius: 0.5rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: var(--font-sans);
+        font-size: 1.5rem;
+        color: #666;
+        padding: 1rem;
+        text-align: center;
+    }
+    @media (max-width: 768px) {
+        .wegoodat {
+            flex-direction: column;
+        }
+        .wegoodat__preview {
+            width: 100%;
+        }
+    }
+</style>

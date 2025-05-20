@@ -16,6 +16,7 @@ import ShowreelSection from "../components/ShowreelSection.astro";
 import BrandsSection from "../components/BrandsSection.astro";
 import SegmentsSection from "../components/TargetSegments.astro";
 import Hero from "../components/Hero.astro";
+import WeGoodAt from "../components/WeGoodAt.astro";
 // import ContactSection from "../components/ContactSection.astro";
 ---
 
@@ -43,6 +44,7 @@ import Hero from "../components/Hero.astro";
         </header>
         <main>
             <Hero />
+            <WeGoodAt client:load />
             <ProjectsNavSection />
 
             <Portfolio />
