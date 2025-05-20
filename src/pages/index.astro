@@ -61,8 +61,8 @@ import WeGoodAt from "../components/WeGoodAt.astro";
 
             <!-- Figma-based sections -->
             <TopSlogan />
-            <PromoBanner />
-            <ProjectsSection />
+            <!-- <PromoBanner /> -->
+            <!-- <ProjectsSection /> -->
             <ShowreelSection />
             <BrandsSection />
 
@@ -112,7 +112,8 @@ import WeGoodAt from "../components/WeGoodAt.astro";
             width: 100%;
             max-width: var(--main-maxwidth);
             margin: 0 auto 1.35em auto;
-            padding: 0 2rem;            display: flex;
+            padding: 0 2rem;
+            display: flex;
             flex-direction: column;
             align-items: flex-start;
             position: relative;
@@ -128,7 +129,7 @@ import WeGoodAt from "../components/WeGoodAt.astro";
             font-size: var(--font-size-xl);
             position: relative;
             letter-spacing: 0.03em;
-            font-family: 'Manrope', var(--font-sans);
+            font-family: "Manrope", var(--font-sans);
             font-weight: 800;
             color: var(--brand-red);
             text-transform: uppercase;
@@ -147,8 +148,7 @@ import WeGoodAt from "../components/WeGoodAt.astro";
             color: var(--brand-black);
             max-width: 28ch;
         }
-        ``
-        .hero-photo {
+        `` .hero-photo {
             width: 100%;
             max-width: 390px;
             margin-top: 1.2em;
@@ -165,7 +165,6 @@ import WeGoodAt from "../components/WeGoodAt.astro";
             justify-content: start;
             gap: 1rem;
             width: 100%;
-            
         }
         .hero-line:nth-child(even) {
             flex-direction: row-reverse;
@@ -187,7 +186,8 @@ import WeGoodAt from "../components/WeGoodAt.astro";
                 --font-size-md: 24px;
                 --font-size-base: 16px;
             }
-            .hero-line, .hero-line:nth-child(even) {
+            .hero-line,
+            .hero-line:nth-child(even) {
                 flex-direction: column;
                 align-items: flex-start;
                 gap: 1rem;
