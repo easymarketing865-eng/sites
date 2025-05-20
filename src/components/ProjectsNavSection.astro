@@ -1,17 +1,196 @@
 ---
-/* Navigation for project categories */
+import { TYPICAL_CLIENT_PROBLEMS, AGENCY_WORDS_30 } from "./constants";
+const problems = TYPICAL_CLIENT_PROBLEMS.slice(0, 4);
+const solutions = AGENCY_WORDS_30.slice(0, 4);
 ---
 
-<nav class="projects-nav px-4 py-4 max-w-md mx-auto w-full">
-  <ul class="flex flex-wrap gap-4">
-    <li class="font-extrabold text-brand-red text-base uppercase">Brand Films</li>
-    <li class="font-extrabold text-brand-red text-base uppercase">Advertising Campaigns</li>
-    <li class="font-extrabold text-brand-red text-base uppercase">Case Studies</li>
-    <li class="font-extrabold text-brand-red text-base uppercase">Corporate Videos</li>
-    <li class="font-extrabold text-brand-red text-base uppercase">Social Media Content</li>
-  </ul>
-</nav>
+<div class="anim-container">
+    <img src="/photos/headshot.webp" alt="Team headshot" class="center-photo" />
+    {problems.map((p, i) => <div class={`problem problem-${i + 1}`}>{p}</div>)}
+    {
+        solutions.map((s, i) => (
+            <div class={`solution solution-${i + 1}`}>{s}</div>
+        ))
+    }
+</div>
 
 <style>
-.text-brand-red { color: #A00000; }
+    .anim-container {
+        position: relative;
+        width: 100vw;
+        height: 60vh;
+        overflow: hidden;
+        background: #fff;
+    }
+    .center-photo {
+        position: absolute;
+        top: 50%;
+        left: -25%;
+        transform: translate(-50%, -50%);
+        width: 160px;
+        height: 160px;
+        border-radius: 50%;
+        object-fit: cover;
+        animation:
+            photoIn 1.2s ease-out infinite 1s,
+            photoOut 1.2s ease-in infinite 4s;
+    }
+    .problem,
+    .solution {
+        position: absolute;
+        opacity: 0;
+        font-size: 1.3rem;
+        font-weight: 700;
+        white-space: nowrap;
+    }
+    .problem {
+        top: 40%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+    .solution {
+        top: 60%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    /* Problem animations */
+    .problem-1 {
+        animation: slideInLeft 1s ease-out infinite 0s;
+    }
+    .problem-2 {
+        animation: fadeIn 1s ease-out infinite 0.5s;
+    }
+    .problem-3 {
+        animation: zoomIn 1s ease-out infinite 1s;
+    }
+    .problem-4 {
+        animation: rotateIn 1s ease-out infinite 1.5s;
+    }
+
+    /* Solution animations */
+    .solution-1 {
+        animation: slideOutRight 1s ease-in infinite 3.5s;
+    }
+    .solution-2 {
+        animation: fadeOut 1s ease-in infinite 4s;
+    }
+    .solution-3 {
+        animation: zoomOut 1s ease-in infinite 4.5s;
+    }
+    .solution-4 {
+        animation: rotateOut 1s ease-in infinite 5s;
+    }
+
+    /* Keyframes */
+    @keyframes photoIn {
+        from {
+            left: -25%;
+            opacity: 0;
+        }
+        to {
+            left: 50%;
+            opacity: 1;
+        }
+    }
+    @keyframes photoOut {
+        from {
+            left: 50%;
+            opacity: 1;
+        }
+        to {
+            left: 125%;
+            opacity: 0;
+        }
+    }
+
+    @keyframes slideInLeft {
+        from {
+            transform: translate(-150%, -50%);
+            opacity: 0;
+        }
+        to {
+            transform: translate(-50%, -50%);
+            opacity: 1;
+        }
+    }
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+        }
+        to {
+            opacity: 1;
+        }
+    }
+    @keyframes zoomIn {
+        from {
+            transform: translate(-50%, -50%) scale(0.5);
+            opacity: 0;
+        }
+        to {
+            transform: translate(-50%, -50%) scale(1);
+            opacity: 1;
+        }
+    }
+    @keyframes rotateIn {
+        from {
+            transform: translate(-50%, -50%) rotate(-45deg);
+            opacity: 0;
+        }
+        to {
+            transform: translate(-50%, -50%) rotate(0deg);
+            opacity: 1;
+        }
+    }
+
+    @keyframes slideOutRight {
+        from {
+            transform: translate(-50%, -50%);
+            opacity: 1;
+        }
+        to {
+            transform: translate(50%, -50%);
+            opacity: 0;
+        }
+    }
+    @keyframes fadeOut {
+        from {
+            opacity: 1;
+        }
+        to {
+            opacity: 0;
+        }
+    }
+    @keyframes zoomOut {
+        from {
+            transform: translate(-50%, -50%) scale(1);
+            opacity: 1;
+        }
+        to {
+            transform: translate(-50%, -50%) scale(0.5);
+            opacity: 0;
+        }
+    }
+    @keyframes rotateOut {
+        from {
+            transform: translate(-50%, -50%) rotate(0deg);
+            opacity: 1;
+        }
+        to {
+            transform: translate(-50%, -50%) rotate(45deg);
+            opacity: 0;
+        }
+    }
+
+    /* Responsive */
+    @media (max-width: 700px) {
+        .center-photo {
+            width: 120px;
+            height: 120px;
+        }
+        .problem,
+        .solution {
+            font-size: 1.1rem;
+        }
+    }
 </style>

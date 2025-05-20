@@ -15,6 +15,8 @@ import ProjectsNavSection from "../components/ProjectsNavSection.astro";
 import ShowreelSection from "../components/ShowreelSection.astro";
 import BrandsSection from "../components/BrandsSection.astro";
 import SegmentsSection from "../components/TargetSegments.astro";
+import Hero from "../components/Hero.astro";
+import WeGoodAt from "../components/WeGoodAt.astro";
 // import ContactSection from "../components/ContactSection.astro";
 ---
 
@@ -33,33 +35,18 @@ import SegmentsSection from "../components/TargetSegments.astro";
     <body>
         <header class="main-header">
             <a class="brand-logo" href="/">
-                <img src="/photos/logo.svg" alt="easy. production" class="logo-img" />
+                <img
+                    src="/photos/logo.svg"
+                    alt="easy. production"
+                    class="logo-img"
+                />
             </a>
         </header>
         <main>
-            <section class="hero-section">
-                <div class="hero-text">
-                    <h1 class="hero-head headline">
-                        <div class="hero-line">
-                            <span>STUNNING</span>
-                            <img src="/photos/stunning.jpg" alt="Stunning visual" class="hero-line-img" />
-                        </div>
-                        <div class="hero-line">
-                            <span>AFFORDABLE</span>
-                            <img src="/photos/affordable.jpg" alt="Affordable production" class="hero-line-img" />
-                        </div>
-                        <div class="hero-line">
-                            <span>PRODUCTIONS</span>
-                            <img src="/photos/productions.jpg" alt="Production scene" class="hero-line-img" />
-                        </div>
-                        <div class="hero-line">
-                            <span>FROM CENTRAL ASIA</span>
-                        </div>
-                    </h1>
-                    <img src="/photos/showreel.jpg" alt="Showreel" class="showreel-img" />
-                    <h1 class="showreel-heading">Where stories meet the wild.</h1>
-                </div>
-            </section>
+            <Hero />
+            <WeGoodAt client:load />
+            <ProjectsNavSection />
+
             <Portfolio />
 
             <Services />
@@ -70,15 +57,12 @@ import SegmentsSection from "../components/TargetSegments.astro";
 
             <TargetSegments />
 
-            
-
             <Testimonials />
 
             <!-- Figma-based sections -->
             <TopSlogan />
             <PromoBanner />
             <ProjectsSection />
-            <ProjectsNavSection />
             <ShowreelSection />
             <BrandsSection />
 
@@ -87,10 +71,10 @@ import SegmentsSection from "../components/TargetSegments.astro";
     </body>
     <style>
         :root {
-            --font-size-xl: 88px;    /* Main headlines */
-            --font-size-lg: 42px;    /* Section headlines */
-            --font-size-md: 32px;    /* Sub headlines */
-            --font-size-base: 16px;  /* Body text */
+            --font-size-xl: 88px; /* Main headlines */
+            --font-size-lg: 42px; /* Section headlines */
+            --font-size-md: 32px; /* Sub headlines */
+            --font-size-base: 16px; /* Body text */
             --main-padding: 0.6em;
             --main-maxwidth: 1300px;
             --hero-head-size: clamp(2.05rem, 8vw, 3.3rem);
@@ -243,7 +227,7 @@ import SegmentsSection from "../components/TargetSegments.astro";
             object-fit: cover;
         }
         .showreel-heading {
-            font-family: 'Manrope', var(--font-sans);
+            font-family: "Manrope", var(--font-sans);
             font-weight: 800;
             font-size: var(--font-size-lg);
             color: var(--brand-red);
@@ -251,17 +235,17 @@ import SegmentsSection from "../components/TargetSegments.astro";
             margin: 2rem 0;
             width: 100%;
         }
-        .brands-title, 
+        .brands-title,
         .we-cater-title {
             font-size: var(--font-size-lg);
-            font-family: 'Manrope', var(--font-sans);
+            font-family: "Manrope", var(--font-sans);
             font-weight: 800;
             text-align: center;
             margin-bottom: 2rem;
         }
         .segment-title {
             font-size: var(--font-size-md);
-            font-family: 'Manrope', var(--font-sans);
+            font-family: "Manrope", var(--font-sans);
             font-weight: 800;
             margin-bottom: 1rem;
         }
@@ -272,7 +256,7 @@ import SegmentsSection from "../components/TargetSegments.astro";
         }
         .service-title {
             font-size: var(--font-size-md);
-            font-family: 'Manrope', var(--font-sans);
+            font-family: "Manrope", var(--font-sans);
             font-weight: 800;
             margin-bottom: 0.5rem;
         }
@@ -280,4 +264,3 @@ import SegmentsSection from "../components/TargetSegments.astro";
 </html>
 
 <!-- SERVICES/FEATURE CARDS -->
-
