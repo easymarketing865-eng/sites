@@ -48,20 +48,33 @@ const projects = [
 <section class="portfolio-section" id="portfolio">
     <div class="portfolio-grid">
         {
-            projects.map((p) => (
-                <a href="#" class="portfolio-card">
-                    <img
-                        src={p.img}
-                        alt={p.title + " project image"}
-                        class="portfolio-img"
-                        loading="lazy"
-                    />
-                    <figcaption class="portfolio-caption">
-                        <div class="portfolio-title">{p.title}</div>
-                        <div class="portfolio-desc">{p.desc}</div>
-                    </figcaption>
-                </a>
-            ))
+            projects.map((p, index) => {
+                return (
+                    <a href="#" class="portfolio-card">
+                        <img
+                            src={p.img}
+                            alt={p.title + " project image"}
+                            class="portfolio-img"
+                            loading="lazy"
+                        />
+                        {index === projects.length - 1 && (
+                            <div class="factoid">
+                                <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                                    <path fill="#8E0C12" d="M62.4,-33C75.5,-13.2,77.2,16.2,64.9,34.1C52.6,52,26.3,58.4,6.8,54.5C-12.8,50.6,-25.6,36.4,-35.5,19.9C-45.5,3.3,-52.5,-15.5,-46.1,-31.4C-39.7,-47.3,-19.9,-60.3,2.4,-61.6C24.6,-63,49.2,-52.8,62.4,-33Z" transform="translate(100 100)" />
+                                </svg>
+                                <div class="factoid-text">
+                                    <span class="factoid-number">3D</span>
+                                    <span class="factoid-label">MOTION</span>
+                                </div>
+                            </div>
+                        )}
+                        <figcaption class="portfolio-caption">
+                            <div class="portfolio-title">{p.title}</div>
+                            <div class="portfolio-desc">{p.desc}</div>
+                        </figcaption>
+                    </a>
+                );
+            })
         }
     </div>
 </section>
@@ -70,13 +83,17 @@ const projects = [
     width: 100%;
     padding: 4rem 0;
     background: var(--site-bg);
+    display: flex;
+    justify-content: center;
 }
 .portfolio-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 2rem;
     width: 100%;
+    max-width: 1300px;
     padding: 0 2rem;
+    margin: 0 auto;
 }
 .portfolio-card {
     width: 100%;
@@ -133,11 +150,12 @@ const projects = [
 /* Hover effects for the entire card */
 .portfolio-card:hover .portfolio-title {
     opacity: 1;
-    text-decoration-color: rgba(255, 255, 255, 0.6);
+    color: #000000;
+    text-decoration-color: #000000;
 }
 
 .portfolio-card:hover .portfolio-desc {
-    opacity: 0.9;
+    opacity: 0.8;
 }
 
 /* Full-width card styles */
@@ -159,6 +177,7 @@ const projects = [
         grid-template-columns: repeat(2, 1fr);
         padding: 0 1rem;
         gap: 0.5rem;
+        max-width: 100%;
     }
     
     .portfolio-img {
@@ -192,6 +211,75 @@ const projects = [
     .portfolio-card:nth-child(3n+1) .portfolio-caption {
         bottom: 1rem;
         left: 1rem;
+    }
+}
+
+.factoid {
+    position: absolute;
+    top: -2rem;
+    right: -2rem;
+    width: 220px;
+    height: 220px;
+    z-index: 2;
+}
+
+.factoid svg {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+}
+
+.factoid-text {
+    position: relative;
+    z-index: 3;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    text-align: center;
+    transform: translate(-45%, -55%);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+}
+
+.factoid-number {
+    font-family: 'Manrope', var(--font-sans);
+    font-size: 42px;
+    font-weight: 800;
+    line-height: 1;
+    display: block;
+}
+
+.factoid-label {
+    font-family: 'Manrope', var(--font-sans);
+    font-size: 20px;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    line-height: 1;
+    display: block;
+}
+
+@media (max-width: 768px) {
+    .factoid {
+        width: 120px;
+        height: 120px;
+        top: -1rem;
+        right: -1rem;
+    }
+
+    .factoid-number {
+        font-size: 24px;
+    }
+
+    .factoid-label {
+        font-size: 12px;
+        letter-spacing: 0.05em;
     }
 }
 </style>
