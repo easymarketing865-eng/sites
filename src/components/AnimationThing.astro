@@ -16,55 +16,74 @@ const solutions = AGENCY_WORDS_30.slice(0, 4);
     </div>
 </div>
 
-<script type="module" define:vars={{ TYPICAL_CLIENT_PROBLEMS, AGENCY_WORDS_30 }}
->
-    // import { TYPICAL_CLIENT_PROBLEMS, AGENCY_WORDS_30 } from "./constants";
-    const problems = TYPICAL_CLIENT_PROBLEMS.slice(0, 4);
-    const solutions = AGENCY_WORDS_30.slice(0, 4);
-    let idx = 0;
-    let phase = 0; // 0: problem moving in, 1: solution moving out
+<script type="module" client:load define:vars={{ problems, solutions }}>
+    let problemIdx = 0;
+    let solutionIdx = 0;
     const problemSpan = document.getElementById("problem");
     const solutionSpan = document.getElementById("solution");
     const PROBLEM_DURATION = 1500; // ms
-    const FADE_OVERLAP = 300; // ms for fade on photo
-    const SOLUTION_DURATION = 1500; // ms
-    const PAUSE_BETWEEN = 500; // ms
+    const FADE_OVERLAP = 320; // ms for fade before photo edge
+    const SOLUTION_DURATION = 1350; // ms
+    const PAUSE_BETWEEN = 560; // ms
 
     function resetClass(el, classList) {
         el.classList.remove(...classList);
-        // force reflow for restart
         void el.offsetWidth;
     }
 
+    function moveWord(
+        span,
+        text,
+        inTransform,
+        inDuration,
+        fadeoutTransform,
+        fadeOverlap,
+        onDone,
+    ) {
+        span.textContent = text;
+        span.style.transform = inTransform;
+        resetClass(span, ["in", "fadeout"]);
+        setTimeout(() => {
+            span.classList.add("in");
+            setTimeout(() => {
+                span.classList.add("fadeout");
+                span.style.transform = fadeoutTransform; // move and fade left
+                setTimeout(() => {
+                    span.textContent = "";
+                    resetClass(span, ["in", "fadeout"]);
+                    onDone && onDone();
+                }, fadeOverlap);
+            }, inDuration - fadeOverlap);
+        }, 20);
+    }
+
     function runAnimation() {
-        // Reset both spans
         problemSpan.textContent = "";
         solutionSpan.textContent = "";
         resetClass(problemSpan, ["in", "fadeout"]);
         resetClass(solutionSpan, ["out"]);
 
-        // Start problem slide-in
-        problemSpan.textContent = problems[idx];
-        problemSpan.classList.add("in");
-        setTimeout(() => {
-            // Start fadeout on problem just before it reaches the image center
-            problemSpan.classList.add("fadeout");
-            setTimeout(() => {
-                // Remove problem, start solution
-                problemSpan.textContent = "";
-                problemSpan.classList.remove("in", "fadeout");
-                // Solution starts at center and slides out right
-                solutionSpan.textContent = solutions[idx];
+        // Animate problem in gray, fade left just before photo
+        moveWord(
+            problemSpan,
+            problems[problemIdx],
+            "translate(-50%, -50%)",
+            PROBLEM_DURATION,
+            "translate(100px, -50%)",
+            FADE_OVERLAP,
+            () => {
+                // Then solution in red, sliding out
+                solutionSpan.textContent = solutions[solutionIdx];
                 solutionSpan.classList.add("out");
                 setTimeout(() => {
-                    // Clear solution and advance index
                     solutionSpan.textContent = "";
                     solutionSpan.classList.remove("out");
-                    idx = (idx + 1) % problems.length;
+                    problemIdx = (problemIdx + 1) % problems.length;
+                    solutionIdx = (solutionIdx + 1) % solutions.length;
                     setTimeout(runAnimation, PAUSE_BETWEEN);
                 }, SOLUTION_DURATION);
-            }, FADE_OVERLAP);
-        }, PROBLEM_DURATION - FADE_OVERLAP);
+            },
+        );
     }
 
     runAnimation();
@@ -89,13 +108,26 @@ const solutions = AGENCY_WORDS_30.slice(0, 4);
         justify-content: center;
     }
     .center-photo {
-        width: 150px;
-        height: 150px;
-        border-radius: 50%;
+        position: absolute;
+        left: 20%;
+        width: 280px;
+        height: 280px;
+        /* border-radius: 50%; */
         object-fit: cover;
-        margin: 0 36px;
-        box-shadow: 0 2px 24px #23232318;
+        margin: 0 80px;
+        /* box-shadow:
+            0 2px 72px #23232324,
+            0 0 0 10px #fff,
+            0 0 0 16px #1ba45922; */
         flex-shrink: 0;
+        z-index: 1;
+        border: 4px solid #fff;
+        outline: 3px solid #1ba45921;
+        transition:
+            width 0.3s,
+            height 0.3s,
+            margin 0.3s;
+
         z-index: 1;
     }
     .anim-problem,
@@ -106,7 +138,6 @@ const solutions = AGENCY_WORDS_30.slice(0, 4);
         font-size: 1.55rem;
         font-weight: 700;
         white-space: nowrap;
-        color: blue;
         opacity: 0;
         pointer-events: none;
         position: absolute;
@@ -118,34 +149,48 @@ const solutions = AGENCY_WORDS_30.slice(0, 4);
     }
     .anim-problem {
         left: 0;
-        color: #232323;
+        color: #888;
+        font-family: "Inter", "Segoe UI", Arial, Helvetica, sans-serif;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
         transform: translate(-120%, -50%);
+        transition:
+            opacity 0.18s,
+            transform 0.5s;
     }
     .anim-problem.in {
         opacity: 1;
-        transform: translate(calc(200px + 36px), -50%);
+        color: #888;
         transition:
             transform 1.5s cubic-bezier(0.19, 0.84, 0.46, 1.1),
             opacity 0.36s cubic-bezier(0.44, 0, 0.43, 1);
     }
     .anim-problem.in.fadeout {
         opacity: 0;
-        /* Stays at photo edge; fade quickly */
-        transform: translate(calc(200px + 36px), -50%);
+        color: #888;
         transition:
             opacity 0.28s cubic-bezier(0.37, 0.08, 0.73, 0.9),
-            transform 0s;
+            transform 0.1s;
     }
 
     /* The problem lands just left of centered photo, then fades out */
 
     .anim-solution {
         right: 0;
-        color: #1ba459;
+        color: #a00000;
+        font-family:
+            "Montserrat", "Inter", "Segoe UI", Arial, Helvetica, sans-serif;
+        font-weight: 900;
+        text-transform: uppercase;
+        letter-spacing: 0.11em;
         transform: translate(calc(-200px - 36px), -50%);
+        transition:
+            opacity 0.18s,
+            transform 0.5s;
     }
     .anim-solution.out {
         opacity: 1;
+        color: #a00000;
         /* Moves out to right beyond center-photo */
         transform: translate(120%, -50%);
         transition:
