@@ -1,5 +1,5 @@
 :root {
-    --brand-red: #000;
+    --brand-red: rgb(160, 0, 0);
     --brand-black: #111111;
     --brand-bg: #f9f7f3;
     --brand-white: #fff;
@@ -50,6 +50,7 @@ h1,
     text-transform: uppercase;
     line-height: 1.08;
     margin: 0 0 0.3em 0;
+    text-align: center;
 }
 
 h2,
