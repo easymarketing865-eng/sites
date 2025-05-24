@@ -60,31 +60,12 @@ const projects = [
                         />
                         {index === projects.length - 1 && (
                             <div class="factoid">
-                                <svg
-                                    viewBox="0 0 200 200"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                >
-                                    <path
-                                        fill="#8E0C12"
-                                        d="M62.4,-33C75.5,-13.2,77.2,16.2,64.9,34.1C52.6,52,26.3,58.4,6.8,54.5C-12.8,50.6,-25.6,36.4,-35.5,19.9C-45.5,3.3,-52.5,-15.5,-46.1,-31.4C-39.7,-47.3,-19.9,-60.3,2.4,-61.6C24.6,-63,49.2,-52.8,62.4,-33Z"
-                                        transform="translate(100 100)"
-                                    />
-                                </svg>
-                                <div class="factoid-text">
-                                    <span class="factoid-number">3D</span>
-                                    <span class="factoid-label">MOTION</span>
-                                </div>
+                                <img src="/photos/factoid-3d.png" alt="3D motion" class="factoid-img" />
                             </div>
                         )}
                         {index === 1 && (
                             <div class="factoid factoid-small">
-                                <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-                                    <path fill="#8E0C12" d="M62.4,-33C75.5,-13.2,77.2,16.2,64.9,34.1C52.6,52,26.3,58.4,6.8,54.5C-12.8,50.6,-25.6,36.4,-35.5,19.9C-45.5,3.3,-52.5,-15.5,-46.1,-31.4C-39.7,-47.3,-19.9,-60.3,2.4,-61.6C24.6,-63,49.2,-52.8,62.4,-33Z" transform="translate(100 100)" />
-                                </svg>
-                                <div class="factoid-text">
-                                    <span class="factoid-number">Delivered</span>
-                                    <span class="factoid-label">in 4 days</span>
-                                </div>
+                                <img src="/photos/factoid-delivered.png" alt="Delivered in 4 days" class="factoid-img" />
                             </div>
                         )}
                         <figcaption class="portfolio-caption">
@@ -98,7 +79,6 @@ const projects = [
     </div>
 </section>
 <style>
-<<<<<<< HEAD
 .portfolio-section {
     width: 100%;
     padding: 4rem 0;
@@ -111,7 +91,7 @@ const projects = [
     grid-template-columns: repeat(2, 1fr);
     gap: 2rem;
     width: 100%;
-    max-width: 1400px;
+    max-width: 1300px;
     padding: 0 2rem;
     margin: 0 auto;
 }
@@ -125,297 +105,157 @@ const projects = [
     text-decoration: none;
     cursor: pointer;
     transition: all 0.2s ease;
+    aspect-ratio: 4/3;
 }
 .portfolio-img {
     width: 100%;
-    height: 50vh;
+    height: 100%;
     object-fit: cover;
     background: var(--site-bg);
 }
 .portfolio-caption {
     position: absolute;
     bottom: 1rem;
-    left: 2rem;
+    left: 1.5rem;
     padding: 0;
     display: flex;
-    flex-direction: row;
-    align-items: baseline;
-    gap: 0.5rem;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.25rem;
     z-index: 2;
+    max-width: calc(100% - 4rem);
 }
 .portfolio-title {
     font-family: 'Manrope', var(--font-sans);
     font-size: 32px;
     font-weight: 800;
     color: #fff;
-    opacity: 0.95;
+    opacity: 0.85;
     margin: 0;
     line-height: 1.2;
+    transition: all 0.2s ease;
 }
 .portfolio-desc {
     font-size: 16px;
     color: #fff;
-    opacity: 0.8;
+    opacity: 0.7;
     font-family: 'Manrope', var(--font-sans);
-    line-height: 1.5;
+    line-height: 1.2;
     margin: 0;
     font-weight: 400;
+    transition: all 0.2s ease;
 }
 
 /* Hover effects for the entire card */
-.portfolio-card:hover .portfolio-title {
-    opacity: 0.8;
-}
-
+.portfolio-card:hover .portfolio-title,
 .portfolio-card:hover .portfolio-desc {
-    opacity: 0.8;
+    opacity: 0.6;
 }
 
 /* Full-width card styles */
 .portfolio-card:nth-child(3n+1) {
     grid-column: 1 / -1;
+    aspect-ratio: 16/9;
+}
+
+.portfolio-card:nth-child(3n+1) .portfolio-img {
+    height: 100%;
 }
 
 .portfolio-card:nth-child(3n+1) .portfolio-caption {
     bottom: 1rem;
-    left: 3rem;
+    left: 1.5rem;
 }
 
 @media (max-width: 768px) {
-=======
-    .portfolio-section {
-        width: 100%;
-        padding: 4rem 0;
-        background: var(--site-bg);
-        display: flex;
-        justify-content: center;
-    }
->>>>>>> d0c66e9c7bfcb1908f57d150181de5d1e35abebb
     .portfolio-grid {
-        display: grid;
         grid-template-columns: repeat(2, 1fr);
-        gap: 2rem;
-        width: 100%;
-        max-width: 1300px;
-        padding: 0 2rem;
-        margin: 0 auto;
-    }
-    .portfolio-card {
-        width: 100%;
-        margin: 0;
-        padding: 0;
-        position: relative;
-        display: flex;
-        flex-direction: column;
-        text-decoration: none;
-        cursor: pointer;
-        transition: all 0.2s ease;
-    }
-    .portfolio-img {
-        width: 100%;
-        height: 50vh;
-        object-fit: cover;
-        background: var(--site-bg);
-    }
-    .portfolio-caption {
-        position: absolute;
-        bottom: 1rem;
-        left: 2rem;
-        padding: 0;
-        display: flex;
-        flex-direction: row;
-        align-items: baseline;
+        padding: 0 1rem;
         gap: 0.5rem;
-        z-index: 2;
+        max-width: 100%;
     }
-    .portfolio-title {
-        font-family: "Manrope", var(--font-sans);
-        font-size: 32px;
-        font-weight: 800;
-        color: #fff;
-        opacity: 0.95;
-        margin: 0;
-        line-height: 1.2;
-        text-decoration: underline;
-        text-underline-offset: 4px;
-        text-decoration-thickness: 0.5px;
-        text-decoration-color: rgba(255, 255, 255, 0.3);
-        transition: all 0.2s ease;
+    
+    .portfolio-card {
+        aspect-ratio: 3/4;
     }
-    .portfolio-desc {
-        font-size: 16px;
-        color: #fff;
-        opacity: 0.8;
-        font-family: "Manrope", var(--font-sans);
-        line-height: 1.5;
-        margin: 0;
-        font-weight: 400;
-    }
-
-    /* Hover effects for the entire card */
-    .portfolio-card:hover .portfolio-title {
-        opacity: 1;
-        color: #000000;
-        text-decoration-color: #000000;
-    }
-
-    .portfolio-card:hover .portfolio-desc {
-        opacity: 0.8;
-    }
-
-    /* Full-width card styles */
-    .portfolio-card:nth-child(3n + 1) {
+    
+    .portfolio-card:nth-child(3n+1) {
         grid-column: 1 / -1;
+        aspect-ratio: 16/9;
     }
-
-    .portfolio-card:nth-child(3n + 1) .portfolio-img {
-        height: 85vh;
+    
+    .portfolio-img {
+        height: 100%;
     }
-
-    .portfolio-card:nth-child(3n + 1) .portfolio-caption {
+    
+    .portfolio-card:nth-child(3n+1) .portfolio-img {
+        height: 100%;
+    }
+    
+    .portfolio-caption {
         bottom: 1rem;
-        left: 3rem;
-    }
-
-    @media (max-width: 768px) {
-        .portfolio-grid {
-            grid-template-columns: repeat(2, 1fr);
-            padding: 0 1rem;
-            gap: 0.5rem;
-            max-width: 100%;
-        }
-
-        .portfolio-img {
-            height: 300px;
-        }
-
-        .portfolio-card:nth-child(3n + 1) {
-            grid-column: 1 / -1;
-        }
-
-        .portfolio-card:nth-child(3n + 1) .portfolio-img {
-            height: 300px;
-        }
-
-        .portfolio-title {
-            font-size: 20px;
-        }
-
-        .portfolio-desc {
-            font-size: 12px;
-        }
-
-        .portfolio-caption {
-            bottom: 1rem;
-            left: 1rem;
-            flex-direction: column;
-            gap: 0.25rem;
-            max-width: calc(100% - 2rem);
-        }
-
-        .portfolio-card:nth-child(3n + 1) .portfolio-caption {
-            bottom: 1rem;
-            left: 1rem;
-        }
-    }
-
-    .factoid {
-        position: absolute;
-        top: -2rem;
-        right: -2rem;
-        width: 220px;
-        height: 220px;
-        z-index: 2;
-    }
-
-    .factoid svg {
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        top: 0;
-        left: 0;
-    }
-
-    .factoid-text {
-        position: relative;
-        z-index: 3;
-        width: 100%;
-        height: 100%;
-        display: flex;
+        left: 1.5rem;
         flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        color: white;
-        text-align: center;
-        transform: translate(-45%, -55%);
-        position: absolute;
-        top: 50%;
-        left: 50%;
+        gap: 0.25rem;
+        max-width: calc(100% - 2rem);
     }
-
-    .factoid-number {
-        font-family: "Manrope", var(--font-sans);
-        font-size: 42px;
-        font-weight: 800;
-        line-height: 1;
-        display: block;
-    }
-
-    .factoid-label {
-        font-family: "Manrope", var(--font-sans);
+    
+    .portfolio-title {
         font-size: 20px;
-        font-weight: 500;
-        letter-spacing: 0.05em;
-        line-height: 1;
-        display: block;
     }
-
-    @media (max-width: 768px) {
-        .factoid {
-            width: 120px;
-            height: 120px;
-            top: -1rem;
-            right: -1rem;
-        }
-
-        .factoid-number {
-            font-size: 24px;
-        }
-
-        .factoid-label {
-            font-size: 12px;
-            letter-spacing: 0.05em;
-        }
+    
+    .portfolio-desc {
+        font-size: 12px;
     }
-<<<<<<< HEAD
+    
+    .portfolio-card:nth-child(3n+1) .portfolio-caption {
+        bottom: 1rem;
+        left: 1.5rem;
+    }
+}
+
+.factoid {
+    position: absolute;
+    top: -2rem;
+    right: -2rem;
+    width: 120px;
+    height: 120px;
+    z-index: 2;
+}
+
+.factoid-img {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    object-fit: contain;
+    z-index: 1;
+    pointer-events: none;
 }
 
 .factoid-small {
-    width: 180px;
-    height: 180px;
-}
-
-.factoid-small .factoid-number {
-    font-size: 20px;
-    font-weight: 700;
-}
-
-.factoid-small .factoid-label {
-    font-size: 20px;
-    font-weight: 400;
+    width: 120px;
+    height: 120px;
+    top: -2rem;
+    left: -2rem;
+    right: auto;
 }
 
 @media (max-width: 768px) {
-    .factoid-small {
-        width: 100px;
-        height: 100px;
+    .factoid {
+        top: -1rem;
+        right: -1rem;
+        width: 80px;
+        height: 80px;
     }
-
-    .factoid-small .factoid-number,
-    .factoid-small .factoid-label {
-        font-size: 14px;
+    
+    .factoid-small {
+        width: 80px;
+        height: 80px;
+        top: -1rem;
+        left: -1rem;
+        right: auto;
     }
 }
-=======
->>>>>>> d0c66e9c7bfcb1908f57d150181de5d1e35abebb
 </style>
