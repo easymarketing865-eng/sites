@@ -68,6 +68,17 @@ const projects = [
                                 </div>
                             </div>
                         )}
+                        {index === 1 && (
+                            <div class="factoid factoid-small">
+                                <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                                    <path fill="#8E0C12" d="M62.4,-33C75.5,-13.2,77.2,16.2,64.9,34.1C52.6,52,26.3,58.4,6.8,54.5C-12.8,50.6,-25.6,36.4,-35.5,19.9C-45.5,3.3,-52.5,-15.5,-46.1,-31.4C-39.7,-47.3,-19.9,-60.3,2.4,-61.6C24.6,-63,49.2,-52.8,62.4,-33Z" transform="translate(100 100)" />
+                                </svg>
+                                <div class="factoid-text">
+                                    <span class="factoid-number">Delivered</span>
+                                    <span class="factoid-label">in 4 days</span>
+                                </div>
+                            </div>
+                        )}
                         <figcaption class="portfolio-caption">
                             <div class="portfolio-title">{p.title}</div>
                             <div class="portfolio-desc">{p.desc}</div>
@@ -91,7 +102,7 @@ const projects = [
     grid-template-columns: repeat(2, 1fr);
     gap: 2rem;
     width: 100%;
-    max-width: 1300px;
+    max-width: 1400px;
     padding: 0 2rem;
     margin: 0 auto;
 }
@@ -131,11 +142,6 @@ const projects = [
     opacity: 0.95;
     margin: 0;
     line-height: 1.2;
-    text-decoration: underline;
-    text-underline-offset: 4px;
-    text-decoration-thickness: 0.5px;
-    text-decoration-color: rgba(255, 255, 255, 0.3);
-    transition: all 0.2s ease;
 }
 .portfolio-desc {
     font-size: 16px;
@@ -149,9 +155,7 @@ const projects = [
 
 /* Hover effects for the entire card */
 .portfolio-card:hover .portfolio-title {
-    opacity: 1;
-    color: #000000;
-    text-decoration-color: #000000;
+    opacity: 0.8;
 }
 
 .portfolio-card:hover .portfolio-desc {
@@ -161,10 +165,6 @@ const projects = [
 /* Full-width card styles */
 .portfolio-card:nth-child(3n+1) {
     grid-column: 1 / -1;
-}
-
-.portfolio-card:nth-child(3n+1) .portfolio-img {
-    height: 85vh;
 }
 
 .portfolio-card:nth-child(3n+1) .portfolio-caption {
@@ -280,6 +280,33 @@ const projects = [
     .factoid-label {
         font-size: 12px;
         letter-spacing: 0.05em;
+    }
+}
+
+.factoid-small {
+    width: 180px;
+    height: 180px;
+}
+
+.factoid-small .factoid-number {
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.factoid-small .factoid-label {
+    font-size: 20px;
+    font-weight: 400;
+}
+
+@media (max-width: 768px) {
+    .factoid-small {
+        width: 100px;
+        height: 100px;
+    }
+
+    .factoid-small .factoid-number,
+    .factoid-small .factoid-label {
+        font-size: 14px;
     }
 }
 </style>
