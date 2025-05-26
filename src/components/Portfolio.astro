@@ -56,267 +56,27 @@ const projects = [
                             src={p.img}
                             alt={p.title + " project image"}
                             class="portfolio-img"
-                            ---
-                            /**
-                             * Portfolio.astro
-                             * Modular section: Featured Projects (grid or carousel), editorial, mobile-first, images from photos collection.
-                             * Change/filter projects/images as needed for real work.
-                             */
-                            import "../styles/global.css";
-
-                            const projects = [
-                                {
-                                    title: "Demir Bank",
-                                    img: "/photos/demir/width_800.webp",
-                                    desc: "Campaign across Kyrgyzstan",
-                                },
-                                {
-                                    title: "Elizaveta Real Estate",
-                                    img: "/photos/ELIZAVETA.webp",
-                                    desc: "Urban lifestyle visuals",
-                                },
-                                {
-                                    title: "Fashion",
-                                    img: "/photos/Fashion/width_800.webp",
-                                    desc: "Editorial films",
-                                },
-                                {
-                                    title: "MENIKI",
-                                    img: "/photos/MENIKI_ONE/width_800.webp",
-                                    desc: "Retail brand story",
-                                },
-                                {
-                                    title: "Petrolium",
-                                    img: "/photos/petrolium/width_800.webp",
-                                    desc: "Energy leader visuals",
-                                },
-                                {
-                                    title: "VILAR",
-                                    img: "/photos/VILAR/width_800.webp",
-                                    desc: "Product stories",
-                                },
-                                {
-                                    title: "VITALIN",
-                                    img: "/photos/VITALIN/width_800.webp",
-                                    desc: "Health campaign",
-                                },
-                            ];
-                            ---
-
-                            <h2 class="headline">Our Portfolio</h2>
-                            <section class="portfolio-section" id="portfolio">
-                                <div class="portfolio-grid">
-                                    {
-                                        projects.map((p, index) => {
-                                            return (
-                                                <a href="#" class="portfolio-card">
-                                                    <img
-                                                        src={p.img}
-                                                        alt={p.title + " project image"}
-                                                        class="portfolio-img"
-                                                        loading="lazy"
-                                                    />
-                                                    {index === projects.length - 1 && (
-                                                        <div class="factoid">
-                                                            <img src="/photos/factoid-3d.png" alt="3D motion" class="factoid-img" />
-                                                        </div>
-                                                    )}
-                                                    {index === 1 && (
-                                                        <div class="factoid factoid-small">
-                                                            <img src="/photos/factoid-delivered.png" alt="Delivered in 4 days" class="factoid-img" />
-                                                        </div>
-                                                    )}
-                                                    <figcaption class="portfolio-caption">
-                                                        <div class="portfolio-title">{p.title}</div>
-                                                        <div class="portfolio-desc">{p.desc}</div>
-                                                    </figcaption>
-                                                </a>
-                                            );
-                                        })
-                                    }
-                                </div>
-                            </section>
-                            <style>
-                            .portfolio-section {
-                                width: 100%;
-                                padding: 4rem 0;
-                                background: var(--site-bg);
-                                display: flex;
-                                justify-content: center;
-                            }
-                            .portfolio-grid {
-                                display: grid;
-                                grid-template-columns: repeat(2, 1fr);
-                                gap: 2rem;
-                                width: 100%;
-                                max-width: 1300px;
-                                padding: 0 2rem;
-                                margin: 0 auto;
-                            }
-                            .portfolio-card {
-                                width: 100%;
-                                margin: 0;
-                                padding: 0;
-                                position: relative;
-                                display: flex;
-                                flex-direction: column;
-                                text-decoration: none;
-                                cursor: pointer;
-                                transition: all 0.2s ease;
-                                aspect-ratio: 4/3;
-                            }
-                            .portfolio-img {
-                                width: 100%;
-                                height: 100%;
-                                object-fit: cover;
-                                background: var(--site-bg);
-                            }
-                            .portfolio-caption {
-                                position: absolute;
-                                bottom: 1rem;
-                                left: 1.5rem;
-                                padding: 0;
-                                display: flex;
-                                flex-direction: column;
-                                align-items: flex-start;
-                                gap: 0.25rem;
-                                z-index: 2;
-                                max-width: calc(100% - 4rem);
-                            }
-                            .portfolio-title {
-                                font-family: 'Manrope', var(--font-sans);
-                                font-size: 32px;
-                                font-weight: 800;
-                                color: #fff;
-                                opacity: 0.85;
-                                margin: 0;
-                                line-height: 1.2;
-                                transition: all 0.2s ease;
-                            }
-                            .portfolio-desc {
-                                font-size: 16px;
-                                color: #fff;
-                                opacity: 0.7;
-                                font-family: 'Manrope', var(--font-sans);
-                                line-height: 1.2;
-                                margin: 0;
-                                font-weight: 400;
-                                transition: all 0.2s ease;
-                            }
-
-                            /* Hover effects for the entire card */
-                            .portfolio-card:hover .portfolio-title,
-                            .portfolio-card:hover .portfolio-desc {
-                                opacity: 0.6;
-                            }
-
-                            /* Full-width card styles */
-                            .portfolio-card:nth-child(3n+1) {
-                                grid-column: 1 / -1;
-                                aspect-ratio: 16/9;
-                            }
-
-                            .portfolio-card:nth-child(3n+1) .portfolio-img {
-                                height: 100%;
-                            }
-
-                            .portfolio-card:nth-child(3n+1) .portfolio-caption {
-                                bottom: 1rem;
-                                left: 1.5rem;
-                            }
-
-                            @media (max-width: 768px) {
-                                .portfolio-grid {
-                                    grid-template-columns: repeat(2, 1fr);
-                                    padding: 0 1rem;
-                                    gap: 0.5rem;
-                                    max-width: 100%;
-                                }
-
-                                .portfolio-card {
-                                    aspect-ratio: 3/4;
-                                }
-
-                                .portfolio-card:nth-child(3n+1) {
-                                    grid-column: 1 / -1;
-                                    aspect-ratio: 16/9;
-                                }
-
-                                .portfolio-img {
-                                    height: 100%;
-                                }
-
-                                .portfolio-card:nth-child(3n+1) .portfolio-img {
-                                    height: 100%;
-                                }
-
-                                .portfolio-caption {
-                                    bottom: 1rem;
-                                    left: 1.5rem;
-                                    flex-direction: column;
-                                    gap: 0.25rem;
-                                    max-width: calc(100% - 2rem);
-                                }
-
-                                .portfolio-title {
-                                    font-size: 20px;
-                                }
-
-                                .portfolio-desc {
-                                    font-size: 12px;
-                                }
-
-                                .portfolio-card:nth-child(3n+1) .portfolio-caption {
-                                    bottom: 1rem;
-                                    left: 1.5rem;
-                                }
-                            }
-
-                            .factoid {
-                                position: absolute;
-                                top: -2rem;
-                                right: -2rem;
-                                width: 120px;
-                                height: 120px;
-                                z-index: 2;
-                            }
-
-                            .factoid-img {
-                                position: absolute;
-                                width: 100%;
-                                height: 100%;
-                                top: 0;
-                                left: 0;
-                                object-fit: contain;
-                                z-index: 1;
-                                pointer-events: none;
-                            }
-
-                            .factoid-small {
-                                width: 120px;
-                                height: 120px;
-                                top: -2rem;
-                                left: -2rem;
-                                right: auto;
-                            }
-
-                            @media (max-width: 768px) {
-                                .factoid {
-                                    top: -1rem;
-                                    right: -1rem;
-                                    width: 80px;
-                                    height: 80px;
-                                }
-
-                                .factoid-small {
-                                    width: 80px;
-                                    height: 80px;
-                                    top: -1rem;
-                                    left: -1rem;
-                                    right: auto;
-                                }
-                            }
-                            </style>                        <figcaption class="portfolio-caption">
+                            loading="lazy"
+                        />
+                        {index === projects.length - 1 && (
+                            <div class="factoid">
+                                <img
+                                    src="/photos/factoid-3d.png"
+                                    alt="3D motion"
+                                    class="factoid-img"
+                                />
+                            </div>
+                        )}
+                        {index === 1 && (
+                            <div class="factoid factoid-small">
+                                <img
+                                    src="/photos/factoid-delivered.png"
+                                    alt="Delivered in 4 days"
+                                    class="factoid-img"
+                                />
+                            </div>
+                        )}
+                        <figcaption class="portfolio-caption">
                             <div class="portfolio-title">{p.title}</div>
                             <div class="portfolio-desc">{p.desc}</div>
                         </figcaption>
@@ -506,3 +266,4 @@ const projects = [
             right: auto;
         }
     }
+</style>
