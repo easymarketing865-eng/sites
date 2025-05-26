@@ -58,16 +58,7 @@ const projects = [
                             class="portfolio-img"
                             loading="lazy"
                         />
-                        {index === projects.length - 1 && (
-                            <div class="factoid">
-                                <img src="/photos/factoid-3d.png" alt="3D motion" class="factoid-img" />
-                            </div>
-                        )}
-                        {index === 1 && (
-                            <div class="factoid factoid-small">
-                                <img src="/photos/factoid-delivered.png" alt="Delivered in 4 days" class="factoid-img" />
-                            </div>
-                        )}
+                        <!-- <PortfolioFactoid factoids={p.factoids} position={p.position} colorScheme={p.colorScheme} /> -->
                         <figcaption class="portfolio-caption">
                             <div class="portfolio-title">{p.title}</div>
                             <div class="portfolio-desc">{p.desc}</div>

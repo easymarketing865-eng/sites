@@ -7,19 +7,15 @@ export const AGENCY_WORDS_30 = [
   "breakthrough ideas",
   "strategic planning",
   "authentic storytelling",
-  "consistent brand identity",
   "audience engagement",
   "premium visuals",
   "market expansion",
   "digital leadership",
-  "innovation in motion",
-  "trusted partnerships",
   "agile delivery",
   "creative direction",
   "impactful campaigns",
   "cinematic experiences",
   "flawless production",
-  "global reach",
   "seamless logistics",
   "location expertise",
   "collaborative team",
@@ -27,12 +23,10 @@ export const AGENCY_WORDS_30 = [
   "compelling content",
   "memorable experiences",
   "skilled professionals",
-  "cutting-edge equipment",
   "dedicated studio",
   "post-production excellence",
   "creative reliability",
   "measurable results",
-  "client growth",
   "lasting impact"
 ];
 
@@ -42,12 +36,6 @@ export const AGENCY_OPPOSITE_WORDS_30 = [
   "boring messaging",
   "off-brand confusion",
   "audience apathy",
-  "blurry visuals",
-  "missed opportunities",
-  "digital invisibility",
-  "stagnation",
-  "transactional vendors",
-  "slow turnaround",
   "lack of vision",
   "forgettable ads",
   "flat video",
@@ -57,7 +45,6 @@ export const AGENCY_OPPOSITE_WORDS_30 = [
   "lost on location",
   "siloed efforts",
   "inconsistent quality",
-  "dull content",
   "forgettable touchpoints",
   "amateur teams",
   "outdated tools",
@@ -70,12 +57,12 @@ export const AGENCY_OPPOSITE_WORDS_30 = [
 ];
 
 export const TYPICAL_CLIENT_PROBLEMS = [
-  "delayed timelines",
-  "budget constraints",
-  "lack of creative direction",
-  "ineffective communication",
-  "brand inconsistency",
-  "market competitiveness",
+  "delays",
+  "budgets",
+  "direction",
+  "communication",
+  "inconsistency",
+  "competitiveness",
 ];
 
 /**

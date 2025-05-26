@@ -1,0 +1,122 @@
+---
+export interface Props {}
+---
+
+<style>
+.exceptional-section {
+  width: 100%;
+  padding-top: 4rem;
+  padding-bottom: 4rem;
+  background: #f8f6f3;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+}
+.exceptional-heading {
+  font-size: 2.25rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  color: #A00000;
+  text-align: center;
+  margin-bottom: 1.5rem;
+  font-family: 'Montserrat', sans-serif;
+}
+@media (min-width: 640px){
+  .exceptional-heading {
+    font-size: 3rem;
+  }
+  .exceptional-row {
+    flex-direction: row;
+  }
+}
+.exceptional-row {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+.exceptional-side {
+  flex: 1 1 0%;
+  max-width: 28rem;
+  text-align: center;
+  font-size: 1.125rem;
+  color: #000;
+}
+.exceptional-highlight {
+  font-size: 1.875rem;
+  font-weight: bold;
+  color: #A00000;
+  margin-bottom: 0.5rem;
+}
+.exceptional-boxcol {
+  flex: 1 1 0%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.exceptional-budgetbox {
+  background: #A00000;
+  color: #fff;
+  border-radius: 1rem;
+  padding: 1.5rem 2rem;
+  box-shadow: 0 4px 24px 2px rgba(160,0,0,0.08);
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+  text-align: center;
+}
+.exceptional-budgetbox span {
+  display: block;
+}
+.exceptional-budget1 {
+  font-size: 1.125rem;
+  font-weight: 400;
+  margin-top: 0.5rem;
+}
+.exceptional-budget2 {
+  font-size: 1.125rem;
+  font-weight: 400;
+}
+.exceptional-asterisk {
+  font-size: 0.75rem;
+  color: #000;
+  opacity: 0.6;
+}
+.exceptional-bottom {
+  width: 100%;
+  max-width: 32rem;
+  text-align: center;
+  color: #000;
+  font-size: 1rem;
+}
+</style>
+
+<section class="exceptional-section">
+  <h2 class="exceptional-heading">Exceptional Value</h2>
+  <div class="exceptional-row">
+    <div class="exceptional-side">
+      <div class="exceptional-highlight">Up to 60% Cost Savings</div>
+      <div>
+        Our Kyrgyz base means you get world-class production at a fraction of the cost of Europe or Dubai. More budget for creativity, less for overhead.
+      </div>
+    </div>
+    <div class="exceptional-boxcol">
+      <div class="exceptional-budgetbox">
+        <span>Budget Example</span>
+        <span class="exceptional-budget1">Dubai: $100k</span>
+        <span class="exceptional-budget2">Kyrgyzstan: $40k</span>
+      </div>
+      <div class="exceptional-asterisk">
+        *For comparable production scale
+      </div>
+    </div>
+  </div>
+  <div class="exceptional-bottom">
+    Invest in your vision, not just logistics. Our value lets you reallocate budget to talent, post-production, or extra shooting days.
+  </div>
+</section>
