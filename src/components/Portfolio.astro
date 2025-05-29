@@ -2,47 +2,19 @@
 /**
  * Portfolio.astro
  * Modular section: Featured Projects (grid or carousel), editorial, mobile-first, images from photos collection.
- * Change/filter projects/images as needed for real work.
+ * Uses centralized portfolio data from portfolio.json
  */
 import "../styles/global.css";
+import portfolioData from "../data/portfolio.json";
 
-const projects = [
-    {
-        title: "Demir Bank",
-        img: "/photos/demir/width_800.webp",
-        desc: "Campaign across Kyrgyzstan",
-    },
-    {
-        title: "Elizaveta Real Estate",
-        img: "/photos/ELIZAVETA.webp",
-        desc: "Urban lifestyle visuals",
-    },
-    {
-        title: "Fashion",
-        img: "/photos/Fashion/width_800.webp",
-        desc: "Editorial films",
-    },
-    {
-        title: "MENIKI",
-        img: "/photos/MENIKI_ONE/width_800.webp",
-        desc: "Retail brand story",
-    },
-    {
-        title: "Petrolium",
-        img: "/photos/petrolium/width_800.webp",
-        desc: "Energy leader visuals",
-    },
-    {
-        title: "VILAR",
-        img: "/photos/VILAR/width_800.webp",
-        desc: "Product stories",
-    },
-    {
-        title: "VITALIN",
-        img: "/photos/VITALIN/width_800.webp",
-        desc: "Health campaign",
-    },
-];
+// Combine featured and regular portfolio items, taking first 7 for display
+const allProjects = [...portfolioData.featured, ...portfolioData.portfolio];
+const projects = allProjects.slice(0, 7).map(project => ({
+    title: project.title,
+    img: project.hero,
+    desc: project.shortDescription,
+    slug: project.slug
+}));
 ---
 
 <h2 class="headline">Our Portfolio</h2>
@@ -51,7 +23,7 @@ const projects = [
         {
             projects.map((p, index) => {
                 return (
-                    <a href="#" class="portfolio-card">
+                    <a href={`/portfolio/${p.slug}`} class="portfolio-card">
                         <img
                             src={p.img}
                             alt={p.title + " project image"}
@@ -89,18 +61,18 @@ const projects = [
 <style>
     .portfolio-section {
         width: 100%;
-        padding: 4rem 0;
+        padding: 2rem 0;
         background: var(--site-bg);
         display: flex;
         justify-content: center;
     }
     .portfolio-grid {
         display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 2rem;
+        grid-template-columns: 1fr;
+        gap: 1rem;
         width: 100%;
         max-width: 1300px;
-        padding: 0 2rem;
+        padding: 0 1rem;
         margin: 0 auto;
     }
     .portfolio-card {
@@ -113,7 +85,7 @@ const projects = [
         text-decoration: none;
         cursor: pointer;
         transition: all 0.2s ease;
-        aspect-ratio: 4/3;
+        aspect-ratio: 3/4;
     }
     .portfolio-img {
         width: 100%;
@@ -123,19 +95,19 @@ const projects = [
     }
     .portfolio-caption {
         position: absolute;
-        bottom: 1rem;
-        left: 1.5rem;
+        bottom: 0.75rem;
+        left: 1rem;
         padding: 0;
         display: flex;
         flex-direction: column;
         align-items: flex-start;
         gap: 0.25rem;
         z-index: 2;
-        max-width: calc(100% - 4rem);
+        max-width: calc(100% - 2rem);
     }
     .portfolio-title {
         font-family: "Manrope", var(--font-sans);
-        font-size: 32px;
+        font-size: 1.25rem;
         font-weight: 800;
         color: #fff;
         opacity: 0.85;
@@ -144,7 +116,7 @@ const projects = [
         transition: all 0.2s ease;
     }
     .portfolio-desc {
-        font-size: 16px;
+        font-size: 0.875rem;
         color: #fff;
         opacity: 0.7;
         font-family: "Manrope", var(--font-sans);
@@ -160,74 +132,97 @@ const projects = [
         opacity: 0.6;
     }
 
-    /* Full-width card styles */
-    .portfolio-card:nth-child(3n + 1) {
-        grid-column: 1 / -1;
-        aspect-ratio: 16/9;
-    }
+    /* Full-width card styles - only apply on larger screens */
 
-    .portfolio-card:nth-child(3n + 1) .portfolio-img {
-        height: 100%;
-    }
-
-    .portfolio-card:nth-child(3n + 1) .portfolio-caption {
-        bottom: 1rem;
-        left: 1.5rem;
-    }
-
-    @media (max-width: 768px) {
+    /* Mobile first responsive design */
+    @media (min-width: 480px) {
         .portfolio-grid {
             grid-template-columns: repeat(2, 1fr);
-            padding: 0 1rem;
-            gap: 0.5rem;
-            max-width: 100%;
+            gap: 1.25rem;
+            padding: 0 1.25rem;
         }
+        
+        .portfolio-caption {
+            bottom: 1rem;
+            left: 1.25rem;
+            max-width: calc(100% - 2.5rem);
+        }
+        
+        .portfolio-title {
+            font-size: 1.375rem;
+        }
+        
+        .portfolio-desc {
+            font-size: 0.9rem;
+        }
+    }
 
+    @media (min-width: 768px) {
+        .portfolio-section {
+            padding: 3rem 0;
+        }
+        
+        .portfolio-grid {
+            gap: 1.5rem;
+            padding: 0 1.5rem;
+        }
+        
         .portfolio-card {
-            aspect-ratio: 3/4;
+            aspect-ratio: 4/3;
         }
-
+        
+        /* Full-width card styles for tablets and up */
         .portfolio-card:nth-child(3n + 1) {
             grid-column: 1 / -1;
             aspect-ratio: 16/9;
         }
-
-        .portfolio-img {
-            height: 100%;
-        }
-
-        .portfolio-card:nth-child(3n + 1) .portfolio-img {
-            height: 100%;
-        }
-
+        
         .portfolio-caption {
-            bottom: 1rem;
+            bottom: 1.25rem;
             left: 1.5rem;
-            flex-direction: column;
-            gap: 0.25rem;
-            max-width: calc(100% - 2rem);
+            max-width: calc(100% - 3rem);
         }
-
+        
         .portfolio-title {
-            font-size: 20px;
+            font-size: 1.75rem;
         }
-
+        
         .portfolio-desc {
-            font-size: 12px;
+            font-size: 1rem;
         }
+    }
 
-        .portfolio-card:nth-child(3n + 1) .portfolio-caption {
-            bottom: 1rem;
+    @media (min-width: 1024px) {
+        .portfolio-section {
+            padding: 4rem 0;
+        }
+        
+        .portfolio-grid {
+            gap: 2rem;
+            padding: 0 2rem;
+        }
+        
+        .portfolio-caption {
+            bottom: 1.5rem;
             left: 1.5rem;
+            max-width: calc(100% - 4rem);
+        }
+        
+        .portfolio-title {
+            font-size: 2rem;
+        }
+        
+        .portfolio-desc {
+            font-size: 1rem;
         }
     }
 
     .factoid {
         position: absolute;
-        top: -2rem;
-        right: -2rem;
-        width: 120px;
-        height: 120px;
+        top: -0.75rem;
+        right: -0.75rem;
+        width: 60px;
+        height: 60px;
         z-index: 2;
     }
 
@@ -243,14 +238,14 @@ const projects = [
     }
 
     .factoid-small {
-        width: 120px;
-        height: 120px;
-        top: -2rem;
-        left: -2rem;
+        width: 60px;
+        height: 60px;
+        top: -0.75rem;
+        left: -0.75rem;
         right: auto;
     }
 
-    @media (max-width: 768px) {
+    @media (min-width: 480px) {
         .factoid {
             top: -1rem;
             right: -1rem;
@@ -263,7 +258,38 @@ const projects = [
             height: 80px;
             top: -1rem;
             left: -1rem;
-            right: auto;
+        }
+    }
+
+    @media (min-width: 768px) {
+        .factoid {
+            top: -1.5rem;
+            right: -1.5rem;
+            width: 100px;
+            height: 100px;
+        }
+
+        .factoid-small {
+            width: 100px;
+            height: 100px;
+            top: -1.5rem;
+            left: -1.5rem;
+        }
+    }
+
+    @media (min-width: 1024px) {
+        .factoid {
+            top: -2rem;
+            right: -2rem;
+            width: 120px;
+            height: 120px;
+        }
+
+        .factoid-small {
+            width: 120px;
+            height: 120px;
+            top: -2rem;
+            left: -2rem;
         }
     }
 </style>

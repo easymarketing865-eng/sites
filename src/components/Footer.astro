@@ -1,0 +1,179 @@
+---
+/**
+ * Footer.astro
+ * Comprehensive footer with trust signals, social links, and contact form
+ */
+import "../styles/global.css";
+import styles from "../styles/Footer.module.css";
+
+const clientLogos = [
+  { name: "Demir Bank", logo: "/photos/demir/width_800.webp" },
+  { name: "Elizaveta Real Estate", logo: "/photos/elizaveta/width_800.webp" },
+  { name: "Asia Store", logo: "/photos/asiastore/asiastore.webp" },
+  { name: "MENIKI", logo: "/photos/MENIKI_ONE/width_800.webp" },
+  { name: "VILAR", logo: "/photos/VILAR/width_800.webp" },
+  { name: "VITALIN", logo: "/photos/VITALIN/width_800.webp" }
+];
+
+const socialLinks = [
+  { name: "Instagram", url: "https://instagram.com/easyproduction", icon: "📷" },
+  { name: "Email", url: "mailto:hello@easyproduction.kg", icon: "✉️" },
+  { name: "Telegram", url: "https://t.me/easyproduction", icon: "💬" },
+  { name: "WhatsApp", url: "https://wa.me/996555123456", icon: "📱" },
+  { name: "Google Maps", url: "https://goo.gl/maps/bishkek", icon: "📍" }
+];
+---
+
+<footer class={styles.footer}>
+  <!-- Trust Signals Section -->
+  <section class={styles.trustSection}>
+    <div class={styles.container}>
+      <h2 class={styles.trustHeading}>Trusted by Leading Brands</h2>
+      <div class={styles.clientGrid}>
+        {clientLogos.map(client => (
+          <div class={styles.clientLogo}>
+            <img 
+              src={client.logo} 
+              alt={`${client.name} logo`}
+              class={styles.logoImage}
+              loading="lazy"
+            />
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Footer Content -->
+  <section class={styles.mainFooter}>
+    <div class={styles.container}>
+      <div class={styles.footerGrid}>
+        
+        <!-- Company Info -->
+        <div class={styles.companyInfo}>
+          <img src="/photos/logo.svg" alt="Easy Production" class={styles.footerLogo} />
+          <p class={styles.companyDescription}>
+            Professional video production and creative services in Kyrgyzstan. 
+            We bring your vision to life with stunning visuals and authentic storytelling.
+          </p>
+          <div class={styles.contactInfo}>
+            <div class={styles.contactItem}>
+              <span class={styles.contactIcon}>📍</span>
+              <span>Bishkek, Kyrgyzstan</span>
+            </div>
+            <div class={styles.contactItem}>
+              <span class={styles.contactIcon}>📞</span>
+              <span>+996 555 123 456</span>
+            </div>
+            <div class={styles.contactItem}>
+              <span class={styles.contactIcon}>✉️</span>
+              <span>hello@easyproduction.kg</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Services -->
+        <div class={styles.footerColumn}>
+          <h3 class={styles.columnTitle}>Services</h3>
+          <ul class={styles.linkList}>
+            <li><a href="/services/video-production">Video Production</a></li>
+            <li><a href="/services/commercials">TV Commercials</a></li>
+            <li><a href="/services/corporate">Corporate Videos</a></li>
+            <li><a href="/services/real-estate">Real Estate Marketing</a></li>
+            <li><a href="/services/documentaries">Documentaries</a></li>
+            <li><a href="/services/social-media">Social Media Content</a></li>
+          </ul>
+        </div>
+
+        <!-- Portfolio -->
+        <div class={styles.footerColumn}>
+          <h3 class={styles.columnTitle}>Portfolio</h3>
+          <ul class={styles.linkList}>
+            <li><a href="/portfolio">All Projects</a></li>
+            <li><a href="/portfolio?filter=Financial">Financial Services</a></li>
+            <li><a href="/portfolio?filter=Real Estate">Real Estate</a></li>
+            <li><a href="/portfolio?filter=Retail">Retail & Commerce</a></li>
+            <li><a href="/portfolio?filter=Fashion">Fashion & Lifestyle</a></li>
+            <li><a href="/case-studies">Case Studies</a></li>
+          </ul>
+        </div>
+
+        <!-- Quick Contact Form -->
+        <div class={styles.contactForm}>
+          <h3 class={styles.columnTitle}>Get in Touch</h3>
+          <form class={styles.form} action="/contact" method="POST">
+            <div class={styles.formGroup}>
+              <input 
+                type="text" 
+                name="name" 
+                placeholder="Your Name" 
+                class={styles.formInput}
+                required
+              />
+            </div>
+            <div class={styles.formGroup}>
+              <input 
+                type="email" 
+                name="email" 
+                placeholder="Your Email" 
+                class={styles.formInput}
+                required
+              />
+            </div>
+            <div class={styles.formGroup}>
+              <textarea 
+                name="message" 
+                placeholder="Your Message" 
+                class={styles.formTextarea}
+                rows="4"
+                required
+              ></textarea>
+            </div>
+            <button type="submit" class={styles.formButton}>
+              Send Message
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Social & Legal Section -->
+  <section class={styles.bottomSection}>
+    <div class={styles.container}>
+      <div class={styles.bottomGrid}>
+        
+        <!-- Social Links -->
+        <div class={styles.socialSection}>
+          <h4 class={styles.socialTitle}>Follow Us</h4>
+          <div class={styles.socialLinks}>
+            {socialLinks.map(social => (
+              <a 
+                href={social.url} 
+                class={styles.socialLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={social.name}
+              >
+                <span class={styles.socialIcon}>{social.icon}</span>
+                <span class={styles.socialName}>{social.name}</span>
+              </a>
+            ))}
+          </div>
+        </div>
+
+        <!-- Legal Links -->
+        <div class={styles.legalSection}>
+          <div class={styles.legalLinks}>
+            <a href="/privacy-policy" class={styles.legalLink}>Privacy Policy</a>
+            <a href="/terms-of-service" class={styles.legalLink}>Terms of Service</a>
+            <a href="/cookies" class={styles.legalLink}>Cookie Policy</a>
+          </div>
+          <div class={styles.copyright}>
+            <p>&copy; 2024 Easy Production. All rights reserved.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</footer>

@@ -1,0 +1,139 @@
+.section {
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto 3.2em auto;
+  padding: 0 1.1em;
+}
+
+.headline {
+  font-size: 1.22em;
+  color: var(--brand-red, #A00000);
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.058em;
+  margin: 0 0 2em 0;
+  font-family: var(--font-sans);
+  text-align: center;
+}
+
+.timeline {
+  position: relative;
+  padding-left: 2em;
+}
+
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 2em;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: linear-gradient(to bottom, var(--brand-red, #A00000), rgba(160, 0, 0, 0.3));
+}
+
+.timelineItem {
+  position: relative;
+  margin-bottom: 2.5em;
+  display: flex;
+  align-items: flex-start;
+  gap: 1.5em;
+}
+
+.timelineItem:last-child {
+  margin-bottom: 0;
+}
+
+.stepNumber {
+  background: var(--brand-red, #A00000);
+  color: var(--brand-white, #fff);
+  width: 3em;
+  height: 3em;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-sans);
+  font-weight: 700;
+  font-size: 1.1em;
+  position: relative;
+  z-index: 2;
+  flex-shrink: 0;
+  box-shadow: 0 4px 12px rgba(160, 0, 0, 0.3);
+}
+
+.content {
+  background: var(--brand-white, #fff);
+  padding: 1.5em;
+  border-radius: 1em;
+  box-shadow: 0 2px 12px #0001;
+  flex-grow: 1;
+  position: relative;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.content::before {
+  content: '';
+  position: absolute;
+  left: -8px;
+  top: 1.2em;
+  width: 0;
+  height: 0;
+  border-top: 8px solid transparent;
+  border-bottom: 8px solid transparent;
+  border-right: 8px solid var(--brand-white, #fff);
+}
+
+.content:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 24px #a0000008;
+}
+
+.title {
+  font-family: var(--font-sans);
+  font-size: 1.15em;
+  font-weight: 700;
+  color: var(--brand-black, #222);
+  margin: 0 0 0.5em 0;
+}
+
+.description {
+  font-family: var(--font-sans);
+  font-size: 0.95em;
+  line-height: 1.5;
+  color: var(--brand-black, #444);
+  margin: 0 0 0.8em 0;
+}
+
+.duration {
+  font-family: var(--font-sans);
+  font-size: 0.85em;
+  font-weight: 600;
+  color: var(--brand-red, #A00000);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+@media (max-width: 680px) {
+  .timeline {
+    padding-left: 1em;
+  }
+  
+  .timeline::before {
+    left: 1.5em;
+  }
+  
+  .timelineItem {
+    flex-direction: column;
+    gap: 1em;
+  }
+  
+  .stepNumber {
+    width: 2.5em;
+    height: 2.5em;
+    font-size: 1em;
+  }
+  
+  .content::before {
+    display: none;
+  }
+}

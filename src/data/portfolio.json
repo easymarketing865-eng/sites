@@ -1,0 +1,180 @@
+{
+  "featured": [
+    {
+      "id": "demir-bank",
+      "title": "Demir Bank",
+      "slug": "demir-bank",
+      "shortDescription": "Campaign across Kyrgyzstan",
+      "fullDescription": "A comprehensive brand campaign for Demir Bank showcasing their commitment to modern banking while honoring traditional Kyrgyz values. The campaign spanned multiple touchpoints including television commercials, digital content, and in-branch displays.",
+      "category": "Financial Services",
+      "year": "2023",
+      "featured": true,
+      "hero": "/photos/demir/width_800.webp",
+      "gallery": [
+        "/photos/demir/width_800.webp",
+        "/photos/demir/width_800 (1).webp",
+        "/photos/demir/width_800 (4).webp"
+      ],
+      "services": ["Video Production", "Brand Campaign", "Digital Content"],
+      "techStack": ["RED Camera", "DaVinci Resolve", "After Effects"],
+      "results": {
+        "reach": "2.3M+ impressions",
+        "engagement": "45% increase in brand awareness",
+        "duration": "8 weeks"
+      },
+      "testimonial": {
+        "quote": "Professional excellence and international standards. Easy Production delivers campaigns that resonate across cultures while maintaining our brand integrity.",
+        "author": "Brand Manager, Demir Bank"
+      }
+    },
+    {
+      "id": "elizaveta-real-estate",
+      "title": "Elizaveta Real Estate",
+      "slug": "elizaveta",
+      "shortDescription": "Urban lifestyle visuals",
+      "fullDescription": "Luxury real estate marketing campaign focusing on sophisticated urban living. Created cinematic property tours and lifestyle content that positioned Elizaveta as the premier choice for discerning buyers.",
+      "category": "Real Estate",
+      "year": "2023",
+      "featured": true,
+      "hero": "/photos/ELIZAVETA.webp",
+      "gallery": [
+        "/photos/ELIZAVETA.webp",
+        "/photos/elizaveta/width_800.webp",
+        "/photos/elizaveta/width_800 (4).webp"
+      ],
+      "services": ["Property Tours", "Lifestyle Content", "Aerial Cinematography"],
+      "techStack": ["DJI Drone", "Sony FX6", "Premiere Pro"],
+      "results": {
+        "reach": "1.8M+ views",
+        "engagement": "60% increase in inquiries",
+        "duration": "4 weeks"
+      },
+      "testimonial": {
+        "quote": "Easy Production transformed our real estate marketing with cinematic storytelling and authentic visuals. Their team understood our luxury market positioning perfectly.",
+        "author": "Marketing Director, Elizaveta Real Estate"
+      }
+    },
+    {
+      "id": "vilar",
+      "title": "VILAR",
+      "slug": "vilar",
+      "shortDescription": "Product stories",
+      "fullDescription": "Premium product showcase series for VILAR, highlighting craftsmanship and attention to detail through carefully crafted visual storytelling and macro cinematography.",
+      "category": "Product",
+      "year": "2023",
+      "featured": true,
+      "hero": "/photos/VILAR/width_800.webp",
+      "gallery": [
+        "/photos/VILAR/width_800.webp"
+      ],
+      "services": ["Product Photography", "Macro Cinematography", "Brand Storytelling"],
+      "techStack": ["Canon R5", "Macro Lenses", "Controlled Lighting"],
+      "results": {
+        "reach": "950K+ impressions",
+        "engagement": "35% boost in product interest",
+        "duration": "3 weeks"
+      }
+    }
+  ],
+  "portfolio": [
+    {
+      "id": "fashion-editorial",
+      "title": "Fashion Editorial",
+      "slug": "fashion",
+      "shortDescription": "Editorial films",
+      "fullDescription": "High-fashion editorial content showcasing contemporary Kyrgyz designers and international fashion trends through dynamic cinematography and artistic direction.",
+      "category": "Fashion",
+      "year": "2023",
+      "featured": false,
+      "hero": "/photos/Fashion/width_800.webp",
+      "gallery": [
+        "/photos/Fashion/width_800.webp"
+      ],
+      "services": ["Fashion Film", "Editorial Photography", "Creative Direction"],
+      "techStack": ["Blackmagic Cinema", "Fashion Lighting", "Color Grading"]
+    },
+    {
+      "id": "meniki-retail",
+      "title": "MENIKI",
+      "slug": "meniki",
+      "shortDescription": "Retail brand story",
+      "fullDescription": "Comprehensive brand storytelling for MENIKI retail chain, focusing on customer experience and product quality through authentic documentary-style content.",
+      "category": "Retail",
+      "year": "2023", 
+      "featured": false,
+      "hero": "/photos/MENIKI_ONE/width_800.webp",
+      "gallery": [
+        "/photos/MENIKI_ONE/width_800.webp",
+        "/photos/MENIKI_ONE/width_800 (1).webp"
+      ],
+      "services": ["Brand Documentary", "Customer Stories", "Retail Content"],
+      "techStack": ["Documentary Setup", "Natural Lighting", "Storytelling Edit"],
+      "testimonial": {
+        "quote": "Bold concepts, smooth production workflow, and results that exceed expectations. Our clients consistently praise the final deliverables.",
+        "author": "Project Manager, MENIKI"
+      }
+    },
+    {
+      "id": "petrolium-energy",
+      "title": "Petrolium",
+      "slug": "petrolium", 
+      "shortDescription": "Energy leader visuals",
+      "fullDescription": "Corporate video series for leading energy company, showcasing innovation, sustainability, and industry leadership through powerful visual narratives.",
+      "category": "Energy",
+      "year": "2022",
+      "featured": false,
+      "hero": "/photos/petrolium/width_800.webp",
+      "gallery": [
+        "/photos/petrolium/width_800.webp"
+      ],
+      "services": ["Corporate Video", "Industrial Cinematography", "Executive Interviews"],
+      "techStack": ["Industrial Cameras", "Drone Technology", "Professional Audio"]
+    },
+    {
+      "id": "vitalin-health",
+      "title": "VITALIN", 
+      "slug": "vitalin",
+      "shortDescription": "Health campaign",
+      "fullDescription": "Health and wellness campaign promoting active lifestyle and nutritional awareness through inspiring personal stories and expert interviews.",
+      "category": "Healthcare",
+      "year": "2022",
+      "featured": false,
+      "hero": "/photos/VITALIN/width_800.webp",
+      "gallery": [
+        "/photos/VITALIN/width_800.webp"
+      ],
+      "services": ["Health Campaign", "Testimonial Videos", "Educational Content"],
+      "techStack": ["Health-Safe Equipment", "Interview Setup", "Wellness Aesthetics"]
+    },
+    {
+      "id": "asia-store",
+      "title": "Asia Store",
+      "slug": "asia-store",
+      "shortDescription": "Modern retail heritage",
+      "fullDescription": "Retail brand campaign balancing modern shopping experience with traditional cultural values, creating authentic connections with diverse customer base.",
+      "category": "Retail",
+      "year": "2023",
+      "featured": false,
+      "hero": "/photos/asiastore/asiastore.webp",
+      "gallery": [
+        "/photos/asiastore/asiastore.webp"
+      ],
+      "services": ["Retail Campaign", "Cultural Storytelling", "Customer Experience"],
+      "techStack": ["Versatile Camera Setup", "Cultural Sensitivity", "Authentic Direction"],
+      "testimonial": {
+        "quote": "Creative vision meets flawless execution. They capture the essence of modern retail while honoring our local heritage. Outstanding partnership.",
+        "author": "Creative Director, Asia Store"
+      }
+    }
+  ],
+  "categories": [
+    "All",
+    "Financial Services", 
+    "Real Estate",
+    "Fashion",
+    "Retail", 
+    "Energy",
+    "Healthcare",
+    "Product"
+  ]
+}

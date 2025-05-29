@@ -1,8 +1,7 @@
 ---
 /**
  * Testimonials.astro
- * Modular editorial/brand section for showcasing client praise & testimonials.
- * Optional: add client logos or names as desired.
+ * Enhanced modular section for showcasing client praise & testimonials with photos.
  */
 import "../styles/global.css";
 import styles from "../styles/Testimonials.module.css";
@@ -10,23 +9,31 @@ import styles from "../styles/Testimonials.module.css";
 const testimonials = [
   {
     quote:
-      "Easy. Production brought our story to life with stunning visuals and authentic narrative. The team adapted quickly and delivered above expectations.",
-    client: "Elizaveta Real Estate"
+      "Easy Production transformed our real estate marketing with cinematic storytelling and authentic visuals. Their team understood our luxury market positioning perfectly.",
+    client: "Elizaveta Real Estate",
+    clientLogo: "/photos/elizaveta/width_800.webp",
+    role: "Marketing Director"
   },
   {
     quote:
-      "Creative, reliable, and always professional. They truly understand the international standards we require for our campaigns.",
-    client: "Demir Bank"
+      "Professional excellence and international standards. Easy Production delivers campaigns that resonate across cultures while maintaining our brand integrity.",
+    client: "Demir Bank",
+    clientLogo: "/photos/demir/width_800.webp", 
+    role: "Brand Manager"
   },
   {
     quote:
-      "Their understanding of branding makes every project feel both global and uniquely Kyrgyz. Highly recommended for agencies looking for real impact.",
-    client: "Asia Store"
+      "Creative vision meets flawless execution. They capture the essence of modern retail while honoring our local heritage. Outstanding partnership.",
+    client: "Asia Store",
+    clientLogo: "/photos/asiastore/asiastore.webp",
+    role: "Creative Director"
   },
   {
     quote:
-      "Bold concepts, smooth execution, and real partnership. Our clients are always impressed with the results.",
-    client: "MENIKI"
+      "Bold concepts, smooth production workflow, and results that exceed expectations. Our clients consistently praise the final deliverables.",
+    client: "MENIKI",
+    clientLogo: "/photos/MENIKI_ONE/width_800 (1).webp",
+    role: "Project Manager"
   }
 ];
 ---
@@ -36,8 +43,14 @@ const testimonials = [
   <div class={styles.grid}>
     {testimonials.map(t => (
       <figure class={styles.card}>
+        <div class={styles.imageContainer}>
+          <img src={t.clientLogo} alt={`${t.client} project`} class={styles.clientImage} />
+        </div>
         <blockquote class={styles.quote}>&ldquo;{t.quote}&rdquo;</blockquote>
-        <figcaption class={styles.client}>{t.client}</figcaption>
+        <figcaption class={styles.clientInfo}>
+          <div class={styles.client}>{t.client}</div>
+          <div class={styles.role}>{t.role}</div>
+        </figcaption>
       </figure>
     ))}
   </div>

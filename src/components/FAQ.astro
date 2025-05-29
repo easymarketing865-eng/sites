@@ -1,0 +1,72 @@
+---
+/**
+ * FAQ.astro
+ * Business-oriented FAQ accordion section
+ */
+import "../styles/global.css";
+import styles from "../styles/FAQ.module.css";
+
+const faqs = [
+  {
+    question: "What types of projects do you typically work on?",
+    answer: "We specialize in commercial video production, brand campaigns, real estate marketing, corporate documentaries, and digital content creation. Our work spans from 30-second social media spots to full-length branded documentaries."
+  },
+  {
+    question: "What's your typical project timeline?",
+    answer: "Project timelines vary based on scope and complexity. A standard commercial typically takes 2-3 weeks from concept to delivery, while larger campaigns or documentaries may require 4-8 weeks. We always provide detailed timelines during our initial consultation."
+  },
+  {
+    question: "Do you work with international clients?",
+    answer: "Absolutely. We have experience working with international brands and understand the nuances of creating content that works across different markets while respecting local culture and preferences."
+  },
+  {
+    question: "What's included in your production packages?",
+    answer: "Our packages typically include pre-production planning, filming, post-production, color grading, sound design, and final delivery in multiple formats. We provide detailed quotes based on your specific needs and can customize packages accordingly."
+  },
+  {
+    question: "Can you handle projects in multiple languages?",
+    answer: "Yes, we work in Kyrgyz, Russian, and English, and can coordinate with translators for other languages as needed. We understand the importance of cultural authenticity in multilingual content."
+  },
+  {
+    question: "What's your pricing structure?",
+    answer: "We offer project-based pricing tailored to your specific requirements. Factors include video length, complexity, location requirements, and post-production needs. Contact us for a detailed quote based on your project scope."
+  }
+];
+---
+
+<section class={styles.section} id="faq">
+  <h2 class="headline">Frequently Asked Questions</h2>
+  <div class={styles.container}>
+    {faqs.map((faq, index) => (
+      <details class={styles.item}>
+        <summary class={styles.question}>
+          {faq.question}
+          <span class={styles.icon}></span>
+        </summary>
+        <div class={styles.answer}>
+          <p>{faq.answer}</p>
+        </div>
+      </details>
+    ))}
+  </div>
+</section>
+
+<script>
+  // Enhanced accordion behavior
+  document.addEventListener('DOMContentLoaded', function() {
+    const details = document.querySelectorAll('details');
+    
+    details.forEach(detail => {
+      detail.addEventListener('toggle', function() {
+        if (this.open) {
+          // Close other details when one opens (optional)
+          details.forEach(otherDetail => {
+            if (otherDetail !== this && otherDetail.open) {
+              otherDetail.open = false;
+            }
+          });
+        }
+      });
+    });
+  });
+</script>

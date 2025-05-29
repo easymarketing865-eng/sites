@@ -1,0 +1,53 @@
+---
+/**
+ * PortfolioTeaser.astro
+ * Landing page teaser showing featured portfolio projects
+ */
+import "../styles/global.css";
+import styles from "../styles/PortfolioTeaser.module.css";
+import portfolioData from "../data/portfolio.json";
+
+const featuredProjects = portfolioData.featured.slice(0, 3);
+---
+
+<section class={styles.section} id="portfolio-teaser">
+  <div class={styles.header}>
+    <h2 class="headline">Featured Work</h2>
+    <a href="/portfolio" class={styles.viewAllLink}>View All Projects</a>
+  </div>
+  
+  <div class={styles.grid}>
+    {featuredProjects.map((project, index) => (
+      <a href={`/portfolio/${project.slug}`} class={styles.card}>
+        <div class={styles.imageContainer}>
+          <img 
+            src={project.hero} 
+            alt={`${project.title} project`} 
+            class={styles.image}
+            loading="lazy"
+          />
+          <div class={styles.overlay}>
+            <div class={styles.category}>{project.category}</div>
+            <div class={styles.year}>{project.year}</div>
+          </div>
+        </div>
+        <div class={styles.content}>
+          <h3 class={styles.title}>{project.title}</h3>
+          <p class={styles.description}>{project.shortDescription}</p>
+          <div class={styles.services}>
+            {project.services.slice(0, 2).map(service => (
+              <span class={styles.service}>{service}</span>
+            ))}
+          </div>
+        </div>
+      </a>
+    ))}
+  </div>
+  
+  <div class={styles.footer}>
+    <a href="/portfolio" class={styles.ctaButton}>
+      Explore Our Portfolio
+      <span class={styles.arrow}>→</span>
+    </a>
+  </div>
+</section>

@@ -1,0 +1,389 @@
+.footer {
+  background: var(--brand-black, #111);
+  color: var(--brand-white, #fff);
+  margin-top: 4em;
+}
+
+.trustSection {
+  background: #f8f9fa;
+  padding: 3em 0;
+  border-top: 1px solid #e9ecef;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1.1em;
+}
+
+.trustHeading {
+  font-size: 1.22em;
+  color: var(--brand-red, #A00000);
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.058em;
+  margin: 0 0 2em 0;
+  font-family: var(--font-sans);
+  text-align: center;
+}
+
+.clientGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 2em;
+  align-items: center;
+}
+
+.clientLogo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1em;
+  background: var(--brand-white, #fff);
+  border-radius: 1em;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.clientLogo:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+}
+
+.logoImage {
+  width: 100%;
+  height: 60px;
+  object-fit: contain;
+  object-position: center;
+  filter: grayscale(1) opacity(0.7);
+  transition: filter 0.2s ease;
+}
+
+.clientLogo:hover .logoImage {
+  filter: grayscale(0) opacity(1);
+}
+
+.mainFooter {
+  padding: 4em 0 2em 0;
+}
+
+.footerGrid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1.5fr;
+  gap: 3em;
+  margin-bottom: 2em;
+}
+
+.companyInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5em;
+}
+
+.footerLogo {
+  width: 120px;
+  height: auto;
+  filter: brightness(0) invert(1);
+}
+
+.companyDescription {
+  font-family: var(--font-sans);
+  font-size: 0.95em;
+  line-height: 1.5;
+  color: #ccc;
+  margin: 0;
+}
+
+.contactInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8em;
+}
+
+.contactItem {
+  display: flex;
+  align-items: center;
+  gap: 0.8em;
+  font-family: var(--font-sans);
+  font-size: 0.9em;
+  color: #ccc;
+}
+
+.contactIcon {
+  font-size: 1.1em;
+}
+
+.footerColumn {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2em;
+}
+
+.columnTitle {
+  font-family: var(--font-sans);
+  font-size: 1.1em;
+  font-weight: 700;
+  color: var(--brand-white, #fff);
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.linkList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8em;
+}
+
+.linkList a {
+  font-family: var(--font-sans);
+  font-size: 0.9em;
+  color: #ccc;
+  text-decoration: none;
+  transition: color 0.2s ease;
+  padding: 0.3em 0;
+}
+
+.linkList a:hover {
+  color: var(--brand-red, #A00000);
+}
+
+.contactForm {
+  background: rgba(255, 255, 255, 0.05);
+  padding: 2em;
+  border-radius: 1.2em;
+  backdrop-filter: blur(10px);
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+}
+
+.formInput,
+.formTextarea {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 0.8em 1em;
+  border-radius: 0.8em;
+  font-family: var(--font-sans);
+  font-size: 0.9em;
+  color: var(--brand-white, #fff);
+  transition: border-color 0.2s ease, background 0.2s ease;
+}
+
+.formInput::placeholder,
+.formTextarea::placeholder {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.formInput:focus,
+.formTextarea:focus {
+  outline: none;
+  border-color: var(--brand-red, #A00000);
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.formTextarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+.formButton {
+  background: var(--brand-red, #A00000);
+  color: var(--brand-white, #fff);
+  border: none;
+  padding: 0.9em 1.5em;
+  border-radius: 0.8em;
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: 0.9em;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.formButton:hover {
+  background: #8a0000;
+  transform: translateY(-2px);
+}
+
+.bottomSection {
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 2em 0;
+}
+
+.bottomGrid {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 2em;
+}
+
+.socialSection {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+}
+
+.socialTitle {
+  font-family: var(--font-sans);
+  font-size: 0.9em;
+  font-weight: 600;
+  color: var(--brand-white, #fff);
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.socialLinks {
+  display: flex;
+  gap: 1.5em;
+  flex-wrap: wrap;
+}
+
+.socialLink {
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+  text-decoration: none;
+  color: #ccc;
+  font-family: var(--font-sans);
+  font-size: 0.85em;
+  transition: color 0.2s ease, transform 0.2s ease;
+  padding: 0.5em 0.8em;
+  border-radius: 0.8em;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.socialLink:hover {
+  color: var(--brand-red, #A00000);
+  transform: translateY(-2px);
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.socialIcon {
+  font-size: 1.2em;
+}
+
+.socialName {
+  font-weight: 500;
+}
+
+.legalSection {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+  align-items: flex-end;
+}
+
+.legalLinks {
+  display: flex;
+  gap: 2em;
+  flex-wrap: wrap;
+}
+
+.legalLink {
+  font-family: var(--font-sans);
+  font-size: 0.8em;
+  color: #999;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.legalLink:hover {
+  color: var(--brand-red, #A00000);
+}
+
+.copyright {
+  margin: 0;
+}
+
+.copyright p {
+  font-family: var(--font-sans);
+  font-size: 0.8em;
+  color: #666;
+  margin: 0;
+}
+
+@media (max-width: 1024px) {
+  .footerGrid {
+    grid-template-columns: 1fr 1fr;
+    gap: 2em;
+  }
+  
+  .contactForm {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 768px) {
+  .clientGrid {
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 1em;
+  }
+  
+  .footerGrid {
+    grid-template-columns: 1fr;
+    gap: 2.5em;
+  }
+  
+  .bottomGrid {
+    flex-direction: column;
+    gap: 2em;
+  }
+  
+  .legalSection {
+    align-items: flex-start;
+  }
+  
+  .legalLinks {
+    gap: 1em;
+  }
+  
+  .socialLinks {
+    gap: 1em;
+  }
+  
+  .socialLink {
+    padding: 0.4em 0.6em;
+    font-size: 0.8em;
+  }
+}
+
+@media (max-width: 480px) {
+  .trustSection {
+    padding: 2em 0;
+  }
+  
+  .mainFooter {
+    padding: 2.5em 0 1.5em 0;
+  }
+  
+  .clientGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .contactForm {
+    padding: 1.5em;
+  }
+  
+  .formInput,
+  .formTextarea {
+    padding: 0.7em;
+    font-size: 0.85em;
+  }
+  
+  .formButton {
+    padding: 0.8em 1.2em;
+    font-size: 0.85em;
+  }
+}

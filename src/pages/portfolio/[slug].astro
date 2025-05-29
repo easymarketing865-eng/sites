@@ -1,0 +1,492 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import portfolioData from '../../data/portfolio.json';
+
+export async function getStaticPaths() {
+  const allProjects = [...portfolioData.featured, ...portfolioData.portfolio];
+  
+  return allProjects.map((project) => ({
+    params: { slug: project.slug },
+    props: { project },
+  }));
+}
+
+const { project } = Astro.props;
+---
+
+<Layout title={`${project.title} - Portfolio - Easy Production`}>
+  <main class="project-page">
+    <div class="project-hero">
+      <div class="hero-content">
+        <nav class="breadcrumb">
+          <a href="/portfolio">Portfolio</a>
+          <span class="separator">→</span>
+          <span class="current">{project.title}</span>
+        </nav>
+        
+        <div class="hero-text">
+          <div class="project-meta">
+            <span class="category">{project.category}</span>
+            <span class="year">{project.year}</span>
+            {project.featured && <span class="featured-badge">Featured</span>}
+          </div>
+          <h1 class="project-title">{project.title}</h1>
+          <p class="project-subtitle">{project.shortDescription}</p>
+        </div>
+      </div>
+      
+      <div class="hero-image">
+        <img src={project.hero} alt={`${project.title} hero image`} />
+      </div>
+    </div>
+
+    <section class="project-details">
+      <div class="details-grid">
+        <div class="main-content">
+          <div class="project-description">
+            <h2>Project Overview</h2>
+            <p>{project.fullDescription}</p>
+          </div>
+
+          {project.gallery && project.gallery.length > 1 && (
+            <div class="project-gallery">
+              <h2>Project Gallery</h2>
+              <div class="gallery-grid">
+                {project.gallery.map((image, index) => (
+                  <div class="gallery-item">
+                    <img 
+                      src={image} 
+                      alt={`${project.title} gallery image ${index + 1}`}
+                      loading="lazy"
+                    />
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {project.testimonial && (
+            <div class="testimonial-section">
+              <blockquote class="testimonial">
+                <p>"{project.testimonial.quote}"</p>
+                <cite>— {project.testimonial.author}</cite>
+              </blockquote>
+            </div>
+          )}
+        </div>
+
+        <aside class="project-sidebar">
+          <div class="info-card">
+            <h3>Services</h3>
+            <ul class="services-list">
+              {project.services.map(service => (
+                <li>{service}</li>
+              ))}
+            </ul>
+          </div>
+
+          <div class="info-card">
+            <h3>Technology</h3>
+            <ul class="tech-list">
+              {project.techStack.map(tech => (
+                <li>{tech}</li>
+              ))}
+            </ul>
+          </div>
+
+          {(project as any).results && (
+            <div class="info-card">
+              <h3>Results</h3>
+              <div class="results-grid">
+                <div class="result-item">
+                  <span class="result-label">Reach</span>
+                  <span class="result-value">{(project as any).results.reach}</span>
+                </div>
+                {(project as any).results.engagement && (
+                  <div class="result-item">
+                    <span class="result-label">Impact</span>
+                    <span class="result-value">{(project as any).results.engagement}</span>
+                  </div>
+                )}
+                <div class="result-item">
+                  <span class="result-label">Timeline</span>
+                  <span class="result-value">{(project as any).results.duration}</span>
+                </div>
+              </div>
+            </div>
+          )}
+        </aside>
+      </div>
+    </section>
+
+    <section class="project-navigation">
+      <div class="nav-content">
+        <a href="/portfolio" class="back-btn">
+          ← Back to Portfolio
+        </a>
+        <a href="/contact" class="contact-btn">
+          Start Your Project
+        </a>
+      </div>
+    </section>
+  </main>
+</Layout>
+
+<style>
+  .project-page {
+    width: 100%;
+    min-height: 100vh;
+  }
+
+  .project-hero {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: 70vh;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 2em 1.1em;
+    gap: 3em;
+    align-items: center;
+  }
+
+  .hero-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 2em;
+  }
+
+  .breadcrumb {
+    font-family: var(--font-sans);
+    font-size: 0.9em;
+    color: var(--brand-black, #666);
+  }
+
+  .breadcrumb a {
+    color: var(--brand-red, #A00000);
+    text-decoration: none;
+  }
+
+  .breadcrumb a:hover {
+    opacity: 0.7;
+  }
+
+  .separator {
+    margin: 0 0.5em;
+    opacity: 0.5;
+  }
+
+  .current {
+    font-weight: 600;
+  }
+
+  .project-meta {
+    display: flex;
+    gap: 0.8em;
+    flex-wrap: wrap;
+    margin-bottom: 1em;
+  }
+
+  .category, .year {
+    background: #f8f9fa;
+    padding: 0.4em 0.8em;
+    border-radius: 1em;
+    font-family: var(--font-sans);
+    font-size: 0.8em;
+    font-weight: 600;
+    color: var(--brand-black, #555);
+  }
+
+  .featured-badge {
+    background: var(--brand-red, #A00000);
+    color: var(--brand-white, #fff);
+    padding: 0.4em 0.8em;
+    border-radius: 1em;
+    font-family: var(--font-sans);
+    font-size: 0.8em;
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+
+  .project-title {
+    font-size: 3em;
+    font-weight: 900;
+    color: var(--brand-black, #222);
+    margin: 0;
+    line-height: 1.1;
+    font-family: var(--font-sans);
+  }
+
+  .project-subtitle {
+    font-size: 1.2em;
+    color: var(--brand-black, #666);
+    margin: 0;
+    line-height: 1.4;
+    font-family: var(--font-sans);
+  }
+
+  .hero-image {
+    width: 100%;
+    height: 100%;
+    border-radius: 1.5em;
+    overflow: hidden;
+    box-shadow: 0 12px 48px rgba(0, 0, 0, 0.1);
+  }
+
+  .hero-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+
+  .project-details {
+    background: #f8f9fa;
+    padding: 4em 0;
+  }
+
+  .details-grid {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 1.1em;
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 4em;
+  }
+
+  .main-content {
+    display: flex;
+    flex-direction: column;
+    gap: 3em;
+  }
+
+  .project-description h2,
+  .project-gallery h2 {
+    font-size: 1.8em;
+    font-weight: 700;
+    color: var(--brand-black, #222);
+    margin: 0 0 1em 0;
+    font-family: var(--font-sans);
+  }
+
+  .project-description p {
+    font-size: 1.1em;
+    line-height: 1.6;
+    color: var(--brand-black, #555);
+    font-family: var(--font-sans);
+    margin: 0;
+  }
+
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5em;
+  }
+
+  .gallery-item {
+    border-radius: 1em;
+    overflow: hidden;
+    aspect-ratio: 4/3;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  }
+
+  .gallery-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+  }
+
+  .gallery-item:hover img {
+    transform: scale(1.05);
+  }
+
+  .testimonial-section {
+    background: var(--brand-white, #fff);
+    padding: 2.5em;
+    border-radius: 1.5em;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+  }
+
+  .testimonial {
+    margin: 0;
+  }
+
+  .testimonial p {
+    font-size: 1.2em;
+    font-style: italic;
+    line-height: 1.5;
+    color: var(--brand-black, #333);
+    margin: 0 0 1em 0;
+    font-family: var(--font-sans);
+  }
+
+  .testimonial cite {
+    font-size: 0.95em;
+    color: var(--brand-red, #A00000);
+    font-weight: 600;
+    font-style: normal;
+    font-family: var(--font-sans);
+  }
+
+  .project-sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 2em;
+  }
+
+  .info-card {
+    background: var(--brand-white, #fff);
+    padding: 2em;
+    border-radius: 1.5em;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+  }
+
+  .info-card h3 {
+    font-size: 1.2em;
+    font-weight: 700;
+    color: var(--brand-black, #222);
+    margin: 0 0 1em 0;
+    font-family: var(--font-sans);
+  }
+
+  .services-list, .tech-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5em;
+  }
+
+  .services-list li, .tech-list li {
+    padding: 0.5em 0;
+    border-bottom: 1px solid #f0f0f0;
+    font-family: var(--font-sans);
+    color: var(--brand-black, #555);
+  }
+
+  .services-list li:last-child, .tech-list li:last-child {
+    border-bottom: none;
+  }
+
+  .results-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+  }
+
+  .result-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.8em 0;
+    border-bottom: 1px solid #f0f0f0;
+  }
+
+  .result-item:last-child {
+    border-bottom: none;
+  }
+
+  .result-label {
+    font-family: var(--font-sans);
+    font-size: 0.9em;
+    color: var(--brand-black, #666);
+    font-weight: 500;
+  }
+
+  .result-value {
+    font-family: var(--font-sans);
+    font-size: 0.9em;
+    color: var(--brand-red, #A00000);
+    font-weight: 700;
+  }
+
+  .project-navigation {
+    padding: 3em 0;
+    background: var(--brand-white, #fff);
+  }
+
+  .nav-content {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 1.1em;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .back-btn, .contact-btn {
+    padding: 1em 2em;
+    border-radius: 2em;
+    text-decoration: none;
+    font-family: var(--font-sans);
+    font-weight: 600;
+    transition: all 0.2s ease;
+  }
+
+  .back-btn {
+    background: #f8f9fa;
+    color: var(--brand-black, #555);
+  }
+
+  .back-btn:hover {
+    background: #e9ecef;
+    transform: translateY(-2px);
+  }
+
+  .contact-btn {
+    background: var(--brand-red, #A00000);
+    color: var(--brand-white, #fff);
+  }
+
+  .contact-btn:hover {
+    background: #8a0000;
+    transform: translateY(-2px);
+  }
+
+  @media (max-width: 1024px) {
+    .project-hero {
+      grid-template-columns: 1fr;
+      gap: 2em;
+      min-height: auto;
+    }
+
+    .details-grid {
+      grid-template-columns: 1fr;
+      gap: 2em;
+    }
+
+    .project-title {
+      font-size: 2.5em;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .project-hero {
+      padding: 1.5em 1.1em;
+    }
+
+    .project-title {
+      font-size: 2em;
+    }
+
+    .project-subtitle {
+      font-size: 1.1em;
+    }
+
+    .gallery-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .nav-content {
+      flex-direction: column;
+      gap: 1em;
+    }
+
+    .back-btn, .contact-btn {
+      width: 100%;
+      text-align: center;
+    }
+  }
+</style>
