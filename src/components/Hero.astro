@@ -39,6 +39,10 @@
 </section>
 
 <style>
+    :root {
+        --hero-text-size: clamp(1.25rem, 4vw, 3rem);
+    }
+
     .hero-section {
         width: 100%;
         max-width: var(--main-maxwidth);
@@ -80,7 +84,7 @@
   
         background: var(--site-bg);
         box-shadow: 0 4px 32px 0 #0002;
-        object-fit: cover;
+        object-fit: fit;
         display: block;
     }
     .hero-line {
@@ -94,6 +98,9 @@
     }
     .hero-line span {
         font-family: var(--font-heading);
+        font-size: var(--hero-text-size);
+        font-weight: 700;
+        line-height: 1.1;
         flex: 0 1 55%;
     }
     .hero-line-img {
@@ -105,16 +112,26 @@
     @media (max-width: 768px) {
         .hero-line,
         .hero-line:nth-child(even) {
-            flex-wrap: wrap;
-            align-items: center;
+            flex-direction: column;
+            flex-wrap: nowrap;
+            align-items: stretch;
             gap: 1rem;
         }
         .hero-line span {
-            max-width: 50%;
+            font-size: var(--hero-text-size);
+            max-width: 100%;
+            text-align: left;
+            order: 1;
         }
         .hero-line-img {
-            max-width: 50%;
-            min-width: 25%;
+            height: 100px !important;
+            width: 100% !important;
+            max-height: 100px !important;
+            min-height: 100px !important;
+            object-fit: cover !important;
+            object-position: center !important;
+            display: block !important;
+            order: 2;
         }
     }
     @media (max-width: 420px) {

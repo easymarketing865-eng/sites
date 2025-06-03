@@ -19,7 +19,7 @@
     --font-heading: "Unbounded", var(--font-sans);
     
     /* Font Sizes */
-    --size-hero: clamp(1.8rem, 6vw, 2.8rem);
+    --size-hero: clamp(2rem, 6vw, 2.8rem);
     --size-1: clamp(32px, 4vw, 48px);
     --size-2: clamp(24px, 3vw, 32px);
     --size-3: clamp(18px, 2.5vw, 24px);
@@ -27,7 +27,7 @@
     
     /* Spacing */
     --gap: 2rem;
-    --radius: 0.9em;
+    
 }
 
 /* Base Styles */
