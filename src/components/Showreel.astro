@@ -10,120 +10,10 @@ import "../styles/global.css";
 ---
 
 <section class="showreel-player">
-    <h2 class="headline">
-        Showreel
-    </h2>
-
-
     <div class="showreel-frame">
         <img
             src="/photos/showreel.jpg"
-        alt="Showreel preview" 
-            class="showreel-image"
-        loading="lazy"
-      />
-        <span class="showreel-play-btn">
-            <svg width="34" height="34" viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <circle cx="17" cy="17" r="17" fill="#fff" fill-opacity="0.88"/>
-                <polygon points="13,10 25,17 13,24" fill="#444"/>
-            </svg>
-        </span>
-        <div class="showreel-bar">
-            <span class="showreel-bar-inner"></span>
-        </div>
-    </div>
-</section>
-
-<style>
-.showreel-player {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 1.2rem;
-    padding: 2rem 0;
-    width: 100%;
-}
-.showreel-header {
-    font-size: 1.7rem;
-    font-weight: 800;
-    color: #343434;
-    letter-spacing: 0.07em;
-    margin-bottom: 0.4rem;
-    text-shadow: 0 2px 8px #fff8;
-    text-align: center;
-    width: 100%;
-}
-.showreel-frame {
-    position: relative;
-    width: 100%;
-    aspect-ratio: 16 / 9;
-
-    box-shadow: 0 4px 20px #0002;
-    overflow: hidden;
-    background: #eee;
-}
-.showreel-image {
-    display: block;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-.showreel-play-btn {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%,-50%);
-    background: rgba(32,32,32,.64);
-    border-radius: 50%;
-    padding: 22px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 2px 12px #0004;
-    cursor: pointer;
-    transition: background 0.23s;
-}
-.showreel-play-btn:hover,
-.showreel-play-btn:focus {
-    background: rgba(80,80,80,0.83);
-}
-.showreel-bar {
-    position: absolute;
-    left: 0; right: 0; bottom: 0;
-    height: 36px;
-    background: linear-gradient(0deg,rgba(30,30,30,0.64) 60%,rgba(30,30,30,0.0) 100%);
-    border-radius: 0 0 18px 18px;
-    display: flex; align-items: flex-end;
-    justify-content: flex-end;
-    padding: 0 1.1em;
-    pointer-events: none;
-}
-.showreel-bar-inner {
-    height: 16px; width: 56px; background: #bbb6; border-radius: 8px; margin: 0.7em 0 0.6em 0;"></span>
-      </div>
-    </div>
-</section>
----
-/**
- * Showreel.astro
- * Modular homepage showreel section (brand background, hero image/video, quick facts)
- * Uses /photos/showreel.webp as the main visual.
- * Matches easy. production editorial/brand style.
- */
-import AccentScript from "./AccentScript.astro";
-import "../styles/global.css";
----
-
-<section class="showreel-player">
-    <div class="showreel-header">
-        Showreel
-    </div>
-    <AccentScript>ashdjfkajsl</AccentScript>
-    <AccentScript>ashdjfkajsl</AccentScript>
-    <div class="showreel-frame">
-        <img
-            src="/photos/showreel.jpg"
-            alt="Showreel preview"
+            alt="Showreel preview" 
             class="showreel-image"
             loading="lazy"
         />
@@ -137,6 +27,14 @@ import "../styles/global.css";
             <span class="showreel-bar-inner"></span>
         </div>
     </div>
+    <div class="showreel-header">
+        <h2 class="headline">
+            Showreel
+        </h2>
+        <p class="showreel-description text-base">
+            Experience our creative journey through carefully crafted visuals. From breathtaking landscapes to compelling storytelling, our showreel captures the essence of our work across Central Asia. Each frame represents our commitment to quality and artistic excellence.
+        </p>
+    </div>
 </section>
 
 <style>
@@ -148,16 +46,21 @@ import "../styles/global.css";
     padding: 2rem 0;
     width: 100%;
 }
+
 .showreel-header {
-    font-size: 1.7rem;
-    font-weight: 800;
-    color: #343434;
-    letter-spacing: 0.07em;
-    margin-bottom: 0.4rem;
-    text-shadow: 0 2px 8px #fff8;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
     text-align: center;
-    width: 100%;
 }
+
+.showreel-description {
+    max-width: 65ch;
+    margin: 0;
+    opacity: 0.85;
+}
+
 .showreel-frame {
     position: relative;
     width: 100%;
@@ -204,7 +107,10 @@ import "../styles/global.css";
     pointer-events: none;
 }
 .showreel-bar-inner {
-    height: 16px; width: 56px; background: #bbb6; border-radius: 8px; margin: 0.7em 0 0.6em 0;"></span>
-    </div>
-  </div>
-</section>
+    height: 16px; 
+    width: 56px; 
+    background: #bbb6; 
+    border-radius: 8px; 
+    margin: 0.7em 0 0.6em 0;
+}
+</style>
