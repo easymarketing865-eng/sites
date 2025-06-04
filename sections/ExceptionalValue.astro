@@ -4,9 +4,9 @@ export interface Props {}
 
 <style>
   :root {
-    --primary: #A00000;
+    --primary: #000;
     --background: #f8f6f3;
-    --text: #333;
+    --text: #000;
     --accent: #fff;
     --highlight-bg: #fff4f0;
     --table-bg: #fff;
@@ -14,7 +14,7 @@ export interface Props {}
   }
   .exceptional-section {
     background: var(--background);
-    padding: 4rem 1rem;
+    padding: 4rem 2rem;
     max-width: 900px;
     margin: 0 auto;
     font-family: 'Montserrat', sans-serif;
@@ -29,11 +29,8 @@ export interface Props {}
     margin-bottom: 2rem;
   }
   .narrative-block {
-    background: var(--highlight-bg);
-    border-left: 4px solid var(--primary);
-    padding: 1rem 1.5rem;
+
     margin-bottom: 2rem;
-    border-radius: 0.5rem;
     line-height: 1.6;
     font-size: 1.125rem;
   }
@@ -42,30 +39,14 @@ export interface Props {}
     margin-bottom: 2rem;
   }
   .comparison-table {
-    width: 100%;
+
     border-collapse: collapse;
-    box-shadow: 0 4px 16px rgba(0,0,0,0.05);
-    border-radius: 0.5rem;
-    overflow: hidden;
   }
-  .comparison-table th,
   .comparison-table td {
-    padding: 0.75rem 1rem;
-    text-align: center;
-  }
-  .comparison-table th {
-    background: var(--primary);
-    color: var(--accent);
-    font-weight: 600;
-  }
-  .comparison-table tr:nth-child(even) td {
-    background: var(--table-alt-bg);
-  }
-  .comparison-table tr:nth-child(odd) td {
-    background: var(--table-bg);
+    padding: 0.5rem;
+    text-align: left;
   }
   .comparison-table td:first-child {
-    text-align: left;
     font-weight: 500;
   }
   .cta {
@@ -100,45 +81,41 @@ export interface Props {}
 
   <div class="comparison-container">
     <table class="comparison-table">
-      <thead>
-        <tr>
-          <th>Expense</th>
-          <th>Dubai</th>
-          <th>Bishkek</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>Studio Day Rental</td>
-          <td>$5,000</td>
-          <td>$1,500</td>
-        </tr>
-        <tr>
-          <td>Camera Package (per day)</td>
-          <td>$1,200</td>
-          <td>$350</td>
-        </tr>
-        <tr>
-          <td>Crew Rate (pp/day)</td>
-          <td>$2,000</td>
-          <td>$500</td>
-        </tr>
-        <tr>
-          <td>Post-Production Suite</td>
-          <td>$3,000</td>
-          <td>$900</td>
-        </tr>
-        <tr>
-          <td><strong>Total Budget</strong></td>
-          <td><strong>$100,000</strong></td>
-          <td><strong>$40,000</strong></td>
-        </tr>
-      </tbody>
+      <tr>
+        <td><strong>Expense</strong></td>
+        <td><strong>Dubai</strong></td>
+        <td><strong>Bishkek</strong></td>
+      </tr>
+      <tr>
+        <td>Studio Day Rental</td>
+        <td>$5,000</td>
+        <td>$1,500</td>
+      </tr>
+      <tr>
+        <td>Camera Package (per day)</td>
+        <td>$1,200</td>
+        <td>$350</td>
+      </tr>
+      <tr>
+        <td>Crew Rate (pp/day)</td>
+        <td>$2,000</td>
+        <td>$500</td>
+      </tr>
+      <tr>
+        <td>Post-Production Suite</td>
+        <td>$3,000</td>
+        <td>$900</td>
+      </tr>
+      <tr>
+        <td><strong>Total Budget</strong></td>
+        <td><strong>$100,000</strong></td>
+        <td><strong>$40,000</strong></td>
+      </tr>
     </table>
   </div>
 
   <div class="narrative-block">
-    Those savings aren’t just numbers—they’re extra shooting days, upgraded talent, and creative freedom. In Bishkek, your vision takes front and center, not your overheads.
+    Those savings aren't just numbers—they're extra shooting days, upgraded talent, and creative freedom. In Bishkek, your vision takes front and center, not your overheads.
   </div>
 
   <div class="cta">
