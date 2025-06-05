@@ -4,9 +4,9 @@ export interface Props {}
 
 <style>
   :root {
-    --primary: #000;
+    --primary: #fff;
     --background: #f8f6f3;
-    --text: #000;
+    --text: #fff;
     --accent: #fff;
     --highlight-bg: #fff4f0;
     --table-bg: #fff;
@@ -14,18 +14,31 @@ export interface Props {}
   }
   .exceptional-section {
     background: var(--background);
-    padding: 4rem 2rem;
-    max-width: 900px;
-    margin: 0 auto;
+    padding: 6rem 2rem;
+    background-image: url('/photos/Exceptional-bg.jpg');
+    background-size: cover;
+    background-position: bottom;
+    background-repeat: no-repeat;
+    height: 1900px;
+    width: 100vw;
+    margin-left: calc(50% - 50vw);
+    margin-right: calc(50% - 50vw);
     font-family: 'Montserrat', sans-serif;
     color: var(--text);
+    display: flex;
+    align-items:flex-start
+  }
+  .exceptional-content {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 2rem;
   }
   .exceptional-heading {
     font-size: 2.75rem;
     font-weight: 800;
     color: var(--primary);
     text-transform: uppercase;
-    text-align: center;
+    
     margin-bottom: 2rem;
   }
   .narrative-block {
@@ -50,13 +63,13 @@ export interface Props {}
     font-weight: 500;
   }
   .cta {
-    text-align: center;
-    margin-top: 2rem;
+
+    margin-top: 4rem;
   }
   .btn-primary {
     display: inline-block;
     padding: 0.75rem 1.5rem;
-    background: var(--primary);
+    background: #000;
     color: var(--accent);
     border-radius: 0.5rem;
     text-decoration: none;
@@ -73,52 +86,54 @@ export interface Props {}
 </style>
 
 <section class="exceptional-section">
-  <h2 class="exceptional-heading">Exceptional Value</h2>
+  <div class="exceptional-content">
+    <h2 class="exceptional-heading">Exceptional Value</h2>
 
-  <div class="narrative-block">
-    Picture this: a sleek studio in Dubai, lights humming, cameras rolling, at a price tag that could fund an entire week of shooting in Europe. Now imagine swapping that glare of skyscrapers for the tranquil peaks around Bishkek—same top-tier equipment, same seasoned crew, but with costs trimmed by more than half.
-  </div>
+    <div class="narrative-block">
+      Picture this: a sleek studio in Dubai, lights humming, cameras rolling, at a price tag that could fund an entire week of shooting in Europe. Now imagine swapping that glare of skyscrapers for the tranquil peaks around Bishkek—same top-tier equipment, same seasoned crew, but with costs trimmed by more than half.
+    </div>
 
-  <div class="comparison-container">
-    <table class="comparison-table">
-      <tr>
-        <td><strong>Expense</strong></td>
-        <td><strong>Dubai</strong></td>
-        <td><strong>Bishkek</strong></td>
-      </tr>
-      <tr>
-        <td>Studio Day Rental</td>
-        <td>$5,000</td>
-        <td>$1,500</td>
-      </tr>
-      <tr>
-        <td>Camera Package (per day)</td>
-        <td>$1,200</td>
-        <td>$350</td>
-      </tr>
-      <tr>
-        <td>Crew Rate (pp/day)</td>
-        <td>$2,000</td>
-        <td>$500</td>
-      </tr>
-      <tr>
-        <td>Post-Production Suite</td>
-        <td>$3,000</td>
-        <td>$900</td>
-      </tr>
-      <tr>
-        <td><strong>Total Budget</strong></td>
-        <td><strong>$100,000</strong></td>
-        <td><strong>$40,000</strong></td>
-      </tr>
-    </table>
-  </div>
+    <div class="comparison-container">
+      <table class="comparison-table">
+        <tr>
+          <td><strong>Expense</strong></td>
+          <td><strong>Dubai</strong></td>
+          <td><strong>Bishkek</strong></td>
+        </tr>
+        <tr>
+          <td>Studio Day Rental</td>
+          <td>$5,000</td>
+          <td>$1,500</td>
+        </tr>
+        <tr>
+          <td>Camera Package (per day)</td>
+          <td>$1,200</td>
+          <td>$350</td>
+        </tr>
+        <tr>
+          <td>Crew Rate (pp/day)</td>
+          <td>$2,000</td>
+          <td>$500</td>
+        </tr>
+        <tr>
+          <td>Post-Production Suite</td>
+          <td>$3,000</td>
+          <td>$900</td>
+        </tr>
+        <tr>
+          <td><strong>Total Budget</strong></td>
+          <td><strong>$100,000</strong></td>
+          <td><strong>$40,000</strong></td>
+        </tr>
+      </table>
+    </div>
 
-  <div class="narrative-block">
-    Those savings aren't just numbers—they're extra shooting days, upgraded talent, and creative freedom. In Bishkek, your vision takes front and center, not your overheads.
-  </div>
+    <div class="narrative-block">
+      Those savings aren't just numbers—they're extra shooting days, upgraded talent, and creative freedom. In Bishkek, your vision takes front and center, not your overheads.
+    </div>
 
-  <div class="cta">
-    <a href="/contact" class="btn-primary">Get Your Custom Quote</a>
+    <div class="cta">
+      <a href="/contact" class="btn-primary">Get Your Custom Quote</a>
+    </div>
   </div>
 </section>
