@@ -73,6 +73,10 @@ const projects = allProjects.slice(0, 7).map(project => ({
                 })
             }
         </div>
+        
+        <div class="portfolio-link-container">
+            <a href="/portfolio" class="view-all-portfolio-btn">View Full Portfolio</a>
+        </div>
     </div>
 
     <!-- End decoration SVG -->
@@ -364,5 +368,44 @@ const projects = allProjects.slice(0, 7).map(project => ({
         }
         
        
+    }
+
+    .portfolio-link-container {
+        display: flex;
+        justify-content: center;
+        margin-top: 3rem;
+    }
+
+    .view-all-portfolio-btn {
+        display: inline-block;
+        padding: 0.8em 2em;
+        font-size: 1rem;
+        font-weight: 700;
+        color: #000;
+        background: #fff;
+        border: 2px solid #fff;
+        border-radius: 2em;
+        text-decoration: none;
+        transition: all 0.3s ease;
+        font-family: 'Manrope', var(--font-sans);
+        letter-spacing: 0.02em;
+    }
+
+    .view-all-portfolio-btn:hover {
+        background: transparent;
+        color: #fff;
+        transform: translateY(-2px);
+        box-shadow: 0 8px 24px rgba(255, 255, 255, 0.15);
+    }
+
+    @media (max-width: 768px) {
+        .portfolio-link-container {
+            margin-top: 2rem;
+        }
+        
+        .view-all-portfolio-btn {
+            font-size: 0.9rem;
+            padding: 0.7em 1.8em;
+        }
     }
 </style>

@@ -1,6 +1,7 @@
 <header class="main-header">
     <a class="brand-logo" href="/">
         <img src="/photos/logo.svg" alt="easy. production" class="logo-img" />
+        <span class="brand-subtitle">creative production studio</span>
     </a>
     
     <nav class="main-nav">
@@ -33,7 +34,9 @@
         text-decoration: none;
         background: transparent;
         border: 0;
-     
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
         line-height: 1.05;
         transition: opacity 0.13s;
     }
@@ -48,6 +51,17 @@
         display: block;
         mix-blend-mode: multiply;
         background: transparent;
+    }
+
+    .brand-subtitle {
+        font-family: var(--font-sans);
+        font-size: 0.7rem;
+        font-weight: 400;
+        color: var(--brand-black, #666);
+        margin-top: 0.2em;
+        letter-spacing: 0.05em;
+        text-transform: lowercase;
+        opacity: 0.8;
     }
 
     .main-nav {
@@ -152,6 +166,10 @@
             width: 100px;
         }
         
+        .brand-subtitle {
+            font-size: 0.75rem;
+        }
+        
         .hire-us-btn {
             font-size: 0.875rem;
             
@@ -165,6 +183,10 @@
         
         .logo-img {
             width: 120px;
+        }
+        
+        .brand-subtitle {
+            font-size: 0.8rem;
         }
         
         .nav-list {
@@ -188,6 +210,10 @@
         
         .logo-img {
             width: 150px;
+        }
+        
+        .brand-subtitle {
+            font-size: 0.85rem;
         }
         
         .nav-link {

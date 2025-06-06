@@ -9,9 +9,13 @@ const problems = [
 const solutions = AGENCY_WORDS_30.slice(0, 4);
 ---
 
-<h2 class="headline">Agency In Action</h2>
+<section class="animation-section">
+    <div class="animation-text">
+        <h2 class="headline">Agency In Action</h2>
+        <p class="animation-description">Watch how we transform common challenges into breakthrough solutions. Our creative process turns obstacles into opportunities, delivering results that exceed expectations.</p>
+    </div>
 
-<div class="anim-line-container">
+    <div class="anim-line-container">
     <div class="anim-line">
         <span id="problem" class="anim-problem"></span>
         <img
@@ -21,7 +25,7 @@ const solutions = AGENCY_WORDS_30.slice(0, 4);
         />
         <span id="solution" class="anim-solution"></span>
     </div>
-</div>
+</section>
 
 <script type="module" define:vars={{ problems, solutions }}>
     let idx = 0;
@@ -53,14 +57,49 @@ const solutions = AGENCY_WORDS_30.slice(0, 4);
 </script>
 
 <style>
+    .animation-section {
+        width: 100%;
+        max-width: 1200px;
+        margin: 4rem auto;
+        padding: 2rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 3rem;
+    }
+
+    .animation-text {
+        text-align: center;
+        max-width: 600px;
+    }
+
+    .headline {
+        font-family: var(--font-sans);
+        font-size: 2.5rem;
+        font-weight: 700;
+        color: var(--brand-black, #222);
+        margin: 0 0 1rem 0;
+    }
+
+    .animation-description {
+        font-family: var(--font-sans);
+        font-size: 1.1rem;
+        line-height: 1.6;
+        color: var(--brand-black, #666);
+        margin: 0;
+    }
+
     .anim-line-container {
-        width: 100vw;
-        height: 60vh;
+        width: 100%;
+        height: 40vh;
+        max-height: 400px;
         display: flex;
         justify-content: center;
         align-items: center;
         background: #fff;
         overflow: hidden;
+        border-radius: 1rem;
+        border: 2px solid #f0f0f0;
     }
     
     .anim-line {
@@ -73,12 +112,13 @@ const solutions = AGENCY_WORDS_30.slice(0, 4);
     }
     
     .center-photo {
-        width: 60vw;
-        max-width: 300px;
+        width: 40vw;
+        max-width: 200px;
         height: auto;
         object-fit: cover;
-        border: 4px solid #fff;
-        outline: 3px solid #1ba45921;
+        border: 3px solid #fff;
+        outline: 2px solid #1ba45921;
+        border-radius: 0.5rem;
         z-index: 1;
         transition: all 0.3s ease;
     }
@@ -88,7 +128,7 @@ const solutions = AGENCY_WORDS_30.slice(0, 4);
         position: absolute;
         top: 50%;
         transform: translateY(-50%);
-        font-size: 1.55rem;
+        font-size: 1.2rem;
         font-weight: 700;
         white-space: nowrap;
         pointer-events: none;
@@ -157,15 +197,34 @@ const solutions = AGENCY_WORDS_30.slice(0, 4);
     }
     
     @media (max-width: 800px) {
+        .animation-section {
+            margin: 2rem auto;
+            padding: 1rem;
+            gap: 2rem;
+        }
+
+        .headline {
+            font-size: 2rem;
+        }
+
+        .animation-description {
+            font-size: 1rem;
+        }
+
+        .anim-line-container {
+            height: 30vh;
+            max-height: 300px;
+        }
+
         .center-photo {
-            width: 80vw;
-            max-width: 250px;
+            width: 60vw;
+            max-width: 150px;
         }
         
         .anim-problem,
         .anim-solution {
-            font-size: 1.1rem;
-            max-width: 120px;
+            font-size: 0.9rem;
+            max-width: 100px;
             word-break: break-word;
             white-space: normal;
             text-align: center;
