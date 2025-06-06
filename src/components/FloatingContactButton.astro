@@ -1,0 +1,146 @@
+---
+/**
+ * FloatingContactButton.astro
+ * Floating action button for contact that leads to /contact page
+ */
+import "../styles/global.css";
+---
+
+<div class="floating-contact-button">
+    <a href="/contact" class="fab-button" aria-label="Talk to us">
+        <div class="fab-content">
+            <svg class="fab-icon" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M20 2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h4l4 4 4-4h4c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-2 12H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z"/>
+            </svg>
+            <span class="fab-text">TALK TO US</span>
+        </div>
+    </a>
+</div>
+
+<style>
+    .floating-contact-button {
+        position: fixed;
+        bottom: 2rem;
+        right: 2rem;
+        z-index: 1000;
+    }
+
+    .fab-button {
+        display: flex;
+        align-items: center;
+        padding: 0.8rem 1.5rem;
+        background: #a00000;
+        color: #fff;
+        text-decoration: none;
+        border-radius: 2rem;
+        box-shadow: 0 4px 20px rgba(160, 0, 0, 0.3);
+        transition: all 0.3s ease;
+        border: 2px solid #a00000;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .fab-button::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+        transition: left 0.5s ease;
+    }
+
+    .fab-button:hover::before {
+        left: 100%;
+    }
+
+    .fab-button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 30px rgba(160, 0, 0, 0.4);
+        background: #fff;
+        color: #a00000;
+    }
+
+    .fab-content {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        position: relative;
+        z-index: 2;
+    }
+
+    .fab-icon {
+        flex-shrink: 0;
+        transition: transform 0.3s ease;
+    }
+
+    .fab-button:hover .fab-icon {
+        transform: scale(1.1);
+    }
+
+    .fab-text {
+        font-family: "Manrope", var(--font-sans);
+        font-size: 0.8rem;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 0.02em;
+        white-space: nowrap;
+    }
+
+    @media (max-width: 768px) {
+        .floating-contact-button {
+            bottom: 1.5rem;
+            right: 1.5rem;
+        }
+
+        .fab-button {
+            padding: 0.7rem 1.2rem;
+        }
+
+        .fab-text {
+            font-size: 0.75rem;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .floating-contact-button {
+            bottom: 1rem;
+            right: 1rem;
+        }
+
+        .fab-button {
+            padding: 0.6rem 1rem;
+            border-radius: 1.5rem;
+        }
+
+        .fab-content {
+            gap: 0.4rem;
+        }
+
+        .fab-text {
+            font-size: 0.7rem;
+        }
+    }
+
+    /* Pulse animation for attention */
+    @keyframes pulse {
+        0% {
+            box-shadow: 0 4px 20px rgba(160, 0, 0, 0.3);
+        }
+        50% {
+            box-shadow: 0 4px 20px rgba(160, 0, 0, 0.5), 0 0 0 10px rgba(160, 0, 0, 0.1);
+        }
+        100% {
+            box-shadow: 0 4px 20px rgba(160, 0, 0, 0.3);
+        }
+    }
+
+    .fab-button {
+        animation: pulse 3s infinite;
+    }
+
+    .fab-button:hover {
+        animation: none;
+    }
+</style>

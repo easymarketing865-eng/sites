@@ -1,0 +1,138 @@
+---
+import Layout from "../layouts/Layout.astro";
+import TalkToUs1 from "../components/TalkToUs1.astro";
+import TalkToUs2 from "../components/TalkToUs2.astro";
+---
+
+<Layout title="Demo - Talk To Us Components">
+    <main class="demo-page">
+        <section class="demo-intro">
+            <div class="intro-container">
+                <h1 class="demo-title">CONTACT COMPONENT VARIATIONS</h1>
+                <p class="demo-description">
+                    Two different approaches to the same goal: connecting with our audience.
+                    Each component maintains the editorial style guide while offering unique visual personalities.
+                </p>
+            </div>
+        </section>
+
+        <section class="component-demo">
+            <div class="demo-container">
+                <div class="component-section">
+                    <h2 class="section-title">VERSION 1: DIRECT & BOLD</h2>
+                    <p class="section-description">
+                        Clean lines, direct messaging, focused on immediate action.
+                    </p>
+                    <TalkToUs1 />
+                </div>
+
+                <div class="component-section">
+                    <h2 class="section-title">VERSION 2: ELEVATED & SOPHISTICATED</h2>
+                    <p class="section-description">
+                        Card-based design with gradient backgrounds and enhanced visual hierarchy.
+                    </p>
+                    <TalkToUs2 />
+                </div>
+            </div>
+        </section>
+    </main>
+</Layout>
+
+<style>
+    .demo-page {
+        min-height: 100vh;
+    }
+
+    .demo-intro {
+        padding: 6rem 2rem 4rem 2rem;
+        background: linear-gradient(135deg, #000 0%, #333 100%);
+        color: #fff;
+        text-align: center;
+    }
+
+    .intro-container {
+        max-width: 800px;
+        margin: 0 auto;
+    }
+
+    .demo-title {
+        font-family: "Manrope", var(--font-sans);
+        font-size: 3rem;
+        font-weight: 900;
+        color: #a00000;
+        margin: 0 0 2rem 0;
+        line-height: 1.1;
+        text-transform: uppercase;
+        letter-spacing: 0.02em;
+    }
+
+    .demo-description {
+        font-size: 1.2rem;
+        line-height: 1.6;
+        color: #ccc;
+        margin: 0;
+    }
+
+    .component-demo {
+        background: #fff;
+    }
+
+    .demo-container {
+        max-width: 1400px;
+        margin: 0 auto;
+    }
+
+    .component-section {
+        border-bottom: 1px solid #e9ecef;
+        position: relative;
+    }
+
+    .component-section:last-child {
+        border-bottom: none;
+    }
+
+    .section-title {
+        font-family: "Manrope", var(--font-sans);
+        font-size: 1.5rem;
+        font-weight: 800;
+        color: #000;
+        margin: 0;
+        padding: 3rem 2rem 1rem 2rem;
+        text-transform: uppercase;
+        letter-spacing: 0.02em;
+        text-align: center;
+    }
+
+    .section-description {
+        font-size: 1rem;
+        color: #666;
+        margin: 0;
+        padding: 0 2rem 2rem 2rem;
+        text-align: center;
+        max-width: 600px;
+        margin: 0 auto;
+    }
+
+    @media (max-width: 768px) {
+        .demo-intro {
+            padding: 4rem 1rem 3rem 1rem;
+        }
+
+        .demo-title {
+            font-size: 2rem;
+        }
+
+        .demo-description {
+            font-size: 1rem;
+        }
+
+        .section-title {
+            font-size: 1.2rem;
+            padding: 2rem 1rem 1rem 1rem;
+        }
+
+        .section-description {
+            padding: 0 1rem 1rem 1rem;
+        }
+    }
+</style>
