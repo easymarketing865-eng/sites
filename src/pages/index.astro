@@ -3,7 +3,6 @@ import AccentScript from "../components/AccentScript.astro";
 import Services from "../components/Services.astro";
 import Showreel from "../components/Showreel.astro";
 import TargetSegments from "../components/TargetSegments.astro";
-import About from "../components/About.astro";
 import PortfolioTeaser from "../components/PortfolioTeaser.astro";
 import Testimonials from "../components/Testimonials.astro";
 import FAQ from "../components/FAQ.astro";
@@ -21,6 +20,7 @@ import Hero from "../components/Hero.astro";
 import WeGoodAt from "../components/WeGoodAt.astro";
 import Header from "../components/Header.astro";
 import ExceptionalValue from "../../sections/ExceptionalValue.astro";
+import Everywhere from "../../sections/Everywhere.astro";
 import TalkToUs1 from "../components/TalkToUs1.astro";
 import TalkToUs3 from "../components/TalkToUs3.astro";
 import TalkToUs2 from "../components/TalkToUs2.astro";
@@ -55,17 +55,17 @@ import PortfolioPreviewGrid from "../components/PortfolioPreviewGrid.astro";
 
             <!-- <WeGoodAt client:load /> -->
             <ExceptionalValue />
+            <Everywhere />
 
             <PortfolioPreviewGrid
-                startIndex={5}
+                startIndex={1}
                 toShow={4}
                 title="Portfolio preview #1"
             />
 
-            <Timeline />
-            <About />
+            <!-- <Timeline /> -->
 
-            <Testimonials />
+            <!-- <Testimonials /> -->
 
             <FAQ />
         </main>
