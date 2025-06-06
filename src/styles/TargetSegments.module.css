@@ -20,7 +20,7 @@
 
 .grid {
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: 1fr 1fr;
   gap: 1.3em;
   width: 100%;
   margin: 0;
@@ -39,10 +39,6 @@
   gap: 0.45em;
   position: relative;
   border-left: 3.5px solid var(--brand-red, #A00000);
-}
-
-.card:not(:last-child) {
-  margin-bottom: 0.45em;
 }
 
 .card:hover, .card:focus-within {
@@ -69,31 +65,13 @@
   opacity: 0.89;
 }
 
-@media (min-width: 620px) {
-  .grid {
-    grid-template-columns: 1fr 1fr;
-    gap: 1.7em;
-  }
-  .card {
-    min-height: 110px;
-    padding: 1.35em 1.4em 1.16em 1.4em;
-  }
-}
-
 @media (min-width: 950px) {
   .grid {
     grid-template-columns: repeat(3, 1fr);
-    gap: 2.1em 2em;
+    gap: 2em;
   }
   .card {
     min-height: 120px;
     padding: 1.55em 1.6em 1.20em 1.6em;
-  }
-}
-
-@media (min-width: 1200px) {
-  .grid {
-    grid-template-columns: repeat(5, 1fr);
-    gap: 2.35em;
   }
 }

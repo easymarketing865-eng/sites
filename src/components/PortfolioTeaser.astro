@@ -1,53 +1,309 @@
 ---
 /**
  * PortfolioTeaser.astro
- * Landing page teaser showing featured portfolio projects
+ * Simplified portfolio teaser for landing page using the designer's approved styles
  */
 import "../styles/global.css";
-import styles from "../styles/PortfolioTeaser.module.css";
 import portfolioData from "../data/portfolio.json";
 
-const featuredProjects = portfolioData.featured.slice(0, 3);
+// Combine featured and regular portfolio items, taking first 6 for display
+const allProjects = [...portfolioData.featured, ...portfolioData.portfolio];
+const projects = allProjects.slice(0, 6).map(project => ({
+    title: project.title,
+    img: project.hero,
+    desc: project.shortDescription,
+    slug: project.slug,
+    services: project.services || [],
+    category: project.category
+}));
 ---
 
-<section class={styles.section} id="portfolio-teaser">
-  <div class={styles.header}>
-    <h2 class="headline">Featured Work</h2>
-    <a href="/portfolio" class={styles.viewAllLink}>View All Projects</a>
-  </div>
-  
-  <div class={styles.grid}>
-    {featuredProjects.map((project, index) => (
-      <a href={`/portfolio/${project.slug}`} class={styles.card}>
-        <div class={styles.imageContainer}>
-          <img 
-            src={project.hero} 
-            alt={`${project.title} project`} 
-            class={styles.image}
-            loading="lazy"
-          />
-          <div class={styles.overlay}>
-            <div class={styles.category}>{project.category}</div>
-            <div class={styles.year}>{project.year}</div>
-          </div>
+<section class="portfolio-teaser-section" id="portfolio-teaser">
+    <div class="portfolio-teaser-content">
+        <h2 class="headline">Featured Works</h2>
+        <div class="portfolio-teaser-grid">
+            {
+                projects.map((p, index) => {
+                    return (
+                        <a href={`/portfolio/${p.slug}`} class="portfolio-teaser-card">
+                            <img
+                                src={p.img}
+                                alt={p.title + " project image"}
+                                class="portfolio-teaser-img"
+                                loading="lazy"
+                            />
+                            {index === projects.length - 1 && (
+                                <div class="factoid">
+                                    <img
+                                        src="/photos/factoid-3d.png"
+                                        alt="3D motion"
+                                        class="factoid-img"
+                                    />
+                                </div>
+                            )}
+                            {index === 1 && (
+                                <div class="factoid factoid-small">
+                                    <img
+                                        src="/photos/factoid-delivered.png"
+                                        alt="Delivered in 4 days"
+                                        class="factoid-img"
+                                    />
+                                </div>
+                            )}
+                            <figcaption class="portfolio-teaser-caption">
+                                <div class="portfolio-teaser-title">{p.title}</div>
+                                <div class="portfolio-teaser-desc">{p.desc}</div>
+                            </figcaption>
+                        </a>
+                    );
+                })
+            }
         </div>
-        <div class={styles.content}>
-          <h3 class={styles.title}>{project.title}</h3>
-          <p class={styles.description}>{project.shortDescription}</p>
-          <div class={styles.services}>
-            {project.services.slice(0, 2).map(service => (
-              <span class={styles.service}>{service}</span>
-            ))}
-          </div>
+        
+        <div class="portfolio-teaser-link-container">
+            <a href="/portfolio" class="view-all-portfolio-btn">View Full Portfolio</a>
         </div>
-      </a>
-    ))}
-  </div>
-  
-  <div class={styles.footer}>
-    <a href="/portfolio" class={styles.ctaButton}>
-      Explore Our Portfolio
-      <span class={styles.arrow}>→</span>
-    </a>
-  </div>
+    </div>
 </section>
+
+<style>
+    .headline {
+        font-family: var(--font-heading);
+        font-size: 2rem;
+        font-weight: 600;
+        color: #222;
+        margin: 0 auto;
+        padding: 0 1rem;
+        max-width: 1300px;
+        margin-bottom: 1.5rem;
+        text-align: center;
+    }
+
+    @media (min-width: 768px) {
+        .headline {
+            font-size: 2.5rem;
+            padding: 0 1.5rem;
+            margin-bottom: 2rem;
+        }
+    }
+
+    @media (min-width: 1024px) {
+        .headline {
+            font-size: 3rem;
+            margin-bottom: 2.5rem;
+        }
+    }
+
+    .portfolio-teaser-section {
+        width: 100%;
+        padding: 4rem 0;
+        background: #f8f9fa;
+    }
+
+    .portfolio-teaser-content {
+        width: 100%;
+        max-width: 1300px;
+        margin: 0 auto;
+        padding: 0 2rem;
+    }
+
+    .portfolio-teaser-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.5rem;
+        width: 100%;
+        margin: 0 auto 3rem auto;
+    }
+
+    .portfolio-teaser-card {
+        width: 100%;
+        margin: 0;
+        padding: 0;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        text-decoration: none;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        aspect-ratio: 4/3;
+        border-radius: 16px;
+        overflow: hidden;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    }
+
+    .portfolio-teaser-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 16px 48px rgba(0, 0, 0, 0.15);
+    }
+
+    .portfolio-teaser-img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        background: #eee;
+        transition: transform 0.3s ease;
+    }
+
+    .portfolio-teaser-card:hover .portfolio-teaser-img {
+        transform: scale(1.05);
+    }
+
+    .portfolio-teaser-caption {
+        position: absolute;
+        bottom: 1.5rem;
+        left: 1.5rem;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+        z-index: 2;
+        max-width: calc(100% - 3rem);
+    }
+
+    .portfolio-teaser-title {
+        font-family: 'Manrope', var(--font-sans);
+        font-size: 1.8rem;
+        font-weight: 800;
+        color: #fff;
+        opacity: 1;
+        margin: 0;
+        line-height: 1.2;
+        transition: all 0.2s ease;
+        text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    }
+
+    .portfolio-teaser-desc {
+        font-size: 0.95rem;
+        color: #fff;
+        opacity: 0.9;
+        font-family: 'Manrope', var(--font-sans);
+        line-height: 1.3;
+        margin: 0;
+        font-weight: 400;
+        transition: all 0.2s ease;
+        text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    }
+
+    .portfolio-teaser-card:hover .portfolio-teaser-title,
+    .portfolio-teaser-card:hover .portfolio-teaser-desc {
+        opacity: 0.8;
+    }
+
+    /* Full-width card styles */
+    .portfolio-teaser-card:nth-child(3n+1) {
+        grid-column: 1 / -1;
+        aspect-ratio: 16/9;
+    }
+
+    .factoid {
+        position: absolute;
+        top: -1.5rem;
+        right: -1.5rem;
+        width: 100px;
+        height: 100px;
+        z-index: 2;
+    }
+
+    .factoid-img {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        object-fit: contain;
+        z-index: 1;
+        pointer-events: none;
+    }
+
+    .factoid-small {
+        width: 100px;
+        height: 100px;
+        top: -1.5rem;
+        left: -1.5rem;
+        right: auto;
+    }
+
+    .portfolio-teaser-link-container {
+        display: flex;
+        justify-content: center;
+    }
+
+    .view-all-portfolio-btn {
+        display: inline-block;
+        padding: 1rem 2.5rem;
+        font-size: 1rem;
+        font-weight: 700;
+        color: #fff;
+        background: #000;
+        border: 2px solid #000;
+        border-radius: 50px;
+        text-decoration: none;
+        transition: all 0.3s ease;
+        font-family: 'Manrope', var(--font-sans);
+        letter-spacing: 0.02em;
+    }
+
+    .view-all-portfolio-btn:hover {
+        background: transparent;
+        color: #000;
+        transform: translateY(-2px);
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+    }
+
+    @media (max-width: 768px) {
+        .portfolio-teaser-section {
+            padding: 3rem 0;
+        }
+        
+        .portfolio-teaser-content {
+            padding: 0 1rem;
+        }
+        
+        .portfolio-teaser-grid {
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        
+        .portfolio-teaser-card {
+            aspect-ratio: 3/4;
+        }
+        
+        .portfolio-teaser-card:nth-child(3n+1) {
+            aspect-ratio: 16/9;
+        }
+        
+        .portfolio-teaser-caption {
+            bottom: 1rem;
+            left: 1rem;
+            max-width: calc(100% - 2rem);
+        }
+        
+        .portfolio-teaser-title {
+            font-size: 1.4rem;
+        }
+        
+        .portfolio-teaser-desc {
+            font-size: 0.85rem;
+        }
+        
+        .factoid {
+            top: -1rem;
+            right: -1rem;
+            width: 70px;
+            height: 70px;
+        }
+        
+        .factoid-small {
+            width: 70px;
+            height: 70px;
+            top: -1rem;
+            left: -1rem;
+        }
+        
+        .view-all-portfolio-btn {
+            font-size: 0.9rem;
+            padding: 0.8rem 2rem;
+        }
+    }
+</style>
