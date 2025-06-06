@@ -5,6 +5,7 @@
  */
 import "../styles/global.css";
 import styles from "../styles/Footer.module.css";
+import { Instagram, Mail, MessageCircle, Phone, MapPin } from "lucide-astro";
 
 const clientLogos = [
     { name: "M-Bank", logo: "/logos/mbank.webp" },
@@ -23,12 +24,12 @@ const socialLinks = [
     {
         name: "Instagram",
         url: "https://instagram.com/easyproduction",
-        icon: "📷",
+        icon: Instagram,
     },
-    { name: "Email", url: "mailto:hello@easyproduction.kg", icon: "✉️" },
-    { name: "Telegram", url: "https://t.me/easyproduction", icon: "💬" },
-    { name: "WhatsApp", url: "https://wa.me/996555123456", icon: "📱" },
-    { name: "Google Maps", url: "https://goo.gl/maps/bishkek", icon: "📍" },
+    { name: "Email", url: "mailto:hello@easyproduction.kg", icon: Mail },
+    { name: "Telegram", url: "https://t.me/easyproduction", icon: MessageCircle },
+    { name: "WhatsApp", url: "https://wa.me/996555123456", icon: Phone },
+    { name: "Google Maps", url: "https://goo.gl/maps/bishkek", icon: MapPin },
 ];
 ---
 
@@ -87,121 +88,49 @@ const socialLinks = [
                         </div>
                     </div>
                 </div>
-
-                <!-- Portfolio -->
-                <div class={styles.footerColumn}>
-                    <h3 class={styles.columnTitle}>Portfolio</h3>
-                    <ul class={styles.linkList}>
-                        <li><a href="/portfolio">All Projects</a></li>
-                        <li>
-                            <a href="/portfolio?filter=Financial"
-                                >Financial Services</a
-                            >
-                        </li>
-                        <li>
-                            <a href="/portfolio?filter=Real Estate"
-                                >Real Estate</a
-                            >
-                        </li>
-                        <li>
-                            <a href="/portfolio?filter=Retail"
-                                >Retail & Commerce</a
-                            >
-                        </li>
-                        <li>
-                            <a href="/portfolio?filter=Fashion"
-                                >Fashion & Lifestyle</a
-                            >
-                        </li>
-                        <li><a href="/case-studies">Case Studies</a></li>
-                    </ul>
-                </div>
-
-                <!-- Quick Contact Form -->
-                <div class={styles.contactForm}>
-                    <h3 class={styles.columnTitle}>Get in Touch</h3>
-                    <form class={styles.form} action="/contact" method="POST">
-                        <div class={styles.formGroup}>
-                            <input
-                                type="text"
-                                name="name"
-                                placeholder="Your Name"
-                                class={styles.formInput}
-                                required
-                            />
-                        </div>
-                        <div class={styles.formGroup}>
-                            <input
-                                type="email"
-                                name="email"
-                                placeholder="Your Email"
-                                class={styles.formInput}
-                                required
-                            />
-                        </div>
-                        <div class={styles.formGroup}>
-                            <textarea
-                                name="message"
-                                placeholder="Your Message"
-                                class={styles.formTextarea}
-                                rows="4"
-                                required></textarea>
-                        </div>
-                        <button type="submit" class={styles.formButton}>
-                            Send Message
-                        </button>
-                    </form>
-                </div>
             </div>
         </div>
     </section>
 
-    <!-- Social & Legal Section -->
-    <section class={styles.bottomSection}>
+    <!-- Social Links Section -->
+    <section class={styles.socialSection}>
         <div class={styles.container}>
-            <div class={styles.bottomGrid}>
-                <!-- Social Links -->
-                <div class={styles.socialSection}>
-                    <h4 class={styles.socialTitle}>Follow Us</h4>
-                    <div class={styles.socialLinks}>
-                        {
-                            socialLinks.map((social) => (
-                                <a
-                                    href={social.url}
-                                    class={styles.socialLink}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    aria-label={social.name}
-                                >
-                                    <span class={styles.socialIcon}>
-                                        {social.icon}
-                                    </span>
-                                    <span class={styles.socialName}>
-                                        {social.name}
-                                    </span>
-                                </a>
-                            ))
-                        }
-                    </div>
-                </div>
+            <h3 class={styles.socialTitle}>Follow Us</h3>
+            <div class={styles.socialLinks}>
+                {
+                    socialLinks.map((social) => {
+                        const IconComponent = social.icon;
+                        return (
+                            <a
+                                href={social.url}
+                                class={styles.socialLink}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                aria-label={social.name}
+                            >
+                                <IconComponent class={styles.socialIcon} size={20} />
+                                <span class={styles.socialName}>
+                                    {social.name}
+                                </span>
+                            </a>
+                        );
+                    })
+                }
+            </div>
+        </div>
+    </section>
 
-                <!-- Legal Links -->
-                <div class={styles.legalSection}>
-                    <div class={styles.legalLinks}>
-                        <a href="/privacy-policy" class={styles.legalLink}
-                            >Privacy Policy</a
-                        >
-                        <a href="/terms-of-service" class={styles.legalLink}
-                            >Terms of Service</a
-                        >
-                        <a href="/cookies" class={styles.legalLink}
-                            >Cookie Policy</a
-                        >
-                    </div>
-                    <div class={styles.copyright}>
-                        <p>&copy; 2024 Easy Production. All rights reserved.</p>
-                    </div>
-                </div>
+    <!-- Team Photo Section -->
+    <section class={styles.teamSection}>
+        <div class={styles.container}>
+            <img
+                src="/team/at_work.webp"
+                alt="Easy Production team at work"
+                class={styles.teamImage}
+                loading="lazy"
+            />
+            <div class={styles.copyright}>
+                <p>&copy; 2024 Easy Production. All rights reserved.</p>
             </div>
         </div>
     </section>
