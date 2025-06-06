@@ -8,12 +8,7 @@ import "../styles/global.css";
 
 <div class="floating-contact-button">
     <a href="/contact" class="fab-button" aria-label="Talk to us">
-        <div class="fab-content">
-            <svg class="fab-icon" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M20 2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h4l4 4 4-4h4c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-2 12H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z"/>
-            </svg>
-            <span class="fab-text">TALK TO US</span>
-        </div>
+        <span class="fab-text">TALK TO US</span>
     </a>
 </div>
 
@@ -32,10 +27,8 @@ import "../styles/global.css";
         background: #a00000;
         color: #fff;
         text-decoration: none;
-        border-radius: 2rem;
         box-shadow: 0 4px 20px rgba(160, 0, 0, 0.3);
         transition: all 0.3s ease;
-        border: 2px solid #a00000;
         position: relative;
         overflow: hidden;
     }
@@ -62,22 +55,7 @@ import "../styles/global.css";
         color: #a00000;
     }
 
-    .fab-content {
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-        position: relative;
-        z-index: 2;
-    }
 
-    .fab-icon {
-        flex-shrink: 0;
-        transition: transform 0.3s ease;
-    }
-
-    .fab-button:hover .fab-icon {
-        transform: scale(1.1);
-    }
 
     .fab-text {
         font-family: "Manrope", var(--font-sans);
@@ -111,11 +89,6 @@ import "../styles/global.css";
 
         .fab-button {
             padding: 0.6rem 1rem;
-            border-radius: 1.5rem;
-        }
-
-        .fab-content {
-            gap: 0.4rem;
         }
 
         .fab-text {
