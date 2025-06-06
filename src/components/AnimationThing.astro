@@ -27,11 +27,27 @@ const solutions = AGENCY_WORDS_30.slice(0, 4);
     let idx = 0;
     const problemSpan = document.getElementById("problem");
     const solutionSpan = document.getElementById("solution");
+    
     function updateText() {
+        // Reset animations by removing and re-adding classes
+        problemSpan.classList.remove('animate');
+        solutionSpan.classList.remove('animate');
+        
+        // Update text content
         problemSpan.innerHTML = problems[idx].split(' ').join('<br/>');
         solutionSpan.innerHTML = solutions[idx].split(' ').join('<br/>');
+        
+        // Trigger animations after a small delay
+        requestAnimationFrame(() => {
+            problemSpan.classList.add('animate');
+            setTimeout(() => {
+                solutionSpan.classList.add('animate');
+            }, 2000); // Solution starts 2 seconds after problem
+        });
+        
         idx = (idx + 1) % problems.length;
     }
+    
     updateText();
     setInterval(updateText, 6000);
 </script>
@@ -46,6 +62,7 @@ const solutions = AGENCY_WORDS_30.slice(0, 4);
         background: #fff;
         overflow: hidden;
     }
+    
     .anim-line {
         position: relative;
         display: flex;
@@ -54,282 +71,148 @@ const solutions = AGENCY_WORDS_30.slice(0, 4);
         max-width: 96vw;
         justify-content: center;
     }
+    
     .center-photo {
-        position: absolute;
-        /* left: 20%; */
         width: 60vw;
+        max-width: 300px;
         height: auto;
-        /* border-radius: 50%; */
         object-fit: cover;
-        margin: 0 80px;
-        /* box-shadow:
-            0 2px 72px #23232324,
-            0 0 0 10px #fff,
-            0 0 0 16px #1ba45922; */
-        flex-shrink: 0;
-        z-index: 1;
         border: 4px solid #fff;
         outline: 3px solid #1ba45921;
-        transition:
-            width 0.3s,
-            height 0.3s,
-            margin 0.3s;
-
         z-index: 1;
+        transition: all 0.3s ease;
     }
+    
     .anim-problem,
     .anim-solution {
-        display: inline-block;
-        min-width: 70px;
-        max-width: 35vw;
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
         font-size: 1.55rem;
         font-weight: 700;
         white-space: nowrap;
-        opacity: 0;
         pointer-events: none;
-        position: absolute;
-        top: 50%;
         z-index: 2;
-        transition:
-            opacity 0.18s,
-            transform 0.5s;
+        opacity: 0;
     }
+    
     .anim-problem {
-        position: absolute;
-        top: 50%;
-        left: -20%;
-        font-size: 1.55rem;
-        font-weight: 700;
-        white-space: nowrap;
+        left: -100px;
         color: #888;
-        pointer-events: none;
-        animation: problemFlow 6s linear infinite;
-        transform: translateY(-50%);
     }
-
-    /* The problem lands just left of centered photo, then fades out */
-
+    
+    .anim-problem.animate {
+        animation: problemFlow 4s ease-in-out forwards;
+    }
+    
     .anim-solution {
-        position: absolute;
-        top: 50%;
-        left: 30%;
-        font-size: 1.55rem;
-        font-weight: 900;
-        white-space: nowrap;
+        left: 50%;
+        transform: translate(-50%, -50%);
         color: #a00000;
-        pointer-events: none;
-        animation: solutionFlow 6s linear infinite;
-        transform: translateY(-50%);
+        font-weight: 900;
     }
-
-    @media (max-width: 800px) {
-        .center-photo {
-            /* margin: 0 16px; */
-        }
-        .anim-line {
-            /* width: 270px; */
-        }
-        .anim-problem,
-        .anim-solution {
-            max-width: 10ch;
-            word-break: break-word;
-            font-size: 1.05rem;
-        }
+    
+    .anim-solution.animate {
+        animation: solutionFlow 3s ease-in-out forwards;
     }
+    
     @keyframes problemFlow {
         0% {
-            left: -20%;
+            left: -100px;
             opacity: 0;
         }
-        100% {
-            left: 50%;
+        20% {
             opacity: 1;
         }
+        50% {
+            left: 40%;
+            opacity: 1;
+        }
+        80% {
+            left: 40%;
+            opacity: 1;
+        }
+        100% {
+            left: 40%;
+            opacity: 0;
+        }
     }
+    
     @keyframes solutionFlow {
         0% {
-            left: 30%;
+            left: 50%;
             opacity: 0;
         }
-        100% {
-            left: 120%;
+        20% {
             opacity: 1;
         }
+        80% {
+            left: calc(100% + 100px);
+            opacity: 1;
+        }
+        100% {
+            left: calc(100% + 100px);
+            opacity: 0;
+        }
     }
-</style>
-
----
-import { AGENCY_WORDS_30 } from "./constants";
-const problems = [
-  "brand confusion",
-  "low engagement",
-  "weak storytelling",
-  "poor visuals"
-];
-const solutions = AGENCY_WORDS_30.slice(0, 4);
----
-
-<h2 class="headline">Agency In Action</h2>
-
-<div class="anim-line-container">
-    <div class="anim-line">
-        <span id="problem" class="anim-problem"></span>
-        <img
-            src="/photos/headshot.webp"
-            alt="Team headshot"
-            class="center-photo"
-        />
-        <span id="solution" class="anim-solution"></span>
-    </div>
-</div>
-
-<script type="module" define:vars={{ problems, solutions }}>
-    let idx = 0;
-    const problemSpan = document.getElementById("problem");
-    const solutionSpan = document.getElementById("solution");
-    function updateText() {
-        problemSpan.innerHTML = problems[idx].split(' ').join('<br/>');
-        solutionSpan.innerHTML = solutions[idx].split(' ').join('<br/>');
-        idx = (idx + 1) % problems.length;
-    }
-    updateText();
-    setInterval(updateText, 6000);
-</script>
-
-<style>
-    .anim-line-container {
-        width: 100vw;
-        height: 60vh;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        background: #fff;
-        overflow: hidden;
-    }
-    .anim-line {
-        position: relative;
-        display: flex;
-        align-items: center;
-        width: 520px;
-        max-width: 96vw;
-        justify-content: center;
-    }
-    .center-photo {
-        position: absolute;
-        /* left: 20%; */
-        width: 60vw;
-        height: auto;
-        /* border-radius: 50%; */
-        object-fit: cover;
-        margin: 0 80px;
-        /* box-shadow:
-            0 2px 72px #23232324,
-            0 0 0 10px #fff,
-            0 0 0 16px #1ba45922; */
-        flex-shrink: 0;
-        z-index: 1;
-        border: 4px solid #fff;
-        outline: 3px solid #1ba45921;
-        transition:
-            width 0.3s,
-            height 0.3s,
-            margin 0.3s;
-
-        z-index: 1;
-    }
-    .anim-problem,
-    .anim-solution {
-        display: inline-block;
-        min-width: 70px;
-        max-width: 35vw;
-        font-size: 1.55rem;
-        font-weight: 700;
-        white-space: nowrap;
-        opacity: 0;
-        pointer-events: none;
-        position: absolute;
-        top: 50%;
-        z-index: 2;
-        transition:
-            opacity 0.18s,
-            transform 0.5s;
-    }
-    .anim-problem {
-        position: absolute;
-        top: 50%;
-        left: -20%;
-        font-size: 1.55rem;
-        font-weight: 700;
-        white-space: nowrap;
-        color: #888;
-        pointer-events: none;
-        animation: problemFlow 6s linear infinite;
-        transform: translateY(-50%);
-    }
-
-    /* The problem lands just left of centered photo, then fades out */
-
-    .anim-solution {
-        position: absolute;
-        top: 50%;
-        left: 30%;
-        font-size: 1.55rem;
-        font-weight: 900;
-        white-space: nowrap;
-        color: #a00000;
-        pointer-events: none;
-        animation: solutionFlow 6s linear infinite;
-        transform: translateY(-50%);
-    }
-
+    
     @media (max-width: 800px) {
         .center-photo {
-            /* margin: 0 16px; */
+            width: 80vw;
+            max-width: 250px;
         }
-        .anim-line {
-            /* width: 270px; */
-        }
+        
         .anim-problem,
         .anim-solution {
-            max-width: 10ch;
+            font-size: 1.1rem;
+            max-width: 120px;
             word-break: break-word;
-            font-size: 1.05rem;
+            white-space: normal;
+            text-align: center;
         }
-    }
-    @keyframes problemFlow {
-        0% {
-            left: -20%;
-            opacity: 0;
+        
+        .anim-problem {
+            left: -80px;
         }
-        10% {
-            left: -20%;
-            opacity: 1;
+        
+        @keyframes problemFlow {
+            0% {
+                left: -80px;
+                opacity: 0;
+            }
+            20% {
+                opacity: 1;
+            }
+            50% {
+                left: 30%;
+                opacity: 1;
+            }
+            80% {
+                left: 30%;
+                opacity: 1;
+            }
+            100% {
+                left: 30%;
+                opacity: 0;
+            }
         }
-        85% {
-            left: 50%;
-            opacity: 1;
-        }
-        100% {
-            left: 50%;
-            opacity: 0;
-        }
-    }
-    @keyframes solutionFlow {
-        0% {
-            left: 30%;
-            opacity: 0;
-        }
-        15% {
-            left: 30%;
-            opacity: 1;
-        }
-        85% {
-            left: 120%;
-            opacity: 1;
-        }
-        100% {
-            left: 120%;
-            opacity: 0;
+        
+        @keyframes solutionFlow {
+            0% {
+                left: 50%;
+                opacity: 0;
+            }
+            20% {
+                opacity: 1;
+            }
+            80% {
+                left: calc(100% + 80px);
+                opacity: 1;
+            }
+            100% {
+                left: calc(100% + 80px);
+                opacity: 0;
+            }
         }
     }
 </style>
