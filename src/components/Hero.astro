@@ -16,6 +16,16 @@ import { Image } from "astro:assets";
         </div>
         <div class="hero-item">
             <Image
+                src="https://i.ytimg.com/vi/sXGCDTFzW24/maxresdefault.jpg"
+                alt="Event Coverage"
+                class="hero-image"
+                width={1280}
+                height={720}
+            />
+            <span class="image-label">Event Coverage</span>
+        </div>
+        <div class="hero-item">
+            <Image
                 src="https://i.ytimg.com/vi/GtX7KonFvsY/maxresdefault.jpg"
                 alt="Motion Graphics"
                 class="hero-image"
@@ -104,16 +114,7 @@ import { Image } from "astro:assets";
             />
             <span class="image-label">Corporate Videos</span>
         </div>
-        <div class="hero-item">
-            <Image
-                src="https://i.ytimg.com/vi/sXGCDTFzW24/maxresdefault.jpg"
-                alt="Event Coverage"
-                class="hero-image"
-                width={1280}
-                height={720}
-            />
-            <span class="image-label">Event Coverage</span>
-        </div>
+
         <div class="hero-item">
             <Image
                 src="https://i.ytimg.com/vi/H4RvBNVbofo/maxresdefault.jpg"
@@ -177,7 +178,7 @@ import { Image } from "astro:assets";
 
     .hero-overlay {
         position: absolute;
-        top: 50%;
+        top: 20%;
         left: 50%;
         transform: translate(-50%, -50%);
         text-align: center;

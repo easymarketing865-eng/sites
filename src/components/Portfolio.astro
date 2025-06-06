@@ -9,25 +9,31 @@ import portfolioData from "../data/portfolio.json";
 
 // Combine featured and regular portfolio items, taking first 7 for display
 const allProjects = [...portfolioData.featured, ...portfolioData.portfolio];
-const projects = allProjects.slice(0, 7).map(project => ({
+const projects = allProjects.slice(0, 4).map((project) => ({
     title: project.title,
     img: project.hero,
     desc: project.shortDescription,
     slug: project.slug,
     services: project.services || [],
-    category: project.category
+    category: project.category,
 }));
 ---
-
 
 <section class="portfolio-section" id="portfolio">
     <!-- Start decoration SVG -->
     <div class="decoration decoration-start">
-        <img src="/photos/start.svg" alt="Start decoration" class="decoration-svg" />
+        <img
+            src="/photos/start.svg"
+            alt="Start decoration"
+            class="decoration-svg"
+        />
     </div>
 
     <div class="portfolio-content">
         <h2 class="headline">Featured Works</h2>
+        <div class="scroll-indicator">
+            <div class="scroll-hint">← Swipe to see more →</div>
+        </div>
         <div class="portfolio-grid">
             {
                 projects.map((p, index) => {
@@ -73,15 +79,21 @@ const projects = allProjects.slice(0, 7).map(project => ({
                 })
             }
         </div>
-        
+
         <div class="portfolio-link-container">
-            <a href="/portfolio" class="view-all-portfolio-btn">View Full Portfolio</a>
+            <a href="/portfolio" class="view-all-portfolio-btn"
+                >View Full Portfolio</a
+            >
         </div>
     </div>
 
     <!-- End decoration SVG -->
     <div class="decoration decoration-end">
-        <img src="/photos/end.svg" alt="End decoration" class="decoration-svg" />
+        <img
+            src="/photos/end.svg"
+            alt="End decoration"
+            class="decoration-svg"
+        />
     </div>
 </section>
 <style>
@@ -108,7 +120,7 @@ const projects = allProjects.slice(0, 7).map(project => ({
     @media (min-width: 1024px) {
         .headline {
             font-size: 3rem;
-          
+
             margin-bottom: 2.5rem;
         }
     }
@@ -157,7 +169,7 @@ const projects = allProjects.slice(0, 7).map(project => ({
         max-width: calc(100% - 4rem);
     }
     .portfolio-title {
-        font-family: 'Manrope', var(--font-sans);
+        font-family: "Manrope", var(--font-sans);
         font-size: 32px;
         font-weight: 800;
         color: #fff;
@@ -170,7 +182,7 @@ const projects = allProjects.slice(0, 7).map(project => ({
         font-size: 16px;
         color: #fff;
         opacity: 0.7;
-        font-family: 'Manrope', var(--font-sans);
+        font-family: "Manrope", var(--font-sans);
         line-height: 1.2;
         margin: 0;
         font-weight: 400;
@@ -205,16 +217,16 @@ const projects = allProjects.slice(0, 7).map(project => ({
     }
 
     /* Full-width card styles */
-    .portfolio-card:nth-child(3n+1) {
+    .portfolio-card:nth-child(3n + 1) {
         grid-column: 1 / -1;
         aspect-ratio: 16/9;
     }
 
-    .portfolio-card:nth-child(3n+1) .portfolio-img {
+    .portfolio-card:nth-child(3n + 1) .portfolio-img {
         height: 100%;
     }
 
-    .portfolio-card:nth-child(3n+1) .portfolio-caption {
+    .portfolio-card:nth-child(3n + 1) .portfolio-caption {
         bottom: 1rem;
         left: 1.5rem;
     }
@@ -227,19 +239,39 @@ const projects = allProjects.slice(0, 7).map(project => ({
         }
         
         .portfolio-grid {
-            grid-template-columns: repeat(2, 1fr);
-            padding: 0 1rem;
-            gap: 0.5rem;
+            display: flex;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            gap: 1rem;
+            padding: 0 1rem 0 1rem;
             max-width: 100%;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+            padding-right: 2rem;
+        }
+        
+        .portfolio-grid::-webkit-scrollbar {
+            display: none;
         }
         
         .portfolio-card {
+            flex: 0 0 75vw;
+            max-width: 280px;
             aspect-ratio: 3/4;
+            scroll-snap-align: start;
+            border-radius: 12px;
+            overflow: hidden;
         }
         
         .portfolio-card:nth-child(3n+1) {
-            grid-column: 1 / -1;
+            flex: 0 0 85vw;
+            max-width: 320px;
             aspect-ratio: 16/9;
+        }
+        
+        .portfolio-card:last-child {
+            margin-right: 1rem;
         }
         
         .portfolio-img {
@@ -259,7 +291,7 @@ const projects = allProjects.slice(0, 7).map(project => ({
         }
         
         .portfolio-title {
-            font-size: 20px;
+            font-size: 18px;
         }
         
         .portfolio-desc {
@@ -312,7 +344,7 @@ const projects = allProjects.slice(0, 7).map(project => ({
             width: 80px;
             height: 80px;
         }
-        
+
         .factoid-small {
             width: 80px;
             height: 80px;
@@ -332,7 +364,7 @@ const projects = allProjects.slice(0, 7).map(project => ({
         .portfolio-content {
             padding: 3rem 1rem;
         }
-        
+
         .portfolio-section {
             width: 100vw;
             margin-left: calc(-50vw + 50%);
@@ -347,8 +379,6 @@ const projects = allProjects.slice(0, 7).map(project => ({
         justify-content: center;
     }
 
-   
-
     .decoration svg {
         width: 100%;
         height: 100%;
@@ -356,7 +386,7 @@ const projects = allProjects.slice(0, 7).map(project => ({
 
     .decoration-svg {
         width: 100%;
-        
+
         object-fit: contain;
     }
 
@@ -366,8 +396,6 @@ const projects = allProjects.slice(0, 7).map(project => ({
             margin-left: calc(-50vw + 50%);
             margin-right: calc(-50vw + 50%);
         }
-        
-       
     }
 
     .portfolio-link-container {
@@ -387,7 +415,7 @@ const projects = allProjects.slice(0, 7).map(project => ({
         border-radius: 2em;
         text-decoration: none;
         transition: all 0.3s ease;
-        font-family: 'Manrope', var(--font-sans);
+        font-family: "Manrope", var(--font-sans);
         letter-spacing: 0.02em;
     }
 
@@ -398,7 +426,30 @@ const projects = allProjects.slice(0, 7).map(project => ({
         box-shadow: 0 8px 24px rgba(255, 255, 255, 0.15);
     }
 
+    .scroll-indicator {
+        display: none;
+        text-align: center;
+        margin-bottom: 1rem;
+    }
+
+    .scroll-hint {
+        font-family: 'Manrope', var(--font-sans);
+        font-size: 14px;
+        color: rgba(255, 255, 255, 0.6);
+        font-weight: 400;
+        animation: fadeInOut 2s ease-in-out infinite;
+    }
+
+    @keyframes fadeInOut {
+        0%, 100% { opacity: 0.6; }
+        50% { opacity: 1; }
+    }
+
     @media (max-width: 768px) {
+        .scroll-indicator {
+            display: block;
+        }
+        
         .portfolio-link-container {
             margin-top: 2rem;
         }

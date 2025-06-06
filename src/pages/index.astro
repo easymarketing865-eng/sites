@@ -12,11 +12,14 @@ import "../styles/global.css";
 import PromoBanner from "../components/PromoBanner.astro";
 import ProjectsSection from "../components/ProjectsSection.astro";
 import AnimationThing from "../components/AnimationThing.astro";
-import SegmentsSection from "../components/TargetSegments.astro";
 import Hero from "../components/Hero.astro";
 import WeGoodAt from "../components/WeGoodAt.astro";
 import Header from "../components/Header.astro";
 import ExceptionalValue from "../../sections/ExceptionalValue.astro";
+import PortfolioPreview from "../components/PortfolioPreview.astro";
+import PortfolioPreviewGrid from "../components/PortfolioPreviewGrid.astro";
+import TalkToUs1 from "../components/TalkToUs1.astro";
+import TalkToUs2 from "../components/TalkToUs2.astro";
 // import ContactSection from "../components/ContactSection.astro";
 ---
 
@@ -38,16 +41,18 @@ import ExceptionalValue from "../../sections/ExceptionalValue.astro";
             <Showreel />
             <Hero />
             <TargetSegments />
-
             <Portfolio />
+            <TalkToUs1 />
             <!-- <WeGoodAt client:load /> -->
             <!-- <AnimationThing /> -->
 
             <ExceptionalValue />
 
-            <Timeline />
+            <PortfolioPreviewGrid startIndex={4} />
 
             <FAQ />
+
+            <TalkToUs2 />
         </main>
 
         <Footer />
