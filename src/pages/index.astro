@@ -1,6 +1,5 @@
 ---
 import AccentScript from "../components/AccentScript.astro";
-import Services from "../components/Services.astro";
 import Showreel from "../components/Showreel.astro";
 import TargetSegments from "../components/TargetSegments.astro";
 import PortfolioTeaser from "../components/PortfolioTeaser.astro";
@@ -25,6 +24,7 @@ import TalkToUs1 from "../components/TalkToUs1.astro";
 import TalkToUs3 from "../components/TalkToUs3.astro";
 import TalkToUs2 from "../components/TalkToUs2.astro";
 import PortfolioPreviewGrid from "../components/PortfolioPreviewGrid.astro";
+import Team from "../components/Team.astro";
 // import ContactSection from "../components/ContactSection.astro";
 ---
 
@@ -44,16 +44,12 @@ import PortfolioPreviewGrid from "../components/PortfolioPreviewGrid.astro";
         <main>
             <Header />
             <Showreel />
-            <!-- <Services /> -->
 
             <Hero />
             <TargetSegments />
             <TalkToUs1 />
             <PortfolioTeaser />
 
-            <!-- <AnimationThing /> -->
-
-            <!-- <WeGoodAt client:load /> -->
             <ExceptionalValue />
             <Everywhere />
 
@@ -62,10 +58,7 @@ import PortfolioPreviewGrid from "../components/PortfolioPreviewGrid.astro";
                 toShow={4}
                 title="Portfolio preview #1"
             />
-
-            <!-- <Timeline /> -->
-
-            <!-- <Testimonials /> -->
+            <Team />
 
             <FAQ />
         </main>

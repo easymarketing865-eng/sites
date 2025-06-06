@@ -1,0 +1,349 @@
+<section class="team-section">
+    <div class="team-container">
+        <h2 class="team-title">Our Core Team</h2>
+        <div class="team-grid">
+            <div class="team-member">
+                <div class="member-image-wrapper">
+                    <img
+                        src="/team/alina-saiitova.png"
+                        alt="Alina Saiitova"
+                        class="member-image"
+                    />
+                    <div class="member-overlay member-overlay-bottom">
+                        <h3 class="member-name">Alina Saiitova</h3>
+                        <p class="member-role">
+                            Owner, producer, creative director
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="team-member">
+                <div class="member-image-wrapper">
+                    <img
+                        src="/team/arsenii-morozov.png"
+                        alt="Arsenii Morozov"
+                        class="member-image"
+                    />
+                    <div class="member-overlay member-overlay-top">
+                        <h3 class="member-name">Arsenii Morozov</h3>
+                        <p class="member-role">Camera operator</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="team-member">
+                <div class="member-image-wrapper">
+                    <img
+                        src="/team/aktilek-ibraimov.png"
+                        alt="Aktilek Ibraimov"
+                        class="member-image"
+                    />
+                    <div class="member-overlay member-overlay-bottom">
+                        <h3 class="member-name">Aktilek Ibraimov</h3>
+                        <p class="member-role">CGI artist</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="team-member">
+                <div class="member-image-wrapper">
+                    <img
+                        src="/team/milena-islamova.png"
+                        alt="Milena Islamova"
+                        class="member-image"
+                    />
+                    <div class="member-overlay member-overlay-top">
+                        <h3 class="member-name">Milena Islamova</h3>
+                        <p class="member-role">General manager</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="team-member">
+                <div class="member-image-wrapper">
+                    <img
+                        src="/team/timur-vagizov.png"
+                        alt="Timur Vagizov"
+                        class="member-image"
+                    />
+                    <div class="member-overlay member-overlay-bottom">
+                        <h3 class="member-name">Timur Vagizov</h3>
+                        <p class="member-role">Director of photography</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="team-member">
+                <div class="member-image-wrapper">
+                    <img
+                        src="/team/asel-imankulova.png"
+                        alt="Asel Imankulova"
+                        class="member-image"
+                    />
+                    <div class="member-overlay member-overlay-top">
+                        <h3 class="member-name">Asel Imankulova</h3>
+                        <p class="member-role">Screenwriter</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="team-member">
+                <div class="member-image-wrapper">
+                    <img
+                        src="/team/yana-mashirova.png"
+                        alt="Yana Mashirova"
+                        class="member-image"
+                    />
+                    <div class="member-overlay member-overlay-bottom">
+                        <h3 class="member-name">Yana Mashirova</h3>
+                        <p class="member-role">Project manager</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="team-member">
+                <div class="member-image-wrapper">
+                    <img
+                        src="/team/alisa-ugarova.png"
+                        alt="Alisa Ugarova"
+                        class="member-image"
+                    />
+                    <div class="member-overlay member-overlay-top">
+                        <h3 class="member-name">Alisa Ugarova</h3>
+                        <p class="member-role">Production designer</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="team-member join-us-card">
+                <div class="member-image-wrapper join-us-wrapper">
+                    <div class="join-us-content">
+                        <h3 class="join-us-title">Come Work With Us</h3>
+                        <p class="join-us-text">Join our creative team and help us create amazing content</p>
+                        <div class="join-us-cta">Get in Touch →</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+    .team-section {
+        width: 100%;
+        max-width: var(--main-maxwidth);
+        margin: 0 auto;
+        padding: 5rem 2rem;
+        box-sizing: border-box;
+    }
+
+    .team-container {
+        width: 100%;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    .team-title {
+        font-family: var(--font-heading);
+        font-size: clamp(2.5rem, 5vw, 4rem);
+        font-weight: 700;
+        color: var(--brand-black);
+        text-align: center;
+        margin: 0 0 4rem 0;
+        line-height: 1.2;
+    }
+
+    .team-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 0;
+        width: 100%;
+    }
+
+    .team-member {
+        position: relative;
+        display: block;
+        transition: transform 0.3s ease;
+    }
+
+    .team-member:hover {
+        transform: scale(1.02);
+    }
+
+    .member-image-wrapper {
+        position: relative;
+        width: 100%;
+        aspect-ratio: 3/4;
+        overflow: hidden;
+    }
+
+    .member-image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.3s ease;
+    }
+
+    .team-member:hover .member-image {
+        transform: scale(1.05);
+    }
+
+    .member-overlay {
+        position: absolute;
+        left: 0;
+        right: 0;
+        color: white;
+        padding: 1rem;
+        text-align: left;
+    }
+
+    .member-overlay-bottom {
+        bottom: 0;
+        background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+        padding: 2rem 1rem 1rem 1rem;
+    }
+
+    .member-overlay-top {
+        top: 0;
+        background: linear-gradient(rgba(0, 0, 0, 0.8), transparent);
+        padding: 1rem 1rem 2rem 1rem;
+    }
+
+    .join-us-card {
+        display: none;
+    }
+
+    .join-us-wrapper {
+        background: linear-gradient(135deg, #666 0%, #999 100%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .join-us-content {
+        text-align: center;
+        color: white;
+        padding: 2rem;
+    }
+
+    .join-us-title {
+        font-family: var(--font-heading);
+        font-size: clamp(1.25rem, 2.5vw, 1.75rem);
+        font-weight: 700;
+        color: white;
+        margin: 0 0 1rem 0;
+        line-height: 1.2;
+    }
+
+    .join-us-text {
+        font-family: var(--font-body);
+        font-size: clamp(0.9rem, 1.5vw, 1.1rem);
+        color: rgba(255, 255, 255, 0.9);
+        margin: 0 0 1.5rem 0;
+        line-height: 1.4;
+    }
+
+    .join-us-cta {
+        font-family: var(--font-heading);
+        font-size: clamp(1rem, 1.8vw, 1.2rem);
+        font-weight: 600;
+        color: white;
+        border: 2px solid white;
+        padding: 0.75rem 1.5rem;
+        display: inline-block;
+        transition: all 0.3s ease;
+    }
+
+    .join-us-card:hover .join-us-cta {
+        background: white;
+        color: var(--brand-black);
+    }
+
+    .member-name {
+        font-family: var(--font-heading);
+        font-size: clamp(1rem, 2vw, 1.25rem);
+        font-weight: 600;
+        color: white;
+        margin: 0 0 0.5rem 0;
+        line-height: 1.3;
+    }
+
+    .member-role {
+        font-family: var(--font-body);
+        font-size: clamp(0.8rem, 1.5vw, 0.95rem);
+        color: rgba(255, 255, 255, 0.9);
+        margin: 0;
+        line-height: 1.4;
+        font-weight: 400;
+    }
+
+    @media (max-width: 1024px) {
+        .team-section {
+            padding: 4rem 1.5rem;
+        }
+
+        .team-grid {
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0;
+        }
+
+        .join-us-card {
+            display: block;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .team-section {
+            padding: 3rem 1rem;
+        }
+
+        .team-grid {
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0;
+        }
+
+        .team-title {
+            margin-bottom: 3rem;
+        }
+
+        .member-overlay-bottom {
+            padding: 1.5rem 0.75rem 0.75rem 0.75rem;
+        }
+
+        .member-overlay-top {
+            padding: 0.75rem 0.75rem 1.5rem 0.75rem;
+        }
+
+        .join-us-card {
+            display: none;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .team-section {
+            padding: 2rem 0.75rem;
+        }
+
+        .team-grid {
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0;
+        }
+
+        .team-title {
+            margin-bottom: 2rem;
+        }
+
+        .member-overlay-bottom {
+            padding: 1rem 0.5rem 0.5rem 0.5rem;
+        }
+
+        .member-overlay-top {
+            padding: 0.5rem 0.5rem 1rem 0.5rem;
+        }
+
+        .join-us-card {
+            display: none;
+        }
+    }
+</style>
