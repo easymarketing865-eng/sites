@@ -1,10 +1,22 @@
 ---
-import Layout from '../../layouts/Layout.astro';
-import PortfolioPage from '../../components/PortfolioPage.astro';
+import Layout from "../../layouts/Layout.astro";
+import PortfolioPage from "../../components/PortfolioPage.astro";
 ---
 
 <Layout title="Portfolio - Easy Production">
-  <main>
-    <PortfolioPage />
-  </main>
+    <main>
+        <PortfolioPage />
+    </main>
 </Layout>
+
+<style>
+    main {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: var(--main-padding);
+        max-width: var(--main-maxwidth);
+        margin: 0 auto;
+    }
+</style>
