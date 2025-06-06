@@ -24,6 +24,7 @@ import ExceptionalValue from "../../sections/ExceptionalValue.astro";
 import TalkToUs1 from "../components/TalkToUs1.astro";
 import TalkToUs3 from "../components/TalkToUs3.astro";
 import TalkToUs2 from "../components/TalkToUs2.astro";
+import PortfolioPreviewGrid from "../components/PortfolioPreviewGrid.astro";
 // import ContactSection from "../components/ContactSection.astro";
 ---
 
@@ -47,13 +48,19 @@ import TalkToUs2 from "../components/TalkToUs2.astro";
 
             <Hero />
             <TargetSegments />
+            <TalkToUs1 />
             <PortfolioTeaser />
 
-            <TalkToUs1 />
-            <AnimationThing />
+            <!-- <AnimationThing /> -->
 
-            <WeGoodAt client:load />
+            <!-- <WeGoodAt client:load /> -->
             <ExceptionalValue />
+
+            <PortfolioPreviewGrid
+                startIndex={5}
+                toShow={4}
+                title="Portfolio preview #1"
+            />
 
             <Timeline />
             <About />
