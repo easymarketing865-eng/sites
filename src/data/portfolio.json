@@ -38,7 +38,7 @@
       "year": "2023",
       "featured": true,
       "hero": "/photos/ELIZAVETA.webp",
-      "videoId": "46DUxszYO3M",
+      "videoId": "DHddjlkxObQ",
       "gallery": [
         "/photos/ELIZAVETA.webp",
         "/photos/elizaveta/width_800.webp",
@@ -66,7 +66,7 @@
       "year": "2023",
       "featured": true,
       "hero": "/photos/VILAR/width_800.webp",
-      "videoId": "LtlP9ZYa0PI",
+      "videoId": "DvaIa73DLaQ",
       "gallery": [
         "/photos/VILAR/width_800.webp"
       ],
@@ -98,16 +98,16 @@
       "techStack": ["Blackmagic Cinema", "Fashion Lighting", "Color Grading"]
     },
     {
-      "id": "meniki-retail",
-      "title": "MENIKI",
-      "slug": "meniki",
+      "id": "one-retail",
+      "title": "One",
+      "slug": "one",
       "shortDescription": "Retail brand story",
-      "fullDescription": "Comprehensive brand storytelling for MENIKI retail chain, focusing on customer experience and product quality through authentic documentary-style content.",
+      "fullDescription": "Comprehensive brand storytelling for One retail chain, focusing on customer experience and product quality through authentic documentary-style content.",
       "category": "Retail",
       "year": "2023", 
       "featured": false,
       "hero": "/photos/MENIKI_ONE/width_800.webp",
-      "videoId": "F5tVa5bc5KI",
+      "videoId": "LtlP9ZYa0PI",
       "gallery": [
         "/photos/MENIKI_ONE/width_800.webp",
         "/photos/MENIKI_ONE/width_800 (1).webp"
@@ -116,7 +116,7 @@
       "techStack": ["Documentary Setup", "Natural Lighting", "Storytelling Edit"],
       "testimonial": {
         "quote": "Bold concepts, smooth production workflow, and results that exceed expectations. Our clients consistently praise the final deliverables.",
-        "author": "Project Manager, MENIKI"
+        "author": "Project Manager, One"
       }
     },
     {
@@ -129,7 +129,7 @@
       "year": "2022",
       "featured": false,
       "hero": "/photos/petrolium/width_800.webp",
-      "videoId": "IOnBhZHppnU",
+      "videoId": "5EV5ZzR86tI",
       "gallery": [
         "/photos/petrolium/width_800.webp"
       ],
@@ -137,16 +137,16 @@
       "techStack": ["Industrial Cameras", "Drone Technology", "Professional Audio"]
     },
     {
-      "id": "vitalin-health",
-      "title": "VITALIN", 
-      "slug": "vitalin",
+      "id": "vitalnan-health",
+      "title": "Vitalnan", 
+      "slug": "vitalnan",
       "shortDescription": "Health campaign",
       "fullDescription": "Health and wellness campaign promoting active lifestyle and nutritional awareness through inspiring personal stories and expert interviews.",
       "category": "Healthcare",
       "year": "2022",
       "featured": false,
       "hero": "/photos/VITALIN/width_800.webp",
-      "videoId": "glulJ9nkjmM",
+      "videoId": "F5tVa5bc5KI",
       "gallery": [
         "/photos/VITALIN/width_800.webp"
       ],
@@ -154,24 +154,58 @@
       "techStack": ["Health-Safe Equipment", "Interview Setup", "Wellness Aesthetics"]
     },
     {
-      "id": "asia-store",
-      "title": "Asia Store",
-      "slug": "asia-store",
+      "id": "sai-kitchen",
+      "title": "Sai Kitchen",
+      "slug": "sai-kitchen",
+      "shortDescription": "Culinary brand story",
+      "fullDescription": "Brand storytelling for Sai Kitchen, showcasing culinary excellence and authentic flavors through dynamic food cinematography and kitchen storytelling.",
+      "category": "Food & Beverage",
+      "year": "2023",
+      "featured": false,
+      "hero": "/photos/sai-kitchen/width_800.webp",
+      "videoId": "IOnBhZHppnU",
+      "gallery": [
+        "/photos/sai-kitchen/width_800.webp"
+      ],
+      "services": ["Food Cinematography", "Brand Storytelling", "Culinary Content"],
+      "techStack": ["Food Photography Setup", "Kitchen Lighting", "Culinary Direction"]
+    },
+    {
+      "id": "organic",
+      "title": "Organic",
+      "slug": "organic",
+      "shortDescription": "Natural lifestyle brand",
+      "fullDescription": "Organic lifestyle brand campaign promoting sustainable living and natural products through authentic storytelling and environmental consciousness.",
+      "category": "Lifestyle",
+      "year": "2023",
+      "featured": false,
+      "hero": "/photos/organic.webp",
+      "videoId": "glulJ9nkjmM",
+      "gallery": [
+        "/photos/organic.webp"
+      ],
+      "services": ["Lifestyle Content", "Sustainable Storytelling", "Natural Product Showcase"],
+      "techStack": ["Natural Lighting", "Eco-Friendly Production", "Organic Aesthetics"]
+    },
+    {
+      "id": "asbis",
+      "title": "ASBIS",
+      "slug": "asbis",
       "shortDescription": "Modern retail heritage",
       "fullDescription": "Retail brand campaign balancing modern shopping experience with traditional cultural values, creating authentic connections with diverse customer base.",
       "category": "Retail",
       "year": "2023",
       "featured": false,
-      "hero": "/photos/asiastore/asiastore.webp",
-      "videoId": "l871VZr7XQA",
+      "hero": "/photos/asbis.png",
+      "videoId": "46DUxszYO3M",
       "gallery": [
-        "/photos/asiastore/asiastore.webp"
+        "/photos/asbis.png"
       ],
       "services": ["Retail Campaign", "Cultural Storytelling", "Customer Experience"],
       "techStack": ["Versatile Camera Setup", "Cultural Sensitivity", "Authentic Direction"],
       "testimonial": {
         "quote": "Creative vision meets flawless execution. They capture the essence of modern retail while honoring our local heritage. Outstanding partnership.",
-        "author": "Creative Director, Asia Store"
+        "author": "Creative Director, ASBIS"
       }
     }
   ],
@@ -183,6 +217,8 @@
     "Retail", 
     "Energy",
     "Healthcare",
-    "Product"
+    "Product",
+    "Food & Beverage",
+    "Lifestyle"
   ]
 }
