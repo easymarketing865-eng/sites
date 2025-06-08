@@ -5,7 +5,7 @@
  */
 import "../styles/global.css";
 import styles from "../styles/Footer.module.css";
-import { Instagram, Mail, MessageCircle, Phone, MapPin } from "lucide-astro";
+import SocialShare from "./SocialShare.astro";
 
 const clientLogos = [
     { name: "M-Bank", logo: "/logos/mbank.webp" },
@@ -20,17 +20,6 @@ const clientLogos = [
     { name: "Crystal", logo: "/logos/crystal.webp" },
 ];
 
-const socialLinks = [
-    {
-        name: "Instagram",
-        url: "https://instagram.com/easyproduction",
-        icon: Instagram,
-    },
-    { name: "Email", url: "mailto:hello@easyproduction.kg", icon: Mail },
-    { name: "Telegram", url: "https://t.me/easyproduction", icon: MessageCircle },
-    { name: "WhatsApp", url: "https://wa.me/996555123456", icon: Phone },
-    { name: "Google Maps", url: "https://goo.gl/maps/bishkek", icon: MapPin },
-];
 ---
 
 <footer class={styles.footer}>
@@ -95,27 +84,13 @@ const socialLinks = [
     <!-- Social Links Section -->
     <section class={styles.socialSection}>
         <div class={styles.container}>
-            <h3 class={styles.socialTitle}>Follow Us</h3>
-            <div class={styles.socialLinks}>
-                {
-                    socialLinks.map((social) => {
-                        const IconComponent = social.icon;
-                        return (
-                            <a
-                                href={social.url}
-                                class={styles.socialLink}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                aria-label={social.name}
-                            >
-                                <IconComponent class={styles.socialIcon} size={20} />
-                                <span class={styles.socialName}>
-                                    {social.name}
-                                </span>
-                            </a>
-                        );
-                    })
-                }
+            <!-- Social Share Section -->
+            <div class="footer-share-section">
+                <SocialShare 
+                    title="Easy Production - Professional Video Services"
+                    description="Discover amazing video production services in Kyrgyzstan with international standards"
+                    className="footer-share"
+                />
             </div>
         </div>
     </section>
@@ -135,3 +110,70 @@ const socialLinks = [
         </div>
     </section>
 </footer>
+
+<style>
+    /* Footer Social Share Section Styling */
+    .footer-share-section {
+        margin-top: 2rem;
+        padding-top: 2rem;
+        border-top: 1px solid #333;
+    }
+
+    .footer-share-section :global(.social-share-container) {
+        background: transparent;
+        box-shadow: none;
+        padding: 1rem 0;
+        margin: 0;
+    }
+
+    .footer-share-section :global(.share-title) {
+        color: #fff;
+        font-size: 1rem;
+        font-weight: 700;
+        margin-bottom: 1rem;
+    }
+
+    .footer-share-section :global(.share-btn) {
+        color: #333;
+        background: hsla(0,0%,91%,.5);
+    }
+
+    .footer-share-section :global(.share-btn:hover) {
+        background: hsla(0,0%,85%,.5);
+        color: #333;
+    }
+
+    /* Override with service-specific colors on hover */
+    .footer-share-section :global(.whatsapp-btn:hover) {
+        background: rgba(37, 211, 102, 0.1);
+        color: #000;
+    }
+
+    .footer-share-section :global(.telegram-btn:hover) {
+        background: rgba(0, 136, 204, 0.1);
+        color: #000;
+    }
+
+    .footer-share-section :global(.facebook-btn:hover) {
+        background: rgba(24, 119, 242, 0.1);
+        color: #000;
+    }
+
+    .footer-share-section :global(.email-btn:hover) {
+        background: rgba(102, 102, 102, 0.1);
+        color: #000;
+    }
+
+    .footer-share-section :global(.instagram-btn:hover) {
+        background: rgba(228, 64, 95, 0.1);
+        color: #000;
+    }
+
+    .footer-share-section :global(.share-btn .share-icon) {
+        filter: none;
+    }
+
+    .footer-share-section :global(.share-btn:hover .share-icon) {
+        filter: none;
+    }
+</style>

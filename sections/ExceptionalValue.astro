@@ -16,7 +16,7 @@ export interface Props {}
     width: 100vw;
     margin-left: calc(50% - 50vw);
     margin-right: calc(50% - 50vw);
-    font-family: 'Montserrat', sans-serif;
+    font-family: var(--font-sans);
     display: flex;
     flex-direction: column;
   }
@@ -40,16 +40,14 @@ export interface Props {}
   }
   
   .exceptional-content {
-    max-width: 900px;
+    max-width: 1200px;
     margin: 0 auto;
-    padding: 0 2rem;
+    padding: 0 3rem;
   }
   .exceptional-heading {
     font-size: 2.75rem;
     font-weight: 800;
     color: var(--primary);
-    text-transform: uppercase;
-    
     margin-bottom: 2rem;
   }
   .narrative-block {
