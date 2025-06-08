@@ -1,47 +1,226 @@
 ---
 /**
  * TargetSegments.astro
- * Editorial section: "We Cater To" – Agency target segments in a visually bold, clean, mobile-first grid.
+ * Editorial section: "Who We Serve" – Agency target segments in a visually bold, clean, mobile-first grid.
  */
 import "../styles/global.css";
-import styles from "../styles/TargetSegments.module.css";
 
 const segments = [
   {
-    title: "Independent Filmmakers",
-    description: "High-quality visuals in Kyrgyzstan's stunning locations at cost-effective rates."
+    title: "Independent<br/>Filmmakers",
+    description: "High-quality visuals in Kyrgyzstan's stunning locations at cost-effective rates.",
+    icon: "/icons/director's-chair 2.svg"
   },
   {
-    title: "Advertising Agencies",
-    description: "Creative production partner for campaigns and concepts. Reliable delivery every time."
+    title: "Advertising<br/>Agencies",
+    description: "Creative production partner for campaigns and concepts. Reliable delivery every time.",
+    icon: "/icons/pavement-signs 1.svg"
   },
   {
     title: "Brands",
-    description: "Impactful marketing videos and commercials that capture and convert."
+    description: "Impactful marketing videos and commercials that capture and convert.",
+    icon: "/icons/sneakers 1.svg"
   },
   {
-    title: "Companies in Central Asia",
-    description: "Local crews and logistics with trusted on-the-ground expertise."
+    title: "Companies in<br/>Central Asia",
+    description: "Local crews and logistics with trusted on-the-ground expertise.",
+    icon: "/icons/mountains 1.svg"
   },
   {
-    title: "International Productions",
-    description: "Global standards and adaptive teams ready to deliver anywhere."
+    title: "International<br/>Productions",
+    description: "Global standards and adaptive teams ready to deliver anywhere.",
+    icon: "/icons/earth 1.svg"
   },
   {
-    title: "Content Creators",
-    description: "Professional production support for YouTube, social media, and digital content."
+    title: "Content<br/>Creators",
+    description: "Professional production support for YouTube, social media, and digital content.",
+    icon: "/icons/phone-camera 1.svg"
   }
 ];
+
+// Chess pattern function: alternates properly in 2-column grid
+const getChessClass = (index: number) => {
+  const row = Math.floor(index / 2);
+  const col = index % 2;
+  return (row + col) % 2 === 0 ? 'card-white' : 'card-red';
+};
 ---
 
-<section class={styles.section} id="target-segments">
-  <h2 class="headline">Who We Serve</h2>
-  <div class={styles.grid}>
-    {segments.map(segment => (
-      <div class={styles.card}>
-        <div class={styles.title}>{segment.title}</div>
-        <div class={styles.desc}>{segment.description}</div>
+<section class="target-segments-section" id="target-segments">
+  <h2 class="section-headline">Who We Serve</h2>
+  <div class="segments-grid">
+    {segments.map((segment, index) => (
+      <div class={`segment-card ${getChessClass(index)}`}>
+        <div class="card-icon">
+          <img src={segment.icon} alt={segment.title} />
+        </div>
+        <h3 class="card-title" set:html={segment.title}></h3>
+        <p class="card-description">{segment.description}</p>
       </div>
     ))}
   </div>
 </section>
+
+<style>
+  .target-segments-section {
+    width: 100%;
+    max-width: 1000px;
+    margin: 0 auto 3em auto;
+    padding: 0 1.2em;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .section-headline {
+    font-size: 1.23rem;
+    font-weight: 900;
+    color: var(--brand-red, #A00000);
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    margin: 0 0 1.8em 0;
+    font-family: var(--font-sans);
+  }
+
+  .segments-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+  }
+
+  .segment-card {
+    box-shadow: 0 2px 14px #0001;
+    padding-top: 16px;
+    padding-left: 24px;
+    padding-right: 1.2em;
+    padding-bottom: 1.15em;
+    min-width: 0;
+    min-height: 120px;
+    transition: box-shadow 0.16s, transform 0.13s;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75em;
+    position: relative;
+  }
+
+  .card-white {
+    background: var(--brand-white, #fff);
+  }
+
+  .card-red {
+    background: var(--brand-red, #A00000);
+  }
+
+  .segment-card:hover, .segment-card:focus-within {
+    box-shadow: 0 6px 26px #a0000027;
+    transform: scale(1.014);
+    z-index: 2;
+  }
+
+  .card-icon {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 0px;
+  }
+
+  /* White card icons - black color */
+  .card-white .card-icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    filter: brightness(0) saturate(100%) invert(0%);
+  }
+
+  /* Red card icons - white color */
+  .card-red .card-icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    filter: brightness(0) saturate(100%) invert(100%);
+  }
+
+  .card-title {
+    font-size: var(--font-size-md);
+    font-weight: 800;
+    letter-spacing: -1px;
+    font-family: var(--font-sans);
+    margin: 0;
+    line-height: 105%;
+    /* NO text-transform: uppercase - confirmed removed */
+  }
+
+  /* White card text - black color */
+  .card-white .card-title {
+    color: var(--brand-black, #111);
+  }
+
+  /* Red card text - white color */
+  .card-red .card-title {
+    color: white;
+  }
+
+  .card-description {
+    font-size: 1em;
+    font-family: var(--font-sans);
+    line-height: 1.36;
+    opacity: 0.89;
+    margin: 0;
+  }
+
+  /* White card description - black color */
+  .card-white .card-description {
+    color: var(--brand-black, #111);
+  }
+
+  /* Red card description - white color */
+  .card-red .card-description {
+    color: white;
+  }
+
+  /* Mobile responsive */
+  @media (max-width: 768px) {
+    .segments-grid {
+      grid-template-columns: 1fr;
+      gap: 8px;
+    }
+    
+    .segment-card {
+      min-height: 100px;
+      padding-top: 16px;
+      padding-left: 24px;
+      padding-right: 1em;
+      padding-bottom: 1em;
+    }
+
+    .card-icon {
+      width: 36px;
+      height: 36px;
+    }
+  }
+
+  /* Large screens */
+  @media (min-width: 950px) {
+    .segments-grid {
+      gap: 8px;
+    }
+    
+    .segment-card {
+      min-height: 140px;
+      padding-top: 16px;
+      padding-left: 24px;
+      padding-right: 1.6em;
+      padding-bottom: 1.4em;
+    }
+
+    .card-icon {
+      width: 44px;
+      height: 44px;
+    }
+  }
+</style>
