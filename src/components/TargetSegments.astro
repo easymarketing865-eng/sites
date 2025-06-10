@@ -99,7 +99,6 @@ const getChessClass = (index: number) => {
     padding-bottom: 1.15em;
     min-width: 0;
     min-height: 120px;
-    transition: box-shadow 0.16s, transform 0.13s;
     display: flex;
     flex-direction: column;
     gap: 0.75em;
@@ -112,12 +111,6 @@ const getChessClass = (index: number) => {
 
   .card-red {
     background: var(--brand-red, #A00000);
-  }
-
-  .segment-card:hover, .segment-card:focus-within {
-    box-shadow: 0 6px 26px #a0000027;
-    transform: scale(1.014);
-    z-index: 2;
   }
 
   .card-icon {
