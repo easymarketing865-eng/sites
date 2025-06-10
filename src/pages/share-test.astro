@@ -1,0 +1,69 @@
+---
+import Layout from "../layouts/Layout.astro";
+import SocialShare from "../components/SocialShare.astro";
+---
+
+<Layout title="Social Share Test - Easy Production">
+  <main>
+    <div class="container">
+      <h1>Social Share Test</h1>
+      <p>This page demonstrates our custom social sharing functionality with Likely-inspired styling.</p>
+      
+      <SocialShare 
+        url="https://yourwebsite.com"
+        title="Amazing Video Production Services"
+        description="Professional video production in Kyrgyzstan with international standards"
+        className="test-share"
+      />
+      
+      <div class="content">
+        <h2>How it works:</h2>
+        <ul>
+          <li><strong>WhatsApp:</strong> Share directly to WhatsApp with custom message</li>
+          <li><strong>Telegram:</strong> Share to Telegram channels or chats</li>
+          <li><strong>Facebook:</strong> Share to Facebook timeline</li>
+          <li><strong>Email:</strong> Opens email client with pre-filled subject and body</li>
+          <li><strong>Instagram:</strong> Copies link to clipboard (Instagram doesn't support direct sharing)</li>
+        </ul>
+        
+        <h3>Features:</h3>
+        <ul>
+          <li>✅ Clean, minimal design inspired by Likely library</li>
+          <li>✅ No external dependencies</li>
+          <li>✅ Fully customizable</li>
+          <li>✅ Mobile responsive</li>
+          <li>✅ Brand-colored icons</li>
+        </ul>
+      </div>
+    </div>
+  </main>
+</Layout>
+
+<style>
+  .container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2rem;
+  }
+  
+  .content {
+    margin-top: 3rem;
+    padding: 2rem;
+    background: #f8f9fa;
+    border-radius: 12px;
+  }
+  
+  ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  li {
+    padding: 0.5rem 0;
+    border-bottom: 1px solid #eee;
+  }
+  
+  li:last-child {
+    border-bottom: none;
+  }
+</style> 

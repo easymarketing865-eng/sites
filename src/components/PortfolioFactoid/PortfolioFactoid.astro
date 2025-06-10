@@ -90,21 +90,23 @@ const fillColor = colorScheme in colorMap ? colorMap[colorScheme] : colorScheme;
     }
 
     .factoid-number {
-        font-family: "Manrope", var(--font-sans);
-        font-size: 42px;
-        font-weight: 800;
-        line-height: 1;
-        display: block;
+        font-family: var(--font-sans);
+        font-size: clamp(2.5rem, 8vw, 4rem);
+        font-weight: 900;
+        color: var(--brand-red);
+        line-height: 0.9;
+        margin: 0;
     }
 
-    .factoid-label,
-    .factoid-line:not(.factoid-number) {
-        font-family: "Manrope", var(--font-sans);
-        font-size: 20px;
-        font-weight: 500;
+    .factoid-label {
+        font-family: var(--font-sans);
+        font-size: clamp(0.9rem, 2vw, 1.1rem);
+        font-weight: 700;
+        color: var(--brand-black);
+        text-transform: uppercase;
         letter-spacing: 0.05em;
-        line-height: 1;
-        display: block;
+        margin: 0.5rem 0 0 0;
+        line-height: 1.2;
     }
 
     @media (max-width: 768px) {

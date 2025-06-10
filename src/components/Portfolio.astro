@@ -6,6 +6,9 @@
  */
 import "../styles/global.css";
 import portfolioData from "../data/portfolio.json";
+import TalkToUs1 from "./TalkToUs1.astro";
+import SocialShare from "./SocialShare.astro";
+
 
 // Combine featured and regular portfolio items, taking first 7 for display
 const allProjects = [...portfolioData.featured, ...portfolioData.portfolio];
@@ -64,7 +67,7 @@ const projects = allProjects.slice(0, 4).map((project) => ({
                                 </div>
                             )}
                             <figcaption class="portfolio-caption">
-                                <div class="portfolio-title">{p.title}</div>
+                                <h3 class="portfolio-title">{p.title}</h3>
                                 <div class="portfolio-desc">{p.desc}</div>
                                 {/* {p.services && p.services.length > 0 && (
                                     <div class="portfolio-tags">
@@ -85,6 +88,17 @@ const projects = allProjects.slice(0, 4).map((project) => ({
                 >View Full Portfolio</a
             >
         </div>
+
+        <!-- Social Share Section -->
+        <div class="portfolio-share-section">
+            <SocialShare 
+                title="Amazing Video Production Portfolio"
+                description="Check out our featured video production works and creative projects in Kyrgyzstan"
+                className="portfolio-share"
+            />
+        </div>
+
+        
     </div>
 
     <!-- End decoration SVG -->
@@ -204,7 +218,6 @@ const projects = allProjects.slice(0, 4).map((project) => ({
         border-radius: 12px;
         font-family: 'Manrope', var(--font-sans);
         font-weight: 500;
-        text-transform: uppercase;
         letter-spacing: 0.5px;
         backdrop-filter: blur(4px);
         border: 1px solid rgba(255, 255, 255, 0.1);
@@ -422,7 +435,6 @@ const projects = allProjects.slice(0, 4).map((project) => ({
     .view-all-portfolio-btn:hover {
         background: transparent;
         color: #fff;
-        transform: translateY(-2px);
         box-shadow: 0 8px 24px rgba(255, 255, 255, 0.15);
     }
 
@@ -457,6 +469,19 @@ const projects = allProjects.slice(0, 4).map((project) => ({
         .view-all-portfolio-btn {
             font-size: 0.9rem;
             padding: 0.7em 1.8em;
+        }
+    }
+
+    /* Portfolio Social Share Section Styling */
+    .portfolio-share-section {
+        margin-top: 1rem;
+        padding-top: 2rem;
+    }
+
+    @media (max-width: 768px) {
+        .portfolio-share-section {
+            margin-top: 2rem;
+            padding-top: 1.5rem;
         }
     }
 </style>

@@ -31,8 +31,10 @@ import Team from "../components/Team.astro";
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="generator" content={Astro.generator} />
         <title>easy. production</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
         <link
-            href="https://fonts.googleapis.com/css2?family=Manrope:wght@800&display=swap"
+            href="https://fonts.googleapis.com/css2?family=Onest:wght@800&display=swap"
             rel="stylesheet"
         />
     </head>
@@ -43,7 +45,6 @@ import Team from "../components/Team.astro";
             <Hero />
             <TargetSegments />
             <Portfolio />
-            <TalkToUs1 />
             <!-- <WeGoodAt client:load /> -->
             <!-- <AnimationThing /> -->
 
@@ -66,7 +67,7 @@ import Team from "../components/Team.astro";
             --font-size-md: 32px; /* Sub headlines */
             --font-size-base: 16px; /* Body text */
             --main-padding: clamp(1rem, 2.5vw, 2rem);
-            --main-maxwidth: 1300px;
+            --main-maxwidth: 1200px;
             --hero-head-size: clamp(2.05rem, 8vw, 3.3rem);
             --hero-tagline-size: clamp(1rem, 1.25vw, 1.11rem);
         }
