@@ -31,7 +31,6 @@ const shareLinks = {
   whatsapp: `https://wa.me/?text=${fullText}%20${encodedUrl}`,
   telegram: `https://t.me/share/url?url=${encodedUrl}&text=${fullText}`,
   facebook: `https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}`,
-  email: `mailto:?subject=${encodedTitle}&body=${encodedDescription}%0A%0A${encodedUrl}`
 };
 ---
 
@@ -79,19 +78,8 @@ const shareLinks = {
       Facebook
     </a>
 
-    <!-- Email -->
-    <a 
-      href={shareLinks.email}
-      class="share-btn email-btn"
-      target="_blank"
-      rel="noopener noreferrer"
-      data-service="email"
-    >
-      <svg class="share-icon" viewBox="0 0 24 24" fill="currentColor">
-        <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.89 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
-      </svg>
-      Email
-    </a>
+
+    
 
     <!-- Instagram (Copy to clipboard) -->
     <button 
@@ -211,9 +199,6 @@ const shareLinks = {
     background: #1877f2;
   }
 
-  .email-btn {
-    background: #666;
-  }
 
   .instagram-btn {
     background: #8E0C12;
@@ -301,9 +286,7 @@ const shareLinks = {
     background: #1464c7;
   }
 
-  .portfolio-share .email-btn:hover {
-    background: #4d4d4d;
-  }
+
 
   .portfolio-share .instagram-btn:hover {
     background: #6b090e;

@@ -47,7 +47,14 @@ const getChessClass = (index: number) => {
 ---
 
 <section class="target-segments-section" id="target-segments">
-  <h2 class="section-headline">Who We Serve</h2>
+  {/* Alternative titles to choose from:
+    1. "Our Creative Partners"
+    2. "Made For You"
+    3. "Industries We Transform"
+    4. "Let's Create Together"
+    5. "Your Vision, Our Expertise"
+  */}
+  <h2 class="section-headline">Industries We Transform</h2>
   <div class="segments-grid">
     {segments.map((segment, index) => (
       <div class={`segment-card ${getChessClass(index)}`}>
@@ -71,15 +78,15 @@ const getChessClass = (index: number) => {
     
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
   }
 
   .section-headline {
-    font-size: 1.23rem;
+    
     font-weight: 900;
-    color: var(--brand-red, #A00000);
-    letter-spacing: 0.07em;
-    margin: 0 0 1.8em 0;
+    color: var(--brand-black);
+    letter-spacing: 0.0em;
+    margin: 0 0 2rem 0;
     font-family: var(--font-sans);
   }
 

@@ -38,6 +38,12 @@ const categories = portfolioData.categories;
                 allProjects.map((p, index) => {
                     return (
                         <a href={`/portfolio/${p.slug}`} class="portfolio-card" data-category={p.category}>
+                            {index === 0 && (
+                                <>
+                                    <span class="label-new-back"></span>
+                                    <span class="label-new">new</span>
+                                </>
+                            )}
                             <img
                                 src={p.hero}
                                 alt={p.title + " project image"}
@@ -463,4 +469,55 @@ const categories = portfolioData.categories;
             transform: translateY(0);
         }
     }
+
+    .label-new {
+    background: #fee445;
+    color: #000;
+    margin: -0.7em 0 0 0;
+    padding: 0 12px 10px 2px;
+    width: 44px;
+    overflow: hidden;
+    text-transform: uppercase;
+    transform: skewY(-30deg);
+}.label-new-back,.label-new {
+    position: absolute;
+    font-family: i8sans, Helvetica Neue, Arial, sans-serif;
+    font-size: 13px;
+    line-height: 24px;
+    height: 34px;
+    font-weight: bold;
+    display: inline-block
+}
+
+.label-new-back {
+    background: #e2bc22;
+    margin: .3em 0 0 0;
+    width: 8px
+}
+
+.label-new {
+    background: #fee445;
+    color: #000;
+    margin: -0.7em 0 0 0;
+    padding: 0 12px 10px 2px;
+    width: 44px;
+    overflow: hidden;
+    text-transform: uppercase;
+    transform: skewY(-30deg)
+}
+
+.label-new-alt {
+    background: #c32;
+    color: #fee445
+}
+
+.label-new-back-alt {
+    background: #821
+}
+
+    .label-new-back {
+    background: #e2bc22;
+    margin: .3em 0 0 0;
+    width: 8px;
+}
 </style>
