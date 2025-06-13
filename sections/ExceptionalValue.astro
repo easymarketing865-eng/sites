@@ -45,10 +45,11 @@ export interface Props {}
     padding: 0 3rem;
   }
   .exceptional-heading {
-    font-size: 2.75rem;
+    font-size: 4rem; /* 64px */
     font-weight: 800;
     color: var(--primary);
-    margin-bottom: 2rem;
+    margin-bottom: 3rem;
+    line-height: 1.2;
   }
   .narrative-block {
 
@@ -105,7 +106,7 @@ export interface Props {}
       min-height: 400px;
     }
     .exceptional-heading { 
-      font-size: 2rem; 
+      font-size: 2.5rem; 
       margin-bottom: 1.5rem;
     }
     .narrative-block { 
@@ -130,54 +131,109 @@ export interface Props {}
     .exceptional-heading { font-size: 3.5rem; }
     .narrative-block { font-size: 1.25rem; }
   }
+
+  .seasonal-content {
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+  }
+
+  .season-block {
+    margin-bottom: 2rem;
+  }
+
+  .season-title {
+    font-size: 1.25rem; /* 20px */
+    font-weight: 700;
+    margin-bottom: 1rem;
+    color: var(--primary);
+  }
+
+  .season-description {
+    font-size: 1.25rem; /* 20px */
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+  }
+
+  .season-image {
+    width: 100%;
+    max-height: 600px;
+    overflow: hidden;
+  }
+
+  .season-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .value-proposition {
+    margin-top: 4rem;
+    font-size: 1.25rem;
+    line-height: 1.6;
+  }
+
+  .cta-text {
+    margin-top: 1rem;
+    font-weight: 600;
+  }
+
+  .showreel-video {
+    margin-bottom: 2.5rem;
+  }
 </style>
 
 <section class="exceptional-section">
   <div class="exceptional-text-content">
     <div class="exceptional-content">
-      <h2 class="exceptional-heading">Exceptional Value</h2>
-
-      <div class="narrative-block">
-        Picture this: a sleek studio in Dubai, lights humming, cameras rolling, at a price tag that could fund an entire week of shooting in Europe. Now imagine swapping that glare of skyscrapers for the tranquil peaks around Bishkek—same top-tier equipment, same seasoned crew, but with costs trimmed by more than half.
+      <h2 class="exceptional-heading">Every Season<br>New Story to Capture</h2>
+      <div class="showreel-video">
+        <video src="/video/kgshowreel.mp4" controls muted autoplay width="100%" style="margin-bottom: 4rem;"></video>
+      </div>
+      <div class="seasonal-content">
+        <div class="season-block">
+          <h3 class="season-title">Summer — Issyk-Kul, Lakes, Beaches</h3>
+          <p class="season-description">
+            Summer in Kyrgyzstan means crystal-clear lakes, golden beaches, and mountain sun. From aerials over Issyk-Kul to cinematic shots by the shoreline, we capture the warmth and energy of the season.
+          </p>
+          <div class="season-image">
+            <img src="/photos/showreel.jpg" alt="Summer in Kyrgyzstan" />
+          </div>
+        </div>
+        <div class="season-block">
+          <h3 class="season-title">Winter — Mountains, Skiing, Snowy Landscapes</h3>
+          <p class="season-description">
+            Winter turns Kyrgyzstan into a snow-covered film set. From ski slopes to alpine forests, we shoot in high altitudes and extreme conditions to capture the magic of winter.
+          </p>
+          <div class="season-image">
+            <img src="/photos/showreel.jpg" alt="Winter in Kyrgyzstan" />
+          </div>
+        </div>
+        <div class="season-block">
+          <h3 class="season-title">Autumn — Forests, Horses, Warm Colors</h3>
+          <p class="season-description">
+            Autumn brings rich color and timeless beauty. Rolling hills, horseback rides, and golden forests — it's the season for storytelling and soulful visuals.
+          </p>
+          <div class="season-image">
+            <img src="/photos/showreel.jpg" alt="Autumn in Kyrgyzstan" />
+          </div>
+        </div>
+        <div class="season-block">
+          <h3 class="season-title">Spring — Fresh Starts, New Beginnings</h3>
+          <p class="season-description">
+            Spring in Kyrgyzstan is a fresh start — nature awakens, and color returns. It's a perfect time to shoot branding stories, romantic scenes, or nature-focused visuals.
+          </p>
+          <div class="season-image">
+            <img src="/photos/showreel.jpg" alt="Spring in Kyrgyzstan" />
+          </div>
+        </div>
       </div>
 
-      <div class="comparison-container">
-        <table class="comparison-table">
-          <tr>
-            <td><strong>Expense</strong></td>
-            <td><strong>Dubai</strong></td>
-            <td><strong>Bishkek</strong></td>
-          </tr>
-          <tr>
-            <td>Studio Day Rental</td>
-            <td>$5,000</td>
-            <td>$1,500</td>
-          </tr>
-          <tr>
-            <td>Camera Package (per day)</td>
-            <td>$1,200</td>
-            <td>$350</td>
-          </tr>
-          <tr>
-            <td>Crew Rate (pp/day)</td>
-            <td>$2,000</td>
-            <td>$500</td>
-          </tr>
-          <tr>
-            <td>Post-Production Suite</td>
-            <td>$3,000</td>
-            <td>$900</td>
-          </tr>
-          <tr>
-            <td><strong>Total Budget</strong></td>
-            <td><strong>$100,000</strong></td>
-            <td><strong>$40,000</strong></td>
-          </tr>
-        </table>
-      </div>
-
-      <div class="narrative-block">
-        Those savings aren't just numbers—they're extra shooting days, upgraded talent, and creative freedom. In Bishkek, your vision takes front and center, not your overheads.
+      <div class="value-proposition">
+        <p>
+          Producing in Dubai or Europe can cost you 3–5× more — and not always with better results. In Kyrgyzstan, you get cinematic landscapes, professional crews, and full-service production — without the inflated budgets.
+        </p>
+        <p class="cta-text">➡️ Want a comparison? Just ask — we'll show you the difference.</p>
       </div>
 
       <div class="cta">
