@@ -94,30 +94,56 @@ export interface Props {}
       width: 100vw;
       margin-left: calc(50% - 50vw);
       margin-right: calc(50% - 50vw);
-      
-      background-position: center top;
     }
     .exceptional-text-content {
-      padding: 4rem 1rem;
+      padding: 3rem 1rem;
     }
-    
+    .exceptional-content {
+      padding: 0 1rem;
+    }
     .bg-img {
       height: 100%;
       min-height: 400px;
     }
     .exceptional-heading { 
       font-size: 2.5rem; 
-      margin-bottom: 1.5rem;
+      margin-bottom: 2rem;
     }
-    .narrative-block { 
+    .seasonal-content {
+      gap: 8px;
+    }
+    .season-block {
+      margin-bottom: 2rem;
+    }
+
+    .image-large,
+    .image-small {
+      flex: none;
+      width: 100%;
+    }
+    .season-images img {
+      max-height: 250px;
+    }
+    .season-title {
+      font-size: 1.125rem;
+      margin-bottom: 0.75rem;
+    }
+    .season-description { 
       font-size: 1rem; 
       margin-bottom: 1.5rem;
     }
-    .comparison-table {
-      font-size: 0.9rem;
+    .value-proposition {
+      margin-top: 3rem;
+      font-size: 1rem;
     }
-    .comparison-table td {
-      padding: 0.4rem;
+    .cta {
+      margin-top: 2rem;
+    }
+    .showreel-video {
+      margin-bottom: 2rem;
+    }
+    .showreel-video video {
+      margin-bottom: 2rem !important;
     }
   }
   @media (min-width: 640px) and (max-width: 1024px) {
@@ -135,7 +161,7 @@ export interface Props {}
   .seasonal-content {
     display: flex;
     flex-direction: column;
-    gap: 3rem;
+    
   }
 
   .season-block {
@@ -143,44 +169,53 @@ export interface Props {}
   }
 
   .season-title {
-    font-size: 1.25rem; /* 20px */
     font-weight: 700;
-    margin-bottom: 1rem;
+    margin-bottom: 0.25rem;
     color: var(--primary);
+    display: none;
   }
 
   .season-description {
     font-size: 1.25rem; /* 20px */
     line-height: 1.6;
-    margin-bottom: 1.5rem;
+    margin-bottom: 1rem;
+    width: 80%;
   }
 
-  .season-image {
-    width: 100%;
-    max-height: 600px;
-    overflow: hidden;
+  .season-images {
+    display: flex;
+    gap: 8px;
+    align-items: stretch;
   }
 
-  .season-image img {
+  .image-large {
+    flex: 0 0 70%;
+  }
+
+  .image-small {
+    flex: 0 0 30%;
+  }
+
+  .season-images img {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    max-height: 400px;
   }
 
   .value-proposition {
-    margin-top: 4rem;
+    margin-top: 0rem;
     font-size: 1.25rem;
     line-height: 1.6;
+    width: 85%;
   }
 
   .cta-text {
-    margin-top: 1rem;
+    margin-top: 0rem;
     font-weight: 600;
   }
 
-  .showreel-video {
-    margin-bottom: 2.5rem;
-  }
+  
 </style>
 
 <section class="exceptional-section">
@@ -188,43 +223,66 @@ export interface Props {}
     <div class="exceptional-content">
       <h2 class="exceptional-heading">Every Season<br>New Story to Capture</h2>
       <div class="showreel-video">
-        <video src="/video/kgshowreel.mp4" controls muted autoplay width="100%" style="margin-bottom: 4rem;"></video>
+        <video src="/video/kgshowreel.mp4" controls muted autoplay width="100%" style="margin-bottom: 2rem;"></video>
       </div>
       <div class="seasonal-content">
         <div class="season-block">
           <h3 class="season-title">Summer — Issyk-Kul, Lakes, Beaches</h3>
           <p class="season-description">
-            Summer in Kyrgyzstan means crystal-clear lakes, golden beaches, and mountain sun. From aerials over Issyk-Kul to cinematic shots by the shoreline, we capture the warmth and energy of the season.
+            <strong>Summer</strong> in Kyrgyzstan means crystal-clear lakes, golden beaches, and mountain sun. From aerials over Issyk-Kul to cinematic shots by the shoreline, we capture the warmth and energy of the season.
           </p>
-          <div class="season-image">
-            <img src="/photos/showreel.jpg" alt="Summer in Kyrgyzstan" />
+          <div class="season-images">
+            <div class="image-large">
+              <img src="/photos/showreel.jpg" alt="Summer showreel" />
+            </div>
+            <div class="image-small">
+              <img src="/photos/issyk-kol.jpg" alt="Summer Issyk-Kul" />
+            </div>
           </div>
         </div>
+
         <div class="season-block">
           <h3 class="season-title">Winter — Mountains, Skiing, Snowy Landscapes</h3>
           <p class="season-description">
-            Winter turns Kyrgyzstan into a snow-covered film set. From ski slopes to alpine forests, we shoot in high altitudes and extreme conditions to capture the magic of winter.
+            <strong>Winter</strong> turns Kyrgyzstan into a snow-covered film set. From ski slopes to alpine forests, we shoot in high altitudes and extreme conditions to capture the magic of winter.
           </p>
-          <div class="season-image">
-            <img src="/photos/showreel.jpg" alt="Winter in Kyrgyzstan" />
+          <div class="season-images">
+            <div class="image-small">
+              <img src="/photos/showreel.jpg" alt="Winter showreel" />
+            </div>
+            <div class="image-large">
+              <img src="/photos/issyk-kol.jpg" alt="Winter Issyk-Kul" />
+            </div>
           </div>
         </div>
+
         <div class="season-block">
           <h3 class="season-title">Autumn — Forests, Horses, Warm Colors</h3>
           <p class="season-description">
-            Autumn brings rich color and timeless beauty. Rolling hills, horseback rides, and golden forests — it's the season for storytelling and soulful visuals.
+            <strong>Autumn</strong> brings rich color and timeless beauty. Rolling hills, horseback rides, and golden forests — it's the season for storytelling and soulful visuals.
           </p>
-          <div class="season-image">
-            <img src="/photos/showreel.jpg" alt="Autumn in Kyrgyzstan" />
+          <div class="season-images">
+            <div class="image-large">
+              <img src="/photos/showreel.jpg" alt="Autumn showreel" />
+            </div>
+            <div class="image-small">
+              <img src="/photos/issyk-kol.jpg" alt="Autumn Issyk-Kul" />
+            </div>
           </div>
         </div>
+
         <div class="season-block">
           <h3 class="season-title">Spring — Fresh Starts, New Beginnings</h3>
           <p class="season-description">
-            Spring in Kyrgyzstan is a fresh start — nature awakens, and color returns. It's a perfect time to shoot branding stories, romantic scenes, or nature-focused visuals.
+            <strong>Spring</strong> in Kyrgyzstan is a fresh start — nature awakens, and color returns. It's a perfect time to shoot branding stories, romantic scenes, or nature-focused visuals.
           </p>
-          <div class="season-image">
-            <img src="/photos/showreel.jpg" alt="Spring in Kyrgyzstan" />
+          <div class="season-images">
+            <div class="image-small">
+              <img src="/photos/showreel.jpg" alt="Spring showreel" />
+            </div>
+            <div class="image-large">
+              <img src="/photos/issyk-kol.jpg" alt="Spring Issyk-Kul" />
+            </div>
           </div>
         </div>
       </div>
