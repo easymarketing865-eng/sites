@@ -9,7 +9,7 @@
                         alt="Alina Saiitova"
                         class="member-image"
                     />
-                    <div class="member-overlay member-overlay-bottom">
+                    <div class="member-overlay">
                         <h3 class="member-name">Alina Saiitova</h3>
                         <p class="member-role">
                             Owner, producer, creative director
@@ -25,7 +25,7 @@
                         alt="Arsenii Morozov"
                         class="member-image"
                     />
-                    <div class="member-overlay member-overlay-top">
+                    <div class="member-overlay">
                         <h3 class="member-name">Arsenii Morozov</h3>
                         <p class="member-role">Camera operator</p>
                     </div>
@@ -39,7 +39,7 @@
                         alt="Aktilek Ibraimov"
                         class="member-image"
                     />
-                    <div class="member-overlay member-overlay-bottom">
+                    <div class="member-overlay">
                         <h3 class="member-name">Aktilek Ibraimov</h3>
                         <p class="member-role">CGI artist</p>
                     </div>
@@ -53,7 +53,7 @@
                         alt="Milena Islamova"
                         class="member-image"
                     />
-                    <div class="member-overlay member-overlay-top">
+                    <div class="member-overlay">
                         <h3 class="member-name">Milena Islamova</h3>
                         <p class="member-role">General manager</p>
                     </div>
@@ -67,7 +67,7 @@
                         alt="Timur Vagizov"
                         class="member-image"
                     />
-                    <div class="member-overlay member-overlay-bottom">
+                    <div class="member-overlay">
                         <h3 class="member-name">Timur Vagizov</h3>
                         <p class="member-role">Director of photography</p>
                     </div>
@@ -81,7 +81,7 @@
                         alt="Asel Imankulova"
                         class="member-image"
                     />
-                    <div class="member-overlay member-overlay-top">
+                    <div class="member-overlay">
                         <h3 class="member-name">Asel Imankulova</h3>
                         <p class="member-role">Screenwriter</p>
                     </div>
@@ -95,7 +95,7 @@
                         alt="Yana Mashirova"
                         class="member-image"
                     />
-                    <div class="member-overlay member-overlay-bottom">
+                    <div class="member-overlay">
                         <h3 class="member-name">Yana Mashirova</h3>
                         <p class="member-role">Project manager</p>
                     </div>
@@ -109,7 +109,7 @@
                         alt="Alisa Ugarova"
                         class="member-image"
                     />
-                    <div class="member-overlay member-overlay-top">
+                    <div class="member-overlay">
                         <h3 class="member-name">Alisa Ugarova</h3>
                         <p class="member-role">Production designer</p>
                     </div>
@@ -164,11 +164,6 @@
     .team-member {
         position: relative;
         display: block;
-        transition: transform 0.3s ease;
-    }
-
-    .team-member:hover {
-        transform: scale(1.02);
     }
 
     .member-image-wrapper {
@@ -182,32 +177,17 @@
         width: 100%;
         height: 100%;
         object-fit: cover;
-        transition: transform 0.3s ease;
-    }
-
-    .team-member:hover .member-image {
-        transform: scale(1.05);
     }
 
     .member-overlay {
         position: absolute;
         left: 0;
         right: 0;
-        color: white;
-        padding: 1rem;
-        text-align: left;
-    }
-
-    .member-overlay-bottom {
         bottom: 0;
-        background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+        color: white;
         padding: 2rem 1rem 1rem 1rem;
-    }
-
-    .member-overlay-top {
-        top: 0;
-        background: linear-gradient(rgba(0, 0, 0, 0.8), transparent);
-        padding: 1rem 1rem 2rem 1rem;
+        text-align: left;
+        background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
     }
 
     .join-us-card {
@@ -252,12 +232,6 @@
         border: 2px solid white;
         padding: 0.75rem 1.5rem;
         display: inline-block;
-        transition: all 0.3s ease;
-    }
-
-    .join-us-card:hover .join-us-cta {
-        background: white;
-        color: var(--brand-black);
     }
 
     .member-name {
@@ -307,12 +281,8 @@
             margin-bottom: 3rem;
         }
 
-        .member-overlay-bottom {
+        .member-overlay {
             padding: 1.5rem 0.75rem 0.75rem 0.75rem;
-        }
-
-        .member-overlay-top {
-            padding: 0.75rem 0.75rem 1.5rem 0.75rem;
         }
 
         .join-us-card {
@@ -334,12 +304,8 @@
             margin-bottom: 2rem;
         }
 
-        .member-overlay-bottom {
+        .member-overlay {
             padding: 1rem 0.5rem 0.5rem 0.5rem;
-        }
-
-        .member-overlay-top {
-            padding: 0.5rem 0.5rem 1rem 0.5rem;
         }
 
         .join-us-card {

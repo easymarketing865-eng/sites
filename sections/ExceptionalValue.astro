@@ -189,18 +189,29 @@ export interface Props {}
   }
 
   .image-large {
-    flex: 0 0 70%;
+    flex: 0 0 65%;
+  }
+
+  .images-small {
+    flex: 0 0 35%;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
   }
 
   .image-small {
-    flex: 0 0 30%;
+    flex: 1;
   }
 
   .season-images img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    max-height: 400px;
+    max-height: 1000px;
+  }
+
+  .images-small .image-small img {
+   ;
   }
 
   .value-proposition {
@@ -221,7 +232,7 @@ export interface Props {}
 <section class="exceptional-section">
   <div class="exceptional-text-content">
     <div class="exceptional-content">
-      <h2 class="exceptional-heading">Every Season<br>New Story to Capture</h2>
+      <h2 class="exceptional-heading">Service Production <br>in Kyrgyzstan</h2>
       <div class="showreel-video">
         <video src="/video/kgshowreel.mp4" controls muted autoplay width="100%" style="margin-bottom: 2rem;"></video>
       </div>
@@ -229,14 +240,19 @@ export interface Props {}
         <div class="season-block">
           <h3 class="season-title">Summer — Issyk-Kul, Lakes, Beaches</h3>
           <p class="season-description">
-            <strong>Summer</strong> in Kyrgyzstan means crystal-clear lakes, golden beaches, and mountain sun. From aerials over Issyk-Kul to cinematic shots by the shoreline, we capture the warmth and energy of the season.
+            Kyrgyzstan offers an incredible variety of landscapes — mountains, lakes, canyons, steppes, and cities. Filming is possible year-round, with all four seasons accessible just a few hours from the capital.
           </p>
           <div class="season-images">
             <div class="image-large">
-              <img src="/photos/showreel.jpg" alt="Summer showreel" />
+              <img src="/photos/1.jpg" alt="Main landscape" />
             </div>
-            <div class="image-small">
-              <img src="/photos/issyk-kol.jpg" alt="Summer Issyk-Kul" />
+            <div class="images-small">
+              <div class="image-small">
+                <img src="/photos/2.jpg" alt="Secondary view" />
+              </div>
+              <div class="image-small">
+                <img src="/photos/3.jpg" alt="Third view" />
+              </div>
             </div>
           </div>
         </div>
@@ -244,47 +260,19 @@ export interface Props {}
         <div class="season-block">
           <h3 class="season-title">Winter — Mountains, Skiing, Snowy Landscapes</h3>
           <p class="season-description">
-            <strong>Winter</strong> turns Kyrgyzstan into a snow-covered film set. From ski slopes to alpine forests, we shoot in high altitudes and extreme conditions to capture the magic of winter.
-          </p>
-          <div class="season-images">
-            <div class="image-small">
-              <img src="/photos/showreel.jpg" alt="Winter showreel" />
-            </div>
-            <div class="image-large">
-              <img src="/photos/issyk-kol.jpg" alt="Winter Issyk-Kul" />
-            </div>
-          </div>
+            We provide full-cycle service production. The client sends us a director's treatment or concept — we calculate the budget, scout locations, assemble the crew, organize casting, and provide technical support.          </p>
         </div>
 
         <div class="season-block">
           <h3 class="season-title">Autumn — Forests, Horses, Warm Colors</h3>
           <p class="season-description">
-            <strong>Autumn</strong> brings rich color and timeless beauty. Rolling hills, horseback rides, and golden forests — it's the season for storytelling and soulful visuals.
-          </p>
-          <div class="season-images">
-            <div class="image-large">
-              <img src="/photos/showreel.jpg" alt="Autumn showreel" />
-            </div>
-            <div class="image-small">
-              <img src="/photos/issyk-kol.jpg" alt="Autumn Issyk-Kul" />
-            </div>
-          </div>
+            If you're a brand or company, we can handle the entire production cycle — starting from pre-production. We'll develop a creative concept tailored to your product, prepare the script, storyboards, and visual references.
+
+            During production, we provide full-service support with the option for clients or agencies to stay connected remotely — ensuring you're always involved and informed. The final stage is post-production: editing, motion design, sound design, and creating an original music composition crafted specifically for your video.          </p>
+          
         </div>
 
-        <div class="season-block">
-          <h3 class="season-title">Spring — Fresh Starts, New Beginnings</h3>
-          <p class="season-description">
-            <strong>Spring</strong> in Kyrgyzstan is a fresh start — nature awakens, and color returns. It's a perfect time to shoot branding stories, romantic scenes, or nature-focused visuals.
-          </p>
-          <div class="season-images">
-            <div class="image-small">
-              <img src="/photos/showreel.jpg" alt="Spring showreel" />
-            </div>
-            <div class="image-large">
-              <img src="/photos/issyk-kol.jpg" alt="Spring Issyk-Kul" />
-            </div>
-          </div>
-        </div>
+        
       </div>
 
       <div class="value-proposition">

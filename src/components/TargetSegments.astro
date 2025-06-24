@@ -7,41 +7,32 @@ import "../styles/global.css";
 
 const segments = [
   {
-    title: "Independent<br/>Filmmakers",
-    description: "High-quality visuals in Kyrgyzstan's stunning locations at cost-effective rates.",
-    icon: "/icons/director's-chair 2.svg"
+    title: "Creative <br/> agency",
+    description: "We develop original concepts for commercials, documentaries, and brand films that connect with audiences. From the first idea to the final script, our creative team works closely with clients to shape powerful narratives and striking visual approaches. We specialize in building concepts that are bold, clear, and production-ready — with a strong focus on storytelling, mood, and message. Whether you're launching a new product or telling your brand's story, we help turn vision into concept — and concept into action.",
+    
   },
   {
-    title: "Advertising<br/>Agencies",
-    description: "Creative production partner for campaigns and concepts. Reliable delivery every time.",
-    icon: "/icons/pavement-signs 1.svg"
+    title: "CGI",
+    description: "We create high-end VFX, 3D animation, and motion design for global clients — working fully remotely with tight coordination and attention to detail. From realistic visual effects to stylized graphic elements, we adapt our style to each project's needs. Our portfolio includes collaborations with top brands, creative agencies, and film directors. Whether you need subtle enhancements or full-on CGI environments, our team delivers with technical precision and creative flair — always on time and on brief.",
+  
   },
   {
-    title: "Brands",
-    description: "Impactful marketing videos and commercials that capture and convert.",
-    icon: "/icons/sneakers 1.svg"
+    title: "Service <br/> Production ",
+    description: "From scouting breathtaking locations to assembling a professional local crew, we handle every step of the process. Need equipment, casting, permits, or logistics? We've got it covered. Whether you're shooting a commercial, documentary, or branded content — we make it seamless.",
+   
   },
   {
-    title: "Companies in<br/>Central Asia",
-    description: "Local crews and logistics with trusted on-the-ground expertise.",
-    icon: "/icons/mountains 1.svg"
-  },
-  {
-    title: "International<br/>Productions",
-    description: "Global standards and adaptive teams ready to deliver anywhere.",
-    icon: "/icons/earth 1.svg"
-  },
-  {
-    title: "Content<br/>Creators",
-    description: "Professional production support for YouTube, social media, and digital content.",
-    icon: "/icons/phone-camera 1.svg"
+    title: "Post-production",
+    description: "We handle the entire post-production process — from editing, color grading, and sound design to advanced VFX and final mastering. Our team works with international clients across time zones, ensuring fast, clear communication and consistent results. Whether it's a commercial, branded content, or narrative piece, we take your raw footage and deliver a polished, broadcast-ready product. You can trust us to meet deadlines without compromising quality — every frame, every time.",
+
   }
+  
 ];
 
-// Chess pattern function: alternates properly in 3-column grid
+// Chess pattern function: alternates properly in 2-column grid
 const getChessClass = (index: number) => {
-  const row = Math.floor(index / 3);
-  const col = index % 3;
+  const row = Math.floor(index / 2);
+  const col = index % 2;
   return (row + col) % 2 === 0 ? 'card-white' : 'card-red';
 };
 ---
@@ -54,31 +45,42 @@ const getChessClass = (index: number) => {
     4. "Let's Create Together"
     5. "Your Vision, Our Expertise"
   */}
-  <h2 class="section-headline">Industries We Transform</h2>
-  <div class="segments-grid">
-    {segments.map((segment, index) => (
-      <div class={`segment-card ${getChessClass(index)}`}>
-        <div class="icon-title-wrapper">
-          <div class="card-icon">
-            <img src={segment.icon} alt={segment.title} />
+  <h2 class="section-headline">From First Idea <br> to Final Cut</h2>
+  <p class="section-subtitle">Concepts, crews, landscapes, pixels — we cover the full spectrum. Whether you need a local fixer in Kyrgyzstan or a world-class VFX pipeline, we're your behind-the-scenes team.</p>
+  <div class="grids-container">
+    <div class="segments-grid">
+      {segments.slice(0, 2).map((segment, index) => (
+        <div class={`segment-card ${getChessClass(index)}`}>
+          <div class="title-wrapper">
+            <h3 class="card-title" set:html={segment.title}></h3>
           </div>
-          <h3 class="card-title" set:html={segment.title}></h3>
+          <p class="card-description">{segment.description}</p>
         </div>
-        <p class="card-description">{segment.description}</p>
-      </div>
-    ))}
+      ))}
+    </div>
+    <div class="segments-grid">
+      {segments.slice(2, 4).map((segment, index) => (
+        <div class={`segment-card ${getChessClass(index + 2)}`}>
+          <div class="title-wrapper">
+            <h3 class="card-title" set:html={segment.title}></h3>
+          </div>
+          <p class="card-description">{segment.description}</p>
+        </div>
+      ))}
+    </div>
   </div>
 </section>
 
 <style>
   .target-segments-section {
+
     width: 100%;
     max-width: 1300px;
-    margin: 0 auto 3em auto;
+    margin: 0 auto 10rem auto;
     
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: left;
   }
 
   .section-headline {
@@ -86,15 +88,34 @@ const getChessClass = (index: number) => {
     font-weight: 900;
     color: var(--brand-black);
     letter-spacing: 0.0em;
-    margin: 0 0 2rem 0;
+    margin: 0 0 0.5rem 0;
     font-family: var(--font-sans);
   }
 
-  .segments-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    gap: 8px;
+  .section-subtitle {
+    font-size: 1.1em;
+    font-weight: 600;
+    color: var(--brand-black);
+    line-height: 1.5;
+    margin: 0 0 2.5rem 0;
+    font-family: var(--font-sans);
+    opacity: 0.8;
+    
+  }
+
+  .grids-container {
+    display: flex;
+    gap: 16px;
     width: 100%;
+    margin: 0;
+    padding: 0;
+  }
+
+  .segments-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    flex: 1;
     margin: 0;
     padding: 0;
   }
@@ -106,14 +127,13 @@ const getChessClass = (index: number) => {
     padding-right: 1.2em;
     padding-bottom: 1.15em;
     min-width: 0;
-    min-height: 120px;
     display: flex;
     flex-direction: column;
-    gap: 0.75em;
+    gap: 1.2rem;
     position: relative;
   }
 
-  .icon-title-wrapper {
+  .title-wrapper {
     display: flex;
     flex-direction: column;
     gap: 0;
@@ -127,34 +147,9 @@ const getChessClass = (index: number) => {
     background: var(--brand-red, #A00000);
   }
 
-  .card-icon {
-    width: 40px;
-    height: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 0px;
-  }
-
-  /* White card icons - black color */
-  .card-white .card-icon img {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-    filter: brightness(0) saturate(100%) invert(0%);
-  }
-
-  /* Red card icons - white color */
-  .card-red .card-icon img {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-    filter: brightness(0) saturate(100%) invert(100%);
-  }
-
   .card-title {
-    font-size: var(--font-size-md);
-    font-weight: 800;
+    font-size: 48px;
+    font-weight: 700;
     letter-spacing: -1px;
     font-family: var(--font-sans);
     margin: 0;
@@ -174,6 +169,7 @@ const getChessClass = (index: number) => {
 
   .card-description {
     font-size: 1em;
+    font-weight: 600;
     font-family: var(--font-sans);
     line-height: 1.36;
     opacity: 0.89;
@@ -192,50 +188,50 @@ const getChessClass = (index: number) => {
 
   /* Mobile responsive */
   @media (max-width: 768px) {
+    .grids-container {
+      flex-direction: column;
+      gap: 8px;
+    }
+    
     .segments-grid {
-      grid-template-columns: 1fr;
       gap: 8px;
     }
     
     .segment-card {
-      min-height: 100px;
       padding-top: 16px;
       padding-left: 24px;
       padding-right: 1em;
       padding-bottom: 1em;
     }
-
-    .card-icon {
-      width: 36px;
-      height: 36px;
-    }
   }
 
   /* Tablet responsive */
   @media (min-width: 769px) and (max-width: 949px) {
+    .grids-container {
+      flex-direction: row;
+      gap: 16px;
+    }
+    
     .segments-grid {
-      grid-template-columns: 1fr 1fr;
       gap: 8px;
     }
   }
 
   /* Large screens */
   @media (min-width: 950px) {
+    .grids-container {
+      gap: 16px;
+    }
+    
     .segments-grid {
       gap: 8px;
     }
     
     .segment-card {
-      min-height: 140px;
-      padding-top: 16px;
+      padding-top: 1.6em;
       padding-left: 24px;
       padding-right: 1.6em;
-      padding-bottom: 1.4em;
-    }
-
-    .card-icon {
-      width: 44px;
-      height: 44px;
+      padding-bottom: 1.6em;
     }
   }
 </style>
