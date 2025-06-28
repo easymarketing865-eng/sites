@@ -30,7 +30,7 @@ import SocialShare from "./SocialShare.astro";
 <style>
     .talk-to-us-1 {
         padding: 2rem 2rem;
-        background: #fff;
+        background: var(--brand-white);
         width: 100%;
         margin: 0 auto;
     }
@@ -53,7 +53,7 @@ import SocialShare from "./SocialShare.astro";
     .talk-description {
         font-size: 1rem;
         line-height: 1.6;
-        color: #000;
+        color: var(--brand-black);
         margin: 0 0 2rem 0;
         max-width: 600px;
         font-weight: 500;
@@ -64,7 +64,7 @@ import SocialShare from "./SocialShare.astro";
     .share-section {
         margin-top: 3rem;
         padding-top: 2rem;
-        border-top: 1px solid #e0e0e0;
+        border-top: 1px solid rgba(128, 128, 128, 0.3);
     }
 
     .share-section :global(.social-share-container) {
@@ -83,40 +83,40 @@ import SocialShare from "./SocialShare.astro";
     }
 
     .share-section :global(.share-btn) {
-        color: #000;
+        color: var(--brand-black);
         font-weight: 500;
         letter-spacing: 0.02em;
     }
 
     .share-section :global(.share-btn:hover) {
-        background: hsla(0,0%,80%,.5);
-        color: #000;
+        background: hsla(0,0%,50%,.2);
+        color: var(--brand-black);
     }
 
     /* Override with service-specific colors on hover */
     .share-section :global(.whatsapp-btn:hover) {
         background: rgba(37, 211, 102, 0.1);
-        color: #000;
+        color: var(--brand-black);
     }
 
     .share-section :global(.telegram-btn:hover) {
         background: rgba(0, 136, 204, 0.1);
-        color: #000;
+        color: var(--brand-black);
     }
 
     .share-section :global(.facebook-btn:hover) {
         background: rgba(24, 119, 242, 0.1);
-        color: #000;
+        color: var(--brand-black);
     }
 
     .share-section :global(.email-btn:hover) {
         background: rgba(102, 102, 102, 0.1);
-        color: #000;
+        color: var(--brand-black);
     }
 
     .share-section :global(.instagram-btn:hover) {
         background: rgba(228, 64, 95, 0.1);
-        color: #000;
+        color: var(--brand-black);
     }
 
     @media (max-width: 768px) {
@@ -143,7 +143,7 @@ import SocialShare from "./SocialShare.astro";
         font-family: var(--font-heading);
         font-size: 2.5rem;
         font-weight: 800;
-        color: #fff;
+        color: var(--brand-black);
         margin: 0 0 1rem 0;
         line-height: 1.2;
     }
@@ -152,7 +152,7 @@ import SocialShare from "./SocialShare.astro";
         font-family: var(--font-heading);
         font-size: 1.5rem;
         font-weight: 600;
-        color: #fff;
+        color: var(--brand-black);
         margin: 0 0 2rem 0;
         line-height: 1.3;
     }
