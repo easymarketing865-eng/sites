@@ -35,8 +35,10 @@ import "../styles/global.css";
 
   .video-container {
     position: relative;
-    width: 100%;
-    
+    width: 100vw;
+    height: 100vh;
+    margin-left: calc(-50vw + 50%);
+    margin-right: calc(-50vw + 50%);
   }
 
   .showreel-video {
@@ -49,7 +51,7 @@ import "../styles/global.css";
   .text-overlay {
     position: absolute;
     
-    top: -5%;
+    top: -3%;
     left: 50%;
     transform: translateX(-50%);
     z-index: 10;
@@ -74,10 +76,6 @@ import "../styles/global.css";
   }
 
   @media (max-width: 480px) {
-    .video-container {
-      height: 60vh;
-    }
-
     .studio-logo {
       height: 24px;
     }
