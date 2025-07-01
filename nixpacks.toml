@@ -1,6 +1,9 @@
 [variables]
 NODE_VERSION = "18"
 NIXPACKS_METADATA = "nodejs,pnpm"
+NODE_ENV = "production"
+PNPM_HOME = "/pnpm"
+PATH = "$PNPM_HOME:$PATH"
 
 [phases.setup]
 nixPkgs = ["nodejs-18_x", "corepack"]
@@ -16,9 +19,4 @@ cmds = [
 cmds = ["pnpm run build"]
 
 [phases.start]
-cmd = "pnpm start"
-
-[variables]
-NODE_ENV = "production"
-PNPM_HOME = "/pnpm"
-PATH = "$PNPM_HOME:$PATH" 
+cmd = "pnpm start" 
