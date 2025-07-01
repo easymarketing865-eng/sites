@@ -9,12 +9,15 @@
     "dev": "astro dev",
     "start": "node ./dist/server/entry.mjs",
     "build": "astro build",
-    "preview": "astro preview"
+    "preview": "astro preview",
+    "db:setup": "node setup-pocketbase.js",
+    "db:migrate": "node migrate-to-pocketbase.js"
   },
   "dependencies": {
     "@astrojs/node": "^9.2.2",
     "astro": "^5.7.13",
-    "lucide-astro": "^0.513.0"
+    "lucide-astro": "^0.513.0",
+    "pocketbase": "^0.26.1"
   },
   "packageManager": "pnpm@8.6.0"
 }

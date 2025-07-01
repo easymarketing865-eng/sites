@@ -1,25 +1,41 @@
 ---
 import { Image } from "astro:assets";
-// For now, use JSON data
+import { projects, files } from "../lib/pocketbase.js";
+// Fallback to JSON data if PocketBase is not available
 import portfolioData from "../data/portfolio.json";
 
-// Later when using PocketBase:
-// import PocketBase from 'pocketbase';
-// const pb = new PocketBase('http://127.0.0.1:8090');
+let featuredProjects = [];
+let regularProjects = [];
+let allProjects = [];
 
-// Get projects (current JSON approach)
-const featuredProjects = portfolioData.featured;
-const regularProjects = portfolioData.portfolio.slice(0, 9);
-const allProjects = [...featuredProjects, ...regularProjects].slice(0, 11);
+try {
+  // Try to fetch from PocketBase
+  const featuredData = await projects.getFeatured();
+  const regularData = await projects.getAll(1, 9);
+  
+  featuredProjects = featuredData.items || [];
+  regularProjects = regularData.items?.filter(p => !p.featured) || [];
+  allProjects = [...featuredProjects, ...regularProjects].slice(0, 11);
+  
+  console.log(`Loaded ${allProjects.length} projects from PocketBase`);
+} catch (error) {
+  console.log('PocketBase not available, using JSON fallback:', error.message);
+  // Fallback to JSON data
+  featuredProjects = portfolioData.featured || [];
+  regularProjects = (portfolioData.portfolio || []).slice(0, 9);
+  allProjects = [...featuredProjects, ...regularProjects].slice(0, 11);
+}
 
 // Helper function to get image source (future-ready)
 function getImageSource(project) {
-    // Future: When PocketBase images are uploaded
-    if (project.image) {
-        return `http://127.0.0.1:8090/api/files/projects/${project.id}/${project.image}`;
-    }
-    // Current: Use hero field or fallback to YouTube thumbnail
-    return project.hero || `https://i.ytimg.com/vi/${project.videoId}/maxresdefault.jpg`;
+  // Priority: PocketBase uploaded image > static hero > YouTube thumbnail
+  if (project.image && project.id) {
+    return files.getUrl(project, project.image);
+  }
+  if (project.hero) {
+    return project.hero;
+  }
+  return `https://i.ytimg.com/vi/${project.videoId}/maxresdefault.jpg`;
 }
 ---
 
