@@ -1,0 +1,16 @@
+[phases.setup]
+nixPkgs = ["nodejs", "pnpm"]
+
+[phases.install]
+cmds = ["pnpm install --frozen-lockfile"]
+
+[phases.build]
+cmds = ["pnpm run build"]
+
+[phases.start]
+cmd = "pnpm start"
+
+[variables]
+NODE_ENV = "production"
+PNPM_HOME = "/pnpm"
+PATH = "$PNPM_HOME:$PATH" 

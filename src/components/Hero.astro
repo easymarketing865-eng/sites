@@ -1,145 +1,48 @@
 ---
 import { Image } from "astro:assets";
-import portfolioData from "../data/portfolio.json";
+import PocketBase from 'pocketbase';
 
-// Get featured projects and some regular portfolio items
-const featuredProjects = portfolioData.featured;
-const regularProjects = portfolioData.portfolio.slice(0, 9); // Get first 9 regular projects
-const allProjects = [...featuredProjects, ...regularProjects].slice(0, 12); // Total 12 projects
+const pb = new PocketBase('http://127.0.0.1:8090');
+
+// Fetch projects from PocketBase
+const featuredProjects = await pb.collection('projects').getList(1, 3, {
+    filter: 'featured = true',
+    sort: '-year, -created'
+});
+
+const regularProjects = await pb.collection('projects').getList(1, 9, {
+    filter: 'featured = false',
+    sort: '-year, -created'
+});
+
+const allProjects = [...featuredProjects.items, ...regularProjects.items].slice(0, 11);
 ---
 
 <section class="hero-section">
     <div class="hero-grid">
-        <div class="hero-item">
-            <Image
-                src="https://i.ytimg.com/vi/FEnya1wy0WU/maxresdefault.jpg"
-                alt="Demir Bank"
-                class="hero-image"
-                width={1280}
-                height={720}
-            />
-            <img src="/photos/top-left.svg" alt="" class="corner-svg top-left" />
-            <img src="/photos/bottom-right.svg" alt="" class="corner-svg bottom-right" />
-            <span class="project-label">Demir Bank</span>
-        </div>
-        <div class="hero-item">
-            <Image
-                src="https://i.ytimg.com/vi/GtX7KonFvsY/maxresdefault.jpg"
-                alt="VILAR"
-                class="hero-image"
-                width={1280}
-                height={720}
-            />
-            <img src="/photos/top-left.svg" alt="" class="corner-svg top-left" />
-            <img src="/photos/bottom-right.svg" alt="" class="corner-svg bottom-right" />
-            <span class="project-label">VILAR</span>
-        </div>
-        <div class="hero-item">
-            <Image
-                src="https://i.ytimg.com/vi/GguO9XodvIk/maxresdefault.jpg"
-                alt="Fashion Editorial"
-                class="hero-image"
-                width={1280}
-                height={720}
-            />
-            <img src="/photos/top-left.svg" alt="" class="corner-svg top-left" />
-            <img src="/photos/bottom-right.svg" alt="" class="corner-svg bottom-right" />
-            <span class="project-label">Fashion Editorial</span>
-        </div>
-        <div class="hero-item">
-            <Image
-                src="https://i.ytimg.com/vi/z2CUZ8Lw1pc/maxresdefault.jpg"
-                alt="One"
-                class="hero-image"
-                width={1280}
-                height={720}
-            />
-            <img src="/photos/top-left.svg" alt="" class="corner-svg top-left" />
-            <img src="/photos/bottom-right.svg" alt="" class="corner-svg bottom-right" />
-            <span class="project-label">One</span>
-        </div>
-        <div class="hero-item">
-            <Image
-                src="https://i.ytimg.com/vi/uosqUldvZBc/maxresdefault.jpg"
-                alt="Petrolium"
-                class="hero-image"
-                width={1280}
-                height={720}
-            />
-            <img src="/photos/top-left.svg" alt="" class="corner-svg top-left" />
-            <img src="/photos/bottom-right.svg" alt="" class="corner-svg bottom-right" />
-            <span class="project-label">Petrolium</span>
-        </div>
-        <div class="hero-item">
-            <Image
-                src="https://i.ytimg.com/vi/kXbCSe7h8dA/maxresdefault.jpg"
-                alt="Vitalnan"
-                class="hero-image"
-                width={1280}
-                height={720}
-            />
-            <img src="/photos/top-left.svg" alt="" class="corner-svg top-left" />
-            <img src="/photos/bottom-right.svg" alt="" class="corner-svg bottom-right" />
-            <span class="project-label">Vitalnan</span>
-        </div>
-        <div class="hero-item">
-            <Image
-                src="https://i.ytimg.com/vi/aeqONKjqZvE/maxresdefault.jpg"
-                alt="Sai Kitchen"
-                class="hero-image"
-                width={1280}
-                height={720}
-            />
-            <img src="/photos/top-left.svg" alt="" class="corner-svg top-left" />
-            <img src="/photos/bottom-right.svg" alt="" class="corner-svg bottom-right" />
-            <span class="project-label">Sai Kitchen</span>
-        </div>
-        <div class="hero-item">
-            <Image
-                src="https://i.ytimg.com/vi/fUVbDErR0-4/maxresdefault.jpg"
-                alt="Organic"
-                class="hero-image"
-                width={1280}
-                height={720}
-            />
-            <img src="/photos/top-left.svg" alt="" class="corner-svg top-left" />
-            <img src="/photos/bottom-right.svg" alt="" class="corner-svg bottom-right" />
-            <span class="project-label">Organic</span>
+        {allProjects.map((project) => (
+            <div class="hero-item">
+                <Image
+                    src={`https://i.ytimg.com/vi/${project.videoId}/maxresdefault.jpg`}
+                    alt={project.title}
+                    class="hero-image"
+                    width={1280}
+                    height={720}
+                />
+                <img src="/photos/top-left.svg" alt="" class="corner-svg top-left" />
+                <img src="/photos/bottom-right.svg" alt="" class="corner-svg bottom-right" />
+                <span class="project-label">{project.title}</span>
             </div>
+        ))}
+        
         <div class="hero-item">
-            <Image
-                src="https://i.ytimg.com/vi/YeqneaZAqkY/maxresdefault.jpg"
-                alt="ASBIS"
-                class="hero-image"
-                width={1280}
-                height={720}
-            />
-            <img src="/photos/top-left.svg" alt="" class="corner-svg top-left" />
-            <img src="/photos/bottom-right.svg" alt="" class="corner-svg bottom-right" />
-            <span class="project-label">ASBIS</span>
-            </div>
-        <div class="hero-item">
-            <Image
-                src="https://i.ytimg.com/vi/enyHtWZbjdM/maxresdefault.jpg"
-                alt="Corporate Project"
-                class="hero-image"
-                width={1280}
-                height={720}
-            />
-            <img src="/photos/top-left.svg" alt="" class="corner-svg top-left" />
-            <img src="/photos/bottom-right.svg" alt="" class="corner-svg bottom-right" />
-            <span class="project-label">Corporate Project</span>
-            </div>
-
-        <div class="hero-item">
-           
             <div class="social-links">
                 <span class="social-link">INSTAGRAM</span>
                 <span class="social-link">TELEGRAM</span>
                 <span class="social-link">WHATSAPP</span>
                 <span class="social-link">YOUTUBE</span>
             </div>
-            </div>
+        </div>
     </div>
 
     <!-- <div class="hero-overlay">
