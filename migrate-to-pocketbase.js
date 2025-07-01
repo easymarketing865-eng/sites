@@ -1,85 +1,84 @@
-import { pb, projects } from './src/lib/pocketbase.js';
-import portfolioData from './src/data/portfolio.json' assert { type: 'json' };
+import PocketBase from 'pocketbase';
+import fs from 'fs';
+
+// Read the portfolio data from the JSON file
+const portfolioData = JSON.parse(fs.readFileSync('src/data/portfolio.json', 'utf8'));
+
+const pb = new PocketBase(process.env.PUBLIC_POCKETBASE_URL);
 
 async function migrateToPocketBase() {
     try {
+        console.log(`🔌 Connecting to PocketBase at: ${process.env.PUBLIC_POCKETBASE_URL}`);
         console.log('🚀 Starting migration to PocketBase...');
         
-        // Note: You'll need to manually create the admin user in PocketBase first
-        // and update these credentials
-        const ADMIN_EMAIL = 'admin@example.com';
-        const ADMIN_PASSWORD = 'your-admin-password';
-        
+        // Authenticate with PocketBase
         console.log('🔐 Authenticating with PocketBase...');
-        try {
-            await pb.admins.authWithPassword(ADMIN_EMAIL, ADMIN_PASSWORD);
-            console.log('✅ Authentication successful');
-        } catch (error) {
-            console.log('⚠️  Admin authentication failed. Make sure PocketBase is running and admin user exists.');
-            console.log('You can create an admin user by visiting: http://127.0.0.1:8090/_/');
-            return;
-        }
+        await pb.admins.authWithPassword(
+            process.env.POCKETBASE_ADMIN_EMAIL || 'admin@example.com',
+            process.env.POCKETBASE_ADMIN_PASSWORD || '1234567890'
+        );
+        console.log('✅ Authentication successful');
 
         // Migrate featured projects
         console.log('📁 Migrating featured projects...');
+        let featuredCount = 0;
         for (const project of portfolioData.featured) {
             try {
                 const data = {
-                    id: project.id,
                     title: project.title,
                     slug: project.slug,
                     year: project.year,
                     featured: true,
                     hero: project.hero,
-                    image: null, // Will be populated later when uploading to PocketBase
                     videoId: project.videoId
                 };
-
-                await projects.create(data);
-                console.log(`✅ Featured: ${project.title}`);
+                
+                // Debug: Log the data being sent
+                console.log('🔍 Debug - Data being sent:', JSON.stringify(data, null, 2));
+                
+                await pb.collection('projects').create(data);
+                console.log(`✅ Created featured project: ${project.title}`);
+                featuredCount++;
             } catch (error) {
-                if (error.message.includes('already exists')) {
-                    console.log(`⚠️  Featured project already exists: ${project.title}`);
-                } else {
-                    console.error(`❌ Failed to create featured project ${project.title}:`, error.message);
-                }
+                console.error(`❌ Failed to create featured project ${project.title}:`, error.message);
+                console.error('🔍 Debug - Error details:', error);
             }
         }
 
-        // Migrate regular portfolio items
+        // Migrate regular portfolio items  
         console.log('📁 Migrating regular portfolio items...');
+        let regularCount = 0;
         for (const project of portfolioData.portfolio) {
             try {
                 const data = {
-                    id: project.id,
                     title: project.title,
                     slug: project.slug,
                     year: project.year,
                     featured: false,
                     hero: project.hero,
-                    image: null, // Will be populated later when uploading to PocketBase
                     videoId: project.videoId
                 };
-
-                await projects.create(data);
-                console.log(`✅ Regular: ${project.title}`);
+                
+                // Debug: Log the data being sent
+                console.log('🔍 Debug - Data being sent:', JSON.stringify(data, null, 2));
+                
+                await pb.collection('projects').create(data);
+                console.log(`✅ Created regular project: ${project.title}`);
+                regularCount++;
             } catch (error) {
-                if (error.message.includes('already exists')) {
-                    console.log(`⚠️  Regular project already exists: ${project.title}`);
-                } else {
-                    console.error(`❌ Failed to create regular project ${project.title}:`, error.message);
-                }
+                console.error(`❌ Failed to create regular project ${project.title}:`, error.message);
+                console.error('🔍 Debug - Error details:', error);
             }
         }
 
         console.log('🎉 Migration completed successfully!');
-        console.log(`📊 Migrated ${portfolioData.featured.length} featured projects`);
-        console.log(`📊 Migrated ${portfolioData.portfolio.length} regular projects`);
-        
+        console.log(`📊 Migrated ${featuredCount} featured projects`);
+        console.log(`📊 Migrated ${regularCount} regular projects`);
+
     } catch (error) {
         console.error('💥 Migration failed:', error);
+        console.error('🔍 Debug - Auth error details:', error);
     }
 }
 
-// Run migration
 migrateToPocketBase(); 

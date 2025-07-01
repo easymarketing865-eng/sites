@@ -1,9 +1,19 @@
 import PocketBase from 'pocketbase';
 
 // PocketBase configuration with Railway support
-const PB_URL = import.meta.env.PUBLIC_POCKETBASE_URL || 
-              process.env.PUBLIC_POCKETBASE_URL || 
-              'http://127.0.0.1:8090';
+// Handle both browser (import.meta.env) and Node.js (process.env) environments
+let PB_URL;
+
+if (typeof import.meta !== 'undefined' && import.meta.env) {
+  // Browser environment (Astro)
+  PB_URL = import.meta.env.PUBLIC_POCKETBASE_URL;
+} else {
+  // Node.js environment (migration scripts)
+  PB_URL = process.env.PUBLIC_POCKETBASE_URL;
+}
+
+// Fallback to localhost for development
+PB_URL = PB_URL || 'http://127.0.0.1:8090';
 
 console.log(`🔌 Connecting to PocketBase at: ${PB_URL}`);
 

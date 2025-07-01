@@ -24,10 +24,10 @@
         align-items: center;
         justify-content: space-between;
         background: transparent;
-
         box-sizing: border-box;
         position: relative;
         padding-bottom: 2rem;
+        z-index: 10;
     }
     .main-header .brand-logo {
         
@@ -73,29 +73,11 @@
     .nav-link {
         color: var(--brand-black, #333);
         text-decoration: none;
-        position: relative;
     }
 
     .nav-link:hover {
-        color: var(--brand-red, #A00000);
+        color: #99242A;
     }
-
-    .nav-link::after {
-        content: '';
-        position: absolute;
-        bottom: -4px;
-        left: 0;
-        width: 0;
-        height: 2px;
-        background: var(--brand-red, #A00000);
-        transition: width 0.2s ease;
-    }
-
-    .nav-link:hover::after {
-        width: 100%;
-    }
-
-
 
     .mobile-menu-btn {
         display: none;

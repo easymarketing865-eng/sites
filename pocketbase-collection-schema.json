@@ -1,0 +1,92 @@
+{
+  "collections": [
+    {
+      "id": "projects_collection",
+      "name": "projects",
+      "type": "base",
+      "system": false,
+      "schema": [
+        {
+          "id": "title_field",
+          "name": "title",
+          "type": "text",
+          "system": false,
+          "required": true,
+          "unique": false,
+          "options": {
+            "min": 1,
+            "max": 200,
+            "pattern": ""
+          }
+        },
+        {
+          "id": "slug_field",
+          "name": "slug",
+          "type": "text",
+          "system": false,
+          "required": true,
+          "unique": true,
+          "options": {
+            "min": 1,
+            "max": 100,
+            "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+          }
+        },
+        {
+          "id": "year_field",
+          "name": "year",
+          "type": "text",
+          "system": false,
+          "required": true,
+          "unique": false,
+          "options": {
+            "min": 4,
+            "max": 4,
+            "pattern": "^[0-9]{4}$"
+          }
+        },
+        {
+          "id": "featured_field",
+          "name": "featured",
+          "type": "bool",
+          "system": false,
+          "required": false,
+          "unique": false,
+          "options": {}
+        },
+        {
+          "id": "hero_field",
+          "name": "hero",
+          "type": "url",
+          "system": false,
+          "required": true,
+          "unique": false,
+          "options": {
+            "exceptDomains": [],
+            "onlyDomains": []
+          }
+        },
+        {
+          "id": "videoid_field",
+          "name": "videoId",
+          "type": "text",
+          "system": false,
+          "required": true,
+          "unique": false,
+          "options": {
+            "min": 1,
+            "max": 50,
+            "pattern": ""
+          }
+        }
+      ],
+      "indexes": [],
+      "listRule": "",
+      "viewRule": "",
+      "createRule": "",
+      "updateRule": "",
+      "deleteRule": "",
+      "options": {}
+    }
+  ]
+} 
