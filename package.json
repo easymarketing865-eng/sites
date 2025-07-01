@@ -9,8 +9,9 @@
     "preview": "astro preview"
   },
   "dependencies": {
+    "@astrojs/node": "^9.2.2",
     "astro": "^5.7.13",
     "lucide-astro": "^0.513.0"
   },
-  "packageManager": "pnpm@8.0.0"
+  "packageManager": "pnpm@10.12.1"
 }

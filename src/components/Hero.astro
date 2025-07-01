@@ -1,21 +1,26 @@
 ---
 import { Image } from "astro:assets";
-import PocketBase from 'pocketbase';
+// For now, use JSON data
+import portfolioData from "../data/portfolio.json";
 
-const pb = new PocketBase('http://127.0.0.1:8090');
+// Later when using PocketBase:
+// import PocketBase from 'pocketbase';
+// const pb = new PocketBase('http://127.0.0.1:8090');
 
-// Fetch projects from PocketBase
-const featuredProjects = await pb.collection('projects').getList(1, 3, {
-    filter: 'featured = true',
-    sort: '-year, -created'
-});
+// Get projects (current JSON approach)
+const featuredProjects = portfolioData.featured;
+const regularProjects = portfolioData.portfolio.slice(0, 9);
+const allProjects = [...featuredProjects, ...regularProjects].slice(0, 11);
 
-const regularProjects = await pb.collection('projects').getList(1, 9, {
-    filter: 'featured = false',
-    sort: '-year, -created'
-});
-
-const allProjects = [...featuredProjects.items, ...regularProjects.items].slice(0, 11);
+// Helper function to get image source (future-ready)
+function getImageSource(project) {
+    // Future: When PocketBase images are uploaded
+    if (project.image) {
+        return `http://127.0.0.1:8090/api/files/projects/${project.id}/${project.image}`;
+    }
+    // Current: Use hero field or fallback to YouTube thumbnail
+    return project.hero || `https://i.ytimg.com/vi/${project.videoId}/maxresdefault.jpg`;
+}
 ---
 
 <section class="hero-section">
@@ -23,7 +28,7 @@ const allProjects = [...featuredProjects.items, ...regularProjects.items].slice(
         {allProjects.map((project) => (
             <div class="hero-item">
                 <Image
-                    src={`https://i.ytimg.com/vi/${project.videoId}/maxresdefault.jpg`}
+                    src={getImageSource(project)}
                     alt={project.title}
                     class="hero-image"
                     width={1280}
