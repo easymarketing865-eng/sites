@@ -1,9 +1,14 @@
+[variables]
+NODE_VERSION = "18"
+NIXPACKS_METADATA = "nodejs,pnpm"
+
 [phases.setup]
-nixPkgs = ["nodejs-18_x"]
+nixPkgs = ["nodejs-18_x", "corepack"]
 
 [phases.install]
 cmds = [
-  "npm install -g pnpm@latest",
+  "corepack enable",
+  "corepack prepare pnpm@10.12.1 --activate", 
   "pnpm install --frozen-lockfile"
 ]
 
