@@ -17,8 +17,7 @@
     display: flex;
     flex-wrap: wrap;
     gap: 2rem;
-margin-bottom: 1rem;
-
+    margin-bottom: 1rem;
   }
 
   .flex-item {
@@ -32,10 +31,6 @@ margin-bottom: 1rem;
   .large-text {
     text-wrap: nowrap;
     white-space: nowrap;
-    font-size: 105px;
-    font-weight: 800;
-    line-height: 1;
-   
     flex-shrink: 0;
   }
 
@@ -66,28 +61,8 @@ margin-bottom: 1rem;
   }
 
   .description-text {
-    font-size: 1.25rem;
-    line-height: 1.6;
     text-align: center;
-
     margin-bottom: 2rem;
-  }
-
-  .contact-button {
-    display: inline-block;
-    padding: 1rem 2rem;
-    background-color: #000;
-    color: #fff;
-    text-decoration: none;
-    font-size: 1rem;
-    font-weight: 600;
-    border-radius: 4px;
-    transition: background-color 0.3s ease;
-    text-align: center;
-  }
-
-  .contact-button:hover {
-    background-color: #333;
   }
 
   .button-container {
@@ -119,12 +94,7 @@ margin-bottom: 1rem;
     }
 
     .description-text {
-      font-size: 1rem;
-    }
-
-    .contact-button {
-      padding: 0.75rem 1.5rem;
-      font-size: 0.9rem;
+      /* Remove font-size override, will use global class */
     }
   }
 </style>
@@ -159,7 +129,7 @@ margin-bottom: 1rem;
     </p>
 
     <div class="button-container">
-      <a href="#" class="contact-button">Contact Us</a>
+      <a href="#" class="btn btn-primary">Contact Us</a>
     </div>
   </div>
 </section>

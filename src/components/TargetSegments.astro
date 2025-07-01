@@ -49,26 +49,26 @@ const getChessClass = (index: number) => {
   <p class="section-subtitle">Concepts, crews, landscapes, pixels — we cover the full spectrum. Whether you need a local fixer in Kyrgyzstan or a world-class VFX pipeline, we're your behind-the-scenes team.</p>
   <div class="grids-container">
     <div class="segments-grid">
-      {segments.slice(0, 2).map((segment, index) => (
+        {segments.slice(0, 2).map((segment, index) => (
         <div class={`segment-card ${getChessClass(index)}`}>
-          <div class="title-wrapper">
-            <h3 class="card-title" set:html={segment.title}></h3>
+            <div class="title-wrapper">
+              <h3 class="card-title" set:html={segment.title}></h3>
+            </div>
+            <p class="card-description">{segment.description}</p>
+          </div>
+        ))}
+      </div>
+      <div class="segments-grid">
+        {segments.slice(2, 4).map((segment, index) => (
+          <div class={`segment-card ${getChessClass(index + 2)}`}>
+            <div class="title-wrapper">
+              <h3 class="card-title" set:html={segment.title}></h3>
           </div>
           <p class="card-description">{segment.description}</p>
         </div>
       ))}
+      </div>
     </div>
-    <div class="segments-grid">
-      {segments.slice(2, 4).map((segment, index) => (
-        <div class={`segment-card ${getChessClass(index + 2)}`}>
-          <div class="title-wrapper">
-            <h3 class="card-title" set:html={segment.title}></h3>
-          </div>
-          <p class="card-description">{segment.description}</p>
-        </div>
-      ))}
-    </div>
-  </div>
 </section>
 
 <style>
@@ -84,23 +84,14 @@ const getChessClass = (index: number) => {
   }
 
   .section-headline {
-    
-    font-weight: 900;
     color: var(--brand-black);
-
     margin: 0 0 0.5rem 0;
-    font-family: var(--font-sans);
   }
 
   .section-subtitle {
-    font-size: 1.1em;
-    font-weight: 600;
     color: var(--brand-black);
-    line-height: 1.5;
     margin: 0 0 2.5rem 0;
-    font-family: var(--font-sans);
     opacity: 0.8;
-    
   }
 
   .grids-container {
@@ -140,26 +131,21 @@ const getChessClass = (index: number) => {
   }
 
   .card-white {
-    background: var(--brand-white, #fff);
+    background: #fff;
   }
 
   .card-red {
-    background: var(--brand-red, #A00000);
+    background: #A00000;
   }
 
   .card-title {
-    font-size: 48px;
-    font-weight: 700;
-    letter-spacing: -1px;
-    font-family: var(--font-sans);
     margin: 0;
-    line-height: 100%;
     /* NO text-transform: uppercase - confirmed removed */
   }
 
   /* White card text - black color */
   .card-white .card-title {
-    color: var(--brand-black, #111);
+    color: #000;
   }
 
   /* Red card text - white color */
@@ -168,17 +154,14 @@ const getChessClass = (index: number) => {
   }
 
   .card-description {
-    font-size: 1em;
-    font-weight: 600;
-    font-family: var(--font-sans);
-    line-height: 1.36;
     opacity: 0.89;
     margin: 0;
+    font-weight: 500;
   }
 
   /* White card description - black color */
   .card-white .card-description {
-    color: var(--brand-black, #111);
+    color: #000;
   }
 
   /* Red card description - white color */

@@ -1,5 +1,7 @@
 ---
 export interface Props {}
+
+import PortfolioPreviewGrid from "../src/components/PortfolioPreviewGrid.astro";
 ---
 
 <style>
@@ -52,17 +54,16 @@ export interface Props {}
     line-height: 1.2;
   }
   .narrative-block {
-
     margin-bottom: 2rem;
     line-height: 1.6;
     font-size: 1.125rem;
+    font-weight: 500;
   }
   .comparison-container {
     overflow-x: auto;
     margin-bottom: 2rem;
   }
   .comparison-table {
-
     border-collapse: collapse;
   }
   .comparison-table td {
@@ -73,21 +74,7 @@ export interface Props {}
     font-weight: 500;
   }
   .cta {
-
     margin-top: 4rem;
-  }
-  .btn-primary {
-    display: inline-block;
-    padding: 0.75rem 1.5rem;
-    background: #000;
-    color: var(--accent);
-    border-radius: 0.5rem;
-    text-decoration: none;
-    font-weight: 600;
-    transition: background 0.3s ease;
-  }
-  .btn-primary:hover {
-    background: #800000;
   }
   @media (max-width: 768px) {
     .exceptional-section {
@@ -115,7 +102,6 @@ export interface Props {}
     .season-block {
       margin-bottom: 2rem;
     }
-
     .image-large,
     .image-small {
       flex: none;
@@ -147,9 +133,6 @@ export interface Props {}
     }
   }
   @media (min-width: 640px) and (max-width: 1024px) {
-    .exceptional-section {
-     
-    }
     .exceptional-heading { font-size: 3rem; }
     .narrative-block { font-size: 1.125rem; }
   }
@@ -161,7 +144,6 @@ export interface Props {}
   .seasonal-content {
     display: flex;
     flex-direction: column;
-    
   }
 
   .season-block {
@@ -180,6 +162,7 @@ export interface Props {}
     line-height: 1.6;
     margin-bottom: 1rem;
     width: 80%;
+    font-weight: 500;
   }
 
   .season-images {
@@ -219,14 +202,13 @@ export interface Props {}
     font-size: 1.25rem;
     line-height: 1.6;
     width: 85%;
+    font-weight: 500;
   }
 
   .cta-text {
     margin-top: 0rem;
     font-weight: 600;
   }
-
-  
 </style>
 
 <section class="exceptional-section">
@@ -283,8 +265,17 @@ export interface Props {}
       </div>
 
       <div class="cta">
-        <a href="/contact" class="btn-primary">Get Your Custom Quote</a>
+        <a href="/contact" class="btn btn-primary">Get Your Custom Quote</a>
       </div>
+
+      <!-- Portfolio Preview Grid -->
+      <PortfolioPreviewGrid 
+        startIndex={4} 
+        toShow={4} 
+        title="Our Recent Work" 
+        showTitle={true}
+        className="exceptional-portfolio"
+      />
     </div>
   </div>
   

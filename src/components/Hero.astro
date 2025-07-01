@@ -241,7 +241,7 @@ const allProjects = [...featuredProjects, ...regularProjects].slice(0, 12); // T
 
     .social-links {
         position: absolute;
-        bottom: 1rem;
+        bottom: 0rem;
         left: 1rem;
         display: flex;
         flex-direction: column;
@@ -251,16 +251,8 @@ const allProjects = [...featuredProjects, ...regularProjects].slice(0, 12); // T
 
     .social-link {
         color: white;
-        font-family: var(--font-sans);
-        font-size: 40px;
-        font-weight: 800;
         text-transform: uppercase;
         cursor: pointer;
-        transition: opacity 0.3s ease;
-    }
-
-    .social-link:hover {
-        opacity: 0.7;
     }
 
     .hero-image {
@@ -301,16 +293,11 @@ const allProjects = [...featuredProjects, ...regularProjects].slice(0, 12); // T
         transform: scale(1.05);
     }
 
-        .project-label {
+    .project-label {
         position: absolute;
         bottom: 1rem;
         left: 1rem;
         color: white;
-        
-        font-family: var(--font-sans);
-        font-size: clamp(0.75rem, 1.5vw, 1rem);
-        font-weight: 800;
-        text-transform: uppercase;
         z-index: 5;
         border-radius: 2px;
     }
@@ -331,11 +318,7 @@ const allProjects = [...featuredProjects, ...regularProjects].slice(0, 12); // T
     }
 
     .hero-title {
-        font-family: var(--font-heading);
-        font-size: clamp(2rem, 4vw, 3.5rem);
-        font-weight: 700;
         margin: 0;
-        line-height: 1.2;
     }
 
     @media (max-width: 768px) {
@@ -440,9 +423,6 @@ const allProjects = [...featuredProjects, ...regularProjects].slice(0, 12); // T
         }
 
         .project-label {
-            font-size: 1rem;
-            font-weight: 800;
-            text-transform: uppercase;
             padding: 0.25rem 0.25rem;
             bottom: 0.5rem;
             left: 0.5rem;
@@ -455,7 +435,7 @@ const allProjects = [...featuredProjects, ...regularProjects].slice(0, 12); // T
         }
 
         .social-link {
-            font-size: 0.8rem;
+            /* Remove font-size override */
         }
 
         .corner-svg {
