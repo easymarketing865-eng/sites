@@ -13,5 +13,5 @@
     "astro": "^5.7.13",
     "lucide-astro": "^0.513.0"
   },
-  "packageManager": "pnpm@8.15.0"
+  "packageManager": "pnpm@8.6.0"
 }
