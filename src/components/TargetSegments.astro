@@ -186,6 +186,25 @@ const getChessClass = (index: number) => {
       padding-right: 1em;
       padding-bottom: 1em;
     }
+
+    /* Fix chess pattern for mobile - override the colors */
+    .segment-card:nth-child(odd) {
+      background: #fff !important;
+    }
+    
+    .segment-card:nth-child(odd) .card-title,
+    .segment-card:nth-child(odd) .card-description {
+      color: #000 !important;
+    }
+    
+    .segment-card:nth-child(even) {
+      background: #A00000 !important;
+    }
+    
+    .segment-card:nth-child(even) .card-title,
+    .segment-card:nth-child(even) .card-description {
+      color: white !important;
+    }
   }
 
   /* Tablet responsive */

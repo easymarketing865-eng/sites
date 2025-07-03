@@ -21,6 +21,8 @@ import PortfolioPreviewGrid from "../src/components/PortfolioPreviewGrid.astro";
     font-family: var(--font-sans);
     display: flex;
     flex-direction: column;
+    overflow-x: hidden;
+    max-width: 100vw;
   }
   
   .exceptional-text-content {
@@ -114,7 +116,8 @@ import PortfolioPreviewGrid from "../src/components/PortfolioPreviewGrid.astro";
       font-size: 1.125rem;
       margin-bottom: 0.75rem;
     }
-    .season-description { 
+    .season-description {
+      width: 100% !important;
       font-size: 1rem; 
       margin-bottom: 1.5rem;
     }
@@ -254,14 +257,14 @@ import PortfolioPreviewGrid from "../src/components/PortfolioPreviewGrid.astro";
           
         </div>
 
-        
-      </div>
+        <div class="season-block">
+          <h3 class="season-title">Value Proposition</h3>
+          <p class="season-description">
+            Producing in Dubai or Europe can cost you 3–5× more — and not always with better results. In Kyrgyzstan, you get cinematic landscapes, professional crews, and full-service production — without the inflated budgets.
+          </p>
+          <p class="season-description cta-text">➡️ Want a comparison? Just ask — we'll show you the difference.</p>
+        </div>
 
-      <div class="value-proposition">
-        <p>
-          Producing in Dubai or Europe can cost you 3–5× more — and not always with better results. In Kyrgyzstan, you get cinematic landscapes, professional crews, and full-service production — without the inflated budgets.
-        </p>
-        <p class="cta-text">➡️ Want a comparison? Just ask — we'll show you the difference.</p>
       </div>
 
       <div class="cta">

@@ -42,20 +42,20 @@ function getImageSource(project) {
 <section class="hero-section">
     <div class="hero-grid">
         {allProjects.map((project) => (
-            <div class="hero-item">
-                <Image
+        <div class="hero-item">
+            <Image
                     src={getImageSource(project)}
                     alt={project.title}
-                    class="hero-image"
-                    width={1280}
-                    height={720}
-                />
-                <img src="/photos/top-left.svg" alt="" class="corner-svg top-left" />
-                <img src="/photos/bottom-right.svg" alt="" class="corner-svg bottom-right" />
+                class="hero-image"
+                width={1280}
+                height={720}
+            />
+            <img src="/photos/top-left.svg" alt="" class="corner-svg top-left" />
+            <img src="/photos/bottom-right.svg" alt="" class="corner-svg bottom-right" />
                 <span class="project-label">{project.title}</span>
             </div>
         ))}
-        
+
         <div class="hero-item">
             <div class="social-links">
                 <span class="social-link">INSTAGRAM</span>
@@ -63,7 +63,7 @@ function getImageSource(project) {
                 <span class="social-link">WHATSAPP</span>
                 <span class="social-link">YOUTUBE</span>
             </div>
-        </div>
+            </div>
     </div>
 
     <!-- <div class="hero-overlay">
@@ -169,7 +169,7 @@ function getImageSource(project) {
         left: 1rem;
         display: flex;
         flex-direction: column;
-        gap: 0.5rem;
+        gap: rem;
         z-index: 5;
     }
 
@@ -217,7 +217,7 @@ function getImageSource(project) {
         transform: scale(1.05);
     }
 
-    .project-label {
+        .project-label {
         position: absolute;
         bottom: 1rem;
         left: 1rem;
@@ -349,11 +349,11 @@ function getImageSource(project) {
         .project-label {
             padding: 0.25rem 0.25rem;
             bottom: 0.5rem;
-            left: 0.5rem;
+            left: 1rem;
         }
 
         .social-links {
-            bottom: 0.5rem;
+            top: 0.5rem;
             left: 0.5rem;
             gap: 0.3rem;
         }
