@@ -1,2 +1,8 @@
 [variables]
-NODE_VERSION = "18.20.8" 
+NODE_VERSION = "18.20.8"
+
+[phases.install]
+cmds = ["pnpm install --no-frozen-lockfile"]
+
+[phases.build]
+cmds = ["pnpm run build"] 
