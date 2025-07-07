@@ -42,10 +42,17 @@ const { project } = Astro.props;
 </Layout>
 
 <style>
+  :global(body) {
+    background: #000 !important;
+  }
+  
+  :global(article) {
+    background: #000;
+  }
   .video-page {
     width: 100%;
     min-height: 100vh;
-    background: var(--site-bg);
+    background: #000;
     padding: 2rem 0;
   }
 
@@ -63,20 +70,22 @@ const { project } = Astro.props;
     font-family: var(--font-sans);
     font-size: 1rem;
     font-weight: 500;
-    color: var(--brand-red);
+    color: #ffffff;
     text-decoration: none;
-    transition: opacity 0.2s ease;
+    transition: all 0.2s ease;
+    opacity: 0.8;
   }
 
   .back-link:hover {
-    opacity: 0.7;
+    opacity: 1;
+    color: var(--brand-red);
   }
 
   .video-title {
     font-family: var(--font-heading);
     font-size: 3rem;
     font-weight: 700;
-    color: var(--brand-black);
+    color: var(--brand-white);
     margin: 0 0 2rem 0;
     letter-spacing: -0.02em;
     text-align: left;
@@ -90,7 +99,8 @@ const { project } = Astro.props;
     background: #000;
     border-radius: 12px;
     overflow: hidden;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 8px 32px rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.1);
   }
 
   .video-player iframe {
@@ -116,7 +126,8 @@ const { project } = Astro.props;
 
     .video-player {
       border-radius: 8px;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 4px 20px rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.08);
     }
 
     .video-player iframe {
