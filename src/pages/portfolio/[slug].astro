@@ -14,548 +14,140 @@ export async function getStaticPaths() {
 }
 
 const { project } = Astro.props;
-
-// Helper functions to provide missing data
-function getProjectCategory(project: any) {
-    if (project.featured) return 'Featured';
-    const title = project.title.toLowerCase();
-    if (title.includes('bank') || title.includes('real estate') || title.includes('asbis')) {
-        return 'Commercial';
-    }
-    return 'Creative';
-}
-
-function getShortDescription(project: any) {
-    const descriptions: Record<string, string> = {
-        'demir-bank': 'Banking and financial services marketing campaign',
-        'elizaveta': 'Real estate marketing and brand development',
-        'vilar': 'Comprehensive brand campaign and visual storytelling',
-        'fashion': 'Editorial photography and fashion showcase',
-        'one': 'Retail brand story and commercial production',
-        'petrolium': 'Energy sector commercial and corporate video',
-        'vitalnan': 'Health and wellness brand promotion',
-        'sai-kitchen': 'Culinary experience and restaurant marketing',
-        'organic': 'Natural products showcase and brand storytelling',
-        'asbis': 'Technology solutions and corporate presentation'
-    };
-    return descriptions[project.slug] || 'Creative video production and brand development';
-}
-
-function getFullDescription(project: any) {
-    const descriptions: Record<string, string> = {
-        'demir-bank': 'A comprehensive marketing campaign for Demir Bank, showcasing their financial services through engaging visual storytelling. This project involved creating compelling content that highlights the bank\'s commitment to customer service and innovative banking solutions.',
-        'elizaveta': 'Real estate marketing campaign for Elizaveta, featuring property showcases and brand development. We created visually stunning content that highlights the premium quality and unique features of their real estate offerings.',
-        'vilar': 'Brand campaign for VILAR, focusing on visual storytelling and brand identity development. This project encompasses the complete visual narrative that represents the brand\'s values and market positioning.',
-        'fashion': 'Editorial photography project showcasing fashion trends and creative styling. This work demonstrates our ability to capture compelling fashion content with professional lighting and artistic direction.',
-        'one': 'Commercial production for ONE retail brand, telling their brand story through engaging video content. The project focuses on showcasing their products and connecting with their target audience.',
-        'petrolium': 'Corporate video production for the energy sector, highlighting industry leadership and innovative approaches. This commercial content effectively communicates complex industry concepts through accessible visual storytelling.',
-        'vitalnan': 'Health and wellness brand promotion focusing on lifestyle and product benefits. The content emphasizes the brand\'s commitment to health and quality of life improvements.',
-        'sai-kitchen': 'Culinary experience documentation and restaurant marketing content. This project captures the essence of fine dining and culinary artistry through professional food photography and videography.',
-        'organic': 'Natural products showcase emphasizing sustainability and organic quality. The content highlights the brand\'s commitment to environmental responsibility and natural ingredients.',
-        'asbis': 'Technology solutions presentation for ASBIS, showcasing their corporate capabilities and market expertise. This project effectively communicates complex technical concepts through clear visual presentation.'
-    };
-    return descriptions[project.slug] || 'Professional video production project showcasing creative excellence and technical expertise. Our team delivered high-quality content that effectively communicates the client\'s brand message and connects with their target audience.';
-}
-
-function getServices(project: any) {
-    const services: Record<string, string[]> = {
-        'demir-bank': ['Video Production', 'Brand Strategy', 'Motion Graphics', 'Post-Production'],
-        'elizaveta': ['Real Estate Photography', 'Video Production', 'Brand Development', 'Marketing Content'],
-        'vilar': ['Brand Campaign', 'Video Production', 'Creative Direction', 'Visual Storytelling'],
-        'fashion': ['Fashion Photography', 'Editorial Styling', 'Creative Direction', 'Post-Production'],
-        'one': ['Commercial Video', 'Brand Storytelling', 'Product Photography', 'Marketing Strategy'],
-        'petrolium': ['Corporate Video', 'Industrial Photography', 'Brand Communication', 'Content Strategy'],
-        'vitalnan': ['Health Marketing', 'Product Photography', 'Brand Development', 'Content Creation'],
-        'sai-kitchen': ['Food Photography', 'Restaurant Marketing', 'Video Production', 'Brand Content'],
-        'organic': ['Product Photography', 'Brand Storytelling', 'Marketing Content', 'Visual Identity'],
-        'asbis': ['Corporate Video', 'Technology Presentation', 'Brand Communication', 'Professional Content']
-    };
-    return services[project.slug] || ['Video Production', 'Creative Direction', 'Post-Production', 'Brand Development'];
-}
-
-function getTechStack(project: any) {
-    return ['Professional Cameras', 'Advanced Lighting', 'Adobe Creative Suite', 'Color Grading', 'Motion Graphics'];
-}
 ---
 
 <Layout title={`${project.title} - Portfolio - Easy Production`}>
-  <main class="project-page">
-    <div class="project-hero">
-      <div class="hero-content">
-        <nav class="breadcrumb">
-          <a href="/portfolio">Portfolio</a>
-          <span class="separator">→</span>
-          <span class="current">{project.title}</span>
-        </nav>
-        
-        <div class="hero-text">
-          <div class="project-meta">
-            <span class="category">{getProjectCategory(project)}</span>
-            <span class="year">{project.year}</span>
-            {project.featured && <span class="featured-badge">Featured</span>}
-          </div>
-          <h1 class="project-title">{project.title}</h1>
-          <p class="project-subtitle">{getShortDescription(project)}</p>
-        </div>
-      </div>
+  <main class="video-page">
+    <div class="video-content">
+      <!-- Back link -->
+      <nav class="back-nav">
+        <a href="/portfolio" class="back-link">← Back to Portfolio</a>
+      </nav>
+
+      <!-- Video title -->
+      <h1 class="video-title">{project.title}</h1>
       
-      <div class="hero-image">
-        <img src={project.hero} alt={`${project.title} hero image`} />
+      <!-- Full-width video player -->
+      <div class="video-player">
+        <iframe
+          src={`https://www.youtube.com/embed/${project.videoId}`}
+          title={project.title}
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowfullscreen
+        ></iframe>
       </div>
     </div>
-
-    <section class="project-details">
-      <div class="details-grid">
-        <div class="main-content">
-          <div class="project-description">
-            <h2>Project Overview</h2>
-            <p>{getFullDescription(project)}</p>
-          </div>
-
-          {project.videoId && (
-            <div class="project-video">
-              <h2>Project Video</h2>
-              <div class="video-container">
-                <iframe
-                  src={`https://www.youtube.com/embed/${project.videoId}`}
-                  title={`${project.title} - Project Video`}
-                  frameborder="0"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                  allowfullscreen
-                ></iframe>
-              </div>
-            </div>
-          )}
-        </div>
-
-        <aside class="project-sidebar">
-          <div class="info-card">
-            <h3>Services</h3>
-            <ul class="services-list">
-              {getServices(project).map(service => (
-                <li>{service}</li>
-              ))}
-            </ul>
-          </div>
-
-          <div class="info-card">
-            <h3>Technology</h3>
-            <ul class="tech-list">
-              {getTechStack(project).map(tech => (
-                <li>{tech}</li>
-              ))}
-            </ul>
-          </div>
-
-          <div class="info-card">
-            <h3>Project Info</h3>
-            <div class="results-grid">
-              <div class="result-item">
-                <span class="result-label">Year</span>
-                <span class="result-value">{project.year}</span>
-              </div>
-              <div class="result-item">
-                <span class="result-label">Category</span>
-                <span class="result-value">{getProjectCategory(project)}</span>
-              </div>
-              <div class="result-item">
-                <span class="result-label">Status</span>
-                <span class="result-value">Completed</span>
-              </div>
-            </div>
-          </div>
-        </aside>
-      </div>
-    </section>
-
-    <section class="project-navigation">
-      <div class="nav-content">
-        <a href="/portfolio" class="back-btn">
-          ← Back to Portfolio
-        </a>
-        <a href="/contact" class="contact-btn">
-          Start Your Project
-        </a>
-      </div>
-    </section>
   </main>
 </Layout>
 
 <style>
-  .project-page {
+  .video-page {
     width: 100%;
     min-height: 100vh;
+    background: var(--site-bg);
+    padding: 2rem 0;
   }
 
-  .project-hero {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    min-height: 70vh;
+  .video-content {
     max-width: 1400px;
     margin: 0 auto;
-    padding: 2em 1.1em;
-    gap: 3em;
-    align-items: center;
+    padding: 0 2rem;
   }
 
-  .hero-content {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    gap: 2em;
+  .back-nav {
+    margin-bottom: 2rem;
   }
 
-  .breadcrumb {
+  .back-link {
     font-family: var(--font-sans);
-    font-size: 0.9em;
-    color: var(--brand-black, #666);
-  }
-
-  .breadcrumb a {
-    color: var(--brand-red, #A00000);
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--brand-red);
     text-decoration: none;
+    transition: opacity 0.2s ease;
   }
 
-  .breadcrumb a:hover {
+  .back-link:hover {
     opacity: 0.7;
   }
 
-  .separator {
-    margin: 0 0.5em;
-    opacity: 0.5;
-  }
-
-  .current {
-    font-weight: 600;
-  }
-
-  .project-meta {
-    display: flex;
-    gap: 0.8em;
-    flex-wrap: wrap;
-    margin-bottom: 1em;
-  }
-
-  .category, .year {
-    background: #f8f9fa;
-    padding: 0.4em 0.8em;
-    border-radius: 1em;
-    font-family: var(--font-sans);
-    font-size: 0.8em;
-    font-weight: 600;
-    color: var(--brand-black, #555);
-  }
-
-  .featured-badge {
-    background: var(--brand-red, #A00000);
-    color: var(--brand-white, #fff);
-    padding: 0.4em 0.8em;
-    border-radius: 1em;
-    font-family: var(--font-sans);
-    font-size: 0.8em;
+  .video-title {
+    font-family: var(--font-heading);
+    font-size: 3rem;
     font-weight: 700;
-    text-transform: uppercase;
+    color: var(--brand-black);
+    margin: 0 0 2rem 0;
+    letter-spacing: -0.02em;
+    text-align: left;
   }
 
-  .project-title {
-    font-size: 3em;
-    font-weight: 900;
-    color: var(--brand-black, #222);
-    margin: 0;
-    line-height: 1.1;
-    font-family: var(--font-sans);
-  }
-
-  .project-subtitle {
-    font-size: 1.2em;
-    color: var(--brand-black, #666);
-    margin: 0;
-    line-height: 1.4;
-    font-family: var(--font-sans);
-  }
-
-  .hero-image {
-    width: 100%;
-    height: 100%;
-    border-radius: 1.5em;
-    overflow: hidden;
-    box-shadow: 0 12px 48px rgba(0, 0, 0, 0.1);
-  }
-
-  .hero-image img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center;
-  }
-
-  .project-details {
-    background: #f8f9fa;
-    padding: 4em 0;
-  }
-
-  .details-grid {
-    max-width: 1400px;
-    margin: 0 auto;
-    padding: 0 1.1em;
-    display: grid;
-    grid-template-columns: 2fr 1fr;
-    gap: 4em;
-  }
-
-  .main-content {
-    display: flex;
-    flex-direction: column;
-    gap: 3em;
-  }
-
-  .project-description h2,
-  .project-gallery h2,
-  .project-video h2 {
-    font-size: 1.8em;
-    font-weight: 700;
-    color: var(--brand-black, #222);
-    margin: 0 0 1em 0;
-    font-family: var(--font-sans);
-  }
-
-  .project-description p {
-    font-size: 1.1em;
-    line-height: 1.6;
-    color: var(--brand-black, #555);
-    font-family: var(--font-sans);
-    margin: 0;
-  }
-
-  .gallery-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 1.5em;
-  }
-
-  .gallery-item {
-    border-radius: 1em;
-    overflow: hidden;
-    aspect-ratio: 4/3;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-  }
-
-  .gallery-item img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.3s ease;
-  }
-
-  .gallery-item:hover img {
-    transform: scale(1.05);
-  }
-
-  .testimonial-section {
-    background: var(--brand-white, #fff);
-    padding: 2.5em;
-    border-radius: 1.5em;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
-  }
-
-  .testimonial {
-    margin: 0;
-  }
-
-  .testimonial p {
-    font-size: 1.2em;
-    font-style: italic;
-    line-height: 1.5;
-    color: var(--brand-black, #333);
-    margin: 0 0 1em 0;
-    font-family: var(--font-sans);
-  }
-
-  .testimonial cite {
-    font-size: 0.95em;
-    color: var(--brand-red, #A00000);
-    font-weight: 600;
-    font-style: normal;
-    font-family: var(--font-sans);
-  }
-
-  .project-sidebar {
-    display: flex;
-    flex-direction: column;
-    gap: 2em;
-  }
-
-  .info-card {
-    background: var(--brand-white, #fff);
-    padding: 2em;
-    border-radius: 1.5em;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
-  }
-
-  .info-card h3 {
-    font-size: 1.2em;
-    font-weight: 700;
-    color: var(--brand-black, #222);
-    margin: 0 0 1em 0;
-    font-family: var(--font-sans);
-  }
-
-  .services-list, .tech-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 0.5em;
-  }
-
-  .services-list li, .tech-list li {
-    padding: 0.5em 0;
-    border-bottom: 1px solid #f0f0f0;
-    font-family: var(--font-sans);
-    color: var(--brand-black, #555);
-  }
-
-  .services-list li:last-child, .tech-list li:last-child {
-    border-bottom: none;
-  }
-
-  .results-grid {
-    display: flex;
-    flex-direction: column;
-    gap: 1em;
-  }
-
-  .result-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0.8em 0;
-    border-bottom: 1px solid #f0f0f0;
-  }
-
-  .result-item:last-child {
-    border-bottom: none;
-  }
-
-  .result-label {
-    font-family: var(--font-sans);
-    font-size: 0.9em;
-    color: var(--brand-black, #666);
-    font-weight: 500;
-  }
-
-  .result-value {
-    font-family: var(--font-sans);
-    font-size: 0.9em;
-    color: var(--brand-red, #A00000);
-    font-weight: 700;
-  }
-
-  .project-navigation {
-    padding: 3em 0;
-    background: var(--brand-white, #fff);
-  }
-
-  .nav-content {
-    max-width: 1400px;
-    margin: 0 auto;
-    padding: 0 1.1em;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-
-  .back-btn, .contact-btn {
-    padding: 1em 2em;
-    border-radius: 2em;
-    text-decoration: none;
-    font-family: var(--font-sans);
-    font-weight: 600;
-    transition: all 0.2s ease;
-  }
-
-  .back-btn {
-    background: #f8f9fa;
-    color: var(--brand-black, #555);
-  }
-
-  .back-btn:hover {
-    background: #e9ecef;
-    transform: translateY(-2px);
-  }
-
-  .contact-btn {
-    background: var(--brand-red, #A00000);
-    color: var(--brand-white, #fff);
-  }
-
-  .contact-btn:hover {
-    background: #8a0000;
-    transform: translateY(-2px);
-  }
-
-  .video-container {
+  .video-player {
     position: relative;
     width: 100%;
     height: 0;
     padding-bottom: 56.25%; /* 16:9 aspect ratio */
-    border-radius: 1em;
+    background: #000;
+    border-radius: 12px;
     overflow: hidden;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
   }
 
-  .video-container iframe {
+  .video-player iframe {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
     border: none;
+    border-radius: 12px;
   }
 
-  @media (max-width: 1024px) {
-    .project-hero {
-      grid-template-columns: 1fr;
-      gap: 2em;
-      min-height: auto;
-    }
-
-    .details-grid {
-      grid-template-columns: 1fr;
-      gap: 2em;
-    }
-
-    .project-title {
-      font-size: 2.5em;
-    }
-  }
-
+  /* Responsive Design */
   @media (max-width: 768px) {
-    .project-hero {
-      padding: 1.5em 1.1em;
+    .video-content {
+      padding: 0 1rem;
     }
 
-    .project-title {
-      font-size: 2em;
+    .video-title {
+      font-size: 2.5rem;
+      margin-bottom: 1.5rem;
     }
 
-    .project-subtitle {
-      font-size: 1.1em;
+    .video-player {
+      border-radius: 8px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
     }
 
-    .gallery-grid {
-      grid-template-columns: 1fr;
+    .video-player iframe {
+      border-radius: 8px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .video-content {
+      padding: 0 0.5rem;
     }
 
-    .nav-content {
-      flex-direction: column;
-      gap: 1em;
+    .video-title {
+      font-size: 2rem;
+      margin-bottom: 1rem;
     }
 
-    .back-btn, .contact-btn {
-      width: 100%;
-      text-align: center;
+    .back-nav {
+      margin-bottom: 1.5rem;
+    }
+
+    .back-link {
+      font-size: 0.9rem;
+    }
+
+    .video-player {
+      border-radius: 6px;
+    }
+
+    .video-player iframe {
+      border-radius: 6px;
     }
   }
 </style>
