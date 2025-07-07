@@ -81,6 +81,7 @@ const getChessClass = (index: number) => {
     display: flex;
     flex-direction: column;
     align-items: left;
+    padding: 0 3rem;
   }
 
   .section-headline {
@@ -96,7 +97,7 @@ const getChessClass = (index: number) => {
 
   .grids-container {
     display: flex;
-    gap: 16px;
+    gap: 8px;
     width: 100%;
     margin: 0;
     padding: 0;
@@ -171,6 +172,9 @@ const getChessClass = (index: number) => {
 
   /* Mobile responsive */
   @media (max-width: 768px) {
+    .target-segments-section {
+      padding: 0; /* Remove horizontal padding on mobile */
+    }
     .grids-container {
       flex-direction: column;
       gap: 8px;
@@ -211,7 +215,7 @@ const getChessClass = (index: number) => {
   @media (min-width: 769px) and (max-width: 949px) {
     .grids-container {
       flex-direction: row;
-      gap: 16px;
+      gap: 8px;
     }
     
     .segments-grid {
