@@ -1,523 +1,171 @@
 ---
 /**
  * PortfolioPage.astro
- * Full portfolio page using the designer's approved styles from Portfolio component
+ * Simple portfolio page with full-width YouTube players
  */
 import "../styles/global.css";
+import { projects } from "../lib/pocketbase.js";
+// Fallback to JSON data if PocketBase is not available
 import portfolioData from "../data/portfolio.json";
 
-const allProjects = [...portfolioData.featured, ...portfolioData.portfolio];
-const categories = portfolioData.categories;
+let allProjects = [];
+
+try {
+  // Try to fetch from PocketBase
+  const result = await projects.getAll(1, 50);
+  allProjects = result.items || [];
+  console.log(`Loaded ${allProjects.length} projects from PocketBase`);
+} catch (error) {
+  console.log('PocketBase not available, using JSON fallback:', (error as Error).message);
+  // Fallback to JSON data
+  allProjects = [...portfolioData.featured, ...portfolioData.portfolio];
+}
 ---
 
-<section class="portfolio-section" id="portfolio">
-    <!-- Start decoration SVG -->
-    <div class="decoration decoration-start">
-        <img src="/photos/start.svg" alt="Start decoration" class="decoration-svg" />
-    </div>
-
+<section class="portfolio-section">
     <div class="portfolio-content">
-        <h1 class="headline">Portfolio</h1>
-        <p class="portfolio-subtitle">Showcasing our creative work across industries and mediums</p>
+        <h1 class="portfolio-title">Portfolio</h1>
         
-        <div class="filter-bar">
-            <div class="filter-container">
-                {categories.map(category => (
-                    <button 
-                        class={`filter-btn ${category === 'All' ? 'active' : ''}`}
-                        data-filter={category === 'All' ? '*' : category}
-                    >
-                        {category}
-                    </button>
-                ))}
-            </div>
+        <div class="videos-container">
+            {allProjects.map((project: any) => (
+                <div class="video-item">
+                    <h2 class="video-title">{project.title}</h2>
+                    <div class="video-player">
+                        <iframe
+                            src={`https://www.youtube.com/embed/${project.videoId}`}
+                            title={project.title}
+                            frameborder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                            allowfullscreen
+                        ></iframe>
+                    </div>
+                </div>
+            ))}
         </div>
-
-        <div class="portfolio-grid">
-            {
-                allProjects.map((p, index) => {
-                    return (
-                        <a href={`/portfolio/${p.slug}`} class="portfolio-card" data-category={p.category}>
-                            {index === 0 && (
-                                <>
-                                    <span class="label-new-back"></span>
-                                    <span class="label-new">new</span>
-                                </>
-                            )}
-                            <img
-                                src={p.hero}
-                                alt={p.title + " project image"}
-                                class="portfolio-img"
-                                loading="lazy"
-                            />
-                            {index === allProjects.length - 1 && (
-                                <div class="factoid">
-                                    <img
-                                        src="/photos/factoid-3d.png"
-                                        alt="3D motion"
-                                        class="factoid-img"
-                                    />
-                                </div>
-                            )}
-                            {index === 1 && (
-                                <div class="factoid factoid-small">
-                                    <img
-                                        src="/photos/factoid-delivered.png"
-                                        alt="Delivered in 4 days"
-                                        class="factoid-img"
-                                    />
-                                </div>
-                            )}
-                            <figcaption class="portfolio-caption">
-                                <h3 class="portfolio-title">{p.title}</h3>
-                                <div class="portfolio-desc">{p.shortDescription}</div>
-                                <div class="portfolio-meta">
-                                    <span class="portfolio-category">{p.category}</span>
-                                    {p.year && <span class="portfolio-year">{p.year}</span>}
-                                </div>
-                            </figcaption>
-                        </a>
-                    );
-                })
-            }
-        </div>
-    </div>
-
-    <!-- End decoration SVG -->
-    <div class="decoration decoration-end">
-        <img src="/photos/end.svg" alt="End decoration" class="decoration-svg" />
     </div>
 </section>
 
-<script>
-  // Portfolio filtering functionality
-  document.addEventListener('DOMContentLoaded', function() {
-    const filterBtns = document.querySelectorAll('.filter-btn');
-    const portfolioItems = document.querySelectorAll('.portfolio-card');
-
-    filterBtns.forEach(btn => {
-      btn.addEventListener('click', function(this: HTMLElement) {
-        // Remove active class from all buttons
-        filterBtns.forEach(b => b.classList.remove('active'));
-        // Add active class to clicked button
-        this.classList.add('active');
-
-        const filterValue = this.getAttribute('data-filter');
-
-        portfolioItems.forEach(item => {
-          const htmlItem = item as HTMLElement;
-          if (filterValue === '*') {
-            htmlItem.style.display = 'block';
-            htmlItem.style.animation = 'fadeIn 0.5s ease';
-          } else {
-            const itemCategory = item.getAttribute('data-category');
-            if (itemCategory === filterValue) {
-              htmlItem.style.display = 'block';
-              htmlItem.style.animation = 'fadeIn 0.5s ease';
-            } else {
-              htmlItem.style.display = 'none';
-            }
-          }
-        });
-      });
-    });
-  });
-</script>
-
 <style>
-    .headline {
-        font-family: var(--font-heading);
-        font-size: 2rem;
-        font-weight: 600;
-        color: #fff;
-        margin: 0 auto;
-        padding: 0 1rem;
-        max-width: 1300px;
-        margin-bottom: 1rem;
-        text-align: center;
-    }
-
-    @media (min-width: 768px) {
-        .headline {
-            font-size: 2.5rem;
-            padding: 0 1.5rem;
-            margin-bottom: 1.5rem;
-        }
-    }
-
-    @media (min-width: 1024px) {
-        .headline {
-            font-size: 3rem;
-            margin-bottom: 2rem;
-        }
-    }
-
-    .portfolio-subtitle {
-        font-size: 1.1rem;
-        color: rgba(255, 255, 255, 0.8);
-        text-align: center;
-        margin: 0 auto 3rem auto;
-        max-width: 600px;
-        line-height: 1.4;
-        font-family: 'Manrope', var(--font-sans);
-    }
-
-    .filter-bar {
-        margin-bottom: 3rem;
-        display: flex;
-        justify-content: center;
-    }
-
-    .filter-container {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 0.75rem;
-        justify-content: center;
-    }
-
-    .filter-btn {
-        background: rgba(255, 255, 255, 0.1);
-        border: 2px solid rgba(255, 255, 255, 0.2);
-        padding: 0.6rem 1.5rem;
-        border-radius: 2rem;
-        font-family: 'Manrope', var(--font-sans);
-        font-size: 0.9rem;
-        font-weight: 600;
-        color: #fff;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        backdrop-filter: blur(10px);
-    }
-
-    .filter-btn:hover,
-    .filter-btn.active {
-        background: #fff;
-        border-color: #fff;
-        color: #000;
-        transform: translateY(-2px);
-    }
-
     .portfolio-section {
         width: 100%;
-        justify-content: center;
-    }
-    .portfolio-grid {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 2rem;
-        width: 100%;
-        max-width: 1300px;
-        padding: 0;
-        margin: 0 auto;
-    }
-    .portfolio-card {
-        width: 100%;
-        margin: 0;
-        padding: 0;
-        position: relative;
-        display: flex;
-        flex-direction: column;
-        text-decoration: none;
-        cursor: pointer;
-        transition: all 0.2s ease;
-        aspect-ratio: 4/3;
-    }
-    .portfolio-img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
+        min-height: 100vh;
         background: var(--site-bg);
-    }
-    .portfolio-caption {
-        position: absolute;
-        bottom: 1rem;
-        left: 1.5rem;
-        padding: 0;
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 0.25rem;
-        z-index: 2;
-        max-width: calc(100% - 4rem);
-    }
-    .portfolio-title {
-        font-family: 'Manrope', var(--font-sans);
-        font-size: 32px;
-        font-weight: 800;
-        color: #fff;
-        opacity: 1;
-        margin: 0;
-        line-height: 1.2;
-        transition: all 0.2s ease;
-    }
-    .portfolio-desc {
-        font-size: 16px;
-        color: #fff;
-        opacity: 0.7;
-        font-family: 'Manrope', var(--font-sans);
-        line-height: 1.2;
-        margin: 0;
-        font-weight: 400;
-        transition: all 0.2s ease;
-    }
-
-    .portfolio-meta {
-        display: flex;
-        gap: 0.75rem;
-        margin-top: 0.5rem;
-        flex-wrap: wrap;
-    }
-
-    .portfolio-category,
-    .portfolio-year {
-        font-size: 11px;
-        color: #000;
-        background: rgba(255, 255, 255, 0.9);
-        padding: 0.25rem 0.6rem;
-        border-radius: 12px;
-        font-family: 'Manrope', var(--font-sans);
-        font-weight: 600;
-        text-transform: uppercase;
-        letter-spacing: 0.5px;
-        backdrop-filter: blur(4px);
-    }
-
-    /* Hover effects for the entire card */
-    .portfolio-card:hover .portfolio-title,
-    .portfolio-card:hover .portfolio-desc {
-        opacity: 0.6;
-    }
-
-    /* Full-width card styles */
-    .portfolio-card:nth-child(3n+1) {
-        grid-column: 1 / -1;
-        aspect-ratio: 16/9;
-    }
-
-    .portfolio-card:nth-child(3n+1) .portfolio-img {
-        height: 100%;
-    }
-
-    .portfolio-card:nth-child(3n+1) .portfolio-caption {
-        bottom: 1rem;
-        left: 1.5rem;
-    }
-
-    @media (max-width: 768px) {
-        .portfolio-section {
-            width: 100vw;
-            margin-left: calc(-50vw + 50%);
-            margin-right: calc(-50vw + 50%);
-        }
-        
-        .portfolio-grid {
-            grid-template-columns: repeat(2, 1fr);
-            padding: 0 1rem;
-            gap: 0.5rem;
-            max-width: 100%;
-        }
-        
-        .portfolio-card {
-            aspect-ratio: 3/4;
-        }
-        
-        .portfolio-card:nth-child(3n+1) {
-            grid-column: 1 / -1;
-            aspect-ratio: 16/9;
-        }
-        
-        .portfolio-img {
-            height: 100%;
-        }
-        
-        .portfolio-card:nth-child(3n+1) .portfolio-img {
-            height: 100%;
-        }
-        
-        .portfolio-caption {
-            bottom: 1rem;
-            left: 1.5rem;
-            flex-direction: column;
-            gap: 0.25rem;
-            max-width: calc(100% - 2rem);
-        }
-        
-        .portfolio-title {
-            font-size: 20px;
-        }
-        
-        .portfolio-desc {
-            font-size: 12px;
-        }
-        
-        .portfolio-card:nth-child(3n+1) .portfolio-caption {
-            bottom: 1rem;
-            left: 1.5rem;
-        }
-
-        .filter-container {
-            gap: 0.5rem;
-        }
-
-        .filter-btn {
-            padding: 0.5rem 1rem;
-            font-size: 0.8rem;
-        }
-
-        .portfolio-subtitle {
-            font-size: 1rem;
-            margin-bottom: 2rem;
-            padding: 0 1rem;
-        }
-    }
-
-    .factoid {
-        position: absolute;
-        top: -2rem;
-        right: -2rem;
-        width: 120px;
-        height: 120px;
-        z-index: 2;
-    }
-
-    .factoid-img {
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        top: 0;
-        left: 0;
-        object-fit: contain;
-        z-index: 1;
-        pointer-events: none;
-    }
-
-    .factoid-small {
-        width: 120px;
-        height: 120px;
-        top: -2rem;
-        left: -2rem;
-        right: auto;
-    }
-
-    @media (max-width: 768px) {
-        .factoid {
-            top: -1rem;
-            right: -1rem;
-            width: 80px;
-            height: 80px;
-        }
-        
-        .factoid-small {
-            width: 80px;
-            height: 80px;
-            top: -1rem;
-            left: -1rem;
-            right: auto;
-        }
+        padding: 2rem 0;
     }
 
     .portfolio-content {
-        width: 100%;
-        background: var(--site-bg);
-        padding: 3rem 3rem;
+        max-width: 100%;
+        margin: 0 auto;
+        padding: 0 2rem;
     }
 
-    @media (max-width: 768px) {
-        .portfolio-content {
-            padding: 3rem 1rem;
-        }
-        
-        .portfolio-section {
-            width: 100vw;
-            margin-left: calc(-50vw + 50%);
-            margin-right: calc(-50vw + 50%);
-        }
+    .portfolio-title {
+        font-family: var(--font-heading);
+        font-size: 3rem;
+        font-weight: 700;
+        color: var(--brand-black);
+        text-align: center;
+        margin: 0 0 3rem 0;
+        letter-spacing: -0.02em;
     }
 
-    .decoration {
-        width: 100%;
+    .videos-container {
         display: flex;
-        align-items: center;
-        justify-content: center;
+        flex-direction: column;
+        gap: 4rem;
+        max-width: 1400px;
+        margin: 0 auto;
     }
 
-    .decoration svg {
+    .video-item {
+        width: 100%;
+    }
+
+    .video-title {
+        font-family: var(--font-sans);
+        font-size: 2rem;
+        font-weight: 600;
+        color: var(--brand-black);
+        margin: 0 0 1rem 0;
+        text-align: left;
+    }
+
+    .video-player {
+        position: relative;
+        width: 100%;
+        height: 0;
+        padding-bottom: 56.25%; /* 16:9 aspect ratio */
+        background: #000;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+    }
+
+    .video-player iframe {
+        position: absolute;
+        top: 0;
+        left: 0;
         width: 100%;
         height: 100%;
+        border: none;
+        border-radius: 12px;
     }
 
-    .decoration-svg {
-        width: 100%;
-        object-fit: contain;
-    }
-
+    /* Responsive Design */
     @media (max-width: 768px) {
-        .decoration {
-            width: 100vw;
-            margin-left: calc(-50vw + 50%);
-            margin-right: calc(-50vw + 50%);
+        .portfolio-content {
+            padding: 0 1rem;
+        }
+
+        .portfolio-title {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .videos-container {
+            gap: 3rem;
+        }
+
+        .video-title {
+            font-size: 1.5rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .video-player {
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .video-player iframe {
+            border-radius: 8px;
         }
     }
 
-    @keyframes fadeIn {
-        from {
-            opacity: 0;
-            transform: translateY(20px);
+    @media (max-width: 480px) {
+        .portfolio-content {
+            padding: 0 0.5rem;
         }
-        to {
-            opacity: 1;
-            transform: translateY(0);
+
+        .portfolio-title {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .videos-container {
+            gap: 2rem;
+        }
+
+        .video-title {
+            font-size: 1.25rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .video-player {
+            border-radius: 6px;
+        }
+
+        .video-player iframe {
+            border-radius: 6px;
         }
     }
-
-    .label-new {
-    background: #fee445;
-    color: #000;
-    margin: -0.7em 0 0 0;
-    padding: 0 12px 10px 2px;
-    width: 44px;
-    overflow: hidden;
-    text-transform: uppercase;
-    transform: skewY(-30deg);
-}.label-new-back,.label-new {
-    position: absolute;
-    font-family: i8sans, Helvetica Neue, Arial, sans-serif;
-    font-size: 13px;
-    line-height: 24px;
-    height: 34px;
-    font-weight: bold;
-    display: inline-block
-}
-
-.label-new-back {
-    background: #e2bc22;
-    margin: .3em 0 0 0;
-    width: 8px
-}
-
-.label-new {
-    background: #fee445;
-    color: #000;
-    margin: -0.7em 0 0 0;
-    padding: 0 12px 10px 2px;
-    width: 44px;
-    overflow: hidden;
-    text-transform: uppercase;
-    transform: skewY(-30deg)
-}
-
-.label-new-alt {
-    background: #c32;
-    color: #fee445
-}
-
-.label-new-back-alt {
-    background: #821
-}
-
-    .label-new-back {
-    background: #e2bc22;
-    margin: .3em 0 0 0;
-    width: 8px;
-}
 </style>

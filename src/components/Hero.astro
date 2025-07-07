@@ -1,62 +1,138 @@
 ---
 import { Image } from "astro:assets";
-import { projects, files } from "../lib/pocketbase.js";
-// Fallback to JSON data if PocketBase is not available
 import portfolioData from "../data/portfolio.json";
 
-let featuredProjects = [];
-let regularProjects = [];
-let allProjects = [];
-
-try {
-  // Try to fetch from PocketBase
-  const featuredData = await projects.getFeatured();
-  const regularData = await projects.getAll(1, 9);
-  
-  featuredProjects = featuredData.items || [];
-  regularProjects = regularData.items?.filter(p => !p.featured) || [];
-  allProjects = [...featuredProjects, ...regularProjects].slice(0, 11);
-  
-  console.log(`Loaded ${allProjects.length} projects from PocketBase`);
-} catch (error) {
-  console.log('PocketBase not available, using JSON fallback:', error.message);
-  // Fallback to JSON data
-  featuredProjects = portfolioData.featured || [];
-  regularProjects = (portfolioData.portfolio || []).slice(0, 9);
-  allProjects = [...featuredProjects, ...regularProjects].slice(0, 11);
-}
-
-// Helper function to get image source (future-ready)
-function getImageSource(project) {
-  // Priority: PocketBase uploaded image > static hero > YouTube thumbnail
-  if (project.image && project.id) {
-    return files.getUrl(project, project.image);
-  }
-  if (project.hero) {
-    return project.hero;
-  }
-  return `https://i.ytimg.com/vi/${project.videoId}/maxresdefault.jpg`;
-}
+// Get featured projects and some regular portfolio items
+const featuredProjects = portfolioData.featured;
+const regularProjects = portfolioData.portfolio.slice(0, 9); // Get first 9 regular projects
+const allProjects = [...featuredProjects, ...regularProjects].slice(0, 12); // Total 12 projects
 ---
 
-<section class="hero-section emerge" data-spin="true" data-effect="slide" data-up="30px">
+<section class="hero-section">
     <div class="hero-grid">
-        {allProjects.map((project, index) => (
-        <div class="hero-item emerge" data-continue="true" data-hold="100" data-effect="slide" data-up="20px">
+        <div class="hero-item">
             <Image
-                    src={getImageSource(project)}
-                    alt={project.title}
+                src="https://i.ytimg.com/vi/FEnya1wy0WU/maxresdefault.jpg"
+                alt="Demir Bank"
                 class="hero-image"
                 width={1280}
                 height={720}
             />
             <img src="/photos/top-left.svg" alt="" class="corner-svg top-left" />
             <img src="/photos/bottom-right.svg" alt="" class="corner-svg bottom-right" />
-                <span class="project-label">{project.title}</span>
+            <span class="project-label">Demir Bank</span>
+        </div>
+        <div class="hero-item">
+            <Image
+                src="https://i.ytimg.com/vi/GtX7KonFvsY/maxresdefault.jpg"
+                alt="VILAR"
+                class="hero-image"
+                width={1280}
+                height={720}
+            />
+            <img src="/photos/top-left.svg" alt="" class="corner-svg top-left" />
+            <img src="/photos/bottom-right.svg" alt="" class="corner-svg bottom-right" />
+            <span class="project-label">VILAR</span>
+        </div>
+        <div class="hero-item">
+            <Image
+                src="https://i.ytimg.com/vi/GguO9XodvIk/maxresdefault.jpg"
+                alt="Fashion Editorial"
+                class="hero-image"
+                width={1280}
+                height={720}
+            />
+            <img src="/photos/top-left.svg" alt="" class="corner-svg top-left" />
+            <img src="/photos/bottom-right.svg" alt="" class="corner-svg bottom-right" />
+            <span class="project-label">Fashion Editorial</span>
+        </div>
+        <div class="hero-item">
+            <Image
+                src="https://i.ytimg.com/vi/z2CUZ8Lw1pc/maxresdefault.jpg"
+                alt="One"
+                class="hero-image"
+                width={1280}
+                height={720}
+            />
+            <img src="/photos/top-left.svg" alt="" class="corner-svg top-left" />
+            <img src="/photos/bottom-right.svg" alt="" class="corner-svg bottom-right" />
+            <span class="project-label">One</span>
+        </div>
+        <div class="hero-item">
+            <Image
+                src="https://i.ytimg.com/vi/uosqUldvZBc/maxresdefault.jpg"
+                alt="Petrolium"
+                class="hero-image"
+                width={1280}
+                height={720}
+            />
+            <img src="/photos/top-left.svg" alt="" class="corner-svg top-left" />
+            <img src="/photos/bottom-right.svg" alt="" class="corner-svg bottom-right" />
+            <span class="project-label">Petrolium</span>
+        </div>
+        <div class="hero-item">
+            <Image
+                src="https://i.ytimg.com/vi/kXbCSe7h8dA/maxresdefault.jpg"
+                alt="Vitalnan"
+                class="hero-image"
+                width={1280}
+                height={720}
+            />
+            <img src="/photos/top-left.svg" alt="" class="corner-svg top-left" />
+            <img src="/photos/bottom-right.svg" alt="" class="corner-svg bottom-right" />
+            <span class="project-label">Vitalnan</span>
+        </div>
+        <div class="hero-item">
+            <Image
+                src="https://i.ytimg.com/vi/aeqONKjqZvE/maxresdefault.jpg"
+                alt="Sai Kitchen"
+                class="hero-image"
+                width={1280}
+                height={720}
+            />
+            <img src="/photos/top-left.svg" alt="" class="corner-svg top-left" />
+            <img src="/photos/bottom-right.svg" alt="" class="corner-svg bottom-right" />
+            <span class="project-label">Sai Kitchen</span>
+        </div>
+        <div class="hero-item">
+            <Image
+                src="https://i.ytimg.com/vi/fUVbDErR0-4/maxresdefault.jpg"
+                alt="Organic"
+                class="hero-image"
+                width={1280}
+                height={720}
+            />
+            <img src="/photos/top-left.svg" alt="" class="corner-svg top-left" />
+            <img src="/photos/bottom-right.svg" alt="" class="corner-svg bottom-right" />
+            <span class="project-label">Organic</span>
             </div>
-        ))}
+        <div class="hero-item">
+            <Image
+                src="https://i.ytimg.com/vi/YeqneaZAqkY/maxresdefault.jpg"
+                alt="ASBIS"
+                class="hero-image"
+                width={1280}
+                height={720}
+            />
+            <img src="/photos/top-left.svg" alt="" class="corner-svg top-left" />
+            <img src="/photos/bottom-right.svg" alt="" class="corner-svg bottom-right" />
+            <span class="project-label">ASBIS</span>
+            </div>
+        <div class="hero-item">
+            <Image
+                src="https://i.ytimg.com/vi/enyHtWZbjdM/maxresdefault.jpg"
+                alt="Corporate Project"
+                class="hero-image"
+                width={1280}
+                height={720}
+            />
+            <img src="/photos/top-left.svg" alt="" class="corner-svg top-left" />
+            <img src="/photos/bottom-right.svg" alt="" class="corner-svg bottom-right" />
+            <span class="project-label">Corporate Project</span>
+            </div>
 
-        <div class="hero-item emerge" data-continue="true" data-hold="150" data-effect="slide" data-left="20px">
+        <div class="hero-item">
+           
             <div class="social-links">
                 <span class="social-link">INSTAGRAM</span>
                 <span class="social-link">TELEGRAM</span>
@@ -85,7 +161,7 @@ function getImageSource(project) {
         .hero-grid {
         display: grid;
         grid-template-columns: repeat(6, 1fr);
-        grid-template-rows: 0.8fr 1.1fr 0.8fr 0.8fr; /* Different heights for each row */
+        grid-template-rows: 0.6fr 1.1fr 0.6fr 0.8fr; /* Different heights for each row */
         width: 100%;
         height: 100%;
         gap: 2px;
@@ -165,18 +241,26 @@ function getImageSource(project) {
 
     .social-links {
         position: absolute;
-        bottom: 0rem;
+        bottom: 1rem;
         left: 1rem;
         display: flex;
         flex-direction: column;
-        gap: rem;
+        gap: 0.5rem;
         z-index: 5;
     }
 
     .social-link {
         color: white;
+        font-family: var(--font-sans);
+        font-size: 40px;
+        font-weight: 800;
         text-transform: uppercase;
         cursor: pointer;
+        transition: opacity 0.3s ease;
+    }
+
+    .social-link:hover {
+        opacity: 0.7;
     }
 
     .hero-image {
@@ -184,6 +268,7 @@ function getImageSource(project) {
         height: 100%;
         object-fit: cover;
         display: block;
+        transition: transform 0.3s ease;
     }
 
     .corner-svg {
@@ -212,11 +297,20 @@ function getImageSource(project) {
         transform: scale(1);
     }
 
-    .project-label {
+    .hero-item:hover .hero-image {
+        transform: scale(1.05);
+    }
+
+        .project-label {
         position: absolute;
         bottom: 1rem;
         left: 1rem;
         color: white;
+        
+        font-family: var(--font-sans);
+        font-size: clamp(0.75rem, 1.5vw, 1rem);
+        font-weight: 800;
+        text-transform: uppercase;
         z-index: 5;
         border-radius: 2px;
     }
@@ -237,7 +331,11 @@ function getImageSource(project) {
     }
 
     .hero-title {
+        font-family: var(--font-heading);
+        font-size: clamp(2rem, 4vw, 3.5rem);
+        font-weight: 700;
         margin: 0;
+        line-height: 1.2;
     }
 
     @media (max-width: 768px) {
@@ -342,19 +440,22 @@ function getImageSource(project) {
         }
 
         .project-label {
+            font-size: 1rem;
+            font-weight: 800;
+            text-transform: uppercase;
             padding: 0.25rem 0.25rem;
             bottom: 0.5rem;
-            left: 1rem;
+            left: 0.5rem;
         }
 
         .social-links {
-            top: 0.5rem;
+            bottom: 0.5rem;
             left: 0.5rem;
             gap: 0.3rem;
         }
 
         .social-link {
-            /* Remove font-size override */
+            font-size: 0.8rem;
         }
 
         .corner-svg {

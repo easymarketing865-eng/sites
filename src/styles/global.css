@@ -243,6 +243,7 @@ a:hover {
 .btn-primary {
     background: #8E0C12;
     color: white;
+    border-radius: 4px;
 }
 
 .btn-primary:hover {
