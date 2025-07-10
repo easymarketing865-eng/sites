@@ -16,6 +16,7 @@
   "dependencies": {
     "@astrojs/node": "^9.2.2",
     "astro": "^5.7.13",
+    "dotenv": "^17.2.0",
     "lucide-astro": "^0.513.0",
     "pocketbase": "^0.26.1"
   },

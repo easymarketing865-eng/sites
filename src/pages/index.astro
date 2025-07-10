@@ -20,7 +20,6 @@ import PortfolioPreviewGrid from "../components/PortfolioPreviewGrid.astro";
 import TalkToUs1 from "../components/TalkToUs1.astro";
 import TalkToUs2 from "../components/TalkToUs2.astro";
 import Team from "../components/Team.astro";
-import FloatingContactButton from "../components/FloatingContactButton.astro";
 import Layout from "../layouts/Layout.astro";
 // import ContactSection from "../components/ContactSection.astro";
 ---
@@ -42,7 +41,7 @@ import Layout from "../layouts/Layout.astro";
     <body>
         <main>
            
-            <Header />
+            <Header isHomePage={true} />
             <Showreel />
             
             <FeelWatchTrust />
@@ -64,7 +63,6 @@ import Layout from "../layouts/Layout.astro";
         </main>
 
         <Footer />
-        <!-- <FloatingContactButton /> -->
     </body>
     <style>
         :root {

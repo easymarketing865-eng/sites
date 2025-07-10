@@ -1,4 +1,12 @@
-<header class="main-header">
+---
+export interface Props {
+    isHomePage?: boolean;
+}
+
+const { isHomePage = false } = Astro.props;
+---
+
+<header class="main-header" class:list={[{ 'home-page': isHomePage }]}>
     <a class="brand-logo" href="/">
         <img src="/photos/logo.svg" alt="easy. production" class="logo-img" />
         
@@ -79,6 +87,16 @@
         color: #99242A;
     }
 
+    /* Home page styling - white text */
+    .main-header.home-page .nav-link {
+        color: #ffffff;
+    }
+
+    .main-header.home-page .nav-link:hover {
+        color: #ffffff;
+        opacity: 0.8;
+    }
+
     .mobile-menu-btn {
         display: none;
         flex-direction: column;
@@ -94,6 +112,11 @@
         height: 3px;
         background: var(--brand-black, #333);
         transition: all 0.3s ease;
+    }
+
+    /* Home page mobile menu styling */
+    .main-header.home-page .mobile-menu-btn span {
+        background: #ffffff;
     }
 
 

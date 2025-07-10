@@ -1,11 +1,24 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+import { projects } from '../../lib/pocketbase.js';
+// Fallback to JSON data if PocketBase is not available
 import portfolioData from '../../data/portfolio.json';
 
 export const prerender = true;
 
 export async function getStaticPaths() {
-  const allProjects = [...portfolioData.featured, ...portfolioData.portfolio];
+  let allProjects = [];
+  
+  try {
+    // Try to fetch from PocketBase
+    const result = await projects.getAll(1, 50);
+    allProjects = result.items || [];
+    console.log(`Loaded ${allProjects.length} projects from PocketBase for static paths`);
+  } catch (error) {
+    console.log('PocketBase not available for static paths, using JSON fallback:', (error as Error).message);
+    // Fallback to JSON data
+    allProjects = [...portfolioData.featured, ...portfolioData.portfolio];
+  }
   
   return allProjects.map((project) => ({
     params: { slug: project.slug },
@@ -43,21 +56,21 @@ const { project } = Astro.props;
 
 <style>
   :global(body) {
-    background: #000 !important;
+    background: #ffffff !important;
   }
   
   :global(article) {
-    background: #000;
+    width: 100%;
+    background: #ffffff;
   }
   .video-page {
     width: 100%;
-    min-height: 100vh;
-    background: #000;
+    background: #ffffff;
     padding: 2rem 0;
   }
 
   .video-content {
-    max-width: 1400px;
+
     margin: 0 auto;
     padding: 0 2rem;
   }
@@ -70,7 +83,7 @@ const { project } = Astro.props;
     font-family: var(--font-sans);
     font-size: 1rem;
     font-weight: 500;
-    color: #ffffff;
+    color: #111111;
     text-decoration: none;
     transition: all 0.2s ease;
     opacity: 0.8;
@@ -85,7 +98,7 @@ const { project } = Astro.props;
     font-family: var(--font-heading);
     font-size: 3rem;
     font-weight: 700;
-    color: var(--brand-white);
+    color: var(--brand-black);
     margin: 0 0 2rem 0;
     letter-spacing: -0.02em;
     text-align: left;
@@ -99,8 +112,8 @@ const { project } = Astro.props;
     background: #000;
     border-radius: 12px;
     overflow: hidden;
-    box-shadow: 0 8px 32px rgba(255, 255, 255, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(0, 0, 0, 0.1);
   }
 
   .video-player iframe {
@@ -126,8 +139,8 @@ const { project } = Astro.props;
 
     .video-player {
       border-radius: 8px;
-      box-shadow: 0 4px 20px rgba(255, 255, 255, 0.08);
-      border: 1px solid rgba(255, 255, 255, 0.08);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+      border: 1px solid rgba(0, 0, 0, 0.08);
     }
 
     .video-player iframe {

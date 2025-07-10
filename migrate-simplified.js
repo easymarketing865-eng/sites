@@ -16,7 +16,9 @@ async function migrateSimplified() {
                 year: project.year,
                 featured: true,
                 hero: project.hero,
-                videoId: project.videoId
+                videoId: project.videoId,
+                // Add video thumbnail field (optional)
+                videoThumbnail: null // Will be populated later with video file paths
             };
 
             await pb.collection('projects').create(data);
@@ -32,7 +34,9 @@ async function migrateSimplified() {
                 year: project.year,
                 featured: false,
                 hero: project.hero,
-                videoId: project.videoId
+                videoId: project.videoId,
+                // Add video thumbnail field (optional)
+                videoThumbnail: null // Will be populated later with video file paths
             };
 
             await pb.collection('projects').create(data);

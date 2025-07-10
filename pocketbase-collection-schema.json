@@ -78,14 +78,347 @@
             "max": 50,
             "pattern": ""
           }
+        },
+        {
+          "id": "video_thumbnail_field",
+          "name": "videoThumbnail",
+          "type": "url",
+          "system": false,
+          "required": false,
+          "unique": false,
+          "options": {
+            "exceptDomains": [],
+            "onlyDomains": []
+          }
+        },
+        {
+          "id": "description_field",
+          "name": "description",
+          "type": "editor",
+          "system": false,
+          "required": false,
+          "unique": false,
+          "options": {
+            "convertUrls": false
+          }
+        },
+        {
+          "id": "short_description_field",
+          "name": "shortDescription",
+          "type": "text",
+          "system": false,
+          "required": false,
+          "unique": false,
+          "options": {
+            "min": 0,
+            "max": 300,
+            "pattern": ""
+          }
+        },
+        {
+          "id": "category_field",
+          "name": "category",
+          "type": "select",
+          "system": false,
+          "required": false,
+          "unique": false,
+          "options": {
+            "maxSelect": 1,
+            "values": [
+              "commercial",
+              "fashion",
+              "corporate",
+              "music_video",
+              "documentary",
+              "animation",
+              "real_estate",
+              "other"
+            ]
+          }
+        },
+        {
+          "id": "services_field",
+          "name": "services",
+          "type": "select",
+          "system": false,
+          "required": false,
+          "unique": false,
+          "options": {
+            "maxSelect": 10,
+            "values": [
+              "video_production",
+              "cinematography",
+              "editing",
+              "color_grading",
+              "motion_graphics",
+              "3d_animation",
+              "sound_design",
+              "music_composition",
+              "drone_filming",
+              "photography"
+            ]
+          }
+        },
+        {
+          "id": "client_field",
+          "name": "client",
+          "type": "text",
+          "system": false,
+          "required": false,
+          "unique": false,
+          "options": {
+            "min": 0,
+            "max": 100,
+            "pattern": ""
+          }
+        },
+        {
+          "id": "duration_field",
+          "name": "duration",
+          "type": "text",
+          "system": false,
+          "required": false,
+          "unique": false,
+          "options": {
+            "min": 0,
+            "max": 20,
+            "pattern": ""
+          }
+        },
+        {
+          "id": "published_field",
+          "name": "published",
+          "type": "bool",
+          "system": false,
+          "required": false,
+          "unique": false,
+          "options": {}
+        },
+        {
+          "id": "sort_order_field",
+          "name": "sortOrder",
+          "type": "number",
+          "system": false,
+          "required": false,
+          "unique": false,
+          "options": {
+            "min": 0,
+            "max": null,
+            "noDecimal": true
+          }
+        },
+        {
+          "id": "gallery_field",
+          "name": "gallery",
+          "type": "file",
+          "system": false,
+          "required": false,
+          "unique": false,
+          "options": {
+            "mimeTypes": [
+              "image/jpeg",
+              "image/png",
+              "image/webp"
+            ],
+            "thumbs": [
+              "100x100",
+              "400x300",
+              "800x600"
+            ],
+            "maxSelect": 20,
+            "maxSize": 5242880,
+            "protected": false
+          }
+        },
+        {
+          "id": "seo_title_field",
+          "name": "seoTitle",
+          "type": "text",
+          "system": false,
+          "required": false,
+          "unique": false,
+          "options": {
+            "min": 0,
+            "max": 60,
+            "pattern": ""
+          }
+        },
+        {
+          "id": "seo_description_field",
+          "name": "seoDescription",
+          "type": "text",
+          "system": false,
+          "required": false,
+          "unique": false,
+          "options": {
+            "min": 0,
+            "max": 160,
+            "pattern": ""
+          }
+        }
+      ],
+      "indexes": [
+        "CREATE INDEX idx_projects_featured ON projects (featured)",
+        "CREATE INDEX idx_projects_published ON projects (published)",
+        "CREATE INDEX idx_projects_year ON projects (year)",
+        "CREATE INDEX idx_projects_sort_order ON projects (sortOrder)"
+      ],
+      "listRule": "published = true || @request.auth.id != ''",
+      "viewRule": "published = true || @request.auth.id != ''",
+      "createRule": "@request.auth.id != ''",
+      "updateRule": "@request.auth.id != ''",
+      "deleteRule": "@request.auth.id != ''",
+      "options": {}
+    },
+    {
+      "id": "team_collection",
+      "name": "team",
+      "type": "base",
+      "system": false,
+      "schema": [
+        {
+          "id": "name_field",
+          "name": "name",
+          "type": "text",
+          "system": false,
+          "required": true,
+          "unique": false,
+          "options": {
+            "min": 1,
+            "max": 100,
+            "pattern": ""
+          }
+        },
+        {
+          "id": "role_field",
+          "name": "role",
+          "type": "text",
+          "system": false,
+          "required": true,
+          "unique": false,
+          "options": {
+            "min": 1,
+            "max": 100,
+            "pattern": ""
+          }
+        },
+        {
+          "id": "bio_field",
+          "name": "bio",
+          "type": "editor",
+          "system": false,
+          "required": false,
+          "unique": false,
+          "options": {
+            "convertUrls": false
+          }
+        },
+        {
+          "id": "photo_field",
+          "name": "photo",
+          "type": "file",
+          "system": false,
+          "required": false,
+          "unique": false,
+          "options": {
+            "mimeTypes": [
+              "image/jpeg",
+              "image/png",
+              "image/webp"
+            ],
+            "thumbs": [
+              "100x100",
+              "300x300"
+            ],
+            "maxSelect": 1,
+            "maxSize": 5242880,
+            "protected": false
+          }
+        },
+        {
+          "id": "order_field",
+          "name": "order",
+          "type": "number",
+          "system": false,
+          "required": false,
+          "unique": false,
+          "options": {
+            "min": 0,
+            "max": null,
+            "noDecimal": true
+          }
+        },
+        {
+          "id": "active_field",
+          "name": "active",
+          "type": "bool",
+          "system": false,
+          "required": false,
+          "unique": false,
+          "options": {}
+        }
+      ],
+      "indexes": [
+        "CREATE INDEX idx_team_order ON team (order)",
+        "CREATE INDEX idx_team_active ON team (active)"
+      ],
+      "listRule": "active = true || @request.auth.id != ''",
+      "viewRule": "active = true || @request.auth.id != ''",
+      "createRule": "@request.auth.id != ''",
+      "updateRule": "@request.auth.id != ''",
+      "deleteRule": "@request.auth.id != ''",
+      "options": {}
+    },
+    {
+      "id": "settings_collection",
+      "name": "settings",
+      "type": "base",
+      "system": false,
+      "schema": [
+        {
+          "id": "key_field",
+          "name": "key",
+          "type": "text",
+          "system": false,
+          "required": true,
+          "unique": true,
+          "options": {
+            "min": 1,
+            "max": 100,
+            "pattern": ""
+          }
+        },
+        {
+          "id": "value_field",
+          "name": "value",
+          "type": "json",
+          "system": false,
+          "required": false,
+          "unique": false,
+          "options": {
+            "maxSize": 1000000
+          }
+        },
+        {
+          "id": "description_field",
+          "name": "description",
+          "type": "text",
+          "system": false,
+          "required": false,
+          "unique": false,
+          "options": {
+            "min": 0,
+            "max": 500,
+            "pattern": ""
+          }
         }
       ],
       "indexes": [],
-      "listRule": "",
-      "viewRule": "",
-      "createRule": "",
-      "updateRule": "",
-      "deleteRule": "",
+      "listRule": "@request.auth.id != ''",
+      "viewRule": "@request.auth.id != ''",
+      "createRule": "@request.auth.id != ''",
+      "updateRule": "@request.auth.id != ''",
+      "deleteRule": "@request.auth.id != ''",
       "options": {}
     }
   ]
