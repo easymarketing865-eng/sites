@@ -1,5 +1,15 @@
 import PocketBase from 'pocketbase';
 
+// Load environment variables for Node.js context
+if (typeof process !== 'undefined' && process.env.NODE_ENV !== 'production') {
+  try {
+    const dotenv = await import('dotenv');
+    dotenv.config();
+  } catch (e) {
+    // dotenv not available, that's okay
+  }
+}
+
 // PocketBase configuration with Railway support
 // Handle both browser (import.meta.env) and Node.js (process.env) environments
 let PB_URL;
@@ -60,7 +70,6 @@ export const projects = {
     try {
       const defaultOptions = {
         sort: '-sortOrder, -created',
-        filter: 'published = true',
         ...options
       };
       
@@ -76,7 +85,7 @@ export const projects = {
   async getFeatured(limit = 10) {
     try {
       const result = await pb.collection('projects').getList(1, limit, {
-        filter: 'featured = true && published = true',
+        filter: 'featured = true',
         sort: '-sortOrder, -year, -created'
       });
       console.log(`⭐ Fetched ${result.items.length} featured projects from PocketBase`);
@@ -90,7 +99,7 @@ export const projects = {
   async getByCategory(category, page = 1, perPage = 20) {
     try {
       const result = await pb.collection('projects').getList(page, perPage, {
-        filter: `category = "${category}" && published = true`,
+        filter: `category = "${category}"`,
         sort: '-sortOrder, -year, -created'
       });
       console.log(`🏷️ Fetched ${result.items.length} projects in category: ${category}`);
@@ -103,7 +112,7 @@ export const projects = {
 
   async getBySlug(slug) {
     try {
-      const result = await pb.collection('projects').getFirstListItem(`slug="${slug}" && published = true`);
+      const result = await pb.collection('projects').getFirstListItem(`slug="${slug}"`);
       console.log(`🎯 Found project with slug: ${slug}`);
       return result;
     } catch (error) {
@@ -114,15 +123,41 @@ export const projects = {
 
   async getForHero(limit = 11) {
     try {
-      const result = await pb.collection('projects').getList(1, limit, {
-        filter: 'published = true',
-        sort: '-featured, -sortOrder, -created'
+      // Get featured projects first
+      let result = await pb.collection('projects').getList(1, limit, {
+        filter: 'featured = true',
+        sort: '-sortOrder, -created'
       });
-      console.log(`🦸 Fetched ${result.items.length} projects for hero section`);
+      
+      console.log(`🦸 Found ${result.items.length} featured projects`);
+      
+      // If we don't have enough featured projects, fill with other projects
+      if (result.items.length < limit) {
+        const remaining = limit - result.items.length;
+        const otherProjects = await pb.collection('projects').getList(1, remaining, {
+          filter: 'featured != true',
+          sort: '-sortOrder, -created'
+        });
+        
+        console.log(`🦸 Added ${otherProjects.items.length} additional projects`);
+        result.items = [...result.items, ...otherProjects.items];
+      }
+      
+      console.log(`🦸 Fetched ${result.items.length} total projects for hero section`);
       return result;
     } catch (error) {
       console.error('❌ Failed to fetch hero projects:', error);
-      return { items: [] };
+      // Fallback: try without any filters
+      try {
+        const result = await pb.collection('projects').getList(1, limit, {
+          sort: '-created'
+        });
+        console.log(`🦸 Fallback: Fetched ${result.items.length} projects for hero section`);
+        return result;
+      } catch (fallbackError) {
+        console.error('❌ Fallback also failed:', fallbackError);
+        return { items: [] };
+      }
     }
   },
 

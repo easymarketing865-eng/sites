@@ -24,7 +24,7 @@ try {
         {heroProjects.map((project) => (
             <a href={`/portfolio/${project.slug}`} class="hero-item">
                 {/* Video thumbnail with image fallback */}
-                {(project as any).videoThumbnail ? (
+                {((project as any).videoThumbnail || (project as any).videoField) ? (
                     <video 
                         class="hero-video"
                         autoplay 
@@ -34,7 +34,7 @@ try {
                         preload="metadata"
                         poster={project.hero || `https://i.ytimg.com/vi/${project.videoId}/maxresdefault.jpg`}
                     >
-                        <source src={(project as any).videoThumbnail} type="video/mp4" />
+                        <source src={(project as any).videoThumbnail || (project as any).videoField} type="video/mp4" />
                         {/* Fallback to image if video fails */}
                         <Image
                             src={project.hero || `https://i.ytimg.com/vi/${project.videoId}/maxresdefault.jpg`}
