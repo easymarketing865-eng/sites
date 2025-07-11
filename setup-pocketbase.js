@@ -17,41 +17,41 @@ const pb = new PocketBase(PB_URL);
 // Collection schemas
 const collections = {
   projects: {
-    name: 'projects',
-    type: 'base',
-    schema: [
-      {
-        name: 'title',
-        type: 'text',
-        required: true,
+            name: 'projects',
+            type: 'base',
+            schema: [
+                {
+                    name: 'title',
+                    type: 'text',
+                    required: true,
         options: { min: 1, max: 200 }
-      },
-      {
-        name: 'slug',
-        type: 'text',
-        required: true,
-        unique: true,
+                },
+                {
+                    name: 'slug',
+                    type: 'text',
+                    required: true,
+                    unique: true,
         options: { min: 1, max: 100, pattern: '^[a-z0-9]+(?:-[a-z0-9]+)*$' }
-      },
-      {
-        name: 'year',
-        type: 'text',
-        required: true,
+                },
+                {
+                    name: 'year',
+                    type: 'text',
+                    required: true,
         options: { min: 4, max: 4, pattern: '^[0-9]{4}$' }
-      },
-      {
-        name: 'featured',
-        type: 'bool',
+                },
+                {
+                    name: 'featured',
+                    type: 'bool',
         required: false
       },
       {
         name: 'published',
         type: 'bool',
         required: false
-      },
-      {
-        name: 'hero',
-        type: 'url',
+                },
+                {
+                    name: 'hero',
+                    type: 'url',
         required: false
       },
       {
@@ -79,9 +79,9 @@ const collections = {
       {
         name: 'category',
         type: 'select',
-        required: false,
-        options: {
-          maxSelect: 1,
+                    required: false,
+                    options: {
+                        maxSelect: 1,
           values: ['commercial', 'fashion', 'corporate', 'music_video', 'documentary', 'animation', 'real_estate', 'other']
         }
       },
@@ -102,7 +102,7 @@ const collections = {
       },
       {
         name: 'duration',
-        type: 'text',
+                    type: 'text',
         required: false,
         options: { max: 20 }
       },
@@ -116,7 +116,7 @@ const collections = {
         name: 'gallery',
         type: 'file',
         required: false,
-        options: {
+                    options: {
           mimeTypes: ['image/jpeg', 'image/png', 'image/webp'],
           thumbs: ['100x100', '400x300', '800x600'],
           maxSelect: 20,
@@ -134,12 +134,12 @@ const collections = {
         type: 'text',
         required: false,
         options: { max: 160 }
-      }
-    ],
-    indexes: [
-      'CREATE INDEX idx_projects_featured ON projects (featured)',
+                }
+            ],
+            indexes: [
+                'CREATE INDEX idx_projects_featured ON projects (featured)',
       'CREATE INDEX idx_projects_published ON projects (published)',
-      'CREATE INDEX idx_projects_year ON projects (year)',
+                'CREATE INDEX idx_projects_year ON projects (year)',
       'CREATE INDEX idx_projects_sort_order ON projects (sortOrder)'
     ],
     listRule: 'published = true || @request.auth.id != ""',
@@ -431,12 +431,12 @@ async function setupPocketBase() {
     console.log('\n🌐 Admin Panel: http://127.0.0.1:8090/_/');
     console.log(`📧 Admin Email: ${ADMIN_EMAIL}`);
     console.log(`🔒 Admin Password: ${ADMIN_PASSWORD}`);
-
-  } catch (error) {
-    console.error('💥 Setup failed:', error);
+        
+    } catch (error) {
+        console.error('💥 Setup failed:', error);
     console.error('🔍 Error details:', error.message);
     process.exit(1);
-  }
+    }
 }
 
 // Run setup

@@ -1,171 +1,323 @@
 ---
+// @ts-nocheck
 /**
  * PortfolioPage.astro
- * Simple portfolio page with full-width YouTube players
+ * Full portfolio page using the designer's approved styles from Portfolio component
  */
 import "../styles/global.css";
-import { projects } from "../lib/pocketbase.js";
+import { content, files } from "../lib/pocketbase.js";
 // Fallback to JSON data if PocketBase is not available
 import portfolioData from "../data/portfolio.json";
 
 let allProjects = [];
 
 try {
-  // Try to fetch from PocketBase
-  const result = await projects.getAll(1, 50);
+  // Try to fetch from PocketBase using the same method as Hero
+  const result = await content.getHeroProjects(50); // Get more projects for portfolio page
   allProjects = result.items || [];
-  console.log(`Loaded ${allProjects.length} projects from PocketBase`);
+  console.log(`Loaded ${allProjects.length} projects from PocketBase for Portfolio Page`);
+  
+  // Generate video URLs for projects with uploaded videos - SAME AS HERO
+  allProjects = allProjects.map(project => {
+    if (project.video) {
+      project.videoUrl = files.getUrl(project, project.video);
+      console.log(`Generated video URL for ${project.title}: ${project.videoUrl}`);
+    } else if (project.videoField && typeof project.videoField === 'string' && project.videoField.length > 10) {
+      // Also handle videoField as a PocketBase file
+      project.videoUrl = files.getUrl(project, project.videoField);
+      console.log(`Generated video URL from videoField for ${project.title}: ${project.videoUrl}`);
+    }
+    return project;
+  });
+  
+  // If no projects from PocketBase, use fallback
+  if (allProjects.length === 0) {
+    throw new Error('No projects found in PocketBase');
+  }
 } catch (error) {
-  console.log('PocketBase not available, using JSON fallback:', (error as Error).message);
+  console.log('PocketBase not available for Portfolio Page, using JSON fallback:', (error as Error).message);
   // Fallback to JSON data
-  allProjects = [...portfolioData.featured, ...portfolioData.portfolio];
+  const allPortfolioProjects = [...(portfolioData.featured || []), ...(portfolioData.portfolio || [])];
+  allProjects = allPortfolioProjects.slice(0, 50);
+  console.log(`Using JSON fallback: ${allProjects.length} projects`);
 }
 ---
 
-<section class="portfolio-section">
+<section class="portfolio-section" id="portfolio">
     <div class="portfolio-content">
-        <h1 class="portfolio-title">Portfolio</h1>
-        
-        <div class="videos-container">
-            {allProjects.map((project: any) => (
-                <div class="video-item">
-                    <h2 class="video-title">{project.title}</h2>
-                    <div class="video-player">
-                        <iframe
-                            src={`https://www.youtube.com/embed/${project.videoId}`}
-                            title={project.title}
-                            frameborder="0"
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                            allowfullscreen
-                        ></iframe>
-                    </div>
-                </div>
+        <h1 class="headline">Portfolio</h1>
+        <p class="portfolio-subtitle">Showcasing our creative work across industries and mediums</p>
+
+        <div class="portfolio-grid">
+            {allProjects.slice(0, 10).map((project) => (
+                <a href={`/portfolio/${project.slug}`} class="portfolio-card" data-category={(project as any).category || 'Commercial'}>
+                    {/* Video thumbnail with image fallback - SAME AS HERO */}
+                    {((project as any).videoUrl || (project as any).videoThumbnail || (project as any).videoField) ? (
+                        <video 
+                            class="portfolio-video"
+                            autoplay 
+                            muted 
+                            loop 
+                            playsinline
+                            preload="metadata"
+                            poster={project.hero || `https://i.ytimg.com/vi/${project.videoId}/maxresdefault.jpg`}
+                        >
+                            <source src={(project as any).videoUrl || (project as any).videoThumbnail || (project as any).videoField} type="video/mp4" />
+                            {/* Fallback to image if video fails */}
+                            <img
+                                src={project.hero || `https://i.ytimg.com/vi/${project.videoId}/maxresdefault.jpg`}
+                                alt={project.title}
+                                class="portfolio-img"
+                                loading="lazy"
+                            />
+                        </video>
+                    ) : (
+                        <img
+                            src={project.hero || `https://i.ytimg.com/vi/${project.videoId}/maxresdefault.jpg`}
+                            alt={project.title}
+                            class="portfolio-img"
+                            loading="lazy"
+                        />
+                    )}
+                    
+                    
+                    <img src="/photos/top-left.svg" alt="" class="corner-svg top-left" />
+                    <img src="/photos/bottom-right.svg" alt="" class="corner-svg bottom-right" />
+                    <span class="project-label">{project.title}</span>
+                </a>
             ))}
         </div>
     </div>
 </section>
 
+
+
 <style>
-    .portfolio-section {
-        width: 100%;
-        min-height: 100vh;
-        background: #000;
-        padding: 2rem 0;
-    }
-
-    .portfolio-content {
-        max-width: 100%;
-        margin: 0 auto;
-        padding: 0 2rem;
-    }
-
-    .portfolio-title {
+    .headline {
         font-family: var(--font-heading);
-        font-size: 3rem;
-        font-weight: 700;
-        color: var(--brand-black);
-        text-align: center;
-        margin: 0 0 3rem 0;
-        letter-spacing: -0.02em;
-    }
-
-    .videos-container {
-        display: flex;
-        flex-direction: column;
-        gap: 4rem;
-        max-width: 1400px;
-        margin: 0 auto;
-    }
-
-    .video-item {
-        width: 100%;
-    }
-
-    .video-title {
-        font-family: var(--font-sans);
         font-size: 2rem;
         font-weight: 600;
-        color: var(--brand-black);
-        margin: 0 0 1rem 0;
-        text-align: left;
+        color: #ffffff;
+        margin: 0 auto;
+        padding: 0 1rem;
+        max-width: 1300px;
+        margin-bottom: 1rem;
+        text-align: center;
     }
 
-    .video-player {
+    @media (min-width: 768px) {
+        .headline {
+            font-size: 2.5rem;
+            padding: 0 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+    }
+
+    @media (min-width: 1024px) {
+        .headline {
+            font-size: 3rem;
+            margin-bottom: 2rem;
+        }
+    }
+
+    .portfolio-subtitle {
+        font-size: 1.1rem;
+        color: #ffffff;
+        text-align: center;
+        margin: 0 auto 3rem auto;
+        max-width: 600px;
+        line-height: 1.4;
+        font-family: 'Manrope', var(--font-sans);
+    }
+
+
+
+    .portfolio-section {
         position: relative;
-        width: 100%;
-        height: 0;
-        padding-bottom: 56.25%; /* 16:9 aspect ratio */
-        background: #000;
-        border-radius: 12px;
+        left: 50%;
+        right: 50%;
+        margin-left: -50vw;
+        margin-right: -50vw;
+        width: 100vw;
+        display: grid;
         overflow: hidden;
-        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+        background: #000000;
     }
 
-    .video-player iframe {
-        position: absolute;
-        top: 0;
-        left: 0;
+    .portfolio-grid {
+        display: grid;
+        grid-template-columns: repeat(6, 1fr);
+        grid-template-rows: 720px 500px 540px 530px;
+        
+        width: 100%;
+        
+        margin: 0 auto;
+
+    }
+
+    /* Row 1: 2 projects (720px height) */
+    .portfolio-card:nth-child(1) { 
+        grid-column: 1 / 4; 
+        grid-row: 1; 
+    }
+    .portfolio-card:nth-child(2) { 
+        grid-column: 4 / 7; 
+        grid-row: 1; 
+    }
+
+    /* Row 2: 3 projects (500px height) */
+    .portfolio-card:nth-child(3) { 
+        grid-column: 1 / 3; 
+        grid-row: 2; 
+    }
+    .portfolio-card:nth-child(4) { 
+        grid-column: 3 / 5; 
+        grid-row: 2; 
+    }
+    .portfolio-card:nth-child(5) { 
+        grid-column: 5 / 7; 
+        grid-row: 2; 
+    }
+
+    /* Row 3: 2 projects (540px height) */
+    .portfolio-card:nth-child(6) { 
+        grid-column: 1 / 4; 
+        grid-row: 3; 
+    }
+    .portfolio-card:nth-child(7) { 
+        grid-column: 4 / 7; 
+        grid-row: 3; 
+    }
+
+    /* Row 4: 3 projects (530px height) */
+    .portfolio-card:nth-child(8) { 
+        grid-column: 1 / 3; 
+        grid-row: 4; 
+    }
+    .portfolio-card:nth-child(9) { 
+        grid-column: 3 / 5; 
+        grid-row: 4; 
+    }
+    .portfolio-card:nth-child(10) { 
+        grid-column: 5 / 7; 
+        grid-row: 4; 
+    }
+
+    .portfolio-card:nth-child(n+11) {
+        display: none;
+    }
+
+    .portfolio-card {
+        position: relative;
+        overflow: hidden;
+        cursor: pointer;
+        text-decoration: none;
+        display: block;
+    }
+
+
+
+    .portfolio-img,
+    .portfolio-video {
         width: 100%;
         height: 100%;
-        border: none;
-        border-radius: 12px;
+        object-fit: cover;
+  
+        display: block;
     }
 
-    /* Responsive Design */
+        .portfolio-video {
+        /* Video-specific optimizations */
+        background: #000;
+    }
+
+    /* Corner SVG styles - same as Hero */
+    .corner-svg {
+        position: absolute;
+        width: 34px;
+        height: 34px;
+        z-index: 3;
+        opacity: 0;
+        transform: scale(0.5);
+        transition: all 0.3s ease;
+        pointer-events: none;
+    }
+
+    .corner-svg.top-left {
+        top: 1rem;
+        left: 1rem;
+    }
+
+    .corner-svg.bottom-right {
+        bottom: 1rem;
+        right: 1rem;
+    }
+
+    .portfolio-card:hover .corner-svg {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    /* Project label - same as Hero */
+    .project-label {
+        position: absolute;
+        bottom: 1rem;
+        left: 1rem;
+        color: #ffffff;
+        font-family: var(--font-sans);
+        font-size: clamp(0.75rem, 1.5vw, 1rem);
+        font-weight: 800;
+        text-transform: uppercase;
+        z-index: 5;
+        border-radius: 2px;
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+    }
+    /* Mobile optimizations - same as Hero */
     @media (max-width: 768px) {
-        .portfolio-content {
+        .portfolio-grid {
+            grid-template-columns: 1fr 1fr;
+            grid-template-rows: 400px 350px 350px 400px 350px;
+         
             padding: 0 1rem;
         }
 
-        .portfolio-title {
-            font-size: 2.5rem;
-            margin-bottom: 2rem;
-        }
-
-        .videos-container {
-            gap: 3rem;
-        }
-
-        .video-title {
-            font-size: 1.5rem;
-            margin-bottom: 0.75rem;
-        }
-
-        .video-player {
-            border-radius: 8px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-        }
-
-        .video-player iframe {
-            border-radius: 8px;
-        }
+        /* Mobile: Stack differently */
+        .portfolio-card:nth-child(1) { grid-column: 1; grid-row: 1; }
+        .portfolio-card:nth-child(2) { grid-column: 2; grid-row: 1; }
+        .portfolio-card:nth-child(3) { grid-column: 1 / 3; grid-row: 2; }
+        .portfolio-card:nth-child(4) { grid-column: 1; grid-row: 3; }
+        .portfolio-card:nth-child(5) { grid-column: 2; grid-row: 3; }
+        .portfolio-card:nth-child(6) { grid-column: 1; grid-row: 4; }
+        .portfolio-card:nth-child(7) { grid-column: 2; grid-row: 4; }
+        .portfolio-card:nth-child(8) { grid-column: 1 / 3; grid-row: 5; }
+        .portfolio-card:nth-child(9) { grid-column: 1; grid-row: 6; }
+        .portfolio-card:nth-child(10) { grid-column: 2; grid-row: 6; }
     }
 
     @media (max-width: 480px) {
-        .portfolio-content {
-            padding: 0 0.5rem;
+        .portfolio-grid {
+            grid-template-columns: 1fr;
+            grid-template-rows: repeat(10, 300px);
+            gap: 2px;
         }
 
-        .portfolio-title {
-            font-size: 2rem;
-            margin-bottom: 1.5rem;
+        .portfolio-card:nth-child(n) {
+            grid-column: 1 !important;
+            grid-row: unset !important;
         }
 
-        .videos-container {
-            gap: 2rem;
-        }
-
-        .video-title {
-            font-size: 1.25rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .video-player {
-            border-radius: 6px;
-        }
-
-        .video-player iframe {
-            border-radius: 6px;
+        .project-label {
+            font-size: 0.8rem;
         }
     }
+
+
+
+        .portfolio-content {
+        width: 100%;
+
+        padding: 3rem 0;
+    }
+
+
 </style>

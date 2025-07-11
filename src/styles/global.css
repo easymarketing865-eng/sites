@@ -1,10 +1,10 @@
-/* Import fonts */
+/* Impot fonts */
 @import url("https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700;800&display=swap");
 
 :root {
     /* Colors */
     --brand-red: #E30016;
-    --brand-black: #111111;
+    --brand-black: #000000;
     --brand-bg: #ffffff;
     --brand-white: #ffffff;
     --site-bg: #F1F3E8;
@@ -28,11 +28,11 @@
 html {
     margin: 0;
     padding: 0;
-    background: var(--site-bg);
-    color: var(--brand-black);
+    background: var(--brand-black);
+    color: var(--brand-white);
     font-family: var(--font-family);
     font-size: var(--text-base);
-    line-height: 1.5;
+    line-height: 1.2;
     -webkit-font-smoothing: antialiased;
     min-height: 100vh;
     overflow-x: hidden;
@@ -41,8 +41,8 @@ html {
 body {
     margin: 0;
     padding: 0;
-    background: var(--site-bg);
-    color: var(--brand-black);
+    background: #000000;
+    color: var(--brand-white);
     font-family: var(--font-family);
     font-size: var(--text-base);
     line-height: 1.5;
@@ -62,7 +62,7 @@ body {
 .text-base {
     font-size: var(--text-base);
     font-weight: 400;
-    line-height: 1.5;
+    line-height: 1;
 }
 
 .text-small {

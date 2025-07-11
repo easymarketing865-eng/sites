@@ -69,7 +69,7 @@ export const projects = {
   async getAll(page = 1, perPage = 50, options = {}) {
     try {
       const defaultOptions = {
-        sort: '-sortOrder, -created',
+        sort: '-created',  // Simple sorting to avoid sortOrder field issues
         ...options
       };
       

@@ -1,106 +1,175 @@
----
-import { team } from "../lib/pocketbase.js";
-
-let teamMembers = [];
-
-try {
-  // Try to fetch from PocketBase
-  const result = await team.getAll();
-  teamMembers = result.items || [];
-  console.log(`Loaded ${teamMembers.length} team members from PocketBase`);
-} catch (error) {
-  console.log('PocketBase not available for Team, using fallback data:', (error as Error).message);
-  // Fallback to default team data
-  teamMembers = [
-    {
-      name: 'Timur Vagizov',
-      role: 'Creative Director',
-      bio: 'Creative visionary with over 5 years of experience in video production and storytelling.',
-      photo: '/team/timur-vagizov.png',
-      order: 1
-    },
-    {
-      name: 'Alina Saiitova', 
-      role: 'Producer',
-      bio: 'Project management expert ensuring smooth production workflows.',
-      photo: '/team/alina-saiitova.png',
-      order: 2
-    },
-    {
-      name: 'Arsenii Morozov',
-      role: 'Director of Photography', 
-      bio: 'Master of cinematography with an eye for compelling visual narratives.',
-      photo: '/team/arsenii-morozov.png',
-      order: 3
-    },
-    {
-      name: 'Asel Imankulova',
-      role: 'Project Manager',
-      bio: 'Coordination specialist ensuring projects run smoothly from concept to delivery.',
-      photo: '/team/asel-imankulova.png',
-      order: 4
-    },
-    {
-      name: 'Milena Islamova',
-      role: 'Editor',
-      bio: 'Post-production expert crafting compelling stories through editing.',
-      photo: '/team/milena-islamova.png',
-      order: 5
-    },
-    {
-      name: 'Yana Mashirova',
-      role: 'Motion Designer',
-      bio: 'Creative motion graphics specialist bringing brands to life.',
-      photo: '/team/yana-mashirova.png',
-      order: 6
-    },
-    {
-      name: 'Alisa Ugarova',
-      role: 'Content Creator',
-      bio: 'Digital content specialist creating engaging social media content.',
-      photo: '/team/alisa-ugarova.png',
-      order: 7
-    },
-    {
-      name: 'Aktilek Ibraimov',
-      role: 'Camera Operator',
-      bio: 'Technical filming expert with precision and creative flair.',
-      photo: '/team/aktilek-ibraimov.png',
-      order: 8
-    }
-  ];
-}
-
-// Sort team members by order
-teamMembers.sort((a, b) => (a.order || 999) - (b.order || 999));
----
-
-<section class="team-section" id="team">
-    <div class="team-content">
-        <h2 class="team-headline">Our Team</h2>
-        <p class="team-description">
-            Meet the creative minds behind Easy Production. Our diverse team of professionals brings together years of experience in video production, storytelling, and creative excellence.
-        </p>
+<section class="team-section emerge" data-expose="true" data-effect="slide" data-up="40px">
+    <div class="team-container">
+        <div class="team-header emerge" data-continue="true" data-hold="200" data-effect="slide" data-up="30px">
+            <h2 class="section-headline team-title">Meet Our Creative Team</h2>
+            <p class="section-subtitle team-subtitle">The talented individuals behind every successful production</p>
+        </div>
         
         <div class="team-grid">
-            {teamMembers.map((member) => (
-                <div class="team-member">
-                    <div class="member-photo">
-                        <img 
-                            src={member.photo || '/team/placeholder.png'} 
-                            alt={member.name}
-                            loading="lazy"
-                        />
-                    </div>
-                    <div class="member-info">
-                        <h3 class="member-name">{member.name}</h3>
-                        <p class="member-role">{member.role}</p>
-                        {member.bio && (
-                            <div class="member-bio" set:html={member.bio} />
-                        )}
+                         <div class="team-member emerge" data-continue="true" data-hold="100" data-effect="zoom" data-scale="0.8">
+                 <a href="/portfolio" class="member-card member-link">
+                 <div class="member-image-wrapper">
+                     <img
+                         src="/team/alina-saiitova.png"
+                         alt="Alina Saiitova"
+                         class="member-image"
+                     />
+                     <div class="member-overlay">
+                             <div class="member-info">
+                         <h3 class="member-name">Alina Saiitova</h3>
+                                 <p class="member-role">Owner, Producer & Creative Director</p>
+                             </div>
+                         </div>
+                     </div>
+                 </a>
+             </div>
+
+                         <div class="team-member emerge" data-continue="true" data-hold="100" data-effect="zoom" data-scale="0.8">
+                 <a href="/portfolio" class="member-card member-link">
+                 <div class="member-image-wrapper">
+                     <img
+                         src="/team/arsenii-morozov.png"
+                         alt="Arsenii Morozov"
+                         class="member-image"
+                     />
+                     <div class="member-overlay">
+                             <div class="member-info">
+                         <h3 class="member-name">Arsenii Morozov</h3>
+                                 <p class="member-role">Camera Operator</p>
+                             </div>
+                         </div>
+                     </div>
+                 </a>
+             </div>
+
+                         <div class="team-member emerge" data-continue="true" data-hold="100" data-effect="zoom" data-scale="0.8">
+                 <a href="/portfolio" class="member-card member-link">
+                 <div class="member-image-wrapper">
+                     <img
+                         src="/team/aktilek-ibraimov.png"
+                         alt="Aktilek Ibraimov"
+                         class="member-image"
+                     />
+                     <div class="member-overlay">
+                             <div class="member-info">
+                         <h3 class="member-name">Aktilek Ibraimov</h3>
+                                 <p class="member-role">CGI Artist</p>
+                             </div>
+                         </div>
+                     </div>
+                 </a>
+             </div>
+
+                         <div class="team-member emerge" data-continue="true" data-hold="100" data-effect="zoom" data-scale="0.8">
+                 <a href="/portfolio" class="member-card member-link">
+                 <div class="member-image-wrapper">
+                     <img
+                         src="/team/milena-islamova.png"
+                         alt="Milena Islamova"
+                         class="member-image"
+                     />
+                     <div class="member-overlay">
+                             <div class="member-info">
+                         <h3 class="member-name">Milena Islamova</h3>
+                                 <p class="member-role">General Manager</p>
+                             </div>
+                         </div>
+                     </div>
+                 </a>
+             </div>
+
+             <div class="team-member emerge" data-continue="true" data-hold="100" data-effect="zoom" data-scale="0.8">
+                 <a href="/portfolio" class="member-card member-link">
+                 <div class="member-image-wrapper">
+                     <img
+                         src="/team/timur-vagizov.png"
+                         alt="Timur Vagizov"
+                         class="member-image"
+                     />
+                     <div class="member-overlay">
+                             <div class="member-info">
+                         <h3 class="member-name">Timur Vagizov</h3>
+                                 <p class="member-role">Director of Photography</p>
+                             </div>
+                         </div>
+                     </div>
+                 </a>
+             </div>
+
+             <div class="team-member emerge" data-continue="true" data-hold="100" data-effect="zoom" data-scale="0.8">
+                 <a href="/portfolio" class="member-card member-link">
+                 <div class="member-image-wrapper">
+                     <img
+                         src="/team/asel-imankulova.png"
+                         alt="Asel Imankulova"
+                         class="member-image"
+                     />
+                     <div class="member-overlay">
+                             <div class="member-info">
+                         <h3 class="member-name">Asel Imankulova</h3>
+                         <p class="member-role">Screenwriter</p>
+                             </div>
+                         </div>
+                     </div>
+                 </a>
+             </div>
+
+             <div class="team-member emerge" data-continue="true" data-hold="100" data-effect="zoom" data-scale="0.8">
+                 <a href="/portfolio" class="member-card member-link">
+                 <div class="member-image-wrapper">
+                     <img
+                         src="/team/yana-mashirova.png"
+                         alt="Yana Mashirova"
+                         class="member-image"
+                     />
+                     <div class="member-overlay">
+                             <div class="member-info">
+                         <h3 class="member-name">Yana Mashirova</h3>
+                                 <p class="member-role">Project Manager</p>
+                             </div>
+                         </div>
+                     </div>
+                 </a>
+             </div>
+
+             <div class="team-member emerge" data-continue="true" data-hold="100" data-effect="zoom" data-scale="0.8">
+                 <a href="/portfolio" class="member-card member-link">
+                 <div class="member-image-wrapper">
+                     <img
+                         src="/team/alisa-ugarova.png"
+                         alt="Alisa Ugarova"
+                         class="member-image"
+                     />
+                     <div class="member-overlay">
+                             <div class="member-info">
+                         <h3 class="member-name">Alisa Ugarova</h3>
+                                 <p class="member-role">Production Designer</p>
+                             </div>
+                         </div>
+                     </div>
+                 </a>
+             </div>
+            
+            <div class="team-member join-us-card emerge" data-continue="true" data-hold="200" data-effect="slide" data-left="30px">
+                <div class="member-card join-us-wrapper">
+                    <div class="join-us-content">
+                        <div class="join-us-icon">
+                            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12 12C14.7614 12 17 9.76142 17 7C17 4.23858 14.7614 2 12 2C9.23858 2 7 4.23858 7 7C7 9.76142 9.23858 12 12 12Z" fill="currentColor"/>
+                                <path d="M12 14C7.58172 14 4 17.5817 4 22H20C20 17.5817 16.4183 14 12 14Z" fill="currentColor"/>
+                            </svg>
+                        </div>
+                        <h3 class="join-us-title">Our Team</h3>
+                        <p class="join-us-text">We're a close-knit creative family dedicated to bringing your vision to life</p>
+                        <a href="/contact" class="btn btn-primary">
+                            <span>Work With Us</span>
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </a>
                     </div>
                 </div>
-            ))}
+            </div>
         </div>
     </div>
 </section>
@@ -108,181 +177,236 @@ teamMembers.sort((a, b) => (a.order || 999) - (b.order || 999));
 <style>
     .team-section {
         width: 100%;
-        padding: 4rem 0;
-        background: #ffffff;
+        padding: 0rem 2rem;
+        
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
     }
 
-    .team-content {
+    .team-container {
+        width: 100%;
         max-width: 1200px;
         margin: 0 auto;
-        padding: 0 2rem;
     }
 
-    .team-headline {
-        font-family: var(--font-heading);
-        font-size: clamp(2rem, 4vw, 3rem);
-        font-weight: 700;
-        color: var(--brand-black);
+    .team-header {
         text-align: center;
-        margin-bottom: 1rem;
-        letter-spacing: -0.02em;
+        margin-bottom: 5rem;
+        max-width: 800px;
+        margin-left: auto;
+        margin-right: auto;
     }
 
-    .team-description {
-        font-family: var(--font-sans);
-        font-size: 1.1rem;
-        line-height: 1.6;
-        color: #666;
-        text-align: center;
-        max-width: 600px;
-        margin: 0 auto 3rem auto;
+    .team-title {
+        color: var(--brand-white);
+        margin: 0 0 1.5rem 0;
+    }
+
+    .team-subtitle {
+        color: var(--brand-white);
+        margin: 0;
     }
 
     .team-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-        gap: 2rem;
-        margin-top: 3rem;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 1rem;
+        width: 100%;
+        max-width: 1400px;
+        margin: 0 auto;
     }
 
     .team-member {
-        background: #ffffff;
-        border-radius: 12px;
-        padding: 2rem;
-        text-align: center;
-        border: 1px solid #f0f0f0;
-        transition: all 0.3s ease;
         position: relative;
     }
 
-    .team-member:hover {
-        transform: translateY(-4px);
-        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-        border-color: var(--brand-red);
+         .member-card {
+         position: relative;
+         overflow: hidden;
+         box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+         background: #fff;
+         height: 100%;
+         aspect-ratio: 3/4;
+     }
+
+     .member-link {
+         display: block;
+         text-decoration: none;
+         color: inherit;
+     }
+
+    /* Mobile responsive adjustments */
+    @media (max-width: 768px) {
+        .member-card {
+            aspect-ratio: 4/5; /* More compact ratio for mobile */
+        }
     }
 
-    .member-photo {
-        width: 120px;
-        height: 120px;
-        margin: 0 auto 1.5rem auto;
-        border-radius: 50%;
+    .member-image-wrapper {
+        position: relative;
+        width: 100%;
+        height: 100%;
         overflow: hidden;
-        border: 3px solid #f0f0f0;
-        transition: border-color 0.3s ease;
     }
 
-    .team-member:hover .member-photo {
-        border-color: var(--brand-red);
-    }
-
-    .member-photo img {
+    .member-image {
         width: 100%;
         height: 100%;
         object-fit: cover;
-        transition: transform 0.3s ease;
     }
 
-    .team-member:hover .member-photo img {
-        transform: scale(1.1);
+    .member-overlay {
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(
+            transparent 0%, 
+            rgba(0, 0, 0, 0.1) 30%, 
+            rgba(0, 0, 0, 0.8) 100%
+        );
+        padding: 2rem 1.5rem 1.5rem;
+        transform: translateY(0);
     }
 
     .member-info {
-        text-align: center;
+        color: white;
     }
 
     .member-name {
-        font-family: var(--font-heading);
-        font-size: 1.3rem;
-        font-weight: 600;
-        color: var(--brand-black);
-        margin-bottom: 0.5rem;
+        color: white;
+        margin: 0 0 0.5rem 0;
     }
 
     .member-role {
-        font-family: var(--font-sans);
-        font-size: 1rem;
-        font-weight: 500;
-        color: var(--brand-red);
-        margin-bottom: 1rem;
-        text-transform: uppercase;
-        letter-spacing: 0.05em;
-    }
-
-    .member-bio {
-        font-family: var(--font-sans);
-        font-size: 0.9rem;
-        line-height: 1.5;
-        color: #666;
-    }
-
-    .member-bio p {
+        color: rgba(255, 255, 255, 0.9);
         margin: 0;
     }
 
+    /* Join Us Card Styles */
+    .join-us-card .member-card {
+        background: var(--brand-white);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .join-us-wrapper {
+        border: none;
+    }
+
+    .join-us-content {
+        text-align: center;
+        color: white;
+        padding: 2rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    .join-us-icon {
+        color:var(--brand-black);
+    }
+
+    .join-us-title {
+        color: var(--brand-black);
+        margin: 0;
+    }
+
+    .join-us-text {
+        color: var(--brand-black);
+        margin: 0;
+        max-width: 250px;
+    }
+
+    .join-us-content .btn {
+        margin-top: 0.5rem;
+        background-color: var(--brand-black);
+        color: var(--brand-white);
+    }
+
+    .join-us-content .btn svg {
+        width: 16px;
+        height: 16px;
+    }
+
     /* Responsive Design */
-    @media (max-width: 768px) {
-        .team-content {
-            padding: 0 1rem;
+    @media (max-width: 1200px) {
+        .team-grid {
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+        }
+    }
+
+    @media (max-width: 900px) {
+        .team-section {
+            padding: 0rem 1.5rem;
         }
 
         .team-grid {
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1.5rem;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.25rem;
         }
 
-        .team-member {
-            padding: 1.5rem;
+        .team-header {
+            margin-bottom: 4rem;
+        }
+    }
+
+    @media (max-width: 600px) {
+        .team-section {
+            padding: 4rem 0;
         }
 
-        .member-photo {
-            width: 100px;
-            height: 100px;
-            margin-bottom: 1rem;
+        .team-container {
+            width: 100vw;
+            margin-left: calc(-50vw + 50%);
+            margin-right: calc(-50vw + 50%);
+            padding: 0 0.5rem; /* Reduced padding */
         }
 
-        .team-headline {
-            font-size: 2rem;
+        .team-grid {
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.25rem; /* Reduced gap */
+            width: 100%;
+            max-width: none;
         }
 
-        .team-description {
-            font-size: 1rem;
-            margin-bottom: 2rem;
+        .member-card {
+            aspect-ratio: 1/1.5; /* Square aspect ratio for very small screens */
+        }
+
+        .team-header {
+            margin-bottom: 3rem;
+            padding: 0 0.5rem;
+        }
+
+        .member-overlay {
+            padding: 0.75rem 0.5rem 0.5rem;
+        }
+
+        .join-us-card {
+            display: none; /* Hide entire join-us card on mobile */
         }
     }
 
     @media (max-width: 480px) {
-        .team-section {
-            padding: 3rem 0;
+
+
+        .member-card {
+            /* border-radius: 16px; */
         }
 
-        .team-content {
-            padding: 0 0.5rem;
+        .member-overlay {
+            padding: 1.5rem 0.75rem 0.75rem;
         }
+    }
 
-        .team-grid {
-            grid-template-columns: 1fr;
-            gap: 1rem;
-        }
-
-        .team-member {
-            padding: 1rem;
-        }
-
-        .member-photo {
-            width: 80px;
-            height: 80px;
-        }
-
-        .member-name {
-            font-size: 1.1rem;
-        }
-
-        .member-role {
-            font-size: 0.9rem;
-        }
-
-        .member-bio {
-            font-size: 0.8rem;
-        }
+    /* Focus states for accessibility */
+    .btn:focus {
+        outline: 2px solid white;
+        outline-offset: 2px;
     }
 </style>

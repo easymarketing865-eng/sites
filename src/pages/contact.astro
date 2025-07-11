@@ -4,201 +4,177 @@
  * Comprehensive contact page with team story and multiple contact options
  */
 import Layout from "../layouts/Layout.astro";
-import { Instagram, Mail, MessageCircle, Phone, MapPin } from "lucide-astro";
+import { Mail, Phone, MapPin } from "lucide-astro";
 ---
 
 <Layout title="Contact Us - Easy Production">
     <main class="contact-page">
         <!-- Hero Section with Team Story -->
-        <section class="contact-hero">
-            <div class="hero-container">
-                <div class="hero-content">
-                    <div class="hero-text">
-                        <h1 class="hero-title">WE <span class="script">care</span> ABOUT YOUR STORY</h1>
-                        <p class="hero-description">
-                            Every project begins with a conversation. Behind every great production is a team that listens, understands, and transforms your vision into compelling visual narratives.
-                        </p>
-                        <p class="hero-description">
-                            We're not just content creators – we're storytellers who believe in the power of authentic connections. Your success is our passion, and we're here to make it happen.
-                        </p>
-                    </div>
-                    <div class="hero-image">
-                        <img 
-                            src="/team/at_work.webp" 
-                            alt="Easy Production team collaborating on a project" 
-                            class="team-photo"
-                        />
-                        <div class="image-overlay">
-                            <span class="overlay-text">OUR TEAM IN ACTION</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
+        
 
-        <!-- Contact Options -->
-        <section class="contact-options">
-            <div class="options-container">
-                <h2 class="options-title">CHOOSE YOUR PREFERRED WAY TO CONNECT</h2>
-                
-                <div class="contact-methods">
-                    <!-- WhatsApp -->
-                    <a href="https://wa.me/996555123456" class="contact-method primary" target="_blank" rel="noopener">
-                        <div class="method-icon whatsapp">
-                            <Phone size={32} />
-                        </div>
-                        <div class="method-content">
-                            <h3 class="method-title">WHATSAPP</h3>
-                            <p class="method-description">Quick responses, instant planning</p>
-                            <span class="method-action">MESSAGE US NOW</span>
-                        </div>
-                        <div class="method-badge">FASTEST</div>
-                    </a>
 
-                    <!-- Telegram -->
-                    <a href="https://t.me/easyproductionkg" class="contact-method" target="_blank" rel="noopener">
-                        <div class="method-icon telegram">
-                            <MessageCircle size={32} />
-                        </div>
-                        <div class="method-content">
-                            <h3 class="method-title">TELEGRAM</h3>
-                            <p class="method-description">Professional communication</p>
-                            <span class="method-action">START CHAT</span>
-                        </div>
-                    </a>
-
-                    <!-- Email -->
-                    <a href="mailto:hello@easy.production.kg" class="contact-method">
-                        <div class="method-icon email">
-                            <Mail size={32} />
-                        </div>
-                        <div class="method-content">
-                            <h3 class="method-title">EMAIL</h3>
-                            <p class="method-description">Detailed project discussions</p>
-                            <span class="method-action">SEND EMAIL</span>
-                        </div>
-                    </a>
-
-                    <!-- Instagram -->
-                    <a href="https://instagram.com/easyproduction" class="contact-method" target="_blank" rel="noopener">
-                        <div class="method-icon instagram">
-                            <Instagram size={32} />
-                        </div>
-                        <div class="method-content">
-                            <h3 class="method-title">INSTAGRAM</h3>
-                            <p class="method-description">See our latest work & DM us</p>
-                            <span class="method-action">FOLLOW & MESSAGE</span>
-                        </div>
-                    </a>
-                </div>
-            </div>
-        </section>
 
         <!-- Contact Form -->
         <section class="contact-form-section">
             <div class="form-container">
                 <div class="form-header">
-                    <h2 class="form-title">OR TELL US ABOUT YOUR PROJECT</h2>
-                    <p class="form-subtitle">
+                    <h2 class="section-headline">TELL US ABOUT YOUR PROJECT</h2>
+                    <p class="section-subtitle">
                         Share your vision with us. The more details you provide, the better we can understand your needs and create something extraordinary together.
                     </p>
                 </div>
 
                 <form class="contact-form" action="/submit-contact" method="POST">
-                    <div class="form-grid">
-                        <div class="form-group">
-                            <label for="name" class="form-label">YOUR NAME</label>
-                            <input 
-                                type="text" 
-                                id="name" 
-                                name="name" 
-                                class="form-input" 
-                                required
-                                placeholder="Enter your full name"
-                            />
+                    <div class="form-fields">
+                        <div class="basic-info">
+                            <div class="form-row">
+                                <label for="name" class="text-base font-medium">Your name</label>
+                                <input 
+                                    type="text" 
+                                    id="name" 
+                                    name="name" 
+                                    class="form-input" 
+                                    required
+                                    placeholder="Enter your full name"
+                                />
+                            </div>
+
+                            <div class="form-row">
+                                <label for="email" class="text-base font-medium">Email address</label>
+                                <input 
+                                    type="email" 
+                                    id="email" 
+                                    name="email" 
+                                    class="form-input" 
+                                    required
+                                    placeholder="your@email.com"
+                                />
+                            </div>
+
+                            <div class="form-row">
+                                <label for="phone" class="text-base font-medium">Phone number</label>
+                                <input 
+                                    type="tel" 
+                                    id="phone" 
+                                    name="phone" 
+                                    class="form-input"
+                                    placeholder="+996 XXX XXX XXX"
+                                />
+                            </div>
+
+                            <div class="form-row">
+                                <label for="company" class="text-base font-medium">Company</label>
+                                <input 
+                                    type="text" 
+                                    id="company" 
+                                    name="company" 
+                                    class="form-input"
+                                    placeholder="Your company name (optional)"
+                                />
+                            </div>
                         </div>
 
-                        <div class="form-group">
-                            <label for="email" class="form-label">EMAIL ADDRESS</label>
-                            <input 
-                                type="email" 
-                                id="email" 
-                                name="email" 
-                                class="form-input" 
-                                required
-                                placeholder="your@email.com"
-                            />
+                        <div class="form-section">
+                            <h3 class="text-base font-medium">Project type</h3>
+                            <div class="switch-group">
+                                <label class="switch-item">
+                                    <input type="radio" name="project-type" value="commercial" required />
+                                    <span class="switch-label">Commercial/Advertisement</span>
+                                </label>
+                                <label class="switch-item">
+                                    <input type="radio" name="project-type" value="corporate" />
+                                    <span class="switch-label">Corporate Video</span>
+                                </label>
+                                <label class="switch-item">
+                                    <input type="radio" name="project-type" value="social-media" />
+                                    <span class="switch-label">Social Media Content</span>
+                                </label>
+                                <label class="switch-item">
+                                    <input type="radio" name="project-type" value="product" />
+                                    <span class="switch-label">Product Photography/Video</span>
+                                </label>
+                                <label class="switch-item">
+                                    <input type="radio" name="project-type" value="event" />
+                                    <span class="switch-label">Event Coverage</span>
+                                </label>
+                                <label class="switch-item">
+                                    <input type="radio" name="project-type" value="brand" />
+                                    <span class="switch-label">Brand Story/Documentary</span>
+                                </label>
+                                <label class="switch-item">
+                                    <input type="radio" name="project-type" value="other" />
+                                    <span class="switch-label">Other</span>
+                                </label>
+                            </div>
                         </div>
 
-                        <div class="form-group">
-                            <label for="phone" class="form-label">PHONE NUMBER</label>
-                            <input 
-                                type="tel" 
-                                id="phone" 
-                                name="phone" 
-                                class="form-input"
-                                placeholder="+996 XXX XXX XXX"
-                            />
+                        <div class="form-section">
+                            <h3 class="text-base font-medium">Budget range (USD)</h3>
+                            <div class="switch-group">
+                                <label class="switch-item">
+                                    <input type="radio" name="budget" value="under-1k" />
+                                    <span class="switch-label">Under $1,000</span>
+                                </label>
+                                <label class="switch-item">
+                                    <input type="radio" name="budget" value="1k-5k" />
+                                    <span class="switch-label">$1,000 - $5,000</span>
+                                </label>
+                                <label class="switch-item">
+                                    <input type="radio" name="budget" value="5k-10k" />
+                                    <span class="switch-label">$5,000 - $10,000</span>
+                                </label>
+                                <label class="switch-item">
+                                    <input type="radio" name="budget" value="10k-25k" />
+                                    <span class="switch-label">$10,000 - $25,000</span>
+                                </label>
+                                <label class="switch-item">
+                                    <input type="radio" name="budget" value="25k-plus" />
+                                    <span class="switch-label">$25,000+</span>
+                                </label>
+                                <label class="switch-item">
+                                    <input type="radio" name="budget" value="discuss" />
+                                    <span class="switch-label">Let's discuss</span>
+                                </label>
+                            </div>
                         </div>
 
-                        <div class="form-group">
-                            <label for="company" class="form-label">COMPANY/ORGANIZATION</label>
-                            <input 
-                                type="text" 
-                                id="company" 
-                                name="company" 
-                                class="form-input"
-                                placeholder="Your company name (optional)"
-                            />
+                        <div class="form-section">
+                            <h3 class="text-base font-medium">Project timeline</h3>
+                            <div class="switch-group">
+                                <label class="switch-item">
+                                    <input type="radio" name="timeline" value="asap" />
+                                    <span class="switch-label">ASAP</span>
+                                </label>
+                                <label class="switch-item">
+                                    <input type="radio" name="timeline" value="1-week" />
+                                    <span class="switch-label">Within 1 week</span>
+                                </label>
+                                <label class="switch-item">
+                                    <input type="radio" name="timeline" value="2-weeks" />
+                                    <span class="switch-label">Within 2 weeks</span>
+                                </label>
+                                <label class="switch-item">
+                                    <input type="radio" name="timeline" value="1-month" />
+                                    <span class="switch-label">Within 1 month</span>
+                                </label>
+                                <label class="switch-item">
+                                    <input type="radio" name="timeline" value="2-months" />
+                                    <span class="switch-label">Within 2 months</span>
+                                </label>
+                                <label class="switch-item">
+                                    <input type="radio" name="timeline" value="flexible" />
+                                    <span class="switch-label">I'm flexible</span>
+                                </label>
+                            </div>
                         </div>
 
-                        <div class="form-group full-width">
-                            <label for="project-type" class="form-label">PROJECT TYPE</label>
-                            <select id="project-type" name="project-type" class="form-select" required>
-                                <option value="">Select project type</option>
-                                <option value="commercial">Commercial/Advertisement</option>
-                                <option value="corporate">Corporate Video</option>
-                                <option value="social-media">Social Media Content</option>
-                                <option value="product">Product Photography/Video</option>
-                                <option value="event">Event Coverage</option>
-                                <option value="brand">Brand Story/Documentary</option>
-                                <option value="other">Other</option>
-                            </select>
-                        </div>
-
-                        <div class="form-group full-width">
-                            <label for="budget" class="form-label">BUDGET RANGE (USD)</label>
-                            <select id="budget" name="budget" class="form-select">
-                                <option value="">Select budget range</option>
-                                <option value="under-1k">Under $1,000</option>
-                                <option value="1k-5k">$1,000 - $5,000</option>
-                                <option value="5k-10k">$5,000 - $10,000</option>
-                                <option value="10k-25k">$10,000 - $25,000</option>
-                                <option value="25k-plus">$25,000+</option>
-                                <option value="discuss">Let's discuss</option>
-                            </select>
-                        </div>
-
-                        <div class="form-group full-width">
-                            <label for="timeline" class="form-label">PROJECT TIMELINE</label>
-                            <select id="timeline" name="timeline" class="form-select">
-                                <option value="">When do you need this completed?</option>
-                                <option value="asap">ASAP</option>
-                                <option value="1-week">Within 1 week</option>
-                                <option value="2-weeks">Within 2 weeks</option>
-                                <option value="1-month">Within 1 month</option>
-                                <option value="2-months">Within 2 months</option>
-                                <option value="flexible">I'm flexible</option>
-                            </select>
-                        </div>
-
-                        <div class="form-group full-width">
-                            <label for="message" class="form-label">PROJECT DETAILS</label>
+                        <div class="form-row message-row">
+                            <label for="message" class="text-base font-medium">Project details</label>
                             <textarea 
                                 id="message" 
                                 name="message" 
                                 class="form-textarea" 
-                                rows="6"
+                                rows="4"
                                 required
                                 placeholder="Tell us about your project, goals, target audience, style preferences, and any specific requirements..."
                             ></textarea>
@@ -206,7 +182,7 @@ import { Instagram, Mail, MessageCircle, Phone, MapPin } from "lucide-astro";
                     </div>
 
                     <div class="form-actions">
-                        <button type="submit" class="submit-button">
+                        <button type="submit" class="submit-button btn btn-primary">
                             SEND PROJECT DETAILS
                         </button>
                         <p class="form-note">
@@ -218,267 +194,30 @@ import { Instagram, Mail, MessageCircle, Phone, MapPin } from "lucide-astro";
         </section>
 
         <!-- Contact Info -->
-        <section class="contact-info">
-            <div class="info-container">
-                <div class="info-grid">
-                    <div class="info-item">
-                        <div class="info-icon">
-                            <MapPin size={24} />
-                        </div>
-                        <div class="info-content">
-                            <h3 class="info-title">LOCATION</h3>
-                            <p class="info-text">Bishkek, Kyrgyzstan</p>
-                        </div>
-                    </div>
-
-                    <div class="info-item">
-                        <div class="info-icon">
-                            <Phone size={24} />
-                        </div>
-                        <div class="info-content">
-                            <h3 class="info-title">PHONE</h3>
-                            <p class="info-text">+996 555 123 456</p>
-                        </div>
-                    </div>
-
-                    <div class="info-item">
-                        <div class="info-icon">
-                            <Mail size={24} />
-                        </div>
-                        <div class="info-content">
-                            <h3 class="info-title">EMAIL</h3>
-                            <p class="info-text">hello@easy.production.kg</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
+        
     </main>
 </Layout>
 
 <style>
     .contact-page {
-        min-height: 100vh;
-    }
-
-    /* Hero Section */
-    .contact-hero {
-        padding: 6rem 2rem 4rem 2rem;
-        background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-        position: relative;
-        overflow: hidden;
-    }
-
-    .contact-hero::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23a00000' fill-opacity='0.03'%3E%3Ccircle cx='30' cy='30' r='1'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E") repeat;
-        pointer-events: none;
-    }
-
-    .hero-container {
         max-width: 1200px;
-        margin: 0 auto;
-        position: relative;
-        z-index: 1;
-    }
-
-    .hero-content {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 4rem;
-        align-items: center;
-    }
-
-    .hero-title {
-        font-family: var(--font-sans);
-        font-size: 3.5rem;
-        font-weight: 900;
-        color: #000;
-        margin: 0 0 2rem 0;
-        line-height: 1.1;
-        text-transform: uppercase;
-        letter-spacing: 0.02em;
-    }
-
-    .script {
-        font-family: cursive;
-        color: #a00000;
-        text-transform: lowercase;
-        font-weight: 400;
-        font-style: italic;
-    }
-
-    .hero-description {
-        font-size: 1.1rem;
-        line-height: 1.6;
-        color: #333;
-        margin: 0 0 1.5rem 0;
-    }
-
-    .hero-image {
-        position: relative;
-        border-radius: 1.5rem;
-        overflow: hidden;
-        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
-    }
-
-    .team-photo {
         width: 100%;
-        height: 400px;
-        object-fit: cover;
-        object-position: center;
-    }
-
-    .image-overlay {
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
-        padding: 2rem;
+        min-height: 100vh;
+        background: #000;
         color: #fff;
-    }
-
-    .overlay-text {
-        font-family: var(--font-sans);
-        font-size: 0.9rem;
-        font-weight: 700;
-        text-transform: uppercase;
-        letter-spacing: 0.02em;
-    }
-
-    /* Contact Options */
-    .contact-options {
-        padding: 4rem 2rem;
-        background: #fff;
-    }
-
-    .options-container {
-        max-width: 1200px;
-        margin: 0 auto;
-    }
-
-    .options-title {
-        font-family: var(--font-sans);
-        font-size: 2.2rem;
-        font-weight: 900;
-        color: #a00000;
-        margin: 0 0 3rem 0;
-        text-align: center;
-        text-transform: uppercase;
-        letter-spacing: 0.02em;
-    }
-
-    .contact-methods {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-        gap: 2rem;
-    }
-
-    .contact-method {
         display: flex;
-        align-items: center;
-        gap: 1.5rem;
-        padding: 2rem;
-        background: #fff;
-        border: 2px solid #e9ecef;
-        border-radius: 1.5rem;
-        text-decoration: none;
-        color: #000;
-        transition: all 0.3s ease;
-        position: relative;
-        overflow: hidden;
+        align-items: left;
     }
 
-    .contact-method:hover {
-        border-color: #a00000;
-        transform: translateY(-4px);
-        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
-    }
 
-    .primary {
-        border-color: #a00000;
-        background: linear-gradient(135deg, #fff 0%, #fef7f7 100%);
-    }
 
-    .method-icon {
-        width: 80px;
-        height: 80px;
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: #fff;
-        flex-shrink: 0;
-    }
 
-    .whatsapp {
-        background: linear-gradient(135deg, #25d366 0%, #128c7e 100%);
-    }
-
-    .telegram {
-        background: linear-gradient(135deg, #0088cc 0%, #005577 100%);
-    }
-
-    .email {
-        background: linear-gradient(135deg, #a00000 0%, #700000 100%);
-    }
-
-    .instagram {
-        background: linear-gradient(135deg, #E4405F 0%, #833AB4 100%);
-    }
-
-    .method-content {
-        flex: 1;
-    }
-
-    .method-title {
-        font-family: var(--font-sans);
-        font-size: 1.2rem;
-        font-weight: 800;
-        color: #000;
-        margin: 0 0 0.5rem 0;
-        text-transform: uppercase;
-        letter-spacing: 0.02em;
-    }
-
-    .method-description {
-        font-size: 0.95rem;
-        color: #666;
-        margin: 0 0 0.5rem 0;
-    }
-
-    .method-action {
-        font-size: 0.85rem;
-        color: #a00000;
-        font-weight: 600;
-        text-transform: uppercase;
-        letter-spacing: 0.02em;
-    }
-
-    .method-badge {
-        position: absolute;
-        top: 1rem;
-        right: 1rem;
-        background: #a00000;
-        color: #fff;
-        padding: 0.3rem 0.8rem;
-        border-radius: 1rem;
-        font-size: 0.7rem;
-        font-weight: 700;
-        text-transform: uppercase;
-        letter-spacing: 0.02em;
-    }
 
     /* Contact Form */
     .contact-form-section {
-        padding: 4rem 2rem;
-        background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+        margin-top: 4rem;
+        
+        background: #000;
     }
 
     .form-container {
@@ -487,81 +226,128 @@ import { Instagram, Mail, MessageCircle, Phone, MapPin } from "lucide-astro";
     }
 
     .form-header {
-        text-align: center;
+        text-align: left;
         margin-bottom: 3rem;
     }
 
-    .form-title {
-        font-family: var(--font-sans);
-        font-size: 2.2rem;
-        font-weight: 900;
-        color: #000;
-        margin: 0 0 1rem 0;
-        text-transform: uppercase;
-        letter-spacing: 0.02em;
-    }
 
-    .form-subtitle {
-        font-size: 1rem;
-        line-height: 1.6;
-        color: #666;
-        margin: 0;
-    }
 
-    .contact-form {
-        background: #fff;
-        padding: 3rem;
-        border-radius: 1.5rem;
-        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
-    }
+    
 
-    .form-grid {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 1.5rem;
+    .form-fields {
+        display: flex;
+        flex-direction: column;
+        gap: 4rem;
         margin-bottom: 2rem;
     }
 
-    .form-group {
+    .basic-info {
         display: flex;
         flex-direction: column;
+        gap: 1.5rem;
+    
+      
+
     }
 
-    .full-width {
-        grid-column: 1 / -1;
+    .form-row {
+        display: flex;
+        align-items: center;
+        gap: 2rem;
     }
 
-    .form-label {
-        font-family: var(--font-sans);
-        font-size: 0.8rem;
-        font-weight: 700;
-        color: #000;
-        margin: 0 0 0.5rem 0;
-        text-transform: uppercase;
-        letter-spacing: 0.02em;
+    .message-row {
+        align-items: flex-start;
+    }
+
+    .text-base.font-medium {
+        margin: 0;
+        min-width: 140px;
+        width: 140px;
+        text-align: left;
+        color: #fff;
+        flex-shrink: 0;
     }
 
     .form-input,
-    .form-select,
     .form-textarea {
-        padding: 1rem;
-        border: 2px solid #e9ecef;
-        border-radius: 0.8rem;
-        font-size: 1rem;
+        flex: 1;
+        padding: 0.75rem 1rem;
+        border: 2px solid #333;
+        border-radius: 0.5rem;
+ 
         transition: border-color 0.3s ease;
-        background: #fff;
+        background: #000;
+        color: #fff;
     }
 
     .form-input:focus,
-    .form-select:focus,
     .form-textarea:focus {
         outline: none;
         border-color: #a00000;
     }
 
+    .form-input::placeholder,
+    .form-textarea::placeholder {
+        color: #666;
+    }
+
     .form-textarea {
         resize: vertical;
-        min-height: 120px;
+        min-height: 100px;
+    }
+
+    .form-section {
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+    }
+
+
+
+    .switch-group {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.75rem;
+        margin-left: 0;
+    }
+
+    .switch-item {
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+        background: #000;
+        border: 2px solid #333;
+        border-radius: 2rem;
+        padding: 0.5rem 1rem;
+        transition: all 0.3s ease;
+        user-select: none;
+    }
+
+    .switch-item:hover {
+        border-color: #a00000;
+        background: #1a1a1a;
+    }
+
+    .switch-item input[type="radio"] {
+        display: none;
+    }
+
+    .switch-item input[type="radio"]:checked + .switch-label {
+        color: #fff;
+    }
+
+    .switch-item:has(input[type="radio"]:checked) {
+        background: #a00000;
+        border-color: #a00000;
+    }
+
+    .switch-label {
+     
+        font-weight: 500;
+        color: var(--brand-white);
+        transition: color 0.3s ease;
+       
     }
 
     .form-actions {
@@ -569,29 +355,22 @@ import { Instagram, Mail, MessageCircle, Phone, MapPin } from "lucide-astro";
     }
 
     .submit-button {
-        background: #a00000;
-        color: #fff;
-        border: none;
-        padding: 1.2rem 3rem;
-        border-radius: 0.8rem;
-        font-family: var(--font-sans);
-        font-size: 1rem;
-        font-weight: 700;
-        text-transform: uppercase;
+        height: 70px;
+        padding: 0 3rem;
         letter-spacing: 0.02em;
-        cursor: pointer;
-        transition: all 0.3s ease;
+        font-weight: 700;
+
+       
     }
 
     .submit-button:hover {
-        background: #800000;
         transform: translateY(-2px);
         box-shadow: 0 8px 25px rgba(160, 0, 0, 0.3);
     }
 
     .form-note {
-        font-size: 0.9rem;
-        color: #666;
+        font-size: var(--text-small);
+        color: var(--brand-white);
         margin: 1rem 0 0 0;
     }
 
@@ -610,7 +389,7 @@ import { Instagram, Mail, MessageCircle, Phone, MapPin } from "lucide-astro";
     .info-grid {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-        gap: 2rem;
+        gap: rem;
     }
 
     .info-item {
@@ -642,60 +421,43 @@ import { Instagram, Mail, MessageCircle, Phone, MapPin } from "lucide-astro";
 
     .info-text {
         font-size: 1rem;
-        color: #ccc;
+        color: #fff;
         margin: 0;
     }
 
     /* Responsive Design */
     @media (max-width: 768px) {
-        .hero-content {
-            grid-template-columns: 1fr;
-            gap: 2rem;
+
+
+
+        .form-row {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 0.5rem;
         }
 
-        .hero-title {
-            font-size: 2.5rem;
+        .text-base.font-medium {
+            min-width: auto;
         }
 
-        .team-photo {
-            height: 300px;
+        .switch-group {
+            gap: 0.5rem;
         }
 
-        .contact-methods {
-            grid-template-columns: 1fr;
-        }
-
-        .form-grid {
-            grid-template-columns: 1fr;
+        .switch-item {
+            padding: 0.4rem 0.8rem;
         }
 
         .contact-form {
             padding: 2rem;
         }
 
-        .options-title,
-        .form-title {
-            font-size: 1.8rem;
-        }
+
     }
 
     @media (max-width: 480px) {
-        .contact-hero {
-            padding: 4rem 1rem 3rem 1rem;
-        }
 
-        .hero-title {
-            font-size: 2rem;
-        }
 
-        .contact-method {
-            padding: 1.5rem;
-        }
-
-        .method-icon {
-            width: 60px;
-            height: 60px;
-        }
 
         .contact-form {
             padding: 1.5rem;

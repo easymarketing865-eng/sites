@@ -1,6 +1,6 @@
 ---
 import { Image } from "astro:assets";
-import { content } from "../lib/pocketbase.js";
+import { content, files } from "../lib/pocketbase.js";
 // Fallback to JSON data if PocketBase is not available
 import portfolioData from "../data/portfolio.json";
 
@@ -11,6 +11,19 @@ try {
   const result = await content.getHeroProjects(11);
   heroProjects = result.items || [];
   console.log(`Loaded ${heroProjects.length} projects from PocketBase for Hero`);
+  
+  // Generate video URLs for projects with uploaded videos
+  heroProjects = heroProjects.map(project => {
+    if (project.video) {
+      project.videoUrl = files.getUrl(project, project.video);
+      console.log(`Generated video URL for ${project.title}: ${project.videoUrl}`);
+    } else if (project.videoField && typeof project.videoField === 'string' && project.videoField.length > 10) {
+      // Also handle videoField as a PocketBase file
+      project.videoUrl = files.getUrl(project, project.videoField);
+      console.log(`Generated video URL from videoField for ${project.title}: ${project.videoUrl}`);
+    }
+    return project;
+  });
 } catch (error) {
   console.log('PocketBase not available for Hero, using JSON fallback:', (error as Error).message);
   // Fallback to JSON data
@@ -24,7 +37,7 @@ try {
         {heroProjects.map((project) => (
             <a href={`/portfolio/${project.slug}`} class="hero-item">
                 {/* Video thumbnail with image fallback */}
-                {((project as any).videoThumbnail || (project as any).videoField) ? (
+                {((project as any).videoUrl || (project as any).videoThumbnail || (project as any).videoField) ? (
                     <video 
                         class="hero-video"
                         autoplay 
@@ -34,7 +47,7 @@ try {
                         preload="metadata"
                         poster={project.hero || `https://i.ytimg.com/vi/${project.videoId}/maxresdefault.jpg`}
                     >
-                        <source src={(project as any).videoThumbnail || (project as any).videoField} type="video/mp4" />
+                        <source src={(project as any).videoUrl || (project as any).videoThumbnail || (project as any).videoField} type="video/mp4" />
                         {/* Fallback to image if video fails */}
                         <Image
                             src={project.hero || `https://i.ytimg.com/vi/${project.videoId}/maxresdefault.jpg`}
@@ -146,14 +159,8 @@ try {
         will-change: transform;
     }
 
-    /* Pause video on hover for better UX */
-    .hero-item:hover .hero-video {
-        transform: scale(1.05);
-    }
-
-    .hero-item:hover .hero-image {
-        transform: scale(1.05);
-    }
+   
+    
 
     /* Reduced motion support */
     @media (prefers-reduced-motion: reduce) {

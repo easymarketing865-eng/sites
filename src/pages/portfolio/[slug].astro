@@ -27,6 +27,9 @@ export async function getStaticPaths() {
 }
 
 const { project } = Astro.props;
+
+// Get video ID from the correct field name (use bracket notation to avoid TypeScript errors)
+const videoId = (project as any).videoID || project.videoId;
 ---
 
 <Layout title={`${project.title} - Portfolio - Easy Production`}>
@@ -42,13 +45,20 @@ const { project } = Astro.props;
       
       <!-- Full-width video player -->
       <div class="video-player">
-        <iframe
-          src={`https://www.youtube.com/embed/${project.videoId}`}
-          title={project.title}
-          frameborder="0"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-          allowfullscreen
-        ></iframe>
+        {videoId ? (
+          <iframe
+            src={`https://www.youtube.com/embed/${videoId}`}
+            title={project.title}
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen
+            loading="lazy"
+          ></iframe>
+        ) : (
+          <div style="color: white; padding: 2rem; text-align: center;">
+            No video ID found for this project
+          </div>
+        )}
       </div>
     </div>
   </main>
@@ -56,16 +66,16 @@ const { project } = Astro.props;
 
 <style>
   :global(body) {
-    background: #ffffff !important;
+    background: #000000 !important;
   }
   
   :global(article) {
     width: 100%;
-    background: #ffffff;
+    background: #000000;
   }
   .video-page {
     width: 100%;
-    background: #ffffff;
+    background: #000000;
     padding: 2rem 0;
   }
 
@@ -83,7 +93,7 @@ const { project } = Astro.props;
     font-family: var(--font-sans);
     font-size: 1rem;
     font-weight: 500;
-    color: #111111;
+    color: #ffffff;
     text-decoration: none;
     transition: all 0.2s ease;
     opacity: 0.8;
@@ -98,7 +108,7 @@ const { project } = Astro.props;
     font-family: var(--font-heading);
     font-size: 3rem;
     font-weight: 700;
-    color: var(--brand-black);
+    color: #ffffff;
     margin: 0 0 2rem 0;
     letter-spacing: -0.02em;
     text-align: left;

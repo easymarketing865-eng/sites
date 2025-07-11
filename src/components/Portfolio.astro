@@ -4,7 +4,7 @@
  * Modular section: Featured Projects (grid or carousel), editorial, mobile-first, images from photos collection.
  * Uses centralized portfolio data from portfolio.json
  */
-import "../styles/global.css";
+ import "../styles/global.css";
 import portfolioData from "../data/portfolio.json";
 import TalkToUs1 from "./TalkToUs1.astro";
 import SocialShare from "./SocialShare.astro";
@@ -92,10 +92,10 @@ const projects = allProjects.slice(0, 4).map((project) => ({
 /* Headline */
 .headline {
     font-family: "Manrope", var(--font-sans);
-    font-size: 4rem;
+font-size: 3rem;
     font-weight: 800;
-    color: var(--brand-black);
-    text-align: left;
+    color: #000;
+    text-align: center;
     margin: 0 0 2rem 0;
     padding: 0;
 }
@@ -104,7 +104,7 @@ const projects = allProjects.slice(0, 4).map((project) => ({
 .portfolio-grid {
   display: grid;
         grid-template-columns: repeat(2, 1fr);
-        gap: 0.5rem;
+        gap: 2rem;
   width: 100%;
         max-width: 1300px;
         padding: 0;
@@ -227,9 +227,9 @@ const projects = allProjects.slice(0, 4).map((project) => ({
     padding: 0.8em 2em;
     font-size: 1rem;
     font-weight: 700;
-    color: var(--brand-black);
-    background: var(--brand-white);
-    border: 2px solid var(--brand-white);
+        color: #fff;
+        background: #000;
+    border: 2px solid #000;
     border-radius: 2em;
     text-decoration: none;
     transition: all 0.3s ease;
@@ -239,8 +239,8 @@ const projects = allProjects.slice(0, 4).map((project) => ({
 
 .view-all-portfolio-btn:hover {
     background: transparent;
-    color: var(--brand-white);
-    box-shadow: 0 8px 24px rgba(255, 255, 255, 0.15);
+    color: #000;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
 }
 
 /* Social Share */
