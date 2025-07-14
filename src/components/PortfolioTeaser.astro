@@ -11,10 +11,11 @@ const allProjects = [...portfolioData.featured, ...portfolioData.portfolio];
 const projects = allProjects.slice(0, 6).map(project => ({
     title: project.title,
     img: project.hero,
-    desc: project.shortDescription,
+    desc: (project as any).shortDescription || '',
     slug: project.slug,
-    services: project.services || [],
-    category: project.category
+    id: (project as any).id || project.slug, // Use id if available, fallback to slug
+    services: (project as any).services || [],
+    category: (project as any).category || ''
 }));
 ---
 
@@ -25,7 +26,7 @@ const projects = allProjects.slice(0, 6).map(project => ({
             {
                 projects.map((p, index) => {
                     return (
-                        <a href={`/portfolio/${p.slug}`} class="portfolio-teaser-card">
+                        <a href={`/portfolio/${p.id}`} class="portfolio-teaser-card">
                             <img
                                 src={p.img}
                                 alt={p.title + " project image"}

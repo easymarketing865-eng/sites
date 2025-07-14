@@ -2,6 +2,23 @@
 export interface Props {}
 
 import PortfolioPreviewGrid from "../src/components/PortfolioPreviewGrid.astro";
+import { pb, files } from "../src/lib/pocketbase.js";
+
+let serviceVideoUrl = "/video/kgshowreel.mp4"; // Fallback
+
+try {
+  // Try to fetch service showreel video from PocketBase service_showreel collection
+  const result = await pb.collection('service_showreel').getList(1, 1);
+  if (result && result.items && result.items.length > 0) {
+    const serviceRecord = result.items[0];
+    if ((serviceRecord as any).service_showreel) {
+      serviceVideoUrl = files.getUrl(serviceRecord, (serviceRecord as any).service_showreel);
+      console.log(`Loaded service showreel video from PocketBase: ${serviceVideoUrl}`);
+    }
+  }
+} catch (error) {
+  console.log('PocketBase not available for service showreel, using local video fallback:', (error as Error).message);
+}
 ---
 
 <style>
@@ -52,7 +69,7 @@ import PortfolioPreviewGrid from "../src/components/PortfolioPreviewGrid.astro";
     font-size: 4rem; /* 64px */
     font-weight: 800;
     color: var(--primary);
-    margin-bottom: 3rem;
+    margin-bottom: 2rem;
     line-height: 1.2;
   }
   .narrative-block {
@@ -88,7 +105,7 @@ import PortfolioPreviewGrid from "../src/components/PortfolioPreviewGrid.astro";
       padding: 3rem 1rem;
     }
     .exceptional-content {
-      padding: 0 1rem;
+      padding: 0;
     }
     .bg-img {
       height: 100%;
@@ -129,9 +146,8 @@ import PortfolioPreviewGrid from "../src/components/PortfolioPreviewGrid.astro";
       margin-top: 2rem;
     }
     .showreel-video {
-      margin-left: calc(50% - 50vw);
-      margin-right: calc(50% - 50vw);
-      width: 100%;
+   
+    
       margin-bottom: 2rem;
     }
     .showreel-video video {
@@ -215,13 +231,17 @@ import PortfolioPreviewGrid from "../src/components/PortfolioPreviewGrid.astro";
     margin-top: 0rem;
     font-weight: 600;
   }
+
+  .showreel-video {
+    margin-bottom: 3rem;
+  }
 </style>
 
 <section class="exceptional-section">
   <div class="exceptional-text-content">
     <div class="exceptional-content">
       <div class="showreel-video">
-        <video src="/video/kgshowreel.mp4" controls muted autoplay width="100%"></video>
+        <video src={serviceVideoUrl} controls muted autoplay loop width="100%"></video>
       </div>
       <h2 class="exceptional-heading">Service Production <br>in Kyrgyzstan</h2>
       

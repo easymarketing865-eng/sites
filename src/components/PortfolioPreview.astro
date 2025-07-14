@@ -28,10 +28,10 @@ const allProjects = [...portfolioData.featured, ...portfolioData.portfolio];
 const projects = allProjects.slice(startIndex, startIndex + toShow).map(project => ({
     title: project.title,
     img: project.hero,
-    desc: project.shortDescription,
+    desc: (project as any).shortDescription,
     slug: project.slug,
-    services: project.services || [],
-    category: project.category
+    services: (project as any).services || [],
+    category: (project as any).category
 }));
 ---
 
@@ -43,7 +43,7 @@ const projects = allProjects.slice(startIndex, startIndex + toShow).map(project 
     <div class="preview-grid">
         {
             projects.map((project, index) => (
-                <a href={`/portfolio/${project.slug}`} class="preview-card">
+                <a href={`/portfolio/${(project as any).id || project.slug}`} class="preview-card">
                     <img
                         src={project.img}
                         alt={`${project.title} project image`}

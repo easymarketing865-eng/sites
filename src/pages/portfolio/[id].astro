@@ -10,10 +10,26 @@ export async function getStaticPaths() {
   let allProjects = [];
   
   try {
-    // Try to fetch from PocketBase
-    const result = await projects.getAll(1, 50);
+    // Try to fetch from PocketBase - get MORE projects to ensure we include all hero projects
+    const result = await projects.getAll(1, 100); // Increased from 50 to 100
     allProjects = result.items || [];
     console.log(`Loaded ${allProjects.length} projects from PocketBase for static paths`);
+    
+    // Also fetch featured projects specifically to ensure they're included
+    try {
+      const featuredResult = await projects.getFeatured(20); // Get featured projects
+      const featuredProjects = featuredResult.items || [];
+      
+      // Merge featured projects with all projects, removing duplicates by ID
+      const existingIds = new Set(allProjects.map(p => p.id));
+      const newFeaturedProjects = featuredProjects.filter(p => !existingIds.has(p.id));
+      allProjects = [...allProjects, ...newFeaturedProjects];
+      
+      console.log(`Added ${newFeaturedProjects.length} additional featured projects for static paths`);
+    } catch (featuredError) {
+      console.log('Could not fetch featured projects separately:', (featuredError as Error).message);
+    }
+    
   } catch (error) {
     console.log('PocketBase not available for static paths, using JSON fallback:', (error as Error).message);
     // Fallback to JSON data
@@ -21,7 +37,7 @@ export async function getStaticPaths() {
   }
   
   return allProjects.map((project) => ({
-    params: { slug: project.slug },
+    params: { id: project.id || project.slug },
     props: { project },
   }));
 }
@@ -184,4 +200,4 @@ const videoId = (project as any).videoID || project.videoId;
       border-radius: 6px;
     }
   }
-</style>
+</style> 

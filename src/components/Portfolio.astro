@@ -32,7 +32,7 @@ const projects = allProjects.slice(0, 4).map((project) => ({
         {
                 projects.map((p, index) => {
                     return (
-                        <a href={`/portfolio/${p.slug}`} class="portfolio-card">
+                        <a href={`/portfolio/${(p as any).id || p.slug}`} class="portfolio-card">
                     <img
                         src={p.img}
                         alt={p.title + " project image"}
