@@ -1,5 +1,9 @@
 import PocketBase from 'pocketbase';
 import fs from 'fs';
+import dotenv from 'dotenv';
+
+// Load environment variables from .env file
+dotenv.config();
 
 // Read the portfolio data from the JSON file
 const portfolioData = JSON.parse(fs.readFileSync('src/data/portfolio.json', 'utf8'));

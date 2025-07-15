@@ -86,7 +86,7 @@ export const projects = {
     try {
       const result = await pb.collection('projects').getList(1, limit, {
         filter: 'featured = true',
-        sort: '-sortOrder, -year, -created'
+        sort: '-created'
       });
       console.log(`⭐ Fetched ${result.items.length} featured projects from PocketBase`);
       return result;
@@ -100,7 +100,7 @@ export const projects = {
     try {
       const result = await pb.collection('projects').getList(page, perPage, {
         filter: `category = "${category}"`,
-        sort: '-sortOrder, -year, -created'
+        sort: '-created'
       });
       console.log(`🏷️ Fetched ${result.items.length} projects in category: ${category}`);
       return result;
@@ -126,7 +126,7 @@ export const projects = {
       // Get featured projects first
       let result = await pb.collection('projects').getList(1, limit, {
         filter: 'featured = true',
-        sort: '-sortOrder, -created'
+        sort: '-created'
       });
       
       console.log(`🦸 Found ${result.items.length} featured projects`);
@@ -136,7 +136,7 @@ export const projects = {
         const remaining = limit - result.items.length;
         const otherProjects = await pb.collection('projects').getList(1, remaining, {
           filter: 'featured != true',
-          sort: '-sortOrder, -created'
+          sort: '-created'
         });
         
         console.log(`🦸 Added ${otherProjects.items.length} additional projects`);
@@ -316,7 +316,7 @@ export const settings = {
 // File helpers
 export const files = {
   getUrl(record, filename, thumb = '') {
-    return pb.files.getUrl(record, filename, thumb);
+    return pb.files.getURL(record, filename, thumb);
   },
 
   async upload(collection, recordId, fieldName, file) {
@@ -344,7 +344,7 @@ export const content = {
     try {
       const result = await projects.getAll(1, startIndex + count, {
         filter: 'published = true',
-        sort: '-featured, -sortOrder, -created'
+        sort: '-featured, -created'
       });
       
       // Return only the requested slice

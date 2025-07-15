@@ -1,6 +1,6 @@
 ---
 import { Image } from "astro:assets";
-import { content, files } from "../lib/pocketbase.js";
+import { content, pb } from "../lib/pocketbase.js";
 // Fallback to JSON data if PocketBase is not available
 import portfolioData from "../data/portfolio.json";
 
@@ -12,27 +12,53 @@ try {
   heroProjects = result.items || [];
   console.log(`Loaded ${heroProjects.length} projects from PocketBase for Hero`);
   
+  // Helper function to get image URL
+  function getImageUrl(project: any) {
+    // First try to get the photo file if it exists
+    if (project.photo) {
+        return pb.files.getURL(project, project.photo);
+    }
+    
+    // If no photo file, try the first gallery image
+    if (project.gallery && project.gallery.length > 0) {
+        return pb.files.getURL(project, project.gallery[0]);
+    }
+    
+    // Try image field
+    if (project.image) {
+        return pb.files.getURL(project, project.image);
+    }
+    
+    // Fallback to hero field (static URL)
+    return project.hero || '/photos/placeholder.webp';
+  }
+
+  // Helper function to get video URL
+  function getVideoUrl(project: any) {
+    // Handle video URLs
+    if (project.video) {
+        return pb.files.getURL(project, project.video);
+    }
+    
+    if (project.videoField && typeof project.videoField === 'string' && project.videoField.length > 10) {
+        return pb.files.getURL(project, project.videoField);
+    }
+    
+    return null;
+  }
+  
   // Generate video and image URLs for projects with uploaded files
   heroProjects = heroProjects.map(project => {
     // Handle video URLs
-    if (project.video) {
-      project.videoUrl = files.getUrl(project, project.video);
-      console.log(`Generated video URL for ${project.title}: ${project.videoUrl}`);
-    } else if (project.videoField && typeof project.videoField === 'string' && project.videoField.length > 10) {
-      // Also handle videoField as a PocketBase file
-      project.videoUrl = files.getUrl(project, project.videoField);
-      console.log(`Generated video URL from videoField for ${project.title}: ${project.videoUrl}`);
+    const videoUrl = getVideoUrl(project);
+    if (videoUrl) {
+        project.videoUrl = videoUrl;
+        console.log(`Generated video URL for ${project.title}: ${project.videoUrl}`);
     }
     
     // Handle image URLs
-    if (project.image) {
-      project.imageUrl = files.getUrl(project, project.image);
-      console.log(`Generated image URL for ${project.title}: ${project.imageUrl}`);
-    } else if (project.hero && typeof project.hero === 'string' && !project.hero.startsWith('http')) {
-      // Handle hero field as PocketBase file if it doesn't start with http
-      project.imageUrl = files.getUrl(project, project.hero);
-      console.log(`Generated image URL from hero field for ${project.title}: ${project.imageUrl}`);
-    }
+    project.imageUrl = getImageUrl(project);
+    console.log(`Generated image URL for ${project.title}: ${project.imageUrl}`);
     
     return project;
   });

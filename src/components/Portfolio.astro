@@ -1,25 +1,67 @@
 ---
 /**
  * Portfolio.astro
- * Modular section: Featured Projects (grid or carousel), editorial, mobile-first, images from photos collection.
- * Uses centralized portfolio data from portfolio.json
+ * Modular section: Featured Projects (grid or carousel), editorial, mobile-first, images from PocketBase.
+ * Uses PocketBase to fetch dynamic portfolio data
  */
- import "../styles/global.css";
-import portfolioData from "../data/portfolio.json";
+import "../styles/global.css";
+import { projects, pb } from "../lib/pocketbase.js";
 import TalkToUs1 from "./TalkToUs1.astro";
 import SocialShare from "./SocialShare.astro";
 
+// Fetch projects from PocketBase
+let allProjects: any[] = [];
+try {
+    // Get featured projects first
+    const featuredResult = await projects.getFeatured(10);
+    const featuredProjects = featuredResult.items || [];
+    
+    // Get regular projects if we need more
+    const regularResult = await projects.getAll(1, 10, {
+        filter: 'featured != true',
+        sort: '-created'
+    });
+    const regularProjects = regularResult.items || [];
+    
+    // Combine and limit to first 4 for display
+    allProjects = [...featuredProjects, ...regularProjects];
+    
+    console.log(`🎯 Portfolio: Loaded ${allProjects.length} projects from PocketBase`);
+} catch (error) {
+    console.error('❌ Failed to fetch portfolio projects:', error);
+    allProjects = [];
+}
 
-// Combine featured and regular portfolio items, taking first 7 for display
-const allProjects = [...portfolioData.featured, ...portfolioData.portfolio];
-const projects = allProjects.slice(0, 4).map((project) => ({
+// Helper function to get image URL
+function getImageUrl(project: any) {
+    // First try to get the photo file if it exists
+    if (project.photo) {
+        return pb.files.getURL(project, project.photo);
+    }
+    
+    // If no photo file, try the first gallery image
+    if (project.gallery && project.gallery.length > 0) {
+        return pb.files.getURL(project, project.gallery[0]);
+    }
+    
+    // Fallback to hero field (static URL)
+    return project.hero || '/photos/placeholder.webp';
+}
+
+// Transform and limit projects for display
+const displayProjects = allProjects.slice(0, 4).map((project) => ({
+    id: project.id,
     title: project.title,
-    img: project.hero,
-    desc: project.shortDescription,
+    img: getImageUrl(project),
+    desc: project.shortDescription || project.description || '',
     slug: project.slug,
     services: project.services || [],
-    category: project.category,
+    category: project.category || 'project',
+    featured: project.featured || false,
 }));
+
+// Log for debugging
+console.log(`📊 Portfolio: Displaying ${displayProjects.length} projects`);
 ---
 
 <section class="portfolio-section" id="portfolio">
@@ -30,18 +72,18 @@ const projects = allProjects.slice(0, 4).map((project) => ({
         </div>
     <div class="portfolio-grid">
         {
-                projects.map((p, index) => {
+                displayProjects.map((project, index) => {
                     return (
-                        <a href={`/portfolio/${(p as any).id || p.slug}`} class="portfolio-card">
+                        <a href={`/portfolio/${project.id || project.slug}`} class="portfolio-card">
                     <img
-                        src={p.img}
-                        alt={p.title + " project image"}
+                        src={project.img}
+                        alt={project.title + " project image"}
                         class="portfolio-img"
                         loading="lazy"
                     />
                     <figcaption class="portfolio-caption">
                         <h3 class="portfolio-title">
-                            {p.title}
+                            {project.title}
                             {index === 0 && (
                                 <div style="display: flex; align-items: center;">
                                     <span class="label-new-back"></span>

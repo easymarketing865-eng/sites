@@ -12,7 +12,7 @@ try {
   if (result && result.items && result.items.length > 0) {
     const serviceRecord = result.items[0];
     if ((serviceRecord as any).service_showreel) {
-      serviceVideoUrl = files.getUrl(serviceRecord, (serviceRecord as any).service_showreel);
+      serviceVideoUrl = pb.files.getURL(serviceRecord, (serviceRecord as any).service_showreel);
       console.log(`Loaded service showreel video from PocketBase: ${serviceVideoUrl}`);
     }
   }

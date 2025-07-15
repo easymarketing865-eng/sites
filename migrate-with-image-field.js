@@ -1,7 +1,11 @@
 import PocketBase from 'pocketbase';
 import portfolioData from './src/data/portfolio.json' assert { type: 'json' };
+import dotenv from 'dotenv';
 
-const pb = new PocketBase('http://127.0.0.1:8090');
+// Load environment variables from .env file
+dotenv.config();
+
+const pb = new PocketBase(process.env.PUBLIC_POCKETBASE_URL || 'http://127.0.0.1:8090');
 
 async function migrateWithImageField() {
     try {

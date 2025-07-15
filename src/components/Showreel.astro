@@ -14,7 +14,7 @@ try {
   if (result && result.items && result.items.length > 0) {
     const showreelRecord = result.items[0];
     if ((showreelRecord as any).showreel) {
-      showreelVideoUrl = files.getUrl(showreelRecord, (showreelRecord as any).showreel);
+      showreelVideoUrl = pb.files.getURL(showreelRecord, (showreelRecord as any).showreel);
       console.log(`Loaded showreel video from PocketBase main_showreel: ${showreelVideoUrl}`);
     }
   }
