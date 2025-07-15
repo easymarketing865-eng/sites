@@ -49,13 +49,15 @@ This email was sent from the Easy Production website contact form.
 Timestamp: ${new Date().toISOString()}
 `;
 
-    // Send email using Web API (we'll use a simple fetch to a email service)
-    // For now, we'll use a simple approach that works with most email services
-    
-    // Option 1: Use Resend (recommended)
+    // Send email using Resend
     const resendApiKey = import.meta.env.RESEND_API_KEY;
     
     if (resendApiKey) {
+      // Use Resend's domain initially (can be changed later to your own domain)
+      const fromEmail = import.meta.env.FROM_EMAIL || 'onboarding@resend.dev';
+      
+      console.log('📧 Sending email via Resend...');
+      
       const emailResponse = await fetch('https://api.resend.com/emails', {
         method: 'POST',
         headers: {
@@ -63,7 +65,7 @@ Timestamp: ${new Date().toISOString()}
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-          from: 'noreply@easyproduction.kg', // You'll need to verify this domain with Resend
+          from: fromEmail,
           to: ['easymarketing865@gmail.com'],
           reply_to: data.email,
           subject: emailSubject,
@@ -72,14 +74,22 @@ Timestamp: ${new Date().toISOString()}
       });
 
       if (!emailResponse.ok) {
-        throw new Error(`Email service error: ${emailResponse.status}`);
+        const errorText = await emailResponse.text();
+        console.error('Resend API Error:', errorText);
+        throw new Error(`Email service error: ${emailResponse.status} - ${errorText}`);
       }
+
+      const emailResult = await emailResponse.json();
+      console.log('✅ Email sent successfully via Resend:', emailResult.id);
+      
     } else {
-      // Fallback: Log the submission (you can set up email later)
+      // Fallback: Log the submission
+      console.log('⚠️ RESEND_API_KEY not found. Logging submission instead:');
       console.log('📧 New contact form submission:');
       console.log('Subject:', emailSubject);
       console.log('Body:', emailBody);
       console.log('---');
+      console.log('💡 To send actual emails, add RESEND_API_KEY environment variable');
     }
 
     // Return success response
