@@ -98,14 +98,20 @@ console.log(`📊 PortfolioPreviewGrid: Displaying ${displayProjects.length} pro
 
 <section class={`portfolio-preview-grid ${className}`}>
     {showTitle && (
-        <h2 class="grid-title">{displayTitle}</h2>
+        <h2 class="grid-title emerge" data-effect="slide" data-up="30px" data-expose="true">{displayTitle}</h2>
     )}
     
     <div class="grid-container">
         <div class="grid-scroll">
             {
                 displayProjects.map((project, index) => (
-                    <a href={`/portfolio/${project.slug}`} class="grid-item">
+                    <a href={`/portfolio/${project.slug}`} 
+                       class="grid-item emerge" 
+                       data-effect="slide" 
+                       data-up="40px"
+                       data-duration="600"
+                       data-hold={index * 150}
+                       data-expose="true">
                         <div class="grid-image-container">
                             {project.img && (
                                 <img

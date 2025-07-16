@@ -78,8 +78,13 @@ if (heroProjects.length === 0) {
 
 <section class="hero-section">
     <div class="hero-grid">
-        {heroProjects.length > 0 ? heroProjects.map((project) => (
-            <a href={`/portfolio/${project.id}`} class="hero-item">
+        {heroProjects.length > 0 ? heroProjects.map((project, index) => (
+            <a href={`/portfolio/${project.id}`} 
+               class="hero-item emerge" 
+               data-effect="relax" 
+               data-duration="800"
+               data-hold={index * 200}
+               data-expose="true">
                 {/* Video thumbnail with image fallback */}
                 {((project as any).videoUrl || (project as any).videoThumbnail || (project as any).videoField) ? (
                     <video 

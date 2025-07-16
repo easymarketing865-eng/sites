@@ -44,12 +44,12 @@ const getChessClass = (index: number) => {
 ---
 
 <section class="target-segments-section" id="target-segments">
-  <h2 class="section-headline" set:html={t(currentLocale, 'segments.mainTitle')}></h2>
-  <p class="section-subtitle">{t(currentLocale, 'segments.mainSubtitle')}</p>
+  <h2 class="section-headline emerge" data-effect="slide" data-up="40px" data-expose="true" set:html={t(currentLocale, 'segments.mainTitle')}></h2>
+  <p class="section-subtitle emerge" data-effect="slide" data-up="30px" data-continue="true" data-expose="true">{t(currentLocale, 'segments.mainSubtitle')}</p>
   <div class="grids-container">
     <div class="segments-grid">
         {segments.slice(0, 2).map((segment, index) => (
-        <div class={`segment-card ${getChessClass(index)}`}>
+        <div class={`segment-card ${getChessClass(index)} emerge`} data-effect="relax" data-scale="0.9" data-hold={index * 200} data-continue="true" data-expose="true">
             <div class="title-wrapper">
               <h3 class="card-title" set:html={segment.title}></h3>
             </div>
@@ -59,7 +59,7 @@ const getChessClass = (index: number) => {
       </div>
       <div class="segments-grid">
         {segments.slice(2, 4).map((segment, index) => (
-          <div class={`segment-card ${getChessClass(index + 2)}`}>
+          <div class={`segment-card ${getChessClass(index + 2)} emerge`} data-effect="relax" data-scale="0.9" data-hold={(index + 2) * 200} data-continue="true" data-expose="true">
             <div class="title-wrapper">
               <h3 class="card-title" set:html={segment.title}></h3>
           </div>

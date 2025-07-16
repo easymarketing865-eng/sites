@@ -56,6 +56,11 @@ console.log(`🔌 Connecting to PocketBase at: ${PB_URL}`);
 // Create PocketBase instance
 export const pb = new PocketBase(PB_URL);
 
+// Disable auto-cancellation to prevent concurrent request conflicts
+// This solves the "request was autocancelled" errors when multiple components
+// make simultaneous API calls during page load
+pb.autoCancellation(false);
+
 // Helper functions for common operations
 export const collections = {
   projects: 'projects',
@@ -425,12 +430,16 @@ export const content = {
 
   async getPageData(page = 'home') {
     const cacheKey = `page-data-${page}`;
+    
+    // Check cache first
     const cached = PocketBaseCache.get(cacheKey);
     if (cached) {
       return cached;
     }
 
     try {
+      console.log(`🚀 Fetching fresh page data for: ${page}`);
+      
       // Fetch all data in parallel instead of sequentially
       const [heroProjects, serviceProjects, showreelVideo] = await Promise.all([
         projects.getForHero(11),
@@ -477,6 +486,8 @@ export const content = {
     }
   }
 };
+
+
 
 // Export everything
 export default {

@@ -14,7 +14,7 @@ const currentLocale = locale || getLocaleFromUrl(Astro.url.pathname);
 <section class="team-section emerge" data-expose="true" data-effect="slide" data-up="40px">
     <div class="team-container">
         <div class="team-header emerge" data-continue="true" data-hold="200" data-effect="slide" data-up="30px">
-            <h2 class="section-headline team-title">{t(currentLocale, 'team.mainTitle')}</h2>
+            <h2 class="section-headline team-title emerge" data-effect="slide" data-up="40px" data-expose="true">{t(currentLocale, 'team.mainTitle')}</h2>
             <p class="section-subtitle team-subtitle">{t(currentLocale, 'team.mainSubtitle')}</p>
         </div>
         
