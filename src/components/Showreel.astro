@@ -16,33 +16,45 @@ const { locale } = Astro.props;
 // Get current locale from URL if not provided as prop
 const currentLocale = locale || getLocaleFromUrl(Astro.url.pathname);
 
-let showreelVideoUrl = "/video/EASY PRODUCTION SHOWREEL 2024.mp4"; // Fallback
+let showreelVideoUrl = null;
+let hasVideo = false;
 
 try {
   // Use unified page data for faster loading
   const pageData = await content.getPageData('home');
   if (pageData.showreelVideo && (pageData.showreelVideo as any).showreel) {
     showreelVideoUrl = pb.files.getURL(pageData.showreelVideo, (pageData.showreelVideo as any).showreel);
+    hasVideo = true;
     console.log(`Loaded showreel video from unified page data: ${showreelVideoUrl}`);
   }
 } catch (error) {
-  console.log('PocketBase not available for showreel, using local video fallback:', (error as Error).message);
+  console.log('PocketBase not available for showreel, video will not be displayed:', (error as Error).message);
 }
 ---
 
 <section class="showreel-section emerge" data-spin="true" data-spin-size="32" data-spin-color="white" data-effect="slide" data-up="40px">
   <div class="video-container">
-    <video
-      class="showreel-video"
-      preload="auto"
-      autoplay
-      muted
-      loop
-      playsinline
-    >
-      <source src={showreelVideoUrl} type="video/mp4" />
-      Your browser does not support the video tag.
-    </video>
+    {hasVideo ? (
+      <video
+        class="showreel-video"
+        preload="auto"
+        autoplay
+        muted
+        loop
+        playsinline
+      >
+        <source src={showreelVideoUrl} type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
+    ) : (
+      <div class="video-placeholder">
+        <img src="/photos/showreel.webp" alt="Easy Production Showreel" class="placeholder-image" />
+        <div class="placeholder-overlay">
+          <h3>Showreel Coming Soon</h3>
+          <p>Our latest work showcase will be available shortly</p>
+        </div>
+      </div>
+    )}
     
     <!-- Hidden for now -->
     <div class="text-overlay" style="display: none;">
@@ -234,6 +246,61 @@ try {
 
     .studio-logo {
       height: 24px;
+    }
+  }
+
+  /* Video Placeholder Styles */
+  .video-placeholder {
+    position: relative;
+    width: 100%;
+    height: 400px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #000;
+    overflow: hidden;
+  }
+
+  .placeholder-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.6;
+  }
+
+  .placeholder-overlay {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: white;
+    z-index: 2;
+  }
+
+  .placeholder-overlay h3 {
+    font-size: 2rem;
+    margin: 0 0 1rem 0;
+    font-weight: 700;
+  }
+
+  .placeholder-overlay p {
+    font-size: 1.1rem;
+    margin: 0;
+    opacity: 0.9;
+  }
+
+  @media (max-width: 768px) {
+    .video-placeholder {
+      height: 300px;
+    }
+
+    .placeholder-overlay h3 {
+      font-size: 1.5rem;
+    }
+
+    .placeholder-overlay p {
+      font-size: 1rem;
     }
   }
 </style>
