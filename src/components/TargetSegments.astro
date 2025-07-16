@@ -4,29 +4,35 @@
  * Editorial section: "Who We Serve" – Agency target segments in a visually bold, clean, mobile-first grid.
  */
 import "../styles/global.css";
+import { t, getLocaleFromUrl } from "../lib/i18n.js";
 
+export interface Props {
+  locale?: string;
+}
+
+const { locale } = Astro.props;
+
+// Get current locale from URL if not provided as prop
+const currentLocale = locale || getLocaleFromUrl(Astro.url.pathname);
+
+// Get translated segments data
 const segments = [
   {
-    title: "Creative <br/> agency",
-    description: "We develop original concepts for commercials, documentaries, and brand films that connect with audiences. From the first idea to the final script, our creative team works closely with clients to shape powerful narratives and striking visual approaches. We specialize in building concepts that are bold, clear, and production-ready — with a strong focus on storytelling, mood, and message. Whether you're launching a new product or telling your brand's story, we help turn vision into concept — and concept into action.",
-    
+    title: t(currentLocale, 'segments.creativeAgency.title'),
+    description: t(currentLocale, 'segments.creativeAgency.description'),
   },
   {
-    title: "CGI",
-    description: "We create high-end VFX, 3D animation, and motion design for global clients — working fully remotely with tight coordination and attention to detail. From realistic visual effects to stylized graphic elements, we adapt our style to each project's needs. Our portfolio includes collaborations with top brands, creative agencies, and film directors. Whether you need subtle enhancements or full-on CGI environments, our team delivers with technical precision and creative flair — always on time and on brief.",
-  
+    title: t(currentLocale, 'segments.cgi.title'),
+    description: t(currentLocale, 'segments.cgi.description'),
   },
   {
-    title: "Service <br/> Production ",
-    description: "From scouting breathtaking locations to assembling a professional local crew, we handle every step of the process. Need equipment, casting, permits, or logistics? We've got it covered. Whether you're shooting a commercial, documentary, or branded content — we make it seamless.",
-   
+    title: t(currentLocale, 'segments.serviceProduction.title'),
+    description: t(currentLocale, 'segments.serviceProduction.description'),
   },
   {
-    title: "Post-production",
-    description: "We handle the entire post-production process — from editing, color grading, and sound design to advanced VFX and final mastering. Our team works with international clients across time zones, ensuring fast, clear communication and consistent results. Whether it's a commercial, branded content, or narrative piece, we take your raw footage and deliver a polished, broadcast-ready product. You can trust us to meet deadlines without compromising quality — every frame, every time.",
-
+    title: t(currentLocale, 'segments.postProduction.title'),
+    description: t(currentLocale, 'segments.postProduction.description'),
   }
-  
 ];
 
 // Chess pattern function: alternates properly in 2-column grid
@@ -38,15 +44,8 @@ const getChessClass = (index: number) => {
 ---
 
 <section class="target-segments-section" id="target-segments">
-  {/* Alternative titles to choose from:
-    1. "Our Creative Partners"
-    2. "Made For You"
-    3. "Industries We Transform"
-    4. "Let's Create Together"
-    5. "Your Vision, Our Expertise"
-  */}
-  <h2 class="section-headline">From First Idea <br> to Final Cut</h2>
-  <p class="section-subtitle">Concepts, crews, landscapes, pixels — we cover the full spectrum. Whether you need a local fixer in Kyrgyzstan or a world-class VFX pipeline, we're your behind-the-scenes team.</p>
+  <h2 class="section-headline" set:html={t(currentLocale, 'segments.mainTitle')}></h2>
+  <p class="section-subtitle">{t(currentLocale, 'segments.mainSubtitle')}</p>
   <div class="grids-container">
     <div class="segments-grid">
         {segments.slice(0, 2).map((segment, index) => (

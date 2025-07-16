@@ -1,21 +1,27 @@
 ---
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
+import { getLocaleFromUrl, t } from "../lib/i18n.js";
 
 export interface Props {
     title: string;
+    locale?: string;
 }
 
-const { title } = Astro.props;
+const { title, locale } = Astro.props;
+
+// Get current locale from URL if not provided as prop
+const currentLocale = locale || getLocaleFromUrl(Astro.url.pathname);
+const description = t(currentLocale, 'home.description');
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang={currentLocale}>
     <head>
         <meta charset="UTF-8" />
         <meta
             name="description"
-            content="Easy Production - Creative video production and marketing services"
+            content={description}
         />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -34,9 +40,9 @@ const { title } = Astro.props;
     </head>
     <body>
         <article>
-            <Header />
+            <Header locale={currentLocale} />
             <slot />
-            <Footer />
+            <Footer locale={currentLocale} />
         </article>
         
         <!-- Emerge Replay Button for Testing -->

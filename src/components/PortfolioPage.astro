@@ -45,10 +45,10 @@ function getVideoUrl(project: any): string | null {
 }
 
 try {
-  // Try to fetch from PocketBase using the same method as Hero
+  // Use cached hero projects for portfolio page (faster loading)
   const result = await content.getHeroProjects(50); // Get more projects for portfolio page
   allProjects = result.items || [];
-  console.log(`Loaded ${allProjects.length} projects from PocketBase for Portfolio Page`);
+  console.log(`Loaded ${allProjects.length} projects from cached data for Portfolio Page`);
   
   // Generate URLs for projects
   allProjects = allProjects.map(project => {

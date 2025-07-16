@@ -6,7 +6,8 @@
  * Uses PocketBase to fetch dynamic portfolio data
  */
 import "../styles/global.css";
-import { projects, pb } from "../lib/pocketbase.js";
+import { projects, pb, content } from "../lib/pocketbase.js";
+import { t, getLocaleFromUrl, getLocalizedPath } from "../lib/i18n.js";
 
 export interface Props {
   startIndex?: number;
@@ -14,15 +15,26 @@ export interface Props {
   showTitle?: boolean;
   title?: string;
   className?: string;
+  locale?: string;
 }
 
 const { 
   startIndex = 0, 
   toShow = 5, 
   showTitle = true, 
-  title = "Recent Work",
-  className = ""
+  title,
+  className = "",
+  locale
 } = Astro.props;
+
+// Get current locale from URL if not provided as prop
+const currentLocale = locale || getLocaleFromUrl(Astro.url.pathname);
+
+// Use translated title if none provided
+const displayTitle = title || t(currentLocale, 'portfolio.title');
+
+// Generate localized portfolio link
+const portfolioLink = getLocalizedPath('/portfolio', currentLocale);
 
 // Helper function to get image URL (PocketBase only)
 function getImageUrl(project: any) {
@@ -45,56 +57,25 @@ function getImageUrl(project: any) {
     return '';
 }
 
-// Retry mechanism for PocketBase requests
-async function fetchWithRetry(maxRetries = 3) {
-    for (let attempt = 1; attempt <= maxRetries; attempt++) {
-        try {
-            // Progressive delay: 150ms, 300ms, 500ms
-            const delay = attempt * 150;
-            await new Promise(resolve => setTimeout(resolve, delay));
-            
-            console.log(`🔄 PortfolioPreviewGrid: Attempt ${attempt}/${maxRetries} - fetching service_production projects`);
-            
-            // Get ONLY projects with service_production = true
-            const result = await projects.getAll(1, 10, {
-                filter: 'service_production = true',
-                sort: '-created'
-            });
-            
-            console.log(`✅ PortfolioPreviewGrid: Successfully fetched ${result.items?.length || 0} service_production projects on attempt ${attempt}`);
-            return result.items || [];
-            
-        } catch (error) {
-            console.error(`❌ PortfolioPreviewGrid: Attempt ${attempt}/${maxRetries} failed:`, error);
-            
-            // Check if it's an auto-cancellation error
-            const isAutoCancelled = error && (
-                (error as any).message?.includes('autocancelled') || 
-                (error as any).message?.includes('AbortError') ||
-                (error as any).isAbort === true ||
-                (error as any).status === 0
-            );
-            
-            if (isAutoCancelled && attempt < maxRetries) {
-                console.log(`🔄 PortfolioPreviewGrid: Auto-cancellation detected, retrying in ${200 * attempt}ms...`);
-                await new Promise(resolve => setTimeout(resolve, 200 * attempt));
-                continue;
-            }
-            
-            if (attempt === maxRetries) {
-                console.error('🚨 PortfolioPreviewGrid: All retry attempts failed');
-                return [];
-            }
-        }
+// Fast fetch for service projects without retry delays
+async function fetchServiceProjects() {
+    try {
+        // Use the unified page data for faster loading
+        const pageData = await content.getPageData('home');
+        const serviceProjects = pageData.serviceProjects || [];
+        console.log(`✅ PortfolioPreviewGrid: Fetched ${serviceProjects.length} service projects from unified data`);
+        return serviceProjects;
+    } catch (error) {
+        console.error('❌ PortfolioPreviewGrid: Failed to fetch service projects:', error);
+        return [];
     }
-    return [];
 }
 
-// Fetch projects from PocketBase with retry mechanism
+// Fetch projects from PocketBase using optimized method
 let allProjects: any[] = [];
 try {
-    allProjects = await fetchWithRetry();
-    console.log(`🎯 PortfolioPreviewGrid: Using ${allProjects.length} service_production projects only`);
+    allProjects = await fetchServiceProjects();
+    console.log(`🎯 PortfolioPreviewGrid: Using ${allProjects.length} service_production projects`);
 } catch (error) {
     console.error('❌ Fatal error in PortfolioPreviewGrid:', error);
     allProjects = [];
@@ -117,7 +98,7 @@ console.log(`📊 PortfolioPreviewGrid: Displaying ${displayProjects.length} pro
 
 <section class={`portfolio-preview-grid ${className}`}>
     {showTitle && (
-        <h2 class="grid-title">{title}</h2>
+        <h2 class="grid-title">{displayTitle}</h2>
     )}
     
     <div class="grid-container">
@@ -146,7 +127,7 @@ console.log(`📊 PortfolioPreviewGrid: Displaying ${displayProjects.length} pro
     </div>
     
     <div class="portfolio-link-container">
-        <a href="/portfolio" class="btn btn-secondary">View full portfolio</a>
+        <a href={portfolioLink} class="btn btn-secondary">{t(currentLocale, 'portfolio.viewFull')}</a>
     </div>
 </section>
 

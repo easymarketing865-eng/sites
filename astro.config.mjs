@@ -32,6 +32,14 @@ export default defineConfig({
     port: 4321,
     host: true
   },
+  // Internationalization configuration
+  i18n: {
+    defaultLocale: 'en',
+    locales: ['en', 'ru'],
+    routing: {
+      prefixDefaultLocale: false
+    }
+  },
   // Make environment variables available to the client
   define: {
     'import.meta.env.PUBLIC_POCKETBASE_URL': JSON.stringify(

@@ -5,18 +5,25 @@
  */
 import "../styles/global.css";
 import { content, files, pb } from "../lib/pocketbase.js";
+import { t, getLocaleFromUrl } from "../lib/i18n.js";
+
+export interface Props {
+  locale?: string;
+}
+
+const { locale } = Astro.props;
+
+// Get current locale from URL if not provided as prop
+const currentLocale = locale || getLocaleFromUrl(Astro.url.pathname);
 
 let showreelVideoUrl = "/video/EASY PRODUCTION SHOWREEL 2024.mp4"; // Fallback
 
 try {
-  // Try to fetch showreel video from PocketBase main_showreel collection
-  const result = await pb.collection('main_showreel').getList(1, 1);
-  if (result && result.items && result.items.length > 0) {
-    const showreelRecord = result.items[0];
-    if ((showreelRecord as any).showreel) {
-      showreelVideoUrl = pb.files.getURL(showreelRecord, (showreelRecord as any).showreel);
-      console.log(`Loaded showreel video from PocketBase main_showreel: ${showreelVideoUrl}`);
-    }
+  // Use unified page data for faster loading
+  const pageData = await content.getPageData('home');
+  if (pageData.showreelVideo && (pageData.showreelVideo as any).showreel) {
+    showreelVideoUrl = pb.files.getURL(pageData.showreelVideo, (pageData.showreelVideo as any).showreel);
+    console.log(`Loaded showreel video from unified page data: ${showreelVideoUrl}`);
   }
 } catch (error) {
   console.log('PocketBase not available for showreel, using local video fallback:', (error as Error).message);
@@ -48,14 +55,14 @@ try {
         <svg class="youtube-icon" viewBox="0 0 24 24" fill="currentColor">
           <path d="M8 5v14l11-7z"/>
         </svg>
-        Watch on YouTube
+        {t(currentLocale, 'showreel.watchYoutube')}
       </a>
     </div>
   </div>
 </section>
 
 <div class="showreel-tagline">
-  <p>Your shoot in Kyrgyzstan — locations, crew, and post-production all in one </p>
+  <p>{t(currentLocale, 'showreel.tagline')}</p>
 </div>
 
 <style>

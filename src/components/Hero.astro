@@ -5,35 +5,10 @@ import { content, pb, projects } from "../lib/pocketbase.js";
 let heroProjects: any[] = [];
 
 try {
-  // Add longer delay to prevent auto-cancellation when multiple components load simultaneously
-  await new Promise(resolve => setTimeout(resolve, 500));
-  
-  // Retry mechanism for auto-cancellation issues
-  let retryCount = 0;
-  let allProjects = [];
-  
-  while (retryCount < 3 && allProjects.length === 0) {
-    try {
-      // Use single request to reduce auto-cancellation risk
-      const allProjectsResult = await projects.getAll(1, 15, {
-        sort: '-featured, -created'
-      });
-      allProjects = allProjectsResult.items || [];
-      
-      if (allProjects.length > 0) {
-        heroProjects = allProjects.slice(0, 11);
-        console.log(`Loaded ${heroProjects.length} projects from PocketBase for Hero (attempt ${retryCount + 1})`);
-        break;
-      }
-    } catch (retryError) {
-      retryCount++;
-      console.log(`Hero retry ${retryCount}/3 failed:`, (retryError as Error).message);
-      if (retryCount < 3) {
-        // Wait before retry
-        await new Promise(resolve => setTimeout(resolve, 200 * retryCount));
-      }
-    }
-  }
+  // Use the new unified page data fetcher for faster loading
+  const pageData = await content.getPageData('home');
+  heroProjects = pageData.heroProjects || [];
+  console.log(`Loaded ${heroProjects.length} projects from unified page data`);
   
   // Helper function to get image URL (PocketBase only)
   function getImageUrl(project: any): string {

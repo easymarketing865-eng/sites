@@ -1,13 +1,24 @@
 ---
-export interface Props {}
-
 import PortfolioPreviewGrid from "../src/components/PortfolioPreviewGrid.astro";
-import { pb, files } from "../src/lib/pocketbase.js";
+import { pb, files, content } from "../src/lib/pocketbase.js";
+import { t, getLocaleFromUrl, getLocalizedPath } from "../src/lib/i18n.js";
+
+export interface Props {
+  locale?: string;
+}
+
+const { locale } = Astro.props;
+
+// Get current locale from URL if not provided as prop
+const currentLocale = locale || getLocaleFromUrl(Astro.url.pathname);
+
+// Generate localized contact link
+const contactLink = getLocalizedPath('/contact', currentLocale);
 
 let serviceVideoUrl = "/video/kgshowreel.mp4"; // Fallback
 
 try {
-  // Try to fetch service showreel video from PocketBase service_showreel collection
+  // Use cached approach for service showreel
   const result = await pb.collection('service_showreel').getList(1, 1);
   if (result && result.items && result.items.length > 0) {
     const serviceRecord = result.items[0];
@@ -243,13 +254,13 @@ try {
       <div class="showreel-video">
         <video src={serviceVideoUrl} controls muted autoplay loop width="100%"></video>
       </div>
-      <h2 class="exceptional-heading">Service Production <br>in Kyrgyzstan</h2>
+      <h2 class="exceptional-heading">{t(currentLocale, 'exceptional.title')}</h2>
       
       <div class="seasonal-content">
         <div class="season-block">
-          <h3 class="season-title">Summer — Issyk-Kul, Lakes, Beaches</h3>
+          <h3 class="season-title">{t(currentLocale, 'exceptional.summer.title')}</h3>
           <p class="season-description">
-            Kyrgyzstan offers an incredible variety of landscapes — mountains, lakes, canyons, steppes, and cities. Filming is possible year-round, with all four seasons accessible just a few hours from the capital.
+            {t(currentLocale, 'exceptional.summer.description')}
           </p>
           <div class="season-images">
             <div class="image-large">
@@ -267,41 +278,41 @@ try {
         </div>
 
         <div class="season-block">
-          <h3 class="season-title">Winter — Mountains, Skiing, Snowy Landscapes</h3>
+          <h3 class="season-title">{t(currentLocale, 'exceptional.winter.title')}</h3>
           <p class="season-description">
-            We provide full-cycle service production. The client sends us a director's treatment or concept — we calculate the budget, scout locations, assemble the crew, organize casting, and provide technical support.          </p>
-        </div>
-
-        <div class="season-block">
-          <h3 class="season-title">Autumn — Forests, Horses, Warm Colors</h3>
-          <p class="season-description">
-            If you're a brand or company, we can handle the entire production cycle — starting from pre-production. We'll develop a creative concept tailored to your product, prepare the script, storyboards, and visual references.
-
-            During production, we provide full-service support with the option for clients or agencies to stay connected remotely — ensuring you're always involved and informed. The final stage is post-production: editing, motion design, sound design, and creating an original music composition crafted specifically for your video.          </p>
-          
-        </div>
-
-        <div class="season-block">
-          <h3 class="season-title">Value Proposition</h3>
-          <p class="season-description">
-            Producing in Dubai or Europe can cost you 3–5× more — and not always with better results. In Kyrgyzstan, you get cinematic landscapes, professional crews, and full-service production — without the inflated budgets.
+            {t(currentLocale, 'exceptional.winter.description')}
           </p>
-          <p class="season-description cta-text">➡️ Want a comparison? Just ask — we'll show you the difference.</p>
+        </div>
+
+        <div class="season-block">
+          <h3 class="season-title">{t(currentLocale, 'exceptional.autumn.title')}</h3>
+          <p class="season-description">
+            {t(currentLocale, 'exceptional.autumn.description')}
+          </p>
+        </div>
+
+        <div class="season-block">
+          <h3 class="season-title">{t(currentLocale, 'exceptional.valueProposition.title')}</h3>
+          <p class="season-description">
+            {t(currentLocale, 'exceptional.valueProposition.description')}
+          </p>
+          <p class="season-description cta-text">{t(currentLocale, 'exceptional.valueProposition.cta')}</p>
         </div>
 
       </div>
 
       <div class="cta">
-        <a href="/contact" class="btn btn-primary">Get Your Custom Quote</a>
+        <a href={contactLink} class="btn btn-primary">{t(currentLocale, 'exceptional.button')}</a>
       </div>
 
       <!-- Portfolio Preview Grid -->
       <PortfolioPreviewGrid 
         startIndex={0} 
         toShow={4} 
-        title="Our Recent Work" 
+        title={t(currentLocale, 'exceptional.portfolioTitle')}
         showTitle={true}
         className="exceptional-portfolio"
+        locale={currentLocale}
       />
     </div>
   </div>

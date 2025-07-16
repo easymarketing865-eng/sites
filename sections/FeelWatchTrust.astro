@@ -1,3 +1,19 @@
+---
+import { t, getLocaleFromUrl, getLocalizedPath } from "../src/lib/i18n.js";
+
+export interface Props {
+  locale?: string;
+}
+
+const { locale } = Astro.props;
+
+// Get current locale from URL if not provided as prop
+const currentLocale = locale || getLocaleFromUrl(Astro.url.pathname);
+
+// Generate localized contact link
+const contactLink = getLocalizedPath('/contact', currentLocale);
+---
+
 <style>
   .feel-watch-trust-section {
     width: 100%;
@@ -103,17 +119,17 @@
   <div class="feel-watch-trust-container">
     <div class="flex-layout">
       <div class="flex-item">
-        <span class="large-text">WE</span>
+        <span class="large-text">{t(currentLocale, 'feelWatchTrust.we')}</span>
         <img src="/photos/VILAR/width_800.webp" alt="Affordable" class="flex-image" />
       </div>
       
       <div class="flex-item">
         <img src="/photos/asbis.png" alt="Asbis" class="flex-image" />
-        <span class="large-text">MAKE IT</span>
+        <span class="large-text">{t(currentLocale, 'feelWatchTrust.makeIt')}</span>
       </div>
       
       <div class="flex-item">
-        <span class="large-text">EASY</span>
+        <span class="large-text">{t(currentLocale, 'feelWatchTrust.easy')}</span>
         <img src="/photos/organic.webp" alt="Elizaveta" class="flex-image" />
       </div>
       
@@ -125,11 +141,11 @@
     </div>
 
     <p class="description-text">
-      Shoot in Kyrgyzstan with full production support — from stunning locations and local crew to remote motion design and VFX
+      {t(currentLocale, 'feelWatchTrust.description')}
     </p>
 
     <div class="button-container">
-      <a href="#" class="btn btn-primary">Contact Us</a>
+      <a href={contactLink} class="btn btn-primary">{t(currentLocale, 'feelWatchTrust.contactButton')}</a>
     </div>
   </div>
 </section>

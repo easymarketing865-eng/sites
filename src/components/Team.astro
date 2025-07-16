@@ -1,8 +1,21 @@
+---
+import { t, getLocaleFromUrl } from "../lib/i18n.js";
+
+export interface Props {
+  locale?: string;
+}
+
+const { locale } = Astro.props;
+
+// Get current locale from URL if not provided as prop
+const currentLocale = locale || getLocaleFromUrl(Astro.url.pathname);
+---
+
 <section class="team-section emerge" data-expose="true" data-effect="slide" data-up="40px">
     <div class="team-container">
         <div class="team-header emerge" data-continue="true" data-hold="200" data-effect="slide" data-up="30px">
-            <h2 class="section-headline team-title">Meet Our Creative Team</h2>
-            <p class="section-subtitle team-subtitle">The talented individuals behind every successful production</p>
+            <h2 class="section-headline team-title">{t(currentLocale, 'team.mainTitle')}</h2>
+            <p class="section-subtitle team-subtitle">{t(currentLocale, 'team.mainSubtitle')}</p>
         </div>
         
         <div class="team-grid">

@@ -1,5 +1,14 @@
 ---
-export interface Props {}
+import { t, getLocaleFromUrl } from "../src/lib/i18n.js";
+
+export interface Props {
+  locale?: string;
+}
+
+const { locale } = Astro.props;
+
+// Get current locale from URL if not provided as prop
+const currentLocale = locale || getLocaleFromUrl(Astro.url.pathname);
 ---
 
 <style>
@@ -90,27 +99,27 @@ export interface Props {}
 
 <section class="everywhere-section">
   <div class="everywhere-content">
-    <h2 class="everywhere-heading">Everywhere</h2>
+    <h2 class="everywhere-heading">{t(currentLocale, 'everywhere.title')}</h2>
     
     <div class="everywhere-grid">
       <div class="everywhere-item">
-        <h3 class="item-title">Onsite in Kyrgyzstan</h3>
+        <h3 class="item-title">{t(currentLocale, 'everywhere.onsite.title')}</h3>
         <p class="item-description">
-          Experience world-class production in the heart of Central Asia. Our fully-equipped studios and local expertise deliver premium results at unbeatable costs, surrounded by breathtaking mountain landscapes.
+          {t(currentLocale, 'everywhere.onsite.description')}
         </p>
       </div>
       
       <div class="everywhere-item">
-        <h3 class="item-title">Remote</h3>
+        <h3 class="item-title">{t(currentLocale, 'everywhere.remote.title')}</h3>
         <p class="item-description">
-          Collaborate seamlessly from anywhere in the world. Our remote production services include real-time direction, post-production, and creative consultation—bringing our expertise directly to your project.
+          {t(currentLocale, 'everywhere.remote.description')}
         </p>
       </div>
       
       <div class="everywhere-item">
-        <h3 class="item-title">Fly Us In</h3>
+        <h3 class="item-title">{t(currentLocale, 'everywhere.flyUsIn.title')}</h3>
         <p class="item-description">
-          Need our team on location? We travel worldwide with our portable production setup, bringing Kyrgyzstan's cost-effective excellence to your doorstep for international shoots and collaborations.
+          {t(currentLocale, 'everywhere.flyUsIn.description')}
         </p>
       </div>
     </div>

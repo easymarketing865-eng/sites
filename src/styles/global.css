@@ -324,3 +324,30 @@ h1, h2, h3, h4, h5, h6 { text-wrap: balance; }
 #root, #__next {
     isolation: isolate;
 }
+
+/* Performance optimizations for faster loading */
+.portfolio-img, .hero-image, .grid-img {
+    background: #f0f0f0;
+    transition: opacity 0.3s ease;
+}
+
+.portfolio-img[loading="lazy"], .hero-image[loading="lazy"], .grid-img[loading="lazy"] {
+    opacity: 0.7;
+}
+
+.portfolio-img:not([loading="lazy"]), .hero-image:not([loading="lazy"]), .grid-img:not([loading="lazy"]) {
+    opacity: 1;
+}
+
+/* Optimize video loading on mobile */
+@media (max-width: 768px) {
+    .hero-video, .portfolio-video, .showreel-video {
+        object-fit: cover;
+        background: #000;
+    }
+    
+    /* Reduce video complexity on mobile for faster loading */
+    .hero-video, .portfolio-video {
+        filter: contrast(0.95) brightness(1.05);
+    }
+}

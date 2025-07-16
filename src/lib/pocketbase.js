@@ -1,5 +1,31 @@
 import PocketBase from 'pocketbase';
 
+// Simple in-memory cache for PocketBase responses
+const cache = new Map();
+const CACHE_DURATION = 5 * 60 * 1000; // 5 minutes
+
+class PocketBaseCache {
+  static set(key, data, duration = CACHE_DURATION) {
+    const expiry = Date.now() + duration;
+    cache.set(key, { data, expiry });
+    console.log(`📦 Cached: ${key} (expires in ${duration/1000}s)`);
+  }
+
+  static get(key) {
+    const cached = cache.get(key);
+    if (!cached || Date.now() > cached.expiry) {
+      cache.delete(key);
+      return null;
+    }
+    console.log(`✨ Cache hit: ${key}`);
+    return cached.data;
+  }
+
+  static createKey(collection, filter = '', sort = '', page = 1, perPage = 50) {
+    return `${collection}-${filter}-${sort}-${page}-${perPage}`;
+  }
+}
+
 // Load environment variables for Node.js context
 if (typeof process !== 'undefined' && process.env.NODE_ENV !== 'production') {
   try {
@@ -73,8 +99,28 @@ export const projects = {
         ...options
       };
       
+      // Create cache key
+      const cacheKey = PocketBaseCache.createKey(
+        'projects', 
+        defaultOptions.filter || '', 
+        defaultOptions.sort, 
+        page, 
+        perPage
+      );
+      
+      // Check cache first
+      const cached = PocketBaseCache.get(cacheKey);
+      if (cached) {
+        return cached;
+      }
+      
+      // Fetch from PocketBase
       const result = await pb.collection('projects').getList(page, perPage, defaultOptions);
       console.log(`📊 Fetched ${result.items.length} projects from PocketBase`);
+      
+      // Cache the result
+      PocketBaseCache.set(cacheKey, result);
+      
       return result;
     } catch (error) {
       console.error('❌ Failed to fetch projects from PocketBase:', error);
@@ -319,6 +365,26 @@ export const files = {
     return pb.files.getURL(record, filename, thumb);
   },
 
+  getOptimizedUrl(record, filename, options = {}) {
+    if (!record || !filename) return '';
+    
+    const { 
+      thumb = '', 
+      isMobile = false,
+      quality = 80 
+    } = options;
+    
+    // Use smaller thumbnails on mobile
+    const mobileThumb = isMobile ? '400x300' : thumb;
+    
+    try {
+      return pb.files.getURL(record, filename, mobileThumb);
+    } catch (error) {
+      console.error('❌ Failed to generate optimized image URL:', error);
+      return '';
+    }
+  },
+
   async upload(collection, recordId, fieldName, file) {
     try {
       const formData = new FormData();
@@ -354,6 +420,43 @@ export const content = {
     } catch (error) {
       console.error('❌ Failed to fetch portfolio preview:', error);
       return { items: [] };
+    }
+  },
+
+  async getPageData(page = 'home') {
+    const cacheKey = `page-data-${page}`;
+    const cached = PocketBaseCache.get(cacheKey);
+    if (cached) {
+      return cached;
+    }
+
+    try {
+      // Fetch all data in parallel instead of sequentially
+      const [heroProjects, serviceProjects, showreelVideo] = await Promise.all([
+        projects.getForHero(11),
+        projects.getAll(1, 10, { filter: 'service_production = true', sort: '-created' }),
+        pb.collection('main_showreel').getList(1, 1).catch(() => ({ items: [] }))
+      ]);
+
+      const pageData = {
+        heroProjects: heroProjects.items || [],
+        serviceProjects: serviceProjects.items || [],
+        showreelVideo: showreelVideo.items?.[0] || null,
+        timestamp: Date.now()
+      };
+
+      // Cache for 5 minutes
+      PocketBaseCache.set(cacheKey, pageData);
+      console.log(`🎯 Fetched combined page data for: ${page}`);
+      
+      return pageData;
+    } catch (error) {
+      console.error('❌ Failed to fetch page data:', error);
+      return {
+        heroProjects: [],
+        serviceProjects: [],
+        showreelVideo: null
+      };
     }
   },
 

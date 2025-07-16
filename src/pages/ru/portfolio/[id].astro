@@ -1,9 +1,9 @@
 ---
-import Layout from '../../layouts/Layout.astro';
-import { projects } from '../../lib/pocketbase.js';
-import { t } from '../../lib/i18n.js';
+import Layout from '../../../layouts/Layout.astro';
+import { projects } from '../../../lib/pocketbase.js';
+import { t } from '../../../lib/i18n.js';
 
-const locale = 'en';
+const locale = 'ru';
 
 export const prerender = true;
 
@@ -53,7 +53,7 @@ const videoId = (project as any).videoID || project.videoId;
     <div class="video-content">
       <!-- Back link -->
       <nav class="back-nav">
-        <a href="/portfolio" class="back-link">{t(locale, 'portfolio.backToPortfolio')}</a>
+        <a href="/ru/portfolio" class="back-link">{t(locale, 'portfolio.backToPortfolio')}</a>
       </nav>
 
       <!-- Video title -->
@@ -72,7 +72,7 @@ const videoId = (project as any).videoID || project.videoId;
           ></iframe>
         ) : (
           <div style="color: white; padding: 2rem; text-align: center;">
-            No video ID found for this project
+            Видео ID не найден для этого проекта
           </div>
         )}
       </div>
@@ -96,7 +96,6 @@ const videoId = (project as any).videoID || project.videoId;
   }
 
   .video-content {
-
     margin: 0 auto;
     padding: 0 2rem;
   }

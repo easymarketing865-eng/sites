@@ -1,22 +1,52 @@
 ---
+import { t, getLocaleFromUrl, getLocalizedPath, getLocales } from "../lib/i18n.js";
+
 export interface Props {
     isHomePage?: boolean;
+    locale?: string;
 }
 
-const { isHomePage = false } = Astro.props;
+const { isHomePage = false, locale } = Astro.props;
+
+// Get current locale from URL if not provided as prop
+const currentLocale = locale || getLocaleFromUrl(Astro.url.pathname);
+const locales = getLocales();
+
+// Generate localized navigation links
+const homeLink = currentLocale === 'en' ? '/' : `/${currentLocale}/`;
+const portfolioLink = currentLocale === 'en' ? '/portfolio' : `/${currentLocale}/portfolio`;
+const contactLink = currentLocale === 'en' ? '/contact' : `/${currentLocale}/contact`;
+
+// Language switcher links - get current path without locale
+const pathSegments = Astro.url.pathname.split('/').filter(Boolean);
+const currentPath = currentLocale === 'ru' ? pathSegments.slice(1).join('/') : pathSegments.join('/');
+const basePath = currentPath ? `/${currentPath}` : '/';
 ---
 
 <header class="main-header" class:list={[{ 'home-page': isHomePage }]}>
-    <a class="brand-logo" href="/">
+    <a class="brand-logo" href={homeLink}>
         <img src="/photos/logo.svg" alt="easy. production" class="logo-img" />
-        
     </a>
     
     <nav class="main-nav">
         <ul class="nav-list">
-            <li><a href="/portfolio" class="nav-link">Portfolio</a></li>
-            <li><a href="/contact" class="nav-link">Contact</a></li>
+            <li><a href={portfolioLink} class="nav-link">{t(currentLocale, 'nav.portfolio')}</a></li>
+            <li><a href={contactLink} class="nav-link">{t(currentLocale, 'nav.contact')}</a></li>
         </ul>
+        
+        <!-- Language Switcher -->
+        <div class="language-switcher">
+            {locales.map((loc) => (
+                <a 
+                    href={getLocalizedPath(basePath, loc.code)}
+                    class:list={['lang-link', { 'active': loc.code === currentLocale }]}
+                    title={`Switch to ${loc.name}`}
+                >
+                    <span class="lang-code">{loc.code.toUpperCase()}</span>
+                </a>
+            ))}
+        </div>
+        
         <button class="mobile-menu-btn" aria-label="Toggle menu">
             <span></span>
             <span></span>
@@ -108,19 +138,82 @@ const { isHomePage = false } = Astro.props;
     }
 
     .mobile-menu-btn span {
-        width: 24px;
-        height: 3px;
-        background: #ffffff;
-        transition: all 0.3s ease;
-    }
-
-    /* Home page mobile menu styling */
-    .main-header.home-page .mobile-menu-btn span {
+        width: 20px;
+        height: 2px;
         background: #ffffff;
     }
 
+    /* Language Switcher Styles */
+    .language-switcher {
+        display: flex;
+        gap: 0.5rem;
+        align-items: center;
+        margin-left: 1rem;
+    }
+
+    .lang-link {
+        display: flex;
+        align-items: center;
+        padding: 0.25rem 0.5rem;
+        border-radius: 4px;
+        text-decoration: none;
+        transition: all 0.2s ease;
+        color: #000000;
+        font-size: 0.875rem;
+        font-weight: 500;
+    }
+
+    .lang-link:hover {
+        background: rgba(0, 0, 0, 0.1);
+        color: #a00000;
+    }
+
+    .lang-link.active {
+        background: #a00000;
+        color: #ffffff;
+    }
+
+    .lang-link.active:hover {
+        background: #800000;
+        color: #ffffff;
+    }
+
+    .lang-code {
+        font-size: 0.75rem;
+        font-weight: 600;
+        letter-spacing: 0.5px;
+    }
+
+    /* Home page styling - white text for language switcher */
+    .main-header.home-page .lang-link {
+        color: #ffffff;
+    }
+
+    .main-header.home-page .lang-link:hover {
+        background: rgba(255, 255, 255, 0.1);
+        color: #ffffff;
+    }
+
+    .main-header.home-page .lang-link.active {
+        background: #a00000;
+        color: #ffffff;
+    }
 
     /* Mobile-first responsive design */
+    @media (max-width: 767px) {
+        .language-switcher {
+            margin-left: 0.5rem;
+        }
+        
+        .lang-link {
+            padding: 0.2rem 0.4rem;
+        }
+        
+        .lang-code {
+            font-size: 0.75rem; /* Show language codes on mobile */
+        }
+    }
+
     @media (min-width: 768px) {
         .logo-img {
             width: 120px;
@@ -132,6 +225,10 @@ const { isHomePage = false } = Astro.props;
         
         .nav-link {
             font-size: 20px;
+        }
+        
+        .language-switcher {
+            margin-left: 2rem;
         }
     }
 </style>

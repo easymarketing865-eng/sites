@@ -4,6 +4,12 @@
  * Clean footer with contact info and social media
  */
 import "../styles/global.css";
+
+export interface Props {
+    locale?: string;
+}
+
+const { locale = 'en' } = Astro.props;
 ---
 
 <footer class="footer">
