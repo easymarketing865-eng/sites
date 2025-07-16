@@ -1,5 +1,6 @@
 export async function POST({ request }) {
   try {
+    console.log('📝 Contact form submission received');
     const formData = await request.formData();
     
     // Extract form data
@@ -50,11 +51,12 @@ Timestamp: ${new Date().toISOString()}
 `;
 
     // Send email using Resend
-    const resendApiKey = import.meta.env.RESEND_API_KEY;
+    const resendApiKey = process.env.RESEND_API_KEY;
+    console.log('🔑 RESEND_API_KEY exists:', !!resendApiKey);
     
     if (resendApiKey) {
       // Use Resend's domain initially (can be changed later to your own domain)
-      const fromEmail = import.meta.env.FROM_EMAIL || 'onboarding@resend.dev';
+      const fromEmail = process.env.FROM_EMAIL || 'onboarding@resend.dev';
       
       console.log('📧 Sending email via Resend...');
       
@@ -75,7 +77,11 @@ Timestamp: ${new Date().toISOString()}
 
       if (!emailResponse.ok) {
         const errorText = await emailResponse.text();
-        console.error('Resend API Error:', errorText);
+        console.error('❌ Resend API Error:', {
+          status: emailResponse.status,
+          statusText: emailResponse.statusText,
+          body: errorText
+        });
         throw new Error(`Email service error: ${emailResponse.status} - ${errorText}`);
       }
 

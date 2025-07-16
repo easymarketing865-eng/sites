@@ -2,11 +2,10 @@
 import { t, getLocaleFromUrl, getLocalizedPath, getLocales } from "../lib/i18n.js";
 
 export interface Props {
-    isHomePage?: boolean;
     locale?: string;
 }
 
-const { isHomePage = false, locale } = Astro.props;
+const { locale } = Astro.props;
 
 // Get current locale from URL if not provided as prop
 const currentLocale = locale || getLocaleFromUrl(Astro.url.pathname);
@@ -23,7 +22,7 @@ const currentPath = currentLocale === 'ru' ? pathSegments.slice(1).join('/') : p
 const basePath = currentPath ? `/${currentPath}` : '/';
 ---
 
-<header class="main-header" class:list={[{ 'home-page': isHomePage }]}>
+<header class="main-header">
     <a class="brand-logo" href={homeLink}>
         <img src="/photos/logo.svg" alt="easy. production" class="logo-img" />
     </a>
@@ -117,15 +116,7 @@ const basePath = currentPath ? `/${currentPath}` : '/';
         color: #99242A;
     }
 
-    /* Home page styling - white text */
-    .main-header.home-page .nav-link {
-        color: #ffffff;
-    }
-
-    .main-header.home-page .nav-link:hover {
-        color: #ffffff;
-        opacity: 0.8;
-    }
+    /* Remove home page specific styling - make consistent across all pages */
 
     .mobile-menu-btn {
         display: none;
@@ -158,14 +149,14 @@ const basePath = currentPath ? `/${currentPath}` : '/';
         border-radius: 4px;
         text-decoration: none;
         transition: all 0.2s ease;
-        color: #000000;
+        color: #ffffff;
         font-size: 0.875rem;
         font-weight: 500;
     }
 
     .lang-link:hover {
-        background: rgba(0, 0, 0, 0.1);
-        color: #a00000;
+        background: rgba(255, 255, 255, 0.1);
+        color: #ffffff;
     }
 
     .lang-link.active {
@@ -182,21 +173,6 @@ const basePath = currentPath ? `/${currentPath}` : '/';
         font-size: 0.75rem;
         font-weight: 600;
         letter-spacing: 0.5px;
-    }
-
-    /* Home page styling - white text for language switcher */
-    .main-header.home-page .lang-link {
-        color: #ffffff;
-    }
-
-    .main-header.home-page .lang-link:hover {
-        background: rgba(255, 255, 255, 0.1);
-        color: #ffffff;
-    }
-
-    .main-header.home-page .lang-link.active {
-        background: #a00000;
-        color: #ffffff;
     }
 
     /* Mobile-first responsive design */
