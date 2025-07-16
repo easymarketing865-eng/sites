@@ -59,16 +59,16 @@ function getImageUrl(project: any) {
 
 // Fast fetch for service projects without retry delays
 async function fetchServiceProjects() {
-    try {
+        try {
         // Use the unified page data for faster loading
         const pageData = await content.getPageData('home');
         const serviceProjects = pageData.serviceProjects || [];
         console.log(`✅ PortfolioPreviewGrid: Fetched ${serviceProjects.length} service projects from unified data`);
         return serviceProjects;
-    } catch (error) {
+        } catch (error) {
         console.error('❌ PortfolioPreviewGrid: Failed to fetch service projects:', error);
-        return [];
-    }
+                return [];
+            }
 }
 
 // Fetch projects from PocketBase using optimized method

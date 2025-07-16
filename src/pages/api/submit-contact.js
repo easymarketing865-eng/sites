@@ -16,10 +16,10 @@ export async function POST({ request }) {
     };
 
     // Validate required fields
-    if (!data.name || !data.email || !data.message) {
+    if (!data.name || !data.email) {
       return new Response(JSON.stringify({
         success: false,
-        error: 'Name, email, and message are required'
+        error: 'Name and email are required'
       }), {
         status: 400,
         headers: { 'Content-Type': 'application/json' }
@@ -43,7 +43,7 @@ Budget Range: ${data.budget || 'Not specified'}
 Timeline: ${data.timeline || 'Not specified'}
 
 MESSAGE:
-${data.message}
+${data.message || 'No additional details provided'}
 
 ---
 This email was sent from the Easy Production website contact form.
