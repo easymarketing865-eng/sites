@@ -6,10 +6,8 @@
  */
 import "../styles/global.css";
 import { content, pb } from "../lib/pocketbase.js";
-// Fallback to JSON data if PocketBase is not available
-import portfolioData from "../data/portfolio.json";
 
-let allProjects = [];
+let allProjects: any[] = [];
 
 // Helper function to get image URL
 function getImageUrl(project: any) {
@@ -28,12 +26,12 @@ function getImageUrl(project: any) {
         return pb.files.getURL(project, project.image);
     }
     
-    // Fallback to hero field (static URL)
-    return project.hero || '/photos/placeholder.webp';
+    // No fallback to local images - PocketBase only
+    return '';
 }
 
 // Helper function to get video URL
-function getVideoUrl(project: any) {
+function getVideoUrl(project: any): string | null {
     // Handle video URLs
     if (project.video) {
         return pb.files.getURL(project, project.video);
@@ -67,17 +65,9 @@ try {
     
     return project;
   });
-  
-  // If no projects from PocketBase, use fallback
-  if (allProjects.length === 0) {
-    throw new Error('No projects found in PocketBase');
-  }
 } catch (error) {
-  console.log('PocketBase not available for Portfolio Page, using JSON fallback:', (error as Error).message);
-  // Fallback to JSON data
-  const allPortfolioProjects = [...(portfolioData.featured || []), ...(portfolioData.portfolio || [])];
-  allProjects = allPortfolioProjects;
-  console.log(`Using JSON fallback: ${allProjects.length} projects`);
+  console.log('PocketBase error for Portfolio Page:', (error as Error).message);
+  allProjects = [];
 }
 ---
 

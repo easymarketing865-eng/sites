@@ -1,13 +1,11 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import { projects } from '../../lib/pocketbase.js';
-// Fallback to JSON data if PocketBase is not available
-import portfolioData from '../../data/portfolio.json';
 
 export const prerender = true;
 
 export async function getStaticPaths() {
-  let allProjects = [];
+  let allProjects: any[] = [];
   
   try {
     // Try to fetch from PocketBase - get MORE projects to ensure we include all hero projects
@@ -31,9 +29,8 @@ export async function getStaticPaths() {
     }
     
   } catch (error) {
-    console.log('PocketBase not available for static paths, using JSON fallback:', (error as Error).message);
-    // Fallback to JSON data
-    allProjects = [...portfolioData.featured, ...portfolioData.portfolio];
+    console.log('PocketBase not available for static paths:', (error as Error).message);
+    allProjects = [];
   }
   
   return allProjects.map((project) => ({

@@ -1,27 +1,12 @@
 ---
-import AccentScript from "../components/AccentScript.astro";
 import Showreel from "../components/Showreel.astro";
 import TargetSegments from "../components/TargetSegments.astro";
-import Portfolio from "../components/Portfolio.astro";
-import PortfolioTeaser from "../components/PortfolioTeaser.astro";
-import FAQ from "../components/FAQ.astro";
-import Timeline from "../components/Timeline.astro";
 import Footer from "../components/Footer.astro";
 import "../styles/global.css";
-import PromoBanner from "../components/PromoBanner.astro";
-import AnimationThing from "../components/AnimationThing.astro";
 import Hero from "../components/Hero.astro";
-import WeGoodAt from "../components/WeGoodAt.astro";
 import Header from "../components/Header.astro";
 import ExceptionalValue from "../../sections/ExceptionalValue.astro";
-import FeelWatchTrust from "../../sections/FeelWatchTrust.astro";
-import PortfolioPreview from "../components/PortfolioPreview.astro";
-import PortfolioPreviewGrid from "../components/PortfolioPreviewGrid.astro";
-import TalkToUs1 from "../components/TalkToUs1.astro";
-import TalkToUs2 from "../components/TalkToUs2.astro";
 import Team from "../components/Team.astro";
-import Layout from "../layouts/Layout.astro";
-// import ContactSection from "../components/ContactSection.astro";
 ---
 
 <html lang="en">
@@ -40,29 +25,12 @@ import Layout from "../layouts/Layout.astro";
     </head>
     <body>
         <main>
-           
             <Header isHomePage={true} />
-
             <Showreel />
             <Hero />
-            
-         
-           
-           
-           
             <TargetSegments />
-            
-            <!-- <WeGoodAt client:load /> -->
-            <!-- <AnimationThing /> -->
-
             <ExceptionalValue />
-            
-        
-
-      
             <Team />
-
-            <!-- <TalkToUs2 /> -->
         </main>
 
         <Footer />
@@ -91,5 +59,3 @@ import Layout from "../layouts/Layout.astro";
         }
     </style>
 </html>
-
-<!-- SERVICES/FEATURE CARDS -->
