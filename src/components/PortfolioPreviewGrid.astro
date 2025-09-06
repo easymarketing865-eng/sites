@@ -82,18 +82,27 @@ try {
 }
 
 // Transform and slice projects for display
-const displayProjects = allProjects.slice(startIndex, startIndex + toShow).map(project => ({
-    id: project.id,
-    title: project.title,
-    img: getImageUrl(project),
-    desc: project.shortDescription || project.description || '',
-    slug: project.slug,
-    services: project.services || [],
-    category: project.category || 'project'
-}));
+const displayProjects = allProjects.slice(startIndex, startIndex + toShow).map(project => {
+    console.log('🔍 Project data:', { 
+        id: project.id, 
+        slug: project.slug, 
+        title: project.title,
+        allKeys: Object.keys(project)
+    });
+    return {
+        id: project.id,
+        title: project.title,
+        img: getImageUrl(project),
+        desc: project.shortDescription || project.description || '',
+        slug: project.slug || project.id, // Use id as fallback if slug is undefined
+        services: project.services || [],
+        category: project.category || 'project'
+    };
+});
 
 // Log for debugging
 console.log(`📊 PortfolioPreviewGrid: Displaying ${displayProjects.length} projects (${startIndex}-${startIndex + toShow})`);
+console.log('🎯 Final displayProjects:', displayProjects.map(p => ({ id: p.id, slug: p.slug, title: p.title })));
 ---
 
 <section class={`portfolio-preview-grid ${className}`}>
@@ -105,7 +114,7 @@ console.log(`📊 PortfolioPreviewGrid: Displaying ${displayProjects.length} pro
         <div class="grid-scroll">
             {
                 displayProjects.map((project, index) => (
-                    <a href={`/portfolio/${project.slug}`} 
+                    <a href={`/portfolio/${(project as any).id || project.slug}`} 
                        class="grid-item emerge" 
                        data-effect="slide" 
                        data-up="40px"
