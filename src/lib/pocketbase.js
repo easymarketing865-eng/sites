@@ -484,7 +484,7 @@ export const content = {
     try {
       const result = await projects.getAll(1, startIndex + count, {
         filter: 'visible = true',
-        sort: 'order,-featured,-created'  // Sort by order, then featured, then creation date
+        sort: 'order,-created'  // Sort by order, then creation date (no featured priority)
       });
       
       // Return only the requested slice
@@ -512,7 +512,7 @@ export const content = {
       // Fetch all data in parallel instead of sequentially
       const [heroProjects, serviceProjects, showreelVideo] = await Promise.all([
         projects.getForHero(11),
-        projects.getAll(1, 10, { filter: 'service_production = true && visible = true', sort: '+order,-created' }),
+        projects.getAll(1, 10, { filter: 'service_production = true && visible = true', sort: 'order,-created' }),
         pb.collection('main_showreel').getList(1, 1).catch(() => ({ items: [] }))
       ]);
 
