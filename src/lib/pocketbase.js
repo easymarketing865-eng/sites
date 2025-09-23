@@ -100,8 +100,8 @@ export const projects = {
   async getAll(page = 1, perPage = 50, options = {}) {
     try {
       const defaultOptions = {
-        sort: '-created',  // Simple sorting to avoid sortOrder field issues
-        // filter: 'visible = true',  // Only show visible projects by default - disabled until fields are added
+        sort: '+order,-created',  // Sort by order first, then by creation date
+        filter: 'visible = true',  // Only show visible projects by default
         ...options
       };
       
@@ -137,9 +137,8 @@ export const projects = {
   async getFeatured(limit = 10) {
     try {
       const result = await pb.collection('projects').getList(1, limit, {
-        filter: 'featured = true',
-        // sort: '+order,-created'  // Sort by order first (ascending), then by creation date (descending) - disabled until fields are added
-        sort: '-created'
+        filter: 'featured = true && visible = true',
+        sort: '+order,-created'  // Sort by order first (ascending), then by creation date (descending)
       });
       console.log(`⭐ Fetched ${result.items.length} featured projects from PocketBase`);
       return result;
@@ -152,8 +151,8 @@ export const projects = {
   async getByCategory(category, page = 1, perPage = 20) {
     try {
       const result = await pb.collection('projects').getList(page, perPage, {
-        filter: `category = "${category}"`,
-        sort: '-created'
+        filter: `category = "${category}" && visible = true`,
+        sort: '+order,-created'
       });
       console.log(`🏷️ Fetched ${result.items.length} projects in category: ${category}`);
       return result;
@@ -187,20 +186,20 @@ export const projects = {
 
   async getForHero(limit = 11) {
     try {
-      // Get featured projects first
+      // Get featured projects first, ordered by custom order
       let result = await pb.collection('projects').getList(1, limit, {
-        filter: 'featured = true',
-        sort: '-created'
+        filter: 'featured = true && visible = true',
+        sort: '+order,-created'  // Sort by order first, then by creation date
       });
       
       console.log(`🦸 Found ${result.items.length} featured projects`);
       
-      // If we don't have enough featured projects, fill with other projects
+      // If we don't have enough featured projects, fill with other visible projects
       if (result.items.length < limit) {
         const remaining = limit - result.items.length;
         const otherProjects = await pb.collection('projects').getList(1, remaining, {
-          filter: 'featured != true',
-          sort: '-created'
+          filter: 'featured != true && visible = true',
+          sort: '+order,-created'
         });
         
         console.log(`🦸 Added ${otherProjects.items.length} additional projects`);
@@ -211,10 +210,11 @@ export const projects = {
       return result;
     } catch (error) {
       console.error('❌ Failed to fetch hero projects:', error);
-      // Fallback: try without any filters
+      // Fallback: try without any filters except visibility
       try {
         const result = await pb.collection('projects').getList(1, limit, {
-          sort: '-created'
+          filter: 'visible = true',
+          sort: '+order,-created'
         });
         console.log(`🦸 Fallback: Fetched ${result.items.length} projects for hero section`);
         return result;
@@ -483,8 +483,8 @@ export const content = {
   async getPortfolioPreview(startIndex = 0, count = 6) {
     try {
       const result = await projects.getAll(1, startIndex + count, {
-        filter: 'published = true',
-        sort: '-featured,-created'
+        filter: 'visible = true',
+        sort: '+order,-featured,-created'  // Sort by order, then featured, then creation date
       });
       
       // Return only the requested slice
@@ -512,7 +512,7 @@ export const content = {
       // Fetch all data in parallel instead of sequentially
       const [heroProjects, serviceProjects, showreelVideo] = await Promise.all([
         projects.getForHero(11),
-        projects.getAll(1, 10, { filter: 'service_production = true', sort: '-created' }),
+        projects.getAll(1, 10, { filter: 'service_production = true && visible = true', sort: '+order,-created' }),
         pb.collection('main_showreel').getList(1, 1).catch(() => ({ items: [] }))
       ]);
 
