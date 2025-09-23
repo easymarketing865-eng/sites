@@ -101,6 +101,7 @@ export const projects = {
     try {
       const defaultOptions = {
         sort: '-created',  // Simple sorting to avoid sortOrder field issues
+        // filter: 'visible = true',  // Only show visible projects by default - disabled until fields are added
         ...options
       };
       
@@ -137,6 +138,7 @@ export const projects = {
     try {
       const result = await pb.collection('projects').getList(1, limit, {
         filter: 'featured = true',
+        // sort: '+order,-created'  // Sort by order first (ascending), then by creation date (descending) - disabled until fields are added
         sort: '-created'
       });
       console.log(`⭐ Fetched ${result.items.length} featured projects from PocketBase`);
@@ -161,6 +163,17 @@ export const projects = {
     }
   },
 
+  async getById(id) {
+    try {
+      const result = await pb.collection('projects').getOne(id);
+      console.log(`🎯 Found project with ID: ${id}`);
+      return result;
+    } catch (error) {
+      console.error(`❌ Failed to fetch project by ID ${id}:`, error);
+      throw error;
+    }
+  },
+
   async getBySlug(slug) {
     try {
       const result = await pb.collection('projects').getFirstListItem(`slug="${slug}"`);
@@ -168,7 +181,7 @@ export const projects = {
       return result;
     } catch (error) {
       console.error(`❌ Failed to fetch project by slug ${slug}:`, error);
-      return null;
+      throw error;
     }
   },
 
@@ -241,6 +254,62 @@ export const projects = {
       return result;
     } catch (error) {
       console.error('❌ Failed to delete project:', error);
+      throw error;
+    }
+  },
+
+  // New helper functions for order and visibility management
+  async setOrder(id, order) {
+    try {
+      const result = await pb.collection('projects').update(id, { order });
+      console.log(`📊 Updated project order: ${id} -> ${order}`);
+      return result;
+    } catch (error) {
+      console.error('❌ Failed to update project order:', error);
+      throw error;
+    }
+  },
+
+  async setVisibility(id, visible) {
+    try {
+      const result = await pb.collection('projects').update(id, { visible });
+      console.log(`👁️ Updated project visibility: ${id} -> ${visible ? 'visible' : 'hidden'}`);
+      return result;
+    } catch (error) {
+      console.error('❌ Failed to update project visibility:', error);
+      throw error;
+    }
+  },
+
+  async getAllWithHidden(page = 1, perPage = 50, options = {}) {
+    try {
+      const defaultOptions = {
+        sort: 'order, -created',  // Sort by order first, then by creation date
+        ...options
+      };
+      
+      // This function returns ALL projects including hidden ones (for admin use)
+      const result = await pb.collection('projects').getList(page, perPage, defaultOptions);
+      console.log(`📊 Fetched ${result.items.length} projects (including hidden) from PocketBase`);
+      return result;
+    } catch (error) {
+      console.error('❌ Failed to fetch all projects from PocketBase:', error);
+      return { items: [], page: 1, perPage, totalItems: 0, totalPages: 0 };
+    }
+  },
+
+  async reorderFeatured(projectOrders) {
+    try {
+      // projectOrders should be an array of { id, order } objects
+      const updatePromises = projectOrders.map(({ id, order }) => 
+        pb.collection('projects').update(id, { order })
+      );
+      
+      await Promise.all(updatePromises);
+      console.log(`📊 Reordered ${projectOrders.length} featured projects`);
+      return true;
+    } catch (error) {
+      console.error('❌ Failed to reorder featured projects:', error);
       throw error;
     }
   }
@@ -415,7 +484,7 @@ export const content = {
     try {
       const result = await projects.getAll(1, startIndex + count, {
         filter: 'published = true',
-        sort: '-featured, -created'
+        sort: '-featured,-created'
       });
       
       // Return only the requested slice

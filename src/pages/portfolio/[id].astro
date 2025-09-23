@@ -5,44 +5,40 @@ import { t } from '../../lib/i18n.js';
 
 const locale = 'en';
 
-export const prerender = true;
+// Remove prerender to make this page dynamic
+// export const prerender = true;
 
-export async function getStaticPaths() {
-  let allProjects: any[] = [];
-  
-  try {
-    // Try to fetch from PocketBase - get MORE projects to ensure we include all hero projects
-    const result = await projects.getAll(1, 100); // Increased from 50 to 100
-    allProjects = result.items || [];
-    console.log(`Loaded ${allProjects.length} projects from PocketBase for static paths`);
-    
-    // Also fetch featured projects specifically to ensure they're included
+// Get the project ID from the URL
+const { id } = Astro.params;
+
+// Fetch the project dynamically
+let project = null;
+let error = null;
+
+try {
+  if (id) {
+    // Try to get project by ID first
     try {
-      const featuredResult = await projects.getFeatured(20); // Get featured projects
-      const featuredProjects = featuredResult.items || [];
-      
-      // Merge featured projects with all projects, removing duplicates by ID
-      const existingIds = new Set(allProjects.map(p => p.id));
-      const newFeaturedProjects = featuredProjects.filter(p => !existingIds.has(p.id));
-      allProjects = [...allProjects, ...newFeaturedProjects];
-      
-      console.log(`Added ${newFeaturedProjects.length} additional featured projects for static paths`);
-    } catch (featuredError) {
-      console.log('Could not fetch featured projects separately:', (featuredError as Error).message);
+      project = await projects.getById(id);
+    } catch (idError) {
+      // If not found by ID, try by slug
+      try {
+        project = await projects.getBySlug(id);
+      } catch (slugError) {
+        error = `Project not found: ${id}`;
+        console.error('❌ Project not found:', id);
+      }
     }
-    
-  } catch (error) {
-    console.log('PocketBase not available for static paths:', (error as Error).message);
-    allProjects = [];
   }
-  
-  return allProjects.map((project) => ({
-    params: { id: project.id || project.slug },
-    props: { project },
-  }));
+} catch (fetchError) {
+  error = `Failed to fetch project: ${fetchError.message}`;
+  console.error('❌ Failed to fetch project:', fetchError);
 }
 
-const { project } = Astro.props;
+// If no project found, return 404
+if (!project) {
+  return Astro.redirect('/404');
+}
 
 // Get video ID from the correct field name (use bracket notation to avoid TypeScript errors)
 const videoId = (project as any).videoID || project.videoId;
