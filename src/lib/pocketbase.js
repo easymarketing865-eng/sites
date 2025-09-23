@@ -100,7 +100,7 @@ export const projects = {
   async getAll(page = 1, perPage = 50, options = {}) {
     try {
       const defaultOptions = {
-        sort: '+order,-created',  // Sort by order first, then by creation date
+        sort: 'order,-created',  // Sort by order first, then by creation date
         filter: 'visible = true',  // Only show visible projects by default
         ...options
       };
@@ -138,7 +138,7 @@ export const projects = {
     try {
       const result = await pb.collection('projects').getList(1, limit, {
         filter: 'featured = true && visible = true',
-        sort: '+order,-created'  // Sort by order first (ascending), then by creation date (descending)
+        sort: 'order,-created'  // Sort by order first (ascending), then by creation date (descending)
       });
       console.log(`⭐ Fetched ${result.items.length} featured projects from PocketBase`);
       return result;
@@ -189,7 +189,7 @@ export const projects = {
       // Get featured projects first, ordered by custom order
       let result = await pb.collection('projects').getList(1, limit, {
         filter: 'featured = true && visible = true',
-        sort: '+order,-created'  // Sort by order first, then by creation date
+        sort: 'order,-created'  // Sort by order first, then by creation date
       });
       
       console.log(`🦸 Found ${result.items.length} featured projects`);
@@ -484,7 +484,7 @@ export const content = {
     try {
       const result = await projects.getAll(1, startIndex + count, {
         filter: 'visible = true',
-        sort: '+order,-featured,-created'  // Sort by order, then featured, then creation date
+        sort: 'order,-featured,-created'  // Sort by order, then featured, then creation date
       });
       
       // Return only the requested slice
