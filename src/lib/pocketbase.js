@@ -1,30 +1,6 @@
 import PocketBase from 'pocketbase';
 
-// Simple in-memory cache for PocketBase responses
-const cache = new Map();
-const CACHE_DURATION = 5 * 60 * 1000; // 5 minutes
-
-class PocketBaseCache {
-  static set(key, data, duration = CACHE_DURATION) {
-    const expiry = Date.now() + duration;
-    cache.set(key, { data, expiry });
-    console.log(`📦 Cached: ${key} (expires in ${duration/1000}s)`);
-  }
-
-  static get(key) {
-    const cached = cache.get(key);
-    if (!cached || Date.now() > cached.expiry) {
-      cache.delete(key);
-      return null;
-    }
-    console.log(`✨ Cache hit: ${key}`);
-    return cached.data;
-  }
-
-  static createKey(collection, filter = '', sort = '', page = 1, perPage = 50) {
-    return `${collection}-${filter}-${sort}-${page}-${perPage}`;
-  }
-}
+// Caching removed for instant updates
 
 // Load environment variables for Node.js context
 if (typeof process !== 'undefined' && process.env.NODE_ENV !== 'production') {
@@ -105,27 +81,9 @@ export const projects = {
         ...options
       };
       
-      // Create cache key
-      const cacheKey = PocketBaseCache.createKey(
-        'projects', 
-        defaultOptions.filter || '', 
-        defaultOptions.sort, 
-        page, 
-        perPage
-      );
-      
-      // Check cache first
-      const cached = PocketBaseCache.get(cacheKey);
-      if (cached) {
-        return cached;
-      }
-      
-      // Fetch from PocketBase
+      // Fetch from PocketBase (no caching)
       const result = await pb.collection('projects').getList(page, perPage, defaultOptions);
       console.log(`📊 Fetched ${result.items.length} projects from PocketBase`);
-      
-      // Cache the result
-      PocketBaseCache.set(cacheKey, result);
       
       return result;
     } catch (error) {
@@ -498,18 +456,10 @@ export const content = {
   },
 
   async getPageData(page = 'home') {
-    const cacheKey = `page-data-${page}`;
-    
-    // Check cache first
-    const cached = PocketBaseCache.get(cacheKey);
-    if (cached) {
-      return cached;
-    }
-
     try {
       console.log(`🚀 Fetching fresh page data for: ${page}`);
       
-      // Fetch all data in parallel instead of sequentially
+      // Fetch all data in parallel (no caching)
       const [heroProjects, serviceProjects, showreelVideo] = await Promise.all([
         projects.getForHero(11),
         projects.getAll(1, 10, { filter: 'service_production = true && visible = true', sort: 'order,-created' }),
@@ -523,8 +473,6 @@ export const content = {
         timestamp: Date.now()
       };
 
-      // Cache for 5 minutes
-      PocketBaseCache.set(cacheKey, pageData);
       console.log(`🎯 Fetched combined page data for: ${page}`);
       
       return pageData;

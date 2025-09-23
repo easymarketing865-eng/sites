@@ -5,10 +5,10 @@ import { content, pb, projects } from "../lib/pocketbase.js";
 let heroProjects: any[] = [];
 
 try {
-  // Use the new unified page data fetcher for faster loading
-  const pageData = await content.getPageData('home');
-  heroProjects = pageData.heroProjects || [];
-  console.log(`Loaded ${heroProjects.length} projects from unified page data`);
+  // Get hero projects directly without caching for instant updates
+  const heroResult = await projects.getForHero(11);
+  heroProjects = heroResult.items || [];
+  console.log(`Loaded ${heroProjects.length} projects directly from PocketBase`);
   
   // Helper function to get image URL (PocketBase only)
   function getImageUrl(project: any): string {
