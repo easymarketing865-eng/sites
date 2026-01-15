@@ -33,9 +33,6 @@ const description = t(currentLocale, 'home.description');
             href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700;800&display=swap"
             rel="stylesheet"
         />
-        
-        <!-- Emerge.js for page load animations -->
-  
     </head>
     <body>
         <article>
@@ -43,14 +40,6 @@ const description = t(currentLocale, 'home.description');
             <slot />
             <Footer locale={currentLocale} />
         </article>
-        
-        <!-- Emerge Replay Button for Testing -->
-        <div class="emerge-replay-container" style="position: fixed; bottom: 20px; right: 20px; z-index: 1000;">
-            <button class="emerge-replay" style="padding: 10px 15px; background: rgba(0,0,0,0.8); color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 12px;">
-                🔄 Replay Animations
-            </button>
-        </div>
-      
     </body>
 </html>
 
